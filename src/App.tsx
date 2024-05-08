@@ -1,28 +1,20 @@
 import { Route, Routes } from "react-router-dom";
-import { Login,Register,VerifyOtp } from "./features/auth/index";
+import { Login, Register, VerifyOtp } from "./features/auth/index";
 import LandingPage from "./components/LandingPage";
-
-
 
 function App() {
   return (
-  
     <div className="App">
-          <Routes>
+      <Routes>
         <Route path="/">
-       
-          <Route index element={<LandingPage />}/>
+          <Route index element={<LandingPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="verify-otp" element={<VerifyOtp />} />
-
         </Route>
-
-
-               
-          </Routes>
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
