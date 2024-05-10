@@ -1,22 +1,16 @@
 import {  useNavigate, useSearchParams } from "react-router-dom";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
-import { Button } from "../ui/button";
+
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useAppDispatch } from "@/app/store/store";
-import { VerifyUserThunk, resendOTPThunk } from "@/app/thunk/userThunk";
-import { useState } from "react";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
+import { verifyOtpFOrgotPasswordThunk } from "@/app/thunk/userThunk";
+
 
 
 
@@ -26,11 +20,10 @@ const FormSchema = z.object({
   }),
 });
 
-const AuthVerifyOtp = () => {
+const ForgotOtp = () => {
   const [searchParams] = useSearchParams();
   const tokenId:string = searchParams.get("tokenId") as string;
   const navigate=useNavigate()
-  const [isTokenId,setTokenId]=useState(tokenId)
 if (!tokenId) {
   navigate('/login')
 }
@@ -51,29 +44,21 @@ if (!tokenId) {
       throw new Error("tokenId / otp empty");
     } else {
       const otp: string = data.pin 
-
-    let verifyData = { tokenId , otp };
-
-      dispatch(VerifyUserThunk(verifyData)).then((res)=>{
-        if (res.meta.requestStatus === "rejected") {
-       
+      console.log(otp);
+      console.log(tokenId);
+      let verifyData = { otp,tokenId};
+      dispatch(verifyOtpFOrgotPasswordThunk(verifyData)).then((res)=>{
+        if (res?.meta?.requestStatus === "rejected") {
           throw new Error("error in creating");
           // toast.error(errorMessage);
         } else {
-         setTokenId('')
-          const url: string = '/login';
+
+          const url: string = `/change-forgot-password?tokenId=${res.payload.tokenId}`;
           navigate(url);
         }
       })
+
     }
-  }
-
-
-  async function sendOtp() {
-    console.log(isTokenId);
-    
-   dispatch(resendOTPThunk(isTokenId)).unwrap()
-    
   }
   return (
     <Form {...form}>
@@ -107,10 +92,10 @@ if (!tokenId) {
             </FormItem>
           )}
         />
-      <Button onClick={sendOtp}>resend Otp</Button>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 };
-export default AuthVerifyOtp;
+export default ForgotOtp;

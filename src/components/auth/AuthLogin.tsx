@@ -6,6 +6,12 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useAppDispatch } from "@/app/store/store";
+import { loginUserThunk } from "@/app/thunk/userThunk";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setCredentials } from "@/app/slices/authSlice";
+import { UserInfo } from "@/features/types";
 
 
 
@@ -33,6 +39,12 @@ const FormSchema = z.object({
 
 const AuthLogin = () => {
   const [isLoading,setLoading]=useState(false)
+  const dispatch=useAppDispatch()
+  const navigate=useNavigate()
+  const location=useLocation()
+  const from=location.state?.from?.pathname||'/'
+
+  const {loading} = useSelector((state: any) => state.users);
 
 
 
@@ -47,7 +59,36 @@ const AuthLogin = () => {
 
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-     console.log(data,"login data");
+   
+     if(data){
+
+     try {
+     let res=await  dispatch(loginUserThunk(data)).unwrap()
+     console.log(res);
+     
+    
+ if(res?.response?.status===400){
+  console.log(res?.response?.status,res?.response?.data?.message);
+  
+   navigate('/login')
+ }else{
+  let userData:UserInfo={
+          userName:res?.data?.userName,
+          accessToken:res?.accessToken,
+          verified:res?.data?.verified
+      }
+        dispatch(setCredentials(userData))     
+        navigate(from,{replace:true})
+     
+
+ }
+     
+     } catch (error) {
+      console.log(error)
+      navigate('/login')
+     }   
+    
+     }
      
 }
 

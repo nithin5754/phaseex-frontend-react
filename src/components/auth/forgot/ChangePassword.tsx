@@ -1,15 +1,8 @@
+
+
+
 import { Loader2 } from "lucide-react";
-import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -17,37 +10,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import {useAppDispatch } from "@/app/store/store";
-import { registerUser } from "@/app/thunk/userThunk";
+import { registerUser, verifyToChangePassword } from "@/app/thunk/userThunk";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
 );
 
 export interface UserData {
-  userName: string;
+
   password: string;
   confirmPassword: string;
-  email: string;
+ 
 }
 
 const FormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(8, { message: "First name cannot exceed 8 characters." })
-    .regex(/^[a-zA-Z]*$/, {
-      message: "Name can only contain letters.",
-    }),
-
-  email: z
-    .string()
-    .min(1, { message: "This field has to be filled." })
-    .email("This is not a valid email."),
 
   password: z
     .string()
@@ -63,11 +45,13 @@ const FormSchema = z.object({
     }),
 });
 
-const AuthRegister = () => {
+const ChangePassword = () => {
+  const [searchParams] = useSearchParams();
+  const tokenId:string = searchParams.get("tokenId") as string;
+
   const [isLoading, setLoading] = useState(false);  
   const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
 
-  const { loading } = useSelector((state: any) => state.users);
 
   const navigate = useNavigate();
 
@@ -76,80 +60,44 @@ const AuthRegister = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
-      email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const userData: UserData = {
-      userName: data.username,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-      email: data.email,
-    };
 
-    dispatch(registerUser(userData)).then((res) => {
-      if (res.meta.requestStatus === "rejected") {
-        // const errorMessage = "Email not accepted";
-        throw new Error("error in creating");
-        // toast.error(errorMessage);
-      } else {
-        const url: string = `/verify-otp?tokenId=${res.payload.verify_token}`;
-        navigate(url);
-      }
-    });
+
+    if(data.confirmPassword!==data.password){
+      setConfirmPassMsg("password not matching")
+    }
+  
+
+    if (!data && !tokenId) {
+      throw new Error("tokenId / otp empty");
+    } else {
+      let verifyData = { password:data?.password,tokenId};
+      dispatch(verifyToChangePassword(verifyData)).then((res)=>{
+        if (res.meta.requestStatus === "rejected") {
+          // toast.error(errorMessage);
+          const url: string = `/`;
+          navigate(url);
+          throw new Error("error in changing password");
+        } else {
+          const url: string = `/login`;
+          navigate(url);
+        }
+      })
+
+    }
+
+   
   }
 
-  if (loading === "pending") {
-    return <h1>loading....</h1>;
-  }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  className="text-black"
-                  placeholder="eg: nithin joji"
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="example@gmail.com"
-                  className="text-black"
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="password"
@@ -198,16 +146,16 @@ const AuthRegister = () => {
           <>
             <Button disabled className="w-full ">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait
+              Please wait ...
             </Button>
           </>
         ) : (
           <Button className="w-full" type="submit">
-            sign -up
+           change password
           </Button>
         )}
       </form>
     </Form>
   );
 };
-export default AuthRegister;
+export default ChangePassword;
