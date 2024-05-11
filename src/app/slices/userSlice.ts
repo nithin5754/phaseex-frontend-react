@@ -1,9 +1,8 @@
 
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
-import { VerifyUserThunk, forgotPasswordVerifyThunk, loginUserThunk, logoutUserThunk, registerUser, resendOTPThunk, verifyOtpFOrgotPasswordThunk, verifyToChangePassword } from "../thunk/userThunk";
-
+import { VerifyUserThunk, fetchTimerDateThunk, forgotPasswordVerifyThunk, loginUserThunk, logoutUserThunk, registerUser, resendOTPThunk, verifyOtpFOrgotPasswordThunk, verifyToChangePassword } from "../thunk/userThunk";
 
 
 
@@ -36,19 +35,30 @@ import { VerifyUserThunk, forgotPasswordVerifyThunk, loginUserThunk, logoutUserT
 
 interface UsersState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed',
-  error:string|null
+  error:string|null,
+  timer:Date|null,
+  authId:string|null
 }
 
 
 const initialState:UsersState={
   loading: 'idle',
-  error:null
+  error:null,
+  timer:null,
+  authId:null
 }
 
 const userSlice = createSlice({
   name:'users',
   initialState,
- reducers:{},
+ reducers:{
+  resetOrUpdateTimer(state, action: PayloadAction<Date | null>) {
+    state.timer = action.payload;
+  },
+  resetOrUpdateAuthId(state, action: PayloadAction<string | null>) {
+    state.authId = action.payload;
+  },
+ },
  extraReducers: (builder) => {
     builder
     .addCase(registerUser.pending,(state)=>{
@@ -148,8 +158,19 @@ state.loading='succeeded'
 state.loading='failed'
 })
 
+
+
+.addCase(fetchTimerDateThunk.fulfilled,(state,action)=>{
+  state.loading='succeeded'
+  state.timer=action.payload.updateDate
+  })
+
  }
   }
 )
+
+
+export const { resetOrUpdateTimer,resetOrUpdateAuthId } = userSlice.actions;
+
 
 export default userSlice.reducer

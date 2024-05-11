@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { useAppDispatch } from "@/app/store/store"
 import { forgotPasswordVerifyThunk } from "@/app/thunk/userThunk"
 import { useNavigate } from "react-router-dom"
+import { toast } from "@/components/ui/use-toast"
 
 
 const FormSchema = z.object({
@@ -35,13 +36,21 @@ const InputAuth = () => {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data,"verify auth");
+
    let email:string=data.email as string
    let result= await dispatch(forgotPasswordVerifyThunk(email)).unwrap()
    console.log(result,"verify auth after success");
 
-   if(result?.response?.status===400){
-    console.log(result?.response?.status,result?.response?.data?.message);
+   if(result?.response?.status>=400){
+    toast({
+      title:`${result?.response?.status}`,
+      variant: "destructive",
+      description: (
+   <>
+      <h2>{result?.response?.data?.message}</h2>
+   </>
+      ),
+    })
     
      navigate('/login')
    }else{

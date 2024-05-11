@@ -8,6 +8,7 @@ import RequireAuth from "./components/auth/RequireAuth";
 import ForgotAuth from "./features/auth/ForgotAuth";
 import ForgotOtpVerify from "./features/auth/ForgotOtpVerify";
 import ChangeForgotAuthPassword from "./features/auth/ChangeForgotAuthPassword";
+import Hello from "./components/Hello";
 
 function App() {
   return (
@@ -21,8 +22,12 @@ function App() {
           <Route path="verify-auth-forgot-password" element={<ForgotAuth/>}/>
           <Route path="verify-auth-forgot-otp" element={<ForgotOtpVerify/>}/>
           <Route path="change-forgot-password" element={<ChangeForgotAuthPassword/>}/>
-          <Route path="dashboard" element={<RequireAuth/>}>
-          <Route index element={<DashBoard />} />
+
+
+
+          <Route element={<RequireAuth/>}>
+          <Route path="dashboard"  element={<DashBoard />} />
+          <Route path="hello" element={<Hello />} />
             
           </Route>
         </Route>

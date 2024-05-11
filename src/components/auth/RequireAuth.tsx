@@ -15,7 +15,7 @@ const RequireAuth = () => {
 
  return (
   
-     userInfo.user? <Outlet/>
+     userInfo.accessToken? <Outlet/>
    :<Navigate to={'/login'} state={{from:location}} replace/>
  )
 }

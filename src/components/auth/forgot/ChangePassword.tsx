@@ -10,13 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import {useAppDispatch } from "@/app/store/store";
-import { registerUser, verifyToChangePassword } from "@/app/thunk/userThunk";
+import { verifyToChangePassword } from "@/app/thunk/userThunk";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -73,22 +74,29 @@ const ChangePassword = () => {
     }
   
 
-    if (!data && !tokenId) {
-      throw new Error("tokenId / otp empty");
+    if (!data || !tokenId) {
+      toast({
+        title:`all the fields are required`,
+        variant: "destructive"
+      })
     } else {
       let verifyData = { password:data?.password,tokenId};
-      dispatch(verifyToChangePassword(verifyData)).then((res)=>{
-        if (res.meta.requestStatus === "rejected") {
-          // toast.error(errorMessage);
-          const url: string = `/`;
-          navigate(url);
-          throw new Error("error in changing password");
-        } else {
-          const url: string = `/login`;
-          navigate(url);
-        }
-      })
+     let res=await dispatch(verifyToChangePassword(verifyData)).unwrap()
+     if(res?.response?.status>=400){
 
+      toast({
+        title:`${res?.response?.status}`,
+        variant: "destructive",
+        description: (
+     <>
+        <h2>{res?.response?.data?.message}</h2>
+     </>
+        ),
+      })
+     }else{
+      const url: string = `/login`;
+          navigate(url);
+     }
     }
 
    

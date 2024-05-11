@@ -15,8 +15,11 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Button } from "../ui/button";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useAppDispatch } from "@/app/store/store";
-import { VerifyUserThunk, resendOTPThunk } from "@/app/thunk/userThunk";
-import { useState } from "react";
+import { VerifyUserThunk, resendOTPThunk} from "@/app/thunk/userThunk";
+import { toast } from "../ui/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AlertCircle } from "lucide-react";
+import OTPTimer from "./timer/OTPTimer";
 
 
 
@@ -27,10 +30,11 @@ const FormSchema = z.object({
 });
 
 const AuthVerifyOtp = () => {
+
   const [searchParams] = useSearchParams();
   const tokenId:string = searchParams.get("tokenId") as string;
   const navigate=useNavigate()
-  const [isTokenId,setTokenId]=useState(tokenId)
+
 if (!tokenId) {
   navigate('/login')
 }
@@ -44,37 +48,72 @@ if (!tokenId) {
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+
+  
     console.log(data, "otp-verify");
     console.log(tokenId, "tokenId-verify");
 
     if (!data && !tokenId) {
-      throw new Error("tokenId / otp empty");
+      toast({
+        title:"must required all the fields",
+        variant: "destructive",
+      })
+      return
     } else {
       const otp: string = data.pin 
 
     let verifyData = { tokenId , otp };
 
-      dispatch(VerifyUserThunk(verifyData)).then((res)=>{
-        if (res.meta.requestStatus === "rejected") {
-       
-          throw new Error("error in creating");
-          // toast.error(errorMessage);
-        } else {
-         setTokenId('')
-          const url: string = '/login';
-          navigate(url);
-        }
+    let res= await dispatch(VerifyUserThunk(verifyData)).unwrap()
+    console.log(res,"verify auth-otp");
+    
+
+    if (res?.response?.status>=400) {
+      toast({
+        title:`${res?.response?.status}`,
+        variant: "destructive",
+        description: (
+     <>
+        <h2>{res?.response?.data?.message}</h2>
+     </>
+        ),
       })
+    
+      
+       return
+  
+    }else{
+      navigate('/login')
+    }
+      
     }
   }
 
+  async function handleResendSubmit() {
+   let res=await dispatch(resendOTPThunk(tokenId)).unwrap();
+   if (res?.response?.status>=400) {
+    toast({
+      variant: "destructive",
+      description: (
+        <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>{res?.response?.status}r</AlertTitle>
+        <AlertDescription>
+        {res?.response?.data?.message}
+        </AlertDescription>
+      </Alert>
+           ),
+    })
+   return
 
-  async function sendOtp() {
-    console.log(isTokenId);
-    
-   dispatch(resendOTPThunk(isTokenId)).unwrap()
+  }else{
+    console.log(res);
     
   }
+}
+
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
@@ -107,8 +146,9 @@ if (!tokenId) {
             </FormItem>
           )}
         />
-      <Button onClick={sendOtp}>resend Otp</Button>
         <Button type="submit">Submit</Button>
+        <OTPTimer  tokenId={tokenId}  />
+        
       </form>
     </Form>
   );

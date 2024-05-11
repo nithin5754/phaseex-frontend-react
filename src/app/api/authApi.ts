@@ -79,6 +79,20 @@ const userAPI = {
     }
   },
 
+
+  fetchTimerDate:async(tokenId:string)=>{
+
+    
+    try {
+      let response=await axios.post('/auth/get-timer-date',{tokenId})
+      console.log(response.data);
+      return response.data
+      
+    } catch (error) {
+      return error
+    }
+  },
+
 };
 
 export default userAPI;

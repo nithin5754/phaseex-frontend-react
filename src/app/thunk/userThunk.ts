@@ -60,4 +60,11 @@ export const resendOTPThunk=createAsyncThunk("users/resendOTPThunk",async(tokenI
 
 
 
+export const fetchTimerDateThunk=createAsyncThunk("users/fetchTimerDateThunk",async(tokenId:string)=>{
+  const response=await userAPI.fetchTimerDate(tokenId)
+  return response
+})
+
+
+
 

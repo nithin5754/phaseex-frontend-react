@@ -21,6 +21,9 @@ import { registerUser } from "@/app/thunk/userThunk";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/slices/userSlice";
+import { toast } from "../ui/use-toast";
+import axios from "axios";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -67,7 +70,7 @@ const AuthRegister = () => {
   const [isLoading, setLoading] = useState(false);  
   const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
 
-  const { loading } = useSelector((state: any) => state.users);
+
 
   const navigate = useNavigate();
 
@@ -84,28 +87,81 @@ const AuthRegister = () => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    
     const userData: UserData = {
       userName: data.username,
       password: data.password,
       confirmPassword: data.confirmPassword,
       email: data.email,
     };
+        
+    if(data.password!==data.confirmPassword){
+      toast({
+        title:"password",
+        variant: "destructive",
+        description: (
+     <>
+        <h2>password not match please check again</h2>
+     </>
+        ),
+      })
+      navigate('/register')
+     return
+    }
 
-    dispatch(registerUser(userData)).then((res) => {
-      if (res.meta.requestStatus === "rejected") {
-        // const errorMessage = "Email not accepted";
-        throw new Error("error in creating");
-        // toast.error(errorMessage);
-      } else {
-        const url: string = `/verify-otp?tokenId=${res.payload.verify_token}`;
-        navigate(url);
-      }
-    });
+    setLoading(true)
+       
+      try {
+        let res=await dispatch(registerUser(userData)).unwrap()
+
+   if (res?.response?.status>=400) {
+    toast({
+      title:`${res?.response?.status}`,
+      variant: "destructive",
+      description: (
+   <>
+      <h2>{res?.response?.data?.message}</h2>
+   </>
+      ),
+    })
+  
+    
+     navigate('/register')
+
+  } else {
+    const url: string = `/verify-otp?tokenId=${res.verify_token}`;
+    dispatch(resetOrUpdateTimer(res.updatedAt))
+    dispatch(resetOrUpdateAuthId(res.verify_token))
+    navigate(url);
+  }
+      } catch (error) {   
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.data) {
+          toast({
+            title:`${error?.response?.status}`,
+            variant: "destructive",
+            description: (
+              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <h2>{error.response.data.error}</h2>
+            </pre>
+            ),
+          })
+        } else {
+      
+
+
+          toast({
+            title:`${error}`,
+            variant: "destructive" })
+        }
+        navigate('/register');
+
+      } finally {
+        setLoading(false)
+       }
   }
 
-  if (loading === "pending") {
-    return <h1>loading....</h1>;
-  }
+
 
   return (
     <Form {...form}>

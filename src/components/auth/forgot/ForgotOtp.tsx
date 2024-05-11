@@ -10,6 +10,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import { verifyOtpFOrgotPasswordThunk } from "@/app/thunk/userThunk";
+import { toast } from "@/components/ui/use-toast";
 
 
 
@@ -37,26 +38,38 @@ if (!tokenId) {
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data, "otp-verify");
-    console.log(tokenId, "tokenId-verify");
 
-    if (!data && !tokenId) {
-      throw new Error("tokenId / otp empty");
+    if (!data || !tokenId) {
+      toast({
+        title:`fields are required`,
+        variant: "destructive"
+      })
     } else {
       const otp: string = data.pin 
-      console.log(otp);
-      console.log(tokenId);
-      let verifyData = { otp,tokenId};
-      dispatch(verifyOtpFOrgotPasswordThunk(verifyData)).then((res)=>{
-        if (res?.meta?.requestStatus === "rejected") {
-          throw new Error("error in creating");
-          // toast.error(errorMessage);
-        } else {
 
-          const url: string = `/change-forgot-password?tokenId=${res.payload.tokenId}`;
+      let verifyData = { otp,tokenId};
+    let res=await dispatch(verifyOtpFOrgotPasswordThunk(verifyData)).unwrap()
+
+    if(res?.response?.status>=400){
+
+      toast({
+        title:`${res?.response?.status}`,
+        variant: "destructive",
+        description: (
+     <>
+        <h2>{res?.response?.data?.message}</h2>
+     </>
+        ),
+      })
+    
+      
+      return
+     } else {
+          const url: string = `/change-forgot-password?tokenId=${res.tokenId}`;
           navigate(url);
         }
-      })
+      
+ 
 
     }
   }
