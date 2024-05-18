@@ -3,7 +3,8 @@
 export interface UserInfo {
   userName: string;
   accessToken:string,
-  verified:boolean
+  verified:boolean,
+  email:string
 }
 
 

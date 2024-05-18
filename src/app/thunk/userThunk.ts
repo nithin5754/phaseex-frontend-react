@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { UserData } from "@/components/auth/AuthRegister";
-import userAPI from "../api/authApi";
+import userAPI from "../api/auth";
 
 
 

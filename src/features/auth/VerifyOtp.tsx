@@ -1,6 +1,15 @@
+
 import { AuthVerifyOtp ,AuthSideImg} from "../../components/auth/index";
 
 const VerifyOtp = () => {
+
+ 
+
+
+
+ 
+  
+
   return (
     <div className="h-screen flex lg:flex-row flex-col mx-auto ">
     <AuthSideImg/>

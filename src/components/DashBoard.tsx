@@ -1,51 +1,58 @@
-import { useAppDispatch } from "@/app/store/store"
-import { Button } from "./ui/button"
-import { logoutUserThunk } from "@/app/thunk/userThunk"
-import { logout } from "@/app/slices/authSlice"
+
+
+import { useGetDashBoardQuery, useGetTestingQuery } from "@/app/api/AuthApi"
+
+
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
-import useAxiosPrivate from "@/hooks/useAxiosPrivate"
+
+
+
+
 
 
 
 
 const DashBoard = () => {
-  const axiosPrivate=useAxiosPrivate()
-  const dispatch=useAppDispatch()
+//   const {
+//     data,
+//     isLoading,
+//     isSuccess,
+//     isError,
+//     error
+// }=useGetTestingQuery(undefined,{
+//   pollingInterval:60000,
+//   refetchOnFocus:true,
+//   refetchOnMountOrArgChange:true
+// })
 
-  useEffect(()=>{
-    const controller=new AbortController()
- 
 
-    const fetchData=async ()=>{
-     try {
-      const response = await axiosPrivate.get('/auth/test',{
-        signal:controller.signal,
-      });
-      console.log(response,"hello");
 
-     } catch (error) {
-      console.error(error,"hello");
-    
-     }
-    }
-    fetchData()
 
-    return ()=>{
-      controller.abort()
-    }
+// if(isLoading)return <h1>loading</h1>
+// {error &&<h1>something went wrong</h1>}
 
-  },[])
 
-  const onSubmit=()=>{
-    dispatch(logoutUserThunk()).then(()=>dispatch(logout()))
-  }
+  // console.log(data,"dashboard data");
+  
   return (
-    <div>DashBoard
-<Button onClick={()=>onSubmit()}>Logout</Button>
-<Link to={'/hello'}>hello</Link>
 
+
+
+    <div className="p-8">
+     <Link to={'/hello'}>hello</Link>
+     <Link to={'/login'}>login</Link>
+
+    
+    <Link to={'/'}>workspace</Link>
+      
     </div>
-  )
+
+
+
+      )
+
+
+
 }
 export default DashBoard

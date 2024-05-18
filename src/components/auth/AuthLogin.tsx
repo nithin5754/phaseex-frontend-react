@@ -14,14 +14,12 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/store";
-import { loginUserThunk } from "@/app/thunk/userThunk";
-import { useSelector } from "react-redux";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { setCredentials } from "@/app/slices/authSlice";
-import { UserInfo } from "@/features/types";
-import axios from "axios";
-import { toast } from "@/components/ui/use-toast";
+import { useLoginMutation } from "@/app/api/AuthApi";
+import { useAppDispatch } from "@/app/api/store";
+import { setCredentials } from "@/features/auth/authSlice";
+import { toast } from "../ui/use-toast";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -43,12 +41,14 @@ const FormSchema = z.object({
 
 const AuthLogin = () => {
   const [isLoading, setLoading] = useState(false);
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/homepage";
 
-  const { loading } = useSelector((state: any) => state.users);
+  const [login] = useLoginMutation();
+
+  const dispatch = useAppDispatch();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -59,60 +59,38 @@ const AuthLogin = () => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    setLoading(true);
-
-    if (data) {
+    if (data.email && data.password) {
       try {
-        let res = await dispatch(loginUserThunk(data)).unwrap();
-
-        if (res?.response?.status >= 400) {
-          toast({
-            title: `${res?.response?.status}`,
-            variant: "destructive",
-            description: (
-              <>
-                <h2>{res?.response?.data?.message}</h2>
-              </>
-            ),
-          });
-
-          navigate("/login");
-        } else {
-          let userData: UserInfo = {
-            userName: res?.data?.userName,
-            accessToken: res?.accessToken,
-            verified: res?.data?.verified,
-          };
-
-          if (userData.accessToken && userData.verified === true) {
-            dispatch(setCredentials(userData));
-            navigate(from, { replace: true });
-          } else {
-            toast({
-              title: "network error please try again later",
-              variant: "destructive",
-            });
-          }
+        setLoading(true);
+        const userData = await login({
+          email: data.email,
+          password: data.password,
+        }).unwrap();
+        if (userData.accessToken) {
+          dispatch(setCredentials(userData.accessToken));
+          navigate(from, { replace: true });
+          setLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-        if (axios.isAxiosError(error) && error.response?.data) {
+      } catch (error: any) {
+        if (!error.status) {
           toast({
-            title: `${error?.response?.status}`,
+            title: "no response",
             variant: "destructive",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <h2>{error.response.data.error}</h2>
-              </pre>
-            ),
           });
-        } else {
-          console.log("An unexpected error occurred:", error);
+        } else if (error.status) {
+          toast({
+            title: `${error.data.message}`,
+            variant: "destructive",
+          });
         }
-        navigate("/login");
       } finally {
         setLoading(false);
       }
+    } else {
+      toast({
+        title: "all fields are required",
+        variant: "destructive",
+      });
     }
   }
 

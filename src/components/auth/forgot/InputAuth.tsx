@@ -1,7 +1,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { string, z } from "zod"
+import {  z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,9 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useAppDispatch } from "@/app/store/store"
-import { forgotPasswordVerifyThunk } from "@/app/thunk/userThunk"
+
 import { useNavigate } from "react-router-dom"
+
+import { useForgotPasswordVerifyMutation } from "@/app/api/AuthApi"
 import { toast } from "@/components/ui/use-toast"
 
 
@@ -26,7 +27,8 @@ const FormSchema = z.object({
 })
 
 const InputAuth = () => {
-  const dispatch=useAppDispatch()
+  const [forgotPasswordVerify]=useForgotPasswordVerifyMutation()
+
   const navigate=useNavigate()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -37,27 +39,32 @@ const InputAuth = () => {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
 
-   let email:string=data.email as string
-   let result= await dispatch(forgotPasswordVerifyThunk(email)).unwrap()
-   console.log(result,"verify auth after success");
+    if(!data.email){
 
-   if(result?.response?.status>=400){
-    toast({
-      title:`${result?.response?.status}`,
-      variant: "destructive",
-      description: (
-   <>
-      <h2>{result?.response?.data?.message}</h2>
-   </>
-      ),
-    })
-    
-     navigate('/login')
-   }else{
-    const url: string = `/verify-auth-forgot-otp/?tokenId=${result?.isSend?.verify_token}`;
-    navigate(url);
-   }
-   
+    }else{
+      try {
+      const response=await forgotPasswordVerify({email:data.email}).unwrap()
+      console.log(response);
+      
+       if(response&&response.verify_token&&response.email){
+        const url: string = `/verify-auth-forgot-otp/?tokenId=${response.verify_token}`;
+        navigate(url,{ replace: true });
+       }    
+      } catch (error:any) {
+        if(!error.status){
+          toast({
+            title: "something went wrong please try later",
+            variant: "destructive",
+          });
+        }else if(error.status){         
+          toast({
+            title: `${error.data.message}`,
+            variant: "destructive",
+          });
+        }
+      }
+    }
+        
   }
 
   return (
@@ -70,7 +77,7 @@ const InputAuth = () => {
             <FormItem>
               <FormLabel>enter email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="example@gmail.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

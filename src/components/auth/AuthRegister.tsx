@@ -16,14 +16,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-import {useAppDispatch } from "@/app/store/store";
-import { registerUser } from "@/app/thunk/userThunk";
 
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/slices/userSlice";
+
+
 import { toast } from "../ui/use-toast";
-import axios from "axios";
+import { useRegisterMutation } from "@/app/api/UserApi";
+import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/slice/userSlice";
+import { useAppDispatch } from "@/app/api/store";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -67,14 +67,14 @@ const FormSchema = z.object({
 });
 
 const AuthRegister = () => {
-  const [isLoading, setLoading] = useState(false);  
+  const [isLoading, setLoading] = useState(false);
   const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
 
-
-
   const navigate = useNavigate();
+  const dispatch=useAppDispatch()
 
-  const dispatch=useAppDispatch();
+  const[register]=useRegisterMutation()
+
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -87,81 +87,56 @@ const AuthRegister = () => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    
     const userData: UserData = {
       userName: data.username,
       password: data.password,
       confirmPassword: data.confirmPassword,
       email: data.email,
     };
-        
-    if(data.password!==data.confirmPassword){
+
+    if (data.password !== data.confirmPassword) {
       toast({
-        title:"password",
+        title: "password",
         variant: "destructive",
         description: (
-     <>
-        <h2>password not match please check again</h2>
-     </>
+          <>
+            <h2>password not match please check again</h2>
+          </>
         ),
-      })
-      navigate('/register')
-     return
+      });
+      navigate("/register");
+      
+    }else{
+      try {
+        setLoading(true)
+        let response=await register(userData).unwrap()
+        if(response.verify_token && response.updatedAt){
+          const url: string = `/verify-otp?tokenId=${response.verify_token}`;
+          dispatch(resetOrUpdateTimer(response.updatedAt));
+          dispatch(resetOrUpdateAuthId(response.verify_token));
+          navigate(url);
+        }
+      } catch (error:any) {
+        if (!error.status) {
+          toast({
+            title: "no response",
+            variant: "destructive",
+          });
+        } else if (error.status) {
+          toast({
+            title: `${error.data.message}`,
+            variant: "destructive",
+          });
+        }
+      }finally{
+        setLoading(false)
+      }
     }
 
-    setLoading(true)
-       
-      try {
-        let res=await dispatch(registerUser(userData)).unwrap()
+   
 
-   if (res?.response?.status>=400) {
-    toast({
-      title:`${res?.response?.status}`,
-      variant: "destructive",
-      description: (
-   <>
-      <h2>{res?.response?.data?.message}</h2>
-   </>
-      ),
-    })
-  
-    
-     navigate('/register')
 
-  } else {
-    const url: string = `/verify-otp?tokenId=${res.verify_token}`;
-    dispatch(resetOrUpdateTimer(res.updatedAt))
-    dispatch(resetOrUpdateAuthId(res.verify_token))
-    navigate(url);
   }
-      } catch (error) {   
-        console.log(error);
-        if (axios.isAxiosError(error) && error.response?.data) {
-          toast({
-            title:`${error?.response?.status}`,
-            variant: "destructive",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <h2>{error.response.data.error}</h2>
-            </pre>
-            ),
-          })
-        } else {
-      
-
-
-          toast({
-            title:`${error}`,
-            variant: "destructive" })
-        }
-        navigate('/register');
-
-      } finally {
-        setLoading(false)
-       }
-  }
-
-
 
   return (
     <Form {...form}>

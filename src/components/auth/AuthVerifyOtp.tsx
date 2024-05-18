@@ -14,12 +14,11 @@ import { useForm } from "react-hook-form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Button } from "../ui/button";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useAppDispatch } from "@/app/store/store";
-import { VerifyUserThunk, resendOTPThunk} from "@/app/thunk/userThunk";
-import { toast } from "../ui/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { AlertCircle } from "lucide-react";
+
+
 import OTPTimer from "./timer/OTPTimer";
+import { useVerifyUserMutation } from "@/app/api/UserApi";
+import { toast } from "../ui/use-toast";
 
 
 
@@ -35,11 +34,13 @@ const AuthVerifyOtp = () => {
   const tokenId:string = searchParams.get("tokenId") as string;
   const navigate=useNavigate()
 
+  const[verifyUser]=useVerifyUserMutation()
+
 if (!tokenId) {
   navigate('/login')
 }
 
-  const dispatch = useAppDispatch();
+
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -49,70 +50,35 @@ if (!tokenId) {
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
 
-  
-    console.log(data, "otp-verify");
-    console.log(tokenId, "tokenId-verify");
-
-    if (!data && !tokenId) {
+    if(!data.pin){
       toast({
-        title:"must required all the fields",
+        title:"required all the fields",
         variant: "destructive",
       })
-      return
-    } else {
-      const otp: string = data.pin 
-
-    let verifyData = { tokenId , otp };
-
-    let res= await dispatch(VerifyUserThunk(verifyData)).unwrap()
-    console.log(res,"verify auth-otp");
     
-
-    if (res?.response?.status>=400) {
-      toast({
-        title:`${res?.response?.status}`,
-        variant: "destructive",
-        description: (
-     <>
-        <h2>{res?.response?.data?.message}</h2>
-     </>
-        ),
-      })
-    
-      
-       return
-  
     }else{
-      navigate('/login')
+     try {
+      const response=await verifyUser({tokenId,otp:data.pin}).unwrap()
+        if(response.verified===true){
+          navigate('/login', { replace: true })
+        }
+     } catch (error:any) {
+      if (!error.status) {
+        toast({
+          title: "no response",
+          variant: "destructive",
+        });
+      } else if (error.status) {
+        toast({
+          title: `${error.data.message}`,
+          variant: "destructive",
+        });
+      }
+     }
     }
-      
-    }
-  }
 
-  async function handleResendSubmit() {
-   let res=await dispatch(resendOTPThunk(tokenId)).unwrap();
-   if (res?.response?.status>=400) {
-    toast({
-      variant: "destructive",
-      description: (
-        <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>{res?.response?.status}r</AlertTitle>
-        <AlertDescription>
-        {res?.response?.data?.message}
-        </AlertDescription>
-      </Alert>
-           ),
-    })
-   return
-
-  }else{
-    console.log(res);
     
   }
-}
-
-
 
   return (
     <Form {...form}>

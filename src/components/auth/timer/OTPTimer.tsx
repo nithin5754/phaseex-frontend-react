@@ -1,5 +1,7 @@
-import { useAppDispatch } from '@/app/store/store';
-import { fetchTimerDateThunk, resendOTPThunk } from '@/app/thunk/userThunk';
+
+
+import { useFetchTimerDateMutation, useResendOtpMutation } from '@/app/api/UserApi';
+import { useAppDispatch } from '@/app/api/store';
 import React, { useState, useEffect, useCallback } from 'react';
 import Countdown from 'react-countdown';
 
@@ -9,14 +11,20 @@ interface OTPTimerProps {
 
 const OTPTimer: React.FC<OTPTimerProps> = ({ tokenId }) => {
   const dispatch = useAppDispatch();
+  const [fetchTimerDate]=useFetchTimerDateMutation()
+
+  const [resendOtp]=useResendOtpMutation()
+
   const [startTime, setStartTime] = useState(Date.now());
-  const [duration, _setDuration] = useState(10);
+  const [duration, _setDuration] = useState(30);
   const [disable, setDisable] = useState<boolean>(true);
   const [countdownKey, setCountdownKey] = useState<number>(0);
 
+
+
   const handleResendSubmit = useCallback(async () => {
     try {
-      await dispatch(resendOTPThunk(tokenId));
+      await resendOtp({tokenId});
       setDisable(true);
       setCountdownKey((prevKey) => prevKey + 1); 
       setStartTime(Date.now()); 
@@ -25,10 +33,13 @@ const OTPTimer: React.FC<OTPTimerProps> = ({ tokenId }) => {
     }
   }, [dispatch, tokenId]);
 
+
   useEffect(() => {
     async function fetchData() {
-      const res = await dispatch(fetchTimerDateThunk(tokenId));
-      const updateDate = res?.payload?.updateDate;
+      const res = await fetchTimerDate({tokenId}).unwrap();
+      console.log(res,"timer-from back");
+      
+      const updateDate = res.updateDate
 
       if (updateDate) {
         setStartTime(Number(new Date(updateDate)));
@@ -39,18 +50,28 @@ const OTPTimer: React.FC<OTPTimerProps> = ({ tokenId }) => {
     fetchData();
   }, [dispatch, tokenId]);
 
+
   const handleCountdownComplete = () => {
     setDisable(false); 
   };
 
+
   return (
     <div className='flex flex-row gap-4  justify-center'>
       <Countdown
-        key={countdownKey} // Update key to restart countdown
+        key={countdownKey} 
         date={startTime + duration * 1000} 
         onComplete={handleCountdownComplete}
+
+        renderer={({ minutes, seconds }) => {
+      
+          const formattedMinutes = minutes.toString().padStart(2, '0');
+          const formattedSeconds = seconds.toString().padStart(2, '0');
+          return <div className='font-bold text-slate-900'> {formattedMinutes}:{formattedSeconds}</div>;
+        }}
       />
-      <button onClick={handleResendSubmit} className={`p-1 text-sm rounded-sm ${disable ? 'bg-slate-200 text-gray-100 cursor-not-allowed' : 'bg-slate-700 text-white'}`} disabled={disable}>resend Otp</button>
+           <button onClick={handleResendSubmit} className={`p-1 text-sm rounded-sm ${disable ? 'bg-slate-200 text-gray-100 cursor-not-allowed' : 'bg-slate-700 text-white'}`} disabled={disable}>resend Otp</button>
+
     </div>
   );
 };

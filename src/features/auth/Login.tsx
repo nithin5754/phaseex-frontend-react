@@ -1,6 +1,14 @@
+
+
 import { AuthLogin, AuthSideImg } from "../../components/auth/index";
 
+
+
 const Login = () => {
+
+
+  
+
   return (
     <div className="h-screen flex lg:flex-row flex-col mx-auto ">
       <AuthSideImg />

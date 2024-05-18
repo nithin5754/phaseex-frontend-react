@@ -5,8 +5,9 @@ import AuthSideImg from "./AuthSideImg"
 import AuthVerifyOtp from "./AuthVerifyOtp"
 import  InputAuth  from "./forgot/InputAuth"
 import ForgotOtp from "./forgot/ForgotOtp"
-import RequireAuth from "./RequireAuth"
+import RequireAuth from "../../features/auth/RequireAuth"
 import ChangePassword from "./forgot/ChangePassword"
+
 
 
 export {
@@ -17,6 +18,8 @@ AuthVerifyOtp,
 InputAuth,
 ForgotOtp,
 RequireAuth,
-ChangePassword
+ChangePassword,
+
+
 
 }

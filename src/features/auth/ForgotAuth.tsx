@@ -1,4 +1,4 @@
-import { InputAuth,AuthSideImg} from "@/components/auth"
+import { InputAuth,AuthSideImg} from "@/components/auth/index"
 
 
 

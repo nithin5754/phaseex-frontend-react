@@ -1,12 +1,16 @@
+
 import { Link } from "react-router-dom"
+import SideBar from "./sidebar/SdeBar"
 
 const LandingPage = () => {
   return (
-    <div>
-      
-      Welcome to my page
-      <Link to={'/dashboard'}>DashBoard</Link>
-    </div>
+
+
+<div className="div">
+  "my landing page"
+</div>
+
+
   )
 }
 export default LandingPage

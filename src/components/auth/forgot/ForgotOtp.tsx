@@ -5,12 +5,15 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useAppDispatch } from "@/app/store/store";
+
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import { verifyOtpFOrgotPasswordThunk } from "@/app/thunk/userThunk";
+import { useForgotPasswordOtpMutation } from "@/app/api/AuthApi";
 import { toast } from "@/components/ui/use-toast";
+
+ 
+
 
 
 
@@ -24,13 +27,11 @@ const FormSchema = z.object({
 const ForgotOtp = () => {
   const [searchParams] = useSearchParams();
   const tokenId:string = searchParams.get("tokenId") as string;
+  const [forgotPasswordOtp]=useForgotPasswordOtpMutation()
   const navigate=useNavigate()
 if (!tokenId) {
   navigate('/login')
 }
-
-  const dispatch = useAppDispatch();
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -39,39 +40,35 @@ if (!tokenId) {
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
 
-    if (!data || !tokenId) {
-      toast({
-        title:`fields are required`,
-        variant: "destructive"
-      })
-    } else {
-      const otp: string = data.pin 
+     if(data.pin){
+       try {
+        let response=await forgotPasswordOtp({otp:data.pin,tokenId}).unwrap()
+        console.log(response,"hello")  
 
-      let verifyData = { otp,tokenId};
-    let res=await dispatch(verifyOtpFOrgotPasswordThunk(verifyData)).unwrap()
-
-    if(res?.response?.status>=400){
-
-      toast({
-        title:`${res?.response?.status}`,
-        variant: "destructive",
-        description: (
-     <>
-        <h2>{res?.response?.data?.message}</h2>
-     </>
-        ),
-      })
-    
-      
-      return
-     } else {
-          const url: string = `/change-forgot-password?tokenId=${res.tokenId}`;
-          navigate(url);
+        if(response.tokenId){
+          const url: string = `/change-forgot-password?tokenId=${response.tokenId}`;
+          navigate(url,{ replace: true });
         }
+       } catch (error:any) {
+          
+        if(!error.status){
+          toast({
+            title: "something went wrong please try later",
+            variant: "destructive",
+          });
+        }else if(error.status){         
+          toast({
+            title: `${error.data.message}`,
+            variant: "destructive",
+          });
+        }
+
+
+       }
+     }
+
       
  
-
-    }
   }
   return (
     <Form {...form}>

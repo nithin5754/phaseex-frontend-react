@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-import {useAppDispatch } from "@/app/store/store";
 import { verifyToChangePassword } from "@/app/thunk/userThunk";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -18,6 +17,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { useForgotPasswordSetNewPassMutation } from "@/app/api/AuthApi";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -56,8 +56,7 @@ const ChangePassword = () => {
 
   const navigate = useNavigate();
 
-  const dispatch=useAppDispatch();
-
+const [forgotPasswordSetNewPass]=useForgotPasswordSetNewPassMutation()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -79,26 +78,29 @@ const ChangePassword = () => {
         title:`all the fields are required`,
         variant: "destructive"
       })
-    } else {
-      let verifyData = { password:data?.password,tokenId};
-     let res=await dispatch(verifyToChangePassword(verifyData)).unwrap()
-     if(res?.response?.status>=400){
+      navigate('/login',{ replace: true })
+    } 
 
-      toast({
-        title:`${res?.response?.status}`,
-        variant: "destructive",
-        description: (
-     <>
-        <h2>{res?.response?.data?.message}</h2>
-     </>
-        ),
-      })
-     }else{
-      const url: string = `/login`;
-          navigate(url);
-     }
-    }
+      try {
+        const response=await forgotPasswordSetNewPass({password:data.password,tokenId}).unwrap()
 
+           if(response.isPasswordChanged){
+            navigate('/login')
+           }
+      } catch (error:any) {
+        if(!error.status){{}
+          toast({
+            title: "something went wrong please try later",
+            variant: "destructive",
+          });
+        }else if(error.status){         
+          toast({
+            title: `${error.data.message}`,
+            variant: "destructive",
+          });
+        }
+
+      }
    
   }
 
