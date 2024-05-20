@@ -3,10 +3,12 @@ import Lottie from 'react-lottie';
 
 interface LootieProps {
   animationData:  object; 
+  height:number,
+  width:number
 }
 
 
-export function LottieAnimation({animationData}:LootieProps) {
+export function LottieAnimation({animationData,height,width}:LootieProps) {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -17,7 +19,7 @@ export function LottieAnimation({animationData}:LootieProps) {
   }
   return (
       <div className="">
-        <Lottie options={defaultOptions} height={200} width={200}  />
+        <Lottie options={defaultOptions} height={height} width={width}  />
       </div>
   );
 }

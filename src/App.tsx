@@ -8,7 +8,7 @@ import {
   ForgotOtpVerify,
   RequireAuth,
 } from "./features/auth/index";
-import{HomePage,ViewSpace} from './features/main-sections/index'
+import{CreateSpace, HomePage,ViewSpace} from './features/main-sections/index'
 
 import DashBoard from "./components/DashBoard";
 import LandingPage from "./components/LandingPage";
@@ -16,6 +16,7 @@ import LandingPage from "./components/LandingPage";
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
 import { MainLayout } from "./features/layouts/index";
+
 
 
 function App() {
@@ -40,9 +41,11 @@ function App() {
    {/* <Route element={<RequireAuth />}> */}
    <Route  element={<MainLayout/>}>
           <Route path="homepage" element={<HomePage />}/>
-          <Route path="space" element={< ViewSpace/>}/>
-          
-             
+
+          <Route path="space" >
+          <Route index element={< ViewSpace/>}/>
+          <Route path="create" element={<CreateSpace/>}/>
+          </Route>
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="hello" element={<Hello />} />
           </Route>

@@ -20,6 +20,7 @@ import React from "react"
 import { ChevronsUpDown } from "lucide-react"
 import { SpaceDataType, useCreateSpaceMutation } from "@/app/api/spaceApi"
 import { toast } from "../ui/use-toast"
+import { useNavigate } from "react-router-dom"
 
 
 const FormSchema = z.object({
@@ -31,8 +32,13 @@ const FormSchema = z.object({
   }),
 })
 
-export function WorkspaceForm() {
+interface Props {
+  handleClose: () => void;
+}
+
+export function WorkspaceForm({ handleClose }: Props) {
   const [position, setPosition] = React.useState("shared")
+  const navigate=useNavigate()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,7 +53,7 @@ export function WorkspaceForm() {
   
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let spaceData:SpaceDataType={
-      workspaceOwner:"663f1aba456968ab3b2275d6",
+      workspaceOwner:"",
       workspace_description:data.workspace_description,
        title:data.workspace_name,
        workspaceType:position
@@ -57,7 +63,16 @@ export function WorkspaceForm() {
       try {
          const response=await createSpace(spaceData).unwrap()
          console.log(response);
-         
+        if(response.id&&response.workspaceOwner){
+        navigate('/space')
+        handleClose()
+        }else{
+          toast({
+            title: "something went wrong",
+            variant: "destructive",
+          });
+
+        }
       } catch (error:any) {
         if (!error.status) {
           toast({

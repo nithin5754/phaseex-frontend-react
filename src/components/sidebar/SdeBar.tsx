@@ -21,7 +21,11 @@ const sidebarItems: SideBarItemsType = {
                More
            </SideBarButton>
         <OpenModal  title={"create galaxy"} icon={PlusCircleIcon}/>
-       
+        {/* <Link to={'/space/create'}>
+     <SideBarButton icon={PlusCircleIcon} className="w-full bg-slate-700 text-white">
+              create new galaxy
+           </SideBarButton>
+     </Link> */}
 
      <Link to={'/space'}>
      <SideBarButton icon={LayoutDashboard} className="w-full">
