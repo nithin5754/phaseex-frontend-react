@@ -75,6 +75,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+  
+
+    getName: builder.query<User, void>({
+      query: () => "/auth/getUserName",
+    
+    }),
 
     getDashBoard: builder.query<void, void>({
       query: () => "/auth/test",
@@ -85,7 +91,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       query: () => "/home/testing",
       keepUnusedDataFor: 5,
     }),
-    sendLogOut: builder.mutation({
+    sendLogOut: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
@@ -126,9 +132,11 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useGetDashBoardQuery,
+  useSendLogOutMutation,
   useGetTestingQuery,
 useRefreshMutation,
   useForgotPasswordVerifyMutation,
   useForgotPasswordOtpMutation,
-  useForgotPasswordSetNewPassMutation
+  useForgotPasswordSetNewPassMutation,
+  useGetNameQuery
 } = authApiSlice;

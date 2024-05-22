@@ -5,11 +5,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
   token: string | null;
+  userName:string|null
 }
 
 const initialState: AuthState = {
-  token: null,
-
+  token: localStorage.getItem("accessToken")?localStorage.getItem("accessToken"):null,
+  userName: null
 };
 
 export const authSlice = createSlice({
@@ -19,22 +20,30 @@ export const authSlice = createSlice({
     setCredentials: (state, action) => {
       if(typeof action.payload !=='string'){
         const {accessToken}=action.payload
+        localStorage.setItem('accessToken', accessToken);
+   
         state.token=accessToken
       }else{
         state.token =action.payload
+        localStorage.setItem('accessToken', action.payload);
 
       }
   },
+  setUserName:(state,action)=>{
+    state.userName=action.payload
+  },
   logOut: (state) => {
-
+    state.userName=null
     state.token = null
+    localStorage.removeItem("accessToken")
 }
   },
 });
 
-export const { setCredentials,logOut } = authSlice.actions;
+export const { setCredentials,logOut,setUserName } = authSlice.actions;
 
 export default authSlice.reducer;
 
 
 export const selectCurrentToken = (state:any) => state.auth.token
+export const selectCurrentUserName=(state:any)=>state.auth.userName

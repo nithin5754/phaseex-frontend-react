@@ -8,14 +8,15 @@ import {
   ForgotOtpVerify,
   RequireAuth,
 } from "./features/auth/index";
-import{CreateSpace, HomePage,ViewSpace} from './features/main-sections/index'
+import{CreateSpace, HomePage,SingleWorkSpace,ViewSpace,FolderView,ListView,ResourceView} from './features/main-sections/index'
 
 import DashBoard from "./components/DashBoard";
 import LandingPage from "./components/LandingPage";
 
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
-import { MainLayout } from "./features/layouts/index";
+import { MainLayout, SpaceLayout } from "./features/layouts/index";
+
 
 
 
@@ -38,13 +39,21 @@ function App() {
 
 
    {/* <Route element={<PersistLogin />}> */}
-   {/* <Route element={<RequireAuth />}> */}
+   <Route element={<RequireAuth />}>
    <Route  element={<MainLayout/>}>
           <Route path="homepage" element={<HomePage />}/>
 
           <Route path="space" >
           <Route index element={< ViewSpace/>}/>
           <Route path="create" element={<CreateSpace/>}/>
+
+            <Route path=":id" element={<SpaceLayout/>}>
+              <Route index element={<SingleWorkSpace/>}/>
+              <Route path="folders" element={<FolderView/>}/>
+              <Route path="lists" element={<ListView/>}/>
+              <Route path="resources" element={<ResourceView/>}/>
+               
+            </Route>
           </Route>
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="hello" element={<Hello />} />
@@ -52,7 +61,7 @@ function App() {
    </Route>
         
 
-   {/* </Route> */}
+   </Route>
        
         {/* </Route> */}
       </Routes>

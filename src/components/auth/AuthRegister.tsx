@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import { toast } from "../ui/use-toast";
@@ -141,6 +141,7 @@ const AuthRegister = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
+      <h1 className="font-sfpro text-center text-3xl">Register Form</h1>
         <FormField
           control={form.control}
           name="username"
@@ -237,6 +238,9 @@ const AuthRegister = () => {
             sign -up
           </Button>
         )}
+           <Link to={'/login'} >
+         <h1 className="font-sfpro text-center mt-4">Already have an account</h1>
+      </Link>
       </form>
     </Form>
   );

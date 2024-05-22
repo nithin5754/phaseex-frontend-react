@@ -1,4 +1,4 @@
-import { count } from "console";
+
 import { apiSlice } from "./apiSlice";
 
 export interface CollaboratorType {
@@ -56,6 +56,22 @@ export const workApiSlice = apiSlice.injectEndpoints({
         
       }),
  
+      
+    }),
+
+
+
+    getSingleWorkSpace: builder.query< ResponseWorkspaceDataType,string>({
+      query: (id:string) => ({
+        url: `/space/workspacedetails/${id}`,
+        validateStatus: (response, result) => {
+          console.log(result,"hello",response,"response");
+          
+          return response.status === 200 &&!result.isError;
+        },
+      
+        
+      }),
       
     }),
     
@@ -138,5 +154,6 @@ export const {
   useGetAllSpacesQuery,
   useChangeVisiblityMutation,
   useGetOnGoingSpacesQuery,
-  useGetInActiveSpaceCountQuery
+  useGetInActiveSpaceCountQuery,
+  useGetSingleWorkSpaceQuery
 } = workApiSlice;

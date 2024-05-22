@@ -1,5 +1,5 @@
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SideBarItemsType } from "../../features/types/sideBarItemsType";
 import SideBarButton from "./SideBar-btb";
 import { Button } from "../ui/button";
@@ -7,7 +7,10 @@ import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {  LogOut, MoreHorizontal, Settings ,X as CloseButton } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetNameQuery, useSendLogOutMutation } from "@/app/api/AuthApi";
+import { useSelector } from "react-redux";
+import { selectCurrentUserName } from "@/features/auth/authSlice";
 
 
 
@@ -18,13 +21,43 @@ interface SideBarDesktopProps {
 
 const SideBarDesktop = (props:SideBarDesktopProps) => {
  const [isClose,setClose]=useState<boolean>(false)
+const navigate=useNavigate()
+const userName=useSelector(selectCurrentUserName)
+
+
+ const [sendLogOut,
+  {
+
+   isSuccess,
+
+ }]=useSendLogOutMutation()
+
+
+
+
+ useEffect(()=>{
+ if(isSuccess){
+  navigate('/login')
+ }
+ },[isSuccess,navigate])
+
+
+
+
 
   const location=useLocation()
   const pathname=location.pathname
-
+   
 
   const handleClose=()=>{
     setClose(!isClose)
+  
+  }
+
+
+  const handleLogOut=async()=>{
+   await sendLogOut().unwrap()
+ 
   
   }
 
@@ -69,9 +102,9 @@ const SideBarDesktop = (props:SideBarDesktopProps) => {
                     <div className='flex gap-2'>
                       <Avatar className='h-5 w-5'>
                         <AvatarImage src='https://github.com/max-programming.png' />
-                        <AvatarFallback>Nithin joji</AvatarFallback>
+                        <AvatarFallback>{userName?userName:'nithin'}</AvatarFallback>
                       </Avatar>
-                      <span>Nithin joji</span>
+                      <span>{userName?userName:'nithin'}</span>
                     </div>
                     <MoreHorizontal size={20} />
                   </div>
@@ -84,7 +117,7 @@ const SideBarDesktop = (props:SideBarDesktopProps) => {
                       Account Settings
                     </SideBarButton>
                   </Link>
-                  <SideBarButton size='sm' icon={LogOut} className='w-full'>
+                  <SideBarButton onClick={handleLogOut} size='sm' icon={LogOut} className='w-full'>
                     Log Out
                   </SideBarButton>
                 </div>

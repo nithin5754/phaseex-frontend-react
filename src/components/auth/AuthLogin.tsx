@@ -13,13 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/app/api/AuthApi";
 import { useAppDispatch } from "@/app/api/store";
-import { setCredentials } from "@/features/auth/authSlice";
+import { selectCurrentToken, setCredentials, setUserName } from "@/features/auth/authSlice";
 import { toast } from "../ui/use-toast";
+import { useSelector } from "react-redux";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -41,10 +42,17 @@ const FormSchema = z.object({
 
 const AuthLogin = () => {
   const [isLoading, setLoading] = useState(false);
-
+const token=useSelector(selectCurrentToken)
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/homepage";
+
+
+  useEffect(()=>{
+if(token){
+  navigate(from, { replace: true });
+}
+  },[navigate,token])
 
   const [login] = useLoginMutation();
 
@@ -68,6 +76,7 @@ const AuthLogin = () => {
         }).unwrap();
         if (userData.accessToken) {
           dispatch(setCredentials(userData.accessToken));
+          dispatch(setUserName(userData.data.userName))
           navigate(from, { replace: true });
           setLoading(false);
         }
@@ -97,6 +106,7 @@ const AuthLogin = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
+              <h1 className="font-sfpro text-center text-3xl">Login Form</h1>
         <FormField
           control={form.control}
           name="email"
@@ -157,6 +167,9 @@ const AuthLogin = () => {
             Sign-in
           </Button>
         )}
+      <Link to={'/register'} >
+         <h1 className="font-sfpro text-center mt-4">create  account</h1>
+      </Link>
       </form>
     </Form>
   );

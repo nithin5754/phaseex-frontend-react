@@ -2,6 +2,7 @@ import { ResponseWorkspaceDataType } from "@/app/api/spaceApi";
 import { EyeOff } from "lucide-react";
 import EmptyBoxLottie from '../../../public/json/emptyBox.json'
 import { LottieAnimation } from "../lootie/Lootie";
+import { Link } from "react-router-dom";
 
 interface Props {
   getOnGoingSpace: ResponseWorkspaceDataType[] | [];
@@ -46,8 +47,9 @@ const OnGoingSideBar = ({getOnGoingSpace,handleHideSubmit}:Props) => {
                 >
                   {space.title[0].toUpperCase()}
                 </div>
-
+              <Link to={`/space/${space.id}`}>
                 <span>{space.title}</span>
+              </Link>
               </div>
             </div>
             <button className="bg-transparent font-thin text-slate-400 w-1 border-0"  onClick={()=>handleHideSubmit(space.id)}>
