@@ -1,21 +1,13 @@
 
 
-import { useSelector } from "react-redux";
+
 import { AuthLogin, AuthSideImg } from "../../components/auth/index";
-import { selectCurrentToken } from "./authSlice";
-import { useEffect } from "react";
+
 
 
 
 const Login = () => {
 
-const token=useSelector(selectCurrentToken)
-
-   useEffect(()=>{
-    if(!token){
-    
-    }
-   })
   
 
   return (

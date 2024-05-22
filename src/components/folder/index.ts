@@ -1,8 +1,12 @@
 
 
  import Folder from "./Folder";
+ import Single from "./Single";
+ import { EditFolder } from "./EditFolder";
 
 
  export {
-  Folder
+  Folder,
+  Single,
+  EditFolder
  }

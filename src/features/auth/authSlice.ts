@@ -10,7 +10,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   token: localStorage.getItem("accessToken")?localStorage.getItem("accessToken"):null,
-  userName: null
+  userName: localStorage.getItem("userInfo")?localStorage.getItem("userInfo"):null,
 };
 
 export const authSlice = createSlice({
@@ -31,11 +31,13 @@ export const authSlice = createSlice({
   },
   setUserName:(state,action)=>{
     state.userName=action.payload
+    localStorage.setItem('userInfo', action.payload);
   },
   logOut: (state) => {
     state.userName=null
     state.token = null
     localStorage.removeItem("accessToken")
+    localStorage.removeItem("userInfo")
 }
   },
 });

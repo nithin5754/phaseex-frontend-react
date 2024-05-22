@@ -25,6 +25,28 @@ export const folderApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["FolderSpace"],
     }),
+
+    onEditFolder: builder.mutation<ResponseFolderDataType, {folderData:FolderDataType,folderId:string}>({
+      query: (credentials) => ({
+        url: `/folder/updateFolder`,
+        method: "POST",
+        body: { ...credentials },
+      }),
+      invalidatesTags: ["FolderSpace"],
+    }),
+
+    getSingleFolder:builder.query<ResponseFolderDataType,{spaceId:string,folderId:string} >({
+      query: ({spaceId,folderId}) => ({
+        url: `/folder/singleFolder?spaceId=${spaceId}&folderId=${folderId}`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+
+      providesTags: ["FolderSpace"],
+    }),
+   
+
     getAllFolder: builder.query<ResponseFolderDataType[], string>({
       query: (workspaceId: string) => ({
         url: `/folder/get-folder/${workspaceId}`,
@@ -39,4 +61,4 @@ export const folderApiSlice = apiSlice.injectEndpoints({
 });
 
 
-export const { useOnCreateFolderMutation ,useGetAllFolderQuery} = folderApiSlice;
+export const { useOnCreateFolderMutation ,useGetAllFolderQuery,useGetSingleFolderQuery,useOnEditFolderMutation} = folderApiSlice;

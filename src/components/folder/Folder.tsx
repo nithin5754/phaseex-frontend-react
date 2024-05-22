@@ -1,5 +1,5 @@
 import { useGetAllFolderQuery } from "@/app/api/FolderApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
 import emptyFolder from "../../../public/json/empty-folder-1.json";
 
@@ -45,11 +45,14 @@ const Folder = () => {
                     {getAllFolder?.map((folder, index) => {
                       return (
                         <tr>
+                           
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             <h1>{index + 1}</h1>
                           </td>
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <Link  key={folder.id} to={`/space/${id}/folders/${folder.id}`}>
                             <h1>{folder.folder_title}</h1>
+                            </Link>
                           </td>
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             <h1>{truncateDesc(folder.folder_description)}</h1>
@@ -60,6 +63,7 @@ const Folder = () => {
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             <h1>{folder.updatedAt}</h1>
                           </td>
+                      
                         </tr>
                       );
                     })}

@@ -1,6 +1,5 @@
 
-import { Link } from "react-router-dom"
-import SideBar from "./sidebar/SdeBar"
+
 
 const LandingPage = () => {
   return (

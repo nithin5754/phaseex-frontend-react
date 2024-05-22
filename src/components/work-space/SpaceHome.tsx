@@ -54,7 +54,7 @@ const SpaceHome = ({
                 width={200}
               />
               <p className="mt-4 text-gray-600">
-                All Galaxy created, joined, hidden
+                All Galaxy completed, joined, hidden
               </p>
             </div>
           </div>

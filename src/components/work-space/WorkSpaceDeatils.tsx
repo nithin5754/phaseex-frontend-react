@@ -3,10 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import EmptyFolder from '../../../public/json/empty-folder-1.json'
 import EmptyList from '../../../public/json/empty-list-1.json'
 import { LottieAnimation } from "../lootie/Lootie";
-import { Folder, Plus } from "lucide-react";
+import { EarthIcon, Folder, Lock, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { OpenModal } from "../modal/FolderModal";
 import { useGetAllFolderQuery } from "@/app/api/FolderApi";
+import { SingleFolder } from "../../features/main-sections/index";
 
 const WorkSpaceDeatils = () => {
   const { id } = useParams();
@@ -29,22 +30,38 @@ const WorkSpaceDeatils = () => {
   <div className="flex flex-col gap-6 p-4">
 
       <div className="flex flex-row w-full gap-2 items-center  justify-center ">
-      <div className="flex items-center w-full justify-center bg-white border border-gray-200 rounded-lg h-[100px]">
-        <div className="text-center">
-          <h1 className="font-sfpro text-lg"></h1>
-          <OpenModal  title={"create new Folder"} icon={Plus} spaceId={id}/> 
-        </div>
-      </div>
 
-      <div className="flex items-center w-full justify-center bg-white border border-gray-200 rounded-lg h-[100px]">
+      <div className="flex w-full bg-white border border-gray-200 rounded-lg h-[100px] p-4">
+  <div className="flex flex-col justify-between">
+    <h1 className="font-sfpro text-lg">Space {singleWorkSpace?.title}</h1>
+    <p className="text-gray-600">Description: {singleWorkSpace?.workspace_description}</p>
+    <div className="flex items-center gap-2">
+      <p className="text-gray-800 font-sfpro">{singleWorkSpace?.workspaceType}</p>
+      <span className="text-slate-300 font-sfpro">
+        {singleWorkSpace?.workspaceType === 'private' ? 
+          <Lock className="w-4 h-4" /> : 
+          <EarthIcon className="w-4 h-4" />
+        }
+      </span>
+    </div>
+  </div>
+</div>
+
+
+
+      <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px]">
         <div className="text-center">
           <h1 className="font-sfpro text-lg">create new List</h1>
         </div>
       </div>
 
-      <div className="flex items-center w-full justify-center bg-white border border-gray-200 rounded-lg h-[100px]">
+   
+
+
+      <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px]">
         <div className="text-center">
-          <h1 className="font-sfpro text-lg">upload Resources</h1>
+          <h1 className="font-sfpro text-lg"></h1>
+          <OpenModal  title={"create new Folder"} icon={Plus} spaceId={id}/> 
         </div>
       </div>
       </div>
@@ -65,7 +82,9 @@ const WorkSpaceDeatils = () => {
                     {
                      getAllFolder.slice(0, 6).map((folder) => {
                         return (
-                          <div key={folder.id} className="bg-white w-full md:w-[300px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2">
+                          <Link  key={folder.id} to={`/space/${id}/folders/${folder.id}`}>
+                          
+                          <div className="bg-white w-full md:w-[300px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2">
                             <span className="text-slate-400">
                               <Folder/>
                             </span>
@@ -73,6 +92,8 @@ const WorkSpaceDeatils = () => {
                               {folder.folder_title}
                             </h1>
                           </div>
+                          </Link>
+                      
                         )
                       })
                     }

@@ -10,20 +10,22 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 import { toast } from "../ui/use-toast";
 import { useRegisterMutation } from "@/app/api/UserApi";
 import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/slice/userSlice";
 import { useAppDispatch } from "@/app/api/store";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "@/features/auth/authSlice";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -70,10 +72,24 @@ const AuthRegister = () => {
   const [isLoading, setLoading] = useState(false);
   const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
 
+  const token=useSelector(selectCurrentToken)
+
   const navigate = useNavigate();
   const dispatch=useAppDispatch()
 
   const[register]=useRegisterMutation()
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/homepage";
+  console.log(from ,"hell path");
+  
+
+
+  useEffect(()=>{
+if(token){
+  navigate(from, { replace: true });
+}
+  },[navigate, token, location, from])
 
 
   const form = useForm<z.infer<typeof FormSchema>>({

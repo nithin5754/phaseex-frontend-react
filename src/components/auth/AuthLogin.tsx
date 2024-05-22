@@ -52,7 +52,7 @@ const token=useSelector(selectCurrentToken)
 if(token){
   navigate(from, { replace: true });
 }
-  },[navigate,token])
+  },[navigate, token, location, from])
 
   const [login] = useLoginMutation();
 

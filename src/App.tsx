@@ -8,7 +8,16 @@ import {
   ForgotOtpVerify,
   RequireAuth,
 } from "./features/auth/index";
-import{CreateSpace, HomePage,SingleWorkSpace,ViewSpace,FolderView,ListView,ResourceView} from './features/main-sections/index'
+import {
+  CreateSpace,
+  HomePage,
+  SingleWorkSpace,
+  ViewSpace,
+  FolderView,
+  ListView,
+  ResourceView,
+  SingleFolder,
+} from "./features/main-sections/index";
 
 import DashBoard from "./components/DashBoard";
 import LandingPage from "./components/LandingPage";
@@ -16,9 +25,6 @@ import LandingPage from "./components/LandingPage";
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
-
-
-
 
 function App() {
   return (
@@ -37,32 +43,32 @@ function App() {
             element={<ChangeForgotAuthPassword />}
           />
 
+          {/* <Route element={<PersistLogin />}> */}
+          <Route element={<RequireAuth />}>
+            <Route element={<MainLayout />}>
+              <Route path="homepage" element={<HomePage />} />
 
-   {/* <Route element={<PersistLogin />}> */}
-   <Route element={<RequireAuth />}>
-   <Route  element={<MainLayout/>}>
-          <Route path="homepage" element={<HomePage />}/>
+              <Route path="space">
+                <Route index element={<ViewSpace />} />
+                <Route path="create" element={<CreateSpace />} />
 
-          <Route path="space" >
-          <Route index element={< ViewSpace/>}/>
-          <Route path="create" element={<CreateSpace/>}/>
+                <Route path=":id" element={<SpaceLayout />}>
+                  <Route index element={<SingleWorkSpace />} />
+                  <Route path="folders">
+                    <Route index element={<FolderView />} />
+                    <Route path=":folderId" element={<SingleFolder />} />
+                  </Route>
 
-            <Route path=":id" element={<SpaceLayout/>}>
-              <Route index element={<SingleWorkSpace/>}/>
-              <Route path="folders" element={<FolderView/>}/>
-              <Route path="lists" element={<ListView/>}/>
-              <Route path="resources" element={<ResourceView/>}/>
-               
+                  <Route path="lists" element={<ListView />} />
+                  <Route path="resources" element={<ResourceView />} />
+                </Route>
+              </Route>
+              <Route path="dashboard" element={<DashBoard />} />
+              <Route path="hello" element={<Hello />} />
             </Route>
           </Route>
-            <Route path="dashboard" element={<DashBoard />} />
-            <Route path="hello" element={<Hello />} />
-          </Route>
-   </Route>
-        
+        </Route>
 
-   </Route>
-       
         {/* </Route> */}
       </Routes>
     </div>
