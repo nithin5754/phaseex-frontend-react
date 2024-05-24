@@ -118,7 +118,7 @@ const [forgotPasswordSetNewPass]=useForgotPasswordSetNewPassMutation()
                 <Input
                   type="password"
                   placeholder="enter new password"
-                  className="text-black"
+                  className="text-black dark:text-primary"
                   {...field}
                 />
               </FormControl>
@@ -142,7 +142,7 @@ const [forgotPasswordSetNewPass]=useForgotPasswordSetNewPassMutation()
                 <Input
                   type="password"
                   placeholder="enter confirm password"
-                  className="text-black"
+                  className="text-black dark:text-primary"
                   {...field}
                 />
               </FormControl>

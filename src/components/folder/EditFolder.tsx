@@ -103,7 +103,7 @@ export function EditFolder({ handleClose, spaceId }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-5 m-auto  "
+        className="w-full space-y-5 m-auto dark:text-primary  dark:bg-background "
       >
         <FormField
           control={form.control}
@@ -150,7 +150,7 @@ export function EditFolder({ handleClose, spaceId }: Props) {
             </>
           ) : (
             <Button
-              className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 "
+              className="bg-transparent  hover:bg-slate-800 text-background border-background border hover:text-primary font-bold py-1 px-2 rounded w-1/2 dark:text-primary dark:border-border"
               type="submit"
             >
               create new folder

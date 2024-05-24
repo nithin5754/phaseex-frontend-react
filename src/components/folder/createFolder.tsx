@@ -144,7 +144,7 @@ export function FolderForm({ handleClose, spaceId }: Props) {
             </>
           ) : (
             <Button
-              className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 "
+              className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 dark:text-primary dark:border-border "
               type="submit"
             >
               create new folder

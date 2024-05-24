@@ -27,7 +27,7 @@ const sidebarItems: SideBarItemsType = {
       </SideBarButton>
       <OpenModal title={"create galaxy"} icon={PlusCircleIcon} />
       {/* <Link to={'/space/create'}>
-     <SideBarButton icon={PlusCircleIcon} className="w-full bg-slate-700 text-white">
+     <SideBarButton icon={PlusCircleIcon} className="w-full bg-slate-700 text-primary">
               create new galaxy
            </SideBarButton>
      </Link> */}
@@ -47,7 +47,7 @@ const SideBar = () => {
   });
 
   if (isDesktop) {
-    return <SideBarDesktop sidebarItems={sidebarItems} />;
+    return <SideBarDesktop sidebarItems={sidebarItems}  />;
   }
 
   return <SideBarMobile sidebarItems={sidebarItems} />;

@@ -42,23 +42,23 @@ interface OpenModalProps{
   return (
     <Credenza open={open} onOpenChange={setOpen} >
       <CredenzaTrigger asChild>
-        <Button   className='items-center gap-2 bg-transparent hover:bg-transparent justify-center text-slate-600'
+      <Button   className='w-[100px] font-sfpro text-sm items-center gap-2 justify-center text-primary dark:text-primary dark:bg-input'
      >{title} <span>{Icon &&<Icon size={20}/>} </span></Button>
       </CredenzaTrigger>
       <CredenzaContent  >
         <CredenzaHeader>
-          <CredenzaTitle>Edit Folder </CredenzaTitle>
-          <CredenzaDescription>
+          <CredenzaTitle className="dark:text-primary  dark:bg-background">Edit Folder </CredenzaTitle>
+          <CredenzaDescription className="dark:text-primary dark:bg-background">
          We are creating a dedicated space for your project within our tool signifies the inception of a strategic journey towards achieving your objectives
           </CredenzaDescription>
         </CredenzaHeader>
 
-        <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
+        <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left dark:text-primary">
         <EditFolder handleClose={handleClose} spaceId={spaceId}/>
         </CredenzaBody>
         <CredenzaFooter>
           <CredenzaClose asChild>
-            <Button variant="outline" onClick={handleClose}>Close</Button>
+            <Button className="dark:text-primary" variant="outline" onClick={handleClose}>Close</Button>
           </CredenzaClose>
         </CredenzaFooter>
       </CredenzaContent>

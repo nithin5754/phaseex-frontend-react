@@ -13,6 +13,7 @@ import {
 } from "@/app/slice/workspaceSlice";
 
 import { useEffect, useState } from "react";
+import { SpaceSkelton } from "../../components/shimmer/index";
 
 
 const ViewSpace = () => {
@@ -57,7 +58,11 @@ const ViewSpace = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const { data:getInactive } = useGetInActiveSpaceCountQuery();
+  const { data:getInactive } = useGetInActiveSpaceCountQuery(undefined, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   useEffect(() => {
     if (getInactive&&getInactive?.count) {
@@ -92,7 +97,7 @@ const ViewSpace = () => {
 
 
 
-  if (isLoading) return <h1>loading.....</h1>;
+  if (isLoading) return <SpaceSkelton/>
 
   return (
     <>

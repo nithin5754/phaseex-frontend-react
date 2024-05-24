@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom"
 
 const MainLayout = () => {
   return (
-    <main className="flex">
+    <main className="flex dark:bg-background min-h-screen dark:text-white dark:border-border">
     <div className="w-0 sm:w-[20%]">
     <SideBar/> 
     </div>

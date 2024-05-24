@@ -92,7 +92,7 @@ export function WorkspaceForm({ handleClose }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5 m-auto  ">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5 m-auto dark:text-primary ">
         <FormField
           control={form.control}
           name="workspace_name"
@@ -123,7 +123,7 @@ export function WorkspaceForm({ handleClose }: Props) {
 
    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{position}  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> </Button>
+        <Button variant="outline" className="dark:bg-background dark:hover:bg-secondary dark:border-border dark:border dark:text-primary">{position}  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0  opacity-50 " /> </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Type of the work space</DropdownMenuLabel>
@@ -141,7 +141,7 @@ export function WorkspaceForm({ handleClose }: Props) {
 
 
 <div className="w-full flex justify-center">
-<Button className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 " type="submit">
+<Button className="bg-transparent  hover:bg-slate-800 text-black border-slate-200 border hover:text-white dark:hover:bg-secondary hover:transition-colors font-bold py-1 px-2 rounded w-1/2 dark:border-border dark:text-primary  " type="submit">
  create
 </Button>
 

@@ -9,7 +9,7 @@ import {
   RequireAuth,
 } from "./features/auth/index";
 import {
-  CreateSpace,
+
   HomePage,
   SingleWorkSpace,
   ViewSpace,
@@ -50,8 +50,6 @@ function App() {
 
               <Route path="space">
                 <Route index element={<ViewSpace />} />
-                <Route path="create" element={<CreateSpace />} />
-
                 <Route path=":id" element={<SpaceLayout />}>
                   <Route index element={<SingleWorkSpace />} />
                   <Route path="folders">

@@ -5,12 +5,13 @@ import SideBarButton from "./SideBar-btb";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import {  LogOut, MoreHorizontal, Settings ,X as CloseButton } from "lucide-react";
+import {LogOut, MoreHorizontal, Settings ,X as CloseButton } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useEffect, useState } from "react";
-import { useGetNameQuery, useSendLogOutMutation } from "@/app/api/AuthApi";
+import {useEffect, useState } from "react";
+import {useSendLogOutMutation } from "@/app/api/AuthApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { ModeToggle } from "../mode-toggle";
 
 
 
@@ -65,7 +66,7 @@ const userName=useSelector(selectCurrentUserName)
 
 
   return (
-   <aside  className={`${isClose ? 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r hidden' : 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r block'}`}>
+   <aside  className={`${isClose ? 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r hidden' : 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border'}`}>
          <div className='h-full px-3 py-4'>
           <div className="flex justify-between m-auto">
           <h3 className='mx-3 text-lg font-semibold text-foreground'>Phaseex</h3>
@@ -110,13 +111,13 @@ const userName=useSelector(selectCurrentUserName)
                   </div>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className='mb-2 w-56 p-3 rounded-[1rem]'>
+              <PopoverContent className='mb-6 w-56 p-3 rounded-lg'>
                 <div className='space-y-1'>
-                  <Link to='/'>
+             
                     <SideBarButton size='sm' icon={Settings} className='w-full'>
-                      Account Settings
+                    <ModeToggle />
                     </SideBarButton>
-                  </Link>
+              
                   <SideBarButton onClick={handleLogOut} size='sm' icon={LogOut} className='w-full'>
                     Log Out
                   </SideBarButton>

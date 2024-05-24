@@ -167,7 +167,7 @@ if(token){
               <FormControl>
                 <Input
                   type="text"
-                  className="text-black"
+                  className="text-white dark:text-primary"
                   placeholder="eg: nithin joji"
                   {...field}
                 />
@@ -188,7 +188,7 @@ if(token){
                 <Input
                   type="text"
                   placeholder="example@gmail.com"
-                  className="text-black"
+                  className="text-white dark:text-primary"
                   {...field}
                 />
               </FormControl>
@@ -208,7 +208,7 @@ if(token){
                 <Input
                   type="password"
                   placeholder="enter new password"
-                  className="text-black"
+                  className="text-white dark:text-primary"
                   {...field}
                 />
               </FormControl>
@@ -232,7 +232,7 @@ if(token){
                 <Input
                   type="password"
                   placeholder="enter confirm password"
-                  className="text-black"
+                  className="text-white dark:text-primary"
                   {...field}
                 />
               </FormControl>

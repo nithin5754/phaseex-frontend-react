@@ -1,9 +1,9 @@
 
-
+import { ThreeDCardDemo } from "../../components/aceternityuI/index";
 
 const List = () => {
   return (
-    <div>List</div>
+   <ThreeDCardDemo/>
   )
 }
 export default List

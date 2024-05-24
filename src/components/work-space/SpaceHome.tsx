@@ -2,9 +2,9 @@ import { LottieAnimation } from "../lootie/Lootie";
 
 import emptyLootieWorkSpace from "../../../public/json/empty-space-1.json";
 import { ResponseWorkspaceDataType } from "@/app/api/spaceApi";
-import { HiddenSpace, OnGoingSideBar } from "./index";
+import { OnGoingSideBar } from "./index";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { WorkSpaceFolderList } from "../../components/folder/index";
 
 interface Props {
   allSpaces: ResponseWorkspaceDataType[] | [];
@@ -24,7 +24,7 @@ const SpaceHome = ({
   totalPages,
 }: Props) => {
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
+    <div className="min-h-screen flex flex-col lg:flex-row dark:bg-background dark:text-primary dark:border-border ">
       <div className="flex-1 p-4 lg:order-1 ">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-sfpro ">All Galaxy</h1>
@@ -34,18 +34,12 @@ const SpaceHome = ({
         </div>
 
         {allSpaces.length > 0 && !allSpaces.every((space) => space.active) ? (
-          <div className="flex flex-wrap gap-2 m-auto justify-around items-center py-4 min-h-[350px] bg-white border border-gray-200 rounded-lg ">
-            {allSpaces.map((space) => {
-              return (
-                <HiddenSpace
-                  space={space}
-                  handleHideSubmit={handleHideSubmit}
-                />
-              );
-            })}
-          </div>
+      
+          <>
+          <WorkSpaceFolderList hiddenProjects={allSpaces} handleHideSubmit={handleHideSubmit } />
+           </>
         ) : (
-          <div className="flex items-center justify-center bg-white border border-gray-200 rounded-lg h-[500px]">
+          <div className="flex items-center justify-center bg-white border border-gray-200 rounded-lg  min-h-screen dark:bg-background dark:text-primary dark:border-border">
             <div className="text-center">
         
               <LottieAnimation
@@ -57,10 +51,11 @@ const SpaceHome = ({
                 All Galaxy completed, joined, hidden
               </p>
             </div>
+            
           </div>
         )}
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center dark:bg-background dark:text-primary dark:border-border">
           {allSpaces.length > 0 &&
             !allSpaces.every((space) => space.active) && (
               <div className="pagination flex items-center space-x-2">

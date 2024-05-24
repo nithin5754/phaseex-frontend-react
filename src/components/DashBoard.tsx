@@ -1,9 +1,4 @@
 
-
-import { useGetDashBoardQuery, useGetTestingQuery } from "@/app/api/AuthApi"
-
-
-import { useEffect } from "react"
 import { Link } from "react-router-dom"
 
 
