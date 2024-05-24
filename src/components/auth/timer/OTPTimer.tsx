@@ -1,7 +1,7 @@
 
 
-import { useFetchTimerDateMutation, useResendOtpMutation } from '@/app/api/UserApi';
-import { useAppDispatch } from '@/app/api/store';
+import { useFetchTimerDateMutation, useResendOtpMutation } from '@/app/redux/api/UserApi';
+import { useAppDispatch } from '@/app/redux/api/store';
 import React, { useState, useEffect, useCallback } from 'react';
 import Countdown from 'react-countdown';
 

@@ -16,8 +16,8 @@ import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "@/app/api/AuthApi";
-import { useAppDispatch } from "@/app/api/store";
+import { useLoginMutation } from "@/app/redux/api/AuthApi";
+import { useAppDispatch } from "@/app/redux/api/store";
 import { selectCurrentToken, setCredentials, setUserName } from "@/features/auth/authSlice";
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";

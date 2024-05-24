@@ -1,8 +1,8 @@
-import { useGetSingleWorkSpaceQuery } from "@/app/api/spaceApi";
+import { useGetSingleWorkSpaceQuery } from "@/app/redux/api/spaceApi";
 import { useParams } from "react-router-dom";
 import { EarthIcon, Lock, Plus } from "lucide-react";
 import { OpenModal } from "../modal/FolderModal";
-import { useGetAllFolderQuery } from "@/app/api/FolderApi";
+import { useGetAllFolderQuery } from "@/app/redux/api/FolderApi";
 import { WorkSpaceFolder } from "../folder/index";
 import { ListWorkSpace } from "../list/index";
 import { SpaceViewALLskelton } from "../shimmer/index";

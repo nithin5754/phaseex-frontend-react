@@ -19,7 +19,7 @@ import React from "react";
 
 import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
-import { FolderDataType, useOnCreateFolderMutation } from "@/app/api/FolderApi";
+import { FolderDataType, useOnCreateFolderMutation } from "@/app/redux/api/FolderApi";
 import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({

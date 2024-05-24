@@ -1,5 +1,5 @@
-import { apiSlice } from "@/app/api/apiSlice";
-import { logOut, setCredentials } from "../../features/auth/authSlice";
+import { apiSlice } from "@/app/redux/api/apiSlice";
+import { logOut, setCredentials } from "../../../features/auth/authSlice";
 
 export interface User {
   _id?: string;

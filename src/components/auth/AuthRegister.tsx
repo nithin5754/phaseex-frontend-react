@@ -21,9 +21,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 import { toast } from "../ui/use-toast";
-import { useRegisterMutation } from "@/app/api/UserApi";
-import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/slice/userSlice";
-import { useAppDispatch } from "@/app/api/store";
+import { useRegisterMutation } from "@/app/redux/api/UserApi";
+import { resetOrUpdateAuthId, resetOrUpdateTimer } from "@/app/redux/slice/userSlice";
+import { useAppDispatch } from "@/app/redux/api/store";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "@/features/auth/authSlice";
 

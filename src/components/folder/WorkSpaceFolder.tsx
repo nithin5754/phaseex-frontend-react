@@ -3,7 +3,7 @@ import { OpenModal } from "../modal/FolderModal"
 import { Link, useParams } from "react-router-dom"
 import { LottieAnimation } from "../lootie/Lootie"
 import EmptyFolder from '../../../public/json/empty-folder-1.json'
-import { ResponseFolderDataType } from "@/app/api/FolderApi"
+import { ResponseFolderDataType } from "@/app/redux/api/FolderApi"
 import { ModeToggle } from "../mode-toggle"
 import { WorkSpaceFolderList } from "./index"
 

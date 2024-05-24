@@ -1,4 +1,4 @@
-import { useGetAllFolderQuery } from "@/app/api/FolderApi";
+import { useGetAllFolderQuery } from "@/app/redux/api/FolderApi";
 import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
 import emptyFolder from "../../../public/json/empty-folder-1.json";

@@ -2,15 +2,15 @@ import {
   useGetAllSpacesQuery,
   useGetInActiveSpaceCountQuery,
   useGetOnGoingSpacesQuery,
-} from "@/app/api/spaceApi";
+} from "@/app/redux/api/spaceApi";
 import { SpaceHome } from "../../components/work-space/index";
 
-import { useChangeVisiblityMutation } from "@/app/api/spaceApi";
-import { useAppDispatch } from "@/app/api/store";
+import { useChangeVisiblityMutation } from "@/app/redux/api/spaceApi";
+import { useAppDispatch } from "@/app/redux/api/store";
 import {
   addAllspaces,
   changeVisibliltySpace,
-} from "@/app/slice/workspaceSlice";
+} from "@/app/redux/slice/workspaceSlice";
 
 import { useEffect, useState } from "react";
 import { SpaceSkelton } from "../../components/shimmer/index";

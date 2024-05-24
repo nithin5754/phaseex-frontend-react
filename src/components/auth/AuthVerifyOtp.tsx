@@ -17,7 +17,7 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 
 
 import OTPTimer from "./timer/OTPTimer";
-import { useVerifyUserMutation } from "@/app/api/UserApi";
+import { useVerifyUserMutation } from "@/app/redux/api/UserApi";
 import { toast } from "../ui/use-toast";
 
 

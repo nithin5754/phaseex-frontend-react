@@ -9,7 +9,7 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import { useForgotPasswordOtpMutation } from "@/app/api/AuthApi";
+import { useForgotPasswordOtpMutation } from "@/app/redux/api/AuthApi";
 import { toast } from "@/components/ui/use-toast";
 
  

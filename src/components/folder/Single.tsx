@@ -1,4 +1,4 @@
-import { useGetSingleFolderQuery } from "@/app/api/FolderApi";
+import { useGetSingleFolderQuery } from "@/app/redux/api/FolderApi";
 
 import { useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";

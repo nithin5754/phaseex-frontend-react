@@ -1,4 +1,4 @@
-import { useGetDashBoardQuery } from "@/app/api/AuthApi"
+import { useGetDashBoardQuery } from "@/app/redux/api/AuthApi"
 import { Link } from "react-router-dom"
 
 

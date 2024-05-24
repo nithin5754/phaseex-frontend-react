@@ -19,7 +19,7 @@ import { Textarea } from "../ui/textarea";
 
 import { toast } from "../ui/use-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { FolderDataType, useGetSingleFolderQuery, useOnCreateFolderMutation, useOnEditFolderMutation } from "@/app/api/FolderApi";
+import { FolderDataType, useGetSingleFolderQuery, useOnCreateFolderMutation, useOnEditFolderMutation } from "@/app/redux/api/FolderApi";
 import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({

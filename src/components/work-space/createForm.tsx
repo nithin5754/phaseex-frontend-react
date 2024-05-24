@@ -18,7 +18,7 @@ import { Textarea } from "../ui/textarea"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import React from "react"
 import { ChevronsUpDown } from "lucide-react"
-import { SpaceDataType, useCreateSpaceMutation } from "@/app/api/spaceApi"
+import { SpaceDataType, useCreateSpaceMutation } from "@/app/redux/api/spaceApi"
 import { toast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
 

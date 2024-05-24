@@ -1,7 +1,7 @@
 
 
 // src/app/api/authSlice.ts
-import { ResponseWorkspaceDataType } from '@/app/api/spaceApi';
+import { ResponseWorkspaceDataType } from '@/app/redux/api/spaceApi';
 
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 

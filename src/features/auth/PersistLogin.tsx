@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./authSlice";
 import usePersist from "@/hooks/usePersist";
-import { useRefreshMutation } from "@/app/api/AuthApi";
+import { useRefreshMutation } from "@/app/redux/api/AuthApi";
 
 const PersistLogin = () => {
   const [persist] = usePersist();

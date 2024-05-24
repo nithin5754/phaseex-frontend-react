@@ -1,7 +1,7 @@
 import { LottieAnimation } from "../lootie/Lootie";
 
 import emptyLootieWorkSpace from "../../../public/json/empty-space-1.json";
-import { ResponseWorkspaceDataType } from "@/app/api/spaceApi";
+import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
 import { OnGoingSideBar } from "./index";
 import { Button } from "../ui/button";
 import { WorkSpaceFolderList } from "../../components/folder/index";

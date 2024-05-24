@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../../features/auth/authSlice'
+import authReducer from '../../../features/auth/authSlice'
 import { apiSlice } from './apiSlice'
 import { useDispatch } from 'react-redux'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import userReducer from '../slice/userSlice'
-import workSpaceReducer  from '@/app/slice/workspaceSlice'
+import workSpaceReducer  from '@/app/redux/slice/workspaceSlice'
 
 // ...
 

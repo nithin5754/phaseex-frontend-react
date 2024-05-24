@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {LogOut, MoreHorizontal, Settings ,X as CloseButton } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {useEffect, useState } from "react";
-import {useSendLogOutMutation } from "@/app/api/AuthApi";
+import {useSendLogOutMutation } from "@/app/redux/api/AuthApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { ModeToggle } from "../mode-toggle";

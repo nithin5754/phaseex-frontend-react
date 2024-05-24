@@ -1,4 +1,4 @@
-import { ResponseWorkspaceDataType } from "@/app/api/spaceApi";
+import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
 import { EyeOff } from "lucide-react";
 import EmptyBoxLottie from '../../../public/json/emptyBox.json'
 import { LottieAnimation } from "../lootie/Lootie";

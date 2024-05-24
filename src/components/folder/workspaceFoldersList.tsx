@@ -1,4 +1,4 @@
-import { ResponseWorkspaceDataType } from "@/app/api/spaceApi";
+import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
 import { HoverEffect } from "../aceternityuI/index";
 
 
