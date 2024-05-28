@@ -1,5 +1,4 @@
 import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
-import { EyeOff } from "lucide-react";
 import EmptyBoxLottie from '../../../public/json/emptyBox.json'
 import { LottieAnimation } from "../lootie/Lootie";
 import { Link } from "react-router-dom";
@@ -9,7 +8,6 @@ interface Props {
   getOnGoingSpace: ResponseWorkspaceDataType[] | [];
   handleHideSubmit: (id: string) => Promise<any>; 
 }
-
 
 
 

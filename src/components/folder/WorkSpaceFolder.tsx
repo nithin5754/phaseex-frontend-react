@@ -5,13 +5,12 @@ import { LottieAnimation } from "../lootie/Lootie"
 import EmptyFolder from '../../../public/json/empty-folder-1.json'
 import { ResponseFolderDataType } from "@/app/redux/api/FolderApi"
 import { ModeToggle } from "../mode-toggle"
-import { WorkSpaceFolderList } from "./index"
+
 
 interface Props {
   getAllFolder:ResponseFolderDataType[],
   
 }
-
 const WorkSpaceFolder = ({getAllFolder}:Props) => {
   const { id } = useParams();
 

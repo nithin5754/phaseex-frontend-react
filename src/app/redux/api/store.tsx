@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import userReducer from '../slice/userSlice'
 import workSpaceReducer  from '@/app/redux/slice/workspaceSlice'
+import listSliceReducer from '../slice/listSlice'
 
 // ...
 
@@ -13,7 +14,8 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
     user:userReducer,
-    workspace:workSpaceReducer
+    workspace:workSpaceReducer,
+    lists:listSliceReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(apiSlice.middleware),

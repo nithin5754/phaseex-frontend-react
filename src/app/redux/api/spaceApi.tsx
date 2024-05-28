@@ -25,6 +25,8 @@ export interface SpaceDataType {
   workspaceType: string;
 }
 
+
+
 export const workApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createSpace: builder.mutation<any, SpaceDataType>({
@@ -34,7 +36,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
       invalidatesTags: ["Workspace"],
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           let pageId: string = "1";
@@ -49,14 +51,14 @@ export const workApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/space/allInactive-workspace",
         validateStatus: (response, result) => {
-          console.log(result,"hello",response,"resposne");
+          console.log(result,"hello",response,"response");
           
           return response.status === 200 &&!result.isError;
         },
         
       }),
  
-      
+    
     }),
 
 
@@ -66,13 +68,10 @@ export const workApiSlice = apiSlice.injectEndpoints({
         url: `/space/workspacedetails/${id}`,
         validateStatus: (response, result) => {
           console.log(result,"hello",response,"response");
-          
+            
           return response.status === 200 &&!result.isError;
         },
-      
-        
       }),
-      
     }),
     
     getAllSpaces: builder.query<ResponseWorkspaceDataType[], string>({
@@ -82,7 +81,8 @@ export const workApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-  
+
+
 
       providesTags: ["Workspace"],
     }),

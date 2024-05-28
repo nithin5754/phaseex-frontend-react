@@ -5,6 +5,7 @@
  import { EditFolder } from "./EditFolder";
  import WorkSpaceFolder from "./WorkSpaceFolder";
  import { WorkSpaceFolderList } from "./workspaceFoldersList";
+ import FolderDetails from "./FolderDetails";
 
 
  export {
@@ -12,5 +13,6 @@
   Single,
   EditFolder,
   WorkSpaceFolder,
-  WorkSpaceFolderList
+  WorkSpaceFolderList,
+  FolderDetails
  }

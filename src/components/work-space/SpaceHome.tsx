@@ -5,6 +5,7 @@ import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
 import { OnGoingSideBar } from "./index";
 import { Button } from "../ui/button";
 import { WorkSpaceFolderList } from "../../components/folder/index";
+import ReactPaginate from 'react-paginate';
 
 interface Props {
   allSpaces: ResponseWorkspaceDataType[] | [];
@@ -23,6 +24,9 @@ const SpaceHome = ({
   setCurrentPage,
   totalPages,
 }: Props) => {
+
+
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row dark:bg-background dark:text-primary dark:border-border ">
       <div className="flex-1 p-4 lg:order-1 ">
@@ -55,6 +59,7 @@ const SpaceHome = ({
           </div>
         )}
 
+ 
         <div className="flex items-center justify-center dark:bg-background dark:text-primary dark:border-border">
           {allSpaces.length > 0 &&
             !allSpaces.every((space) => space.active) && (
@@ -77,7 +82,16 @@ const SpaceHome = ({
               </div>
             )}
         </div>
+        <ReactPaginate
+        pageCount={totalPages}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={2}
+        onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+        containerClassName={"pagination"}
+        activeClassName={"active"}
+      />
       </div>
+
 
       <OnGoingSideBar
         getOnGoingSpace={getOnGoingSpace ? getOnGoingSpace : []}

@@ -48,7 +48,7 @@ export const folderApiSlice = apiSlice.injectEndpoints({
    
 
     getAllFolder: builder.query<ResponseFolderDataType[], string>({
-      query: (workspaceId: string) => ({
+      query: (workspaceId) => ({
         url: `/folder/get-folder/${workspaceId}`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;

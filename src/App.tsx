@@ -54,10 +54,12 @@ function App() {
                   <Route index element={<SingleWorkSpace />} />
                   <Route path="folders">
                     <Route index element={<FolderView />} />
-                    <Route path=":folderId" element={<SingleFolder />} />
+                    <Route path=":folderId" element={<SingleFolder />}>
+                     <Route path="lists" element={<ListView />} />
+
+                    </Route>
                   </Route>
 
-                  <Route path="lists" element={<ListView />} />
                   <Route path="resources" element={<ResourceView />} />
                 </Route>
               </Route>
