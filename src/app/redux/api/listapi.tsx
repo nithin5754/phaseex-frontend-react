@@ -92,7 +92,25 @@ export const listApiSlice = apiSlice.injectEndpoints({
 
       providesTags: ["ListSpace"],
     }),
-    // /:listId
+
+
+    getSingleList: builder.query<
+    ResponseListDataType,
+    { workspaceId: string; folderId: string,listId:string }
+  >({
+    query: ({ workspaceId, folderId,listId }) => ({
+      url: `/list/get-single-list?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}`,
+      validateStatus: (
+        response: { status: number },
+        result: { isError: any }
+      ) => {
+        return response.status === 200 && !result.isError;
+      },
+    }),
+
+    providesTags: ["ListSpace"],
+  }),
+
 
     getAllListByPage: builder.query<
       ListDataTypePage,
@@ -118,5 +136,6 @@ export const {
   useGetAllListQuery,
   useGetAllListByPageQuery,
   useOnUpdatePriorityListMutation,
-  useOnUpdateDateListMutation
+  useOnUpdateDateListMutation,
+  useGetSingleListQuery
 } = listApiSlice;

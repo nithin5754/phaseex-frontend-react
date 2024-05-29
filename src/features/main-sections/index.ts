@@ -7,6 +7,8 @@ import ListView from "./ListView";
 import ResourceView from "./ResourceView";
 import SingleFolder from "./SingleFolder";
 
+import ListFolderView from "./ListFolderView";
+import SingleListFolderView from "./SingleListFolderView";
 
 
 
@@ -18,6 +20,8 @@ export {
   FolderView,
   ListView,
   ResourceView,
-  SingleFolder
+  SingleFolder,
+  ListFolderView,
+  SingleListFolderView
  
 }

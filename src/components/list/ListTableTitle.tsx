@@ -10,13 +10,17 @@ const ListTableTitle = () => {
         Name
       </th>
       <th className="px-5 py-3 border-b dark:border-border border-gray-200 text-left text-xs font-sfpro text-gray-600 dark:text-primary uppercase tracking-wider">
-        Description
+       progress
       </th>
       <th className="px-5 py-3 border-b dark:border-border border-gray-200 text-left text-xs font-sfpro text-gray-600 dark:text-primary uppercase tracking-wider">
-        assignee
+        owner
       </th>
       <th className="px-5 py-3 border-b dark:border-border border-gray-200 text-left text-xs font-sfpro text-gray-600 dark:text-primary uppercase tracking-wider">
         Start/Due Date
+      </th>
+
+      <th className="px-5 py-3 border-b dark:border-border border-gray-200 text-left text-xs font-sfpro text-gray-600 dark:text-primary uppercase tracking-wider">
+      Due
       </th>
  
       <th className="px-5 py-3 border-b dark:border-border border-gray-200 text-left text-xs font-sfpro text-gray-600 dark:text-primary uppercase tracking-wider">

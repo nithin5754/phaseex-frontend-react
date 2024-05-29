@@ -32,7 +32,7 @@ const Single = () => {
   );
 
   return (
-    <div className="flex flex-col w-full p-6 m-auto ">
+    <div className="flex flex-col w-full p-6 m-auto font-sfpro ">
       <FolderDetails id={id} folderId={folderId} />
 
       <div className="bg-white my-[14px]  border rounded-lg h-[450px]  overflow-hidden dark:bg-background dark:text-primary dark:border-border">

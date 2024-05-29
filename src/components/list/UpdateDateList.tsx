@@ -119,7 +119,7 @@ export function UpdateDateList({
   };
 
   return (
-    <div className={cn("grid gap-2  ", className)}>
+    <div className={cn("grid gap-2 font-sfpro ", className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <CalendarDaysIcon className="ml-2 h-4 w-4 shrink-0  opacity-50 " />
@@ -134,6 +134,7 @@ export function UpdateDateList({
             numberOfMonths={2}
           />
           <div className="flex gap-2 items-center justify-center mb-4">
+          <Button className=" p-2 font-sfpro" onClick={handleClose}>close</Button>
             <Button
               id="date"
               variant={"outline"}
@@ -153,9 +154,10 @@ export function UpdateDateList({
                   format(date.from, "LLL dd, y")
                 )
               ) : (
-                <span>Pick a date</span>
+                <span className="">Pick a date</span>
               )}
             </Button>
+
             <Button onClick={handleSubmit}>save</Button>
           </div>
         </PopoverContent>

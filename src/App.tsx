@@ -9,7 +9,6 @@ import {
   RequireAuth,
 } from "./features/auth/index";
 import {
-
   HomePage,
   SingleWorkSpace,
   ViewSpace,
@@ -17,6 +16,8 @@ import {
   ListView,
   ResourceView,
   SingleFolder,
+  ListFolderView,
+  SingleListFolderView,
 } from "./features/main-sections/index";
 
 import DashBoard from "./components/DashBoard";
@@ -54,12 +55,18 @@ function App() {
                   <Route index element={<SingleWorkSpace />} />
                   <Route path="folders">
                     <Route index element={<FolderView />} />
-                    <Route path=":folderId" element={<SingleFolder />}>
-                     <Route path="lists" element={<ListView />} />
-
+                    <Route path=":folderId">
+                      <Route index element={<SingleFolder />} />
+                      <Route path="lists">
+                        <Route index element={<ListFolderView />} />
+                        <Route
+                          path=":listId"
+                          element={<SingleListFolderView />}
+                        />
+                      </Route>
                     </Route>
                   </Route>
-
+                  {/* <Route path="lists" element={<ListView />} /> */}
                   <Route path="resources" element={<ResourceView />} />
                 </Route>
               </Route>

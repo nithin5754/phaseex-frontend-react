@@ -18,7 +18,7 @@ import { Textarea } from "../ui/textarea";
 
 import { toast } from "../ui/use-toast";
 import { ChevronsUpDown, Loader2 } from "lucide-react";
-import { SendListData, useOnCreateListMutation } from "@/app/redux/api/listapi";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,57 +29,66 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import React from "react";
-import { ListDatePicker } from "./index";
+import { TaskDatePickerRange } from "./index";
 import { useSelector } from "react-redux";
-import { selectListDate } from "@/app/redux/slice/listSlice";
+
+import { selectTaskDate, setDateTaskPickerNull } from "@/app/redux/slice/taskSlice";
+import { SendTaskType } from "@/features/types";
+import { useOnCreateTaskMutation } from "@/app/redux/api/taskapi";
+import { useAppDispatch } from "@/app/redux/api/store";
 
 
 const FormSchema = z.object({
-  list_title: z.string().min(2, {
-    message: "list name must be at least 4 characters.",
+  task_title: z.string().min(2, {
+    message: "task name must be at least 4 characters.",
   }),
-  list_description: z.string().min(2, {
+  task_description: z.string().min(2, {
     message: "description must be at least 4 characters.",
   }),
 });
 
 interface Props {
   handleClose: () => void;
-  spaceId: string;
+  workspaceId: string;
   folderId: string;
+  listId:string
 }
 
-export function ListForm({ handleClose, spaceId, folderId }: Props) {
+export function CreateForm({ handleClose, workspaceId, folderId,listId }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      list_title: "",
-      list_description: "",
+      task_title: "",
+      task_description: "",
     },
   });
-
-  const [listPosition, setListPosition] = React.useState("low");
-  const [onCreateList, { isLoading: listLoading }] = useOnCreateListMutation();
- const listDatePicker=useSelector(selectListDate)
+const dispatch=useAppDispatch()
+  const [taskPriority, setTaskPriority] = React.useState("low");
+  const [onCreateTask, { isLoading: taskLoading }] = useOnCreateTaskMutation();
+ const TaskDatePicker=useSelector(selectTaskDate)
+ console.log(TaskDatePicker,"het date");
+ 
+ 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const currentDate = new Date();
     const previousDate = new Date(currentDate.getTime() - 24*60*60*1000);
-    const startDateToDateFormat = moment(listDatePicker.startList, 'MMMM D, YYYY - h:mm a').toDate();
-    const endDateToDateFormat = moment(listDatePicker.dueList, 'MMMM D, YYYY - h:mm a').toDate();
+    const startDateToDateFormat = moment(TaskDatePicker.startList, 'MMMM D, YYYY - h:mm a').toDate();
+    const endDateToDateFormat = moment(TaskDatePicker.dueList, 'MMMM D, YYYY - h:mm a').toDate();
+   
+ let TaskData:SendTaskType={
+   task_title: data.task_title.toLowerCase(),
+   task_description: data.task_description,
+   priority_task: taskPriority,
+   task_start_date: TaskDatePicker.startTask,
+   task_due_date: TaskDatePicker.dueTask,
+   workspaceId,
+   folderId,
+   listId
+ }
+   
+ 
 
-    let listDataSet: SendListData = {
-      workspaceId: spaceId,
-      folderId: folderId,
-      listData: {
-        list_title: data.list_title,
-        list_description: data.list_description,
-        priority_list: listPosition,
-        list_start_date:listDatePicker.startList,
-        list_due_date:listDatePicker.dueList
-      },
-    };
-
-    if (listDataSet) {
+    if (TaskData) {
       try {
           if(startDateToDateFormat < previousDate  ){
             toast({
@@ -94,11 +103,17 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
               variant: "destructive",
             });
           }else{
-            const response = await onCreateList(listDataSet).unwrap();
+            console.log(TaskData,"data set");
+            const response = await onCreateTask(TaskData).unwrap();
 
-            console.log(response, "create new list");
+            dispatch(setDateTaskPickerNull)
+
+          
             if (response.id) {
-              handleClose();
+              handleClose()
+        
+
+
             } else {
               toast({
                 title:
@@ -131,12 +146,12 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
       >
         <FormField
           control={form.control}
-          name="list_title"
+          name="task_title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Enter name of the listr</FormLabel>
+              <FormLabel>Enter name of the task</FormLabel>
               <FormControl>
-                <Input placeholder="eg:list-1" {...field} className="w-full" />
+                <Input placeholder="eg:task-1" {...field} className="w-full" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -145,13 +160,13 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
 
         <FormField
           control={form.control}
-          name="list_description"
+          name="task_description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description about your folder</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="write a description about your list"
+                  placeholder="write a description about your task"
                   {...field}
                   className="w-full"
                 />
@@ -168,7 +183,7 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
                 variant="outline"
                 className="dark:bg-background dark:hover:bg-secondary dark:border-border dark:border dark:text-primary"
               >
-                {listPosition}{" "}
+                {taskPriority}{" "}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0  opacity-50 " />{" "}
               </Button>
             </DropdownMenuTrigger>
@@ -176,8 +191,8 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
               <DropdownMenuLabel>set priority</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
-                value={listPosition}
-                onValueChange={setListPosition}
+                value={taskPriority}
+                onValueChange={setTaskPriority}
               >
                 <DropdownMenuRadioItem value="high">high</DropdownMenuRadioItem>
 
@@ -189,11 +204,11 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <ListDatePicker />
+          <TaskDatePickerRange />
         </div>
 
         <div className="w-full flex justify-center">
-          {listLoading ? (
+          {taskLoading ? (
             <>
               <Button disabled className="w-full ">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -205,7 +220,7 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
               className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 dark:text-primary dark:border-border "
               type="submit"
             >
-              create new list
+              create new task
             </Button>
           )}
         </div>
