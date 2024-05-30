@@ -70,17 +70,11 @@ const dispatch=useAppDispatch()
  
  
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const currentDate = new Date();
-    const previousDate = new Date(currentDate.getTime() - 24*60*60*1000);
-    const startDateToDateFormat = moment(TaskDatePicker.startList, 'MMMM D, YYYY - h:mm a').toDate();
-    const endDateToDateFormat = moment(TaskDatePicker.dueList, 'MMMM D, YYYY - h:mm a').toDate();
    
  let TaskData:SendTaskType={
    task_title: data.task_title.toLowerCase(),
    task_description: data.task_description,
    priority_task: taskPriority,
-   task_start_date: TaskDatePicker.startTask,
-   task_due_date: TaskDatePicker.dueTask,
    workspaceId,
    folderId,
    listId
@@ -90,19 +84,7 @@ const dispatch=useAppDispatch()
 
     if (TaskData) {
       try {
-          if(startDateToDateFormat < previousDate  ){
-            toast({
-              title:
-                "date is not valid ",
-              variant: "destructive",
-            });
-          }else if (endDateToDateFormat < previousDate){
-            toast({
-              title:
-                "date is not valid ",
-              variant: "destructive",
-            });
-          }else{
+     
             console.log(TaskData,"data set");
             const response = await onCreateTask(TaskData).unwrap();
 
@@ -121,7 +103,7 @@ const dispatch=useAppDispatch()
                 variant: "destructive",
               });
             }
-          }
+          
       } catch (error: any) {
         if (!error.status) {
           toast({
@@ -203,8 +185,6 @@ const dispatch=useAppDispatch()
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          <TaskDatePickerRange />
         </div>
 
         <div className="w-full flex justify-center">

@@ -37,9 +37,28 @@ export interface SendTaskType {
   task_title: string;
   task_description: string;
   priority_task: string;
-  task_start_date:string,
-  task_due_date:string,
   workspaceId:string;
   folderId:string;
   listId:string;
+}
+
+
+
+export interface SendPriorityTaskType {
+  priority: string;
+  workspaceId: string;
+  folderId: string;
+  taskId:string;
+  listId: string;
+}
+
+
+
+export interface SendDateTaskType {
+  task_start_date: string;
+  task_due_date:string;
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId:string
 }

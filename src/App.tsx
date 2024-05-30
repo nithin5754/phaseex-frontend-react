@@ -66,7 +66,7 @@ function App() {
                       </Route>
                     </Route>
                   </Route>
-                  {/* <Route path="lists" element={<ListView />} /> */}
+                  <Route path="lists" element={<ListView />} />
                   <Route path="resources" element={<ResourceView />} />
                 </Route>
               </Route>

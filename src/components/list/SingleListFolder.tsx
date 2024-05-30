@@ -10,6 +10,9 @@ import { TaskTable } from "../tasks/index";
     if(!id||!folderId||!listId){
       return <h1>loading....</h1>
     }
+
+
+    
    return (
     <div className="flex flex-col w-full p-6 m-auto font-sfpro ">
         <ListHistory workspaceId={id} folderId={folderId} listId={listId}/>
@@ -20,7 +23,7 @@ import { TaskTable } from "../tasks/index";
           <Plus className="text-slate-500 hover:text-slate-800 dark:text-primary " />
         </div>
         <div className=" py-4">
-         <TaskTable spaceId={id} folderId={folderId} listId={listId}/>
+         <TaskTable spaceId={id} folderId={folderId} listId={listId} />
         </div>
       </div>
       

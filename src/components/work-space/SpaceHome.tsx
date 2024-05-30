@@ -82,14 +82,14 @@ const SpaceHome = ({
               </div>
             )}
         </div>
-        <ReactPaginate
+        {/* <ReactPaginate
         pageCount={totalPages}
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
         onPageChange={({ selected }) => setCurrentPage(selected + 1)}
         containerClassName={"pagination"}
         activeClassName={"active"}
-      />
+      /> */}
       </div>
 
 
