@@ -65,7 +65,7 @@ const FolderDetails = ({id,folderId}:Props) => {
     </div>
 
     <div className="flex items-center flex-1 justify-center bg-white border border-gray-200 rounded-lg h-36 dark:bg-background  dark:text-primary dark:border-border">
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mx-4">
         <Label htmlFor="picture" className="font-sfpro text-md mb-4 ">
           Upload resource for this folder
         </Label>

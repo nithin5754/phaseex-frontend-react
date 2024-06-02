@@ -21,9 +21,7 @@ export interface ResponseTaskType {
   priority_task:string;
   status_task:string;
   task_start_date:string;
-  task_due_date:string;
   task_description:string;
-  task_due:number;
   task_activity:Array<string>;
   task_attachment:ResponseTaskAttachmentType[];
   task_collaborators:ResponseTaskCollaboratorType[];
@@ -53,12 +51,24 @@ export interface SendPriorityTaskType {
 }
 
 
-
-export interface SendDateTaskType {
-  task_start_date: string;
-  task_due_date:string;
+export interface SendStatusTaskType {
+  status: string;
   workspaceId: string;
   folderId: string;
+  taskId:string;
   listId: string;
-  taskId:string
 }
+
+
+
+export interface ResponseTaskCountWiseType 
+  {
+    "to-do": number;
+    "in_progress": number;
+    "complete": number;
+  } 
+
+
+
+
+

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import moment from 'moment'
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,13 +29,12 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import React from "react";
-import { TaskDatePickerRange } from "./index";
-import { useSelector } from "react-redux";
 
-import { selectTaskDate, setDateTaskPickerNull } from "@/app/redux/slice/taskSlice";
+
+
 import { SendTaskType } from "@/features/types";
 import { useOnCreateTaskMutation } from "@/app/redux/api/taskapi";
-import { useAppDispatch } from "@/app/redux/api/store";
+
 
 
 const FormSchema = z.object({
@@ -62,11 +61,10 @@ export function CreateForm({ handleClose, workspaceId, folderId,listId }: Props)
       task_description: "",
     },
   });
-const dispatch=useAppDispatch()
+
   const [taskPriority, setTaskPriority] = React.useState("low");
   const [onCreateTask, { isLoading: taskLoading }] = useOnCreateTaskMutation();
- const TaskDatePicker=useSelector(selectTaskDate)
- console.log(TaskDatePicker,"het date");
+
  
  
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -88,7 +86,7 @@ const dispatch=useAppDispatch()
             console.log(TaskData,"data set");
             const response = await onCreateTask(TaskData).unwrap();
 
-            dispatch(setDateTaskPickerNull)
+      
 
           
             if (response.id) {

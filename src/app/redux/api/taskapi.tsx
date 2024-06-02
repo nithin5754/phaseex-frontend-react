@@ -1,7 +1,7 @@
 import { SendTaskType,ResponseTaskType } from "@/features/types/index";
 import { apiSlice } from "./apiSlice";
-import { SendDateTaskType, SendPriorityTaskType } from "@/features/types/taskType";
-import { useOnUpdatePriorityListMutation } from "./listapi";
+import {  SendPriorityTaskType, SendStatusTaskType } from "@/features/types/taskType";
+
 
  
 
@@ -14,7 +14,7 @@ import { useOnUpdatePriorityListMutation } from "./listapi";
         method: "POST",
         body: { ...credentials },
       }),
-      invalidatesTags: ["TaskSpace"],
+      invalidatesTags: ["TaskSpace","ListSpace"],
     }),
     getAllTask: builder.query<
     ResponseTaskType[],
@@ -28,9 +28,13 @@ import { useOnUpdatePriorityListMutation } from "./listapi";
       ) => {
         return response.status === 200 && !result.isError;
       },
+ 
     }),
+         providesTags: (result, error, { workspaceId, folderId, listId }) => [
+        { type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}` },
+      ],
 
-    providesTags: ["TaskSpace"],
+   
   }),
 
 
@@ -40,17 +44,43 @@ import { useOnUpdatePriorityListMutation } from "./listapi";
       method: "PATCH",
       body: { ...credentials },
     }),
-    invalidatesTags: ["TaskSpace"],
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
+      { type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}` },
+    ],
+    async onQueryStarted({workspaceId, folderId, listId }, { dispatch, queryFulfilled }) {
+      try {
+        await queryFulfilled;
+        dispatch(
+          taskApiSlice.util.invalidateTags([{ type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}` }])
+        );
+      } catch (error) {
+        console.error('Update status failed', error);
+      }
+    },
   }),
 
 
-  onUpdateDateTask: builder.mutation<boolean, SendDateTaskType>({
+  onUpdateStatusTask: builder.mutation<boolean, SendStatusTaskType>({
     query: (credentials) => ({
-      url: `/task/update-date/${credentials.taskId}`,
+      url: `/task/update-task/${credentials.taskId}`,
       method: "PATCH",
       body: { ...credentials },
     }),
-    invalidatesTags: ["TaskSpace"],
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
+      { type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}` },
+      'ListSpace', 
+    ],
+
+    async onQueryStarted({workspaceId, folderId, listId }, { dispatch, queryFulfilled }) {
+      try {
+        await queryFulfilled;
+        dispatch(
+          taskApiSlice.util.invalidateTags([{ type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}` }])
+        );
+      } catch (error) {
+        console.error('Update status failed', error);
+      }
+    },
   }),
 
 
@@ -62,7 +92,9 @@ import { useOnUpdatePriorityListMutation } from "./listapi";
 useOnCreateTaskMutation,
 useGetAllTaskQuery   ,
 useOnUpdatePriorityTaskMutation,
-useOnUpdateDateTaskMutation
+useOnUpdateStatusTaskMutation,
+
+
 
 
 } = taskApiSlice;

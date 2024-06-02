@@ -20,6 +20,7 @@ export interface ResponseListDataType {
   list_description: string;
   workspaceId: string;
   priority_list: string;
+  progressTask:number;
   list_start_date:string,
   list_due_date:string,
   folderId: string;

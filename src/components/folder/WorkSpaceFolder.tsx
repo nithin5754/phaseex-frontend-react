@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { LottieAnimation } from "../lootie/Lootie"
 import EmptyFolder from '../../../public/json/empty-folder-1.json'
 import { ResponseFolderDataType } from "@/app/redux/api/FolderApi"
-import { ModeToggle } from "../mode-toggle"
+
 
 
 interface Props {
@@ -63,7 +63,7 @@ const WorkSpaceFolder = ({getAllFolder}:Props) => {
                 
              ):(
                  <div className="flex items-center w-full justify-center text-center">
-                  <ModeToggle/>
+                
                  
                  <LottieAnimation animationData={EmptyFolder} height={200} width={200}/>
       </div>

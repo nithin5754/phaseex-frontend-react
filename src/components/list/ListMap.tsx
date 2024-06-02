@@ -5,6 +5,7 @@ import useTimeDue from "@/hooks/useTimeDue";
 import { Link } from "react-router-dom";
 
 
+
 interface Props {
   list:ResponseListDataType,
   index:number
@@ -34,7 +35,7 @@ const ListMap = ({list,index,folderId,workspaceId}:Props) => {
      </Link>
   </td>
   <td className="px-5 py-3 text-sm bg-white dark:bg-background">
-    <ListProgressBar/>
+    <ListProgressBar percentage={list.progressTask}/>
   </td>
   <td className="px-5 py-3 text-sm bg-white dark:bg-background">
     list

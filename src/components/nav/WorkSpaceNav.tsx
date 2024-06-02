@@ -24,8 +24,8 @@ const components: { title: string; href: string; description: string }[] = [
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: "resources",
-    href: "/resources",
+    title: "members",
+    href: "/members",
     description: "Visually or semantically separates content.",
   }
 ]
@@ -46,14 +46,14 @@ export function WorkSpaceNav({id}:Props) {
         {
            components.map((component,index)=>{
             return(
-              <>
-   <Link key={index} to={`/space/${id}${component.href}`}>
+              <div key={component.href}>
+   <Link  to={`/space/${id}${component.href}`}>
    <li key={component.title}>
           <h1>{component.title}</h1>
         </li>
    </Link>
 
-              </>
+              </div>
             )
            })
         }

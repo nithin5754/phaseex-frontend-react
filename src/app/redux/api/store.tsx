@@ -7,6 +7,8 @@ import userReducer from '../slice/userSlice'
 import workSpaceReducer  from '@/app/redux/slice/workspaceSlice'
 import listSliceReducer from '../slice/listSlice'
 import taskSliceReducer from '../slice/taskSlice'
+import searchReducer from '../slice/searchSlice'
+
 
 // ...
 
@@ -17,7 +19,8 @@ export const store = configureStore({
     user:userReducer,
     workspace:workSpaceReducer,
     lists:listSliceReducer,
-    tasks:taskSliceReducer
+    tasks:taskSliceReducer,
+    search:searchReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(apiSlice.middleware),

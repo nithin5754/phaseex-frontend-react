@@ -14,7 +14,7 @@ import {
   ViewSpace,
   FolderView,
   ListView,
-  ResourceView,
+
   SingleFolder,
   ListFolderView,
   SingleListFolderView,
@@ -26,6 +26,7 @@ import LandingPage from "./components/LandingPage";
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
+import { SearchPeople } from "./components/memebers/index";
 
 function App() {
   return (
@@ -67,7 +68,7 @@ function App() {
                     </Route>
                   </Route>
                   <Route path="lists" element={<ListView />} />
-                  <Route path="resources" element={<ResourceView />} />
+                  <Route path="members" element={<SearchPeople />} />
                 </Route>
               </Route>
               <Route path="dashboard" element={<DashBoard />} />
@@ -79,7 +80,7 @@ function App() {
         {/* </Route> */}
       </Routes>
     </div>
-  );
+  );  
 }
 
 export default App;

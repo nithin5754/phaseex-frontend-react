@@ -51,6 +51,7 @@ const Single = () => {
                     {getAllList.lists.slice(0, 4).map((list, index) => {
                       return (
                         <ListMap
+                        key={list.id}
                           list={list}
                           index={index}
                           folderId={folderId}

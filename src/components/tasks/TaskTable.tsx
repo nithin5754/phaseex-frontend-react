@@ -1,13 +1,12 @@
-import {  Circle, CirclePlus } from "lucide-react"
+import {  Check, Circle, CirclePlus, Square } from "lucide-react"
 
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "../ui/table"
 
 import {  OpenModal as CreateTaskModal} from "../../components/modal/Task-create-modal";
 import { useGetAllTaskQuery } from "@/app/redux/api/taskapi";
 import PriorityTaskSetting from "./TaskPiroritySetting";
-import moment from "moment";
-import { UpdateDateTask } from "./index";
-import { useGetSingleListQuery } from "@/app/redux/api/listapi";
+import UpdateTaskStatus from "./UpdateTaskStatus";
+
 
 
 
@@ -43,10 +42,9 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
       <TableHeader>
         <TableRow>
           <TableHead ></TableHead>
-          <TableHead className="w-[350px]" >task name</TableHead>
-          <TableHead >assignee</TableHead>
-          <TableHead >due date</TableHead>
-          <TableHead >due</TableHead>
+          <TableHead >name</TableHead>
+          <TableHead className="" >description</TableHead>
+          <TableHead className="w-[300px] items-center text-center">assignee</TableHead>
    
           <TableHead>status</TableHead>
           <TableHead >priority</TableHead>
@@ -54,19 +52,22 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
       </TableHeader>
       <TableBody>
         {getAllTask&&getAllTask.length>0&&getAllTask.map((task) =>{
-            const due_date = moment(task.task_due_date, 'MMMM D, YYYY - h:mm a').toDate();
           return(
             <TableRow key={task.id}>
-                 <TableCell className="font-medium"><Circle className="w-4  flex m-auto"/></TableCell>
+                 <TableCell className="font-medium">
+                  <UpdateTaskStatus taskId={task.id} status={task.status_task}/>
+                 </TableCell>
               <TableCell className="font-medium">{task.task_title}</TableCell>
-              <TableCell>nill</TableCell>
-              <TableCell className="flex"><h4>{task.task_due_date}</h4>
-              <UpdateDateTask start_date={task.task_start_date} due_date={due_date} folderId={folderId} workspaceId={spaceId} taskId={task.id} listId={listId} />
-              </TableCell>
-              <TableCell className="font-medium">
-                {task.task_due}
-              </TableCell>
-              <TableCell>{task.status_task}</TableCell>
+              <TableCell>{task.task_description}</TableCell>
+              <TableCell className="text-center">nill</TableCell>
+              <TableCell className="w-[160px] ">  {task.status_task === 'complete' ? (
+      <div className="flex  ">
+        <Check className="w-[16px] text-green-800 " style={{ strokeWidth: 6 }}/>
+        {task.status_task} 
+      </div>
+    ) : (
+      task.status_task
+    )}</TableCell>
               <TableCell>
                 <PriorityTaskSetting priority={task.priority_task} workspaceId={spaceId} folderId={folderId} taskId={task.id} id={listId}/>
               </TableCell>
