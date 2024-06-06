@@ -12,6 +12,9 @@ import {useSendLogOutMutation } from "@/app/redux/api/AuthApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { ModeToggle } from "../mode-toggle";
+import { useAppDispatch } from "@/app/redux/api/store";
+import { getNotification, notificationOpen } from "@/app/redux/slice/notificationSlice";
+import { useSocket } from "@/app/socketContext";
 
 
 
@@ -24,6 +27,8 @@ const SideBarDesktop = (props:SideBarDesktopProps) => {
  const [isClose,setClose]=useState<boolean>(false)
 const navigate=useNavigate()
 const userName=useSelector(selectCurrentUserName)
+
+
 
 
  const [sendLogOut,
@@ -62,6 +67,19 @@ const userName=useSelector(selectCurrentUserName)
   
   }
 
+  const dispatch=useAppDispatch()
+
+
+  const handleNotificationOpen=()=>{
+    dispatch(notificationOpen(true))
+  }
+
+ 
+
+
+  const {socket}=useSocket()
+
+  
 
 
 
@@ -80,15 +98,43 @@ const userName=useSelector(selectCurrentUserName)
                   console.log(link);
                   
                   return (
-                    <Link key={index} to={link.href}>
-                    <SideBarButton
-                     variant={pathname===link.href?'secondary':'ghost'}
-                     icon={link.icon}
-                     className="w-full"
-                     >
-                         {link.label}
-                    </SideBarButton>
-                </Link>
+              <>
+              {
+                link.label==='inbox'?(
+
+
+                  <>
+                     <Link key={index} to={link.href}>
+                  <SideBarButton 
+                    variant={pathname===link.href?'secondary':'ghost'}
+                    icon={link.icon}
+                    className="w-full"
+                  >
+              {/* {`Inbox ${notificationList&&notificationList.length>0?notificationList.length:''}`} */}
+
+
+                  </SideBarButton>
+                  </Link>
+                  </>
+                ):(
+
+
+              <>
+              <Link key={index} to={link.href}>
+              <SideBarButton
+               variant={pathname===link.href?'secondary':'ghost'}
+               icon={link.icon}
+               className="w-full"
+               >
+                   {link.label}
+              </SideBarButton>
+          </Link>
+              
+              </>
+                )
+              }
+              
+              </>
                   )
                 })
               }

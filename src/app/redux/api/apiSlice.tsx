@@ -52,6 +52,6 @@ export const baseQueryWithReauth: BaseQueryFn<
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Workspace","FolderSpace","ListSpace","TaskSpace","Search"],
+  tagTypes: ["Workspace","FolderSpace","ListSpace","TaskSpace","Search","Notification"],
   endpoints: () => ({}),
 });

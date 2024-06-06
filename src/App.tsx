@@ -18,6 +18,7 @@ import {
   SingleFolder,
   ListFolderView,
   SingleListFolderView,
+  NotificationPage
 } from "./features/main-sections/index";
 
 import DashBoard from "./components/DashBoard";
@@ -27,6 +28,7 @@ import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { SearchPeople } from "./components/memebers/index";
+
 
 function App() {
   return (
@@ -72,7 +74,7 @@ function App() {
                 </Route>
               </Route>
               <Route path="dashboard" element={<DashBoard />} />
-              <Route path="hello" element={<Hello />} />
+              <Route path="hello" element={<NotificationPage />} />
             </Route>
           </Route>
         </Route>

@@ -17,8 +17,8 @@ import { Link } from "react-router-dom";
 const sidebarItems: SideBarItemsType = {
   links: [
     { label: "Home", href: "/homepage", icon: Home },
-    { label: "DashBoard", href: "/dashboard", icon: Bell },
-    { label: "Messages", href: "/hello", icon: Mail },
+    { label: "DashBoard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Inbox", href: "/hello", icon: Bell },
   ],
   extras: (
     <div className="flex flex-col gap-2">

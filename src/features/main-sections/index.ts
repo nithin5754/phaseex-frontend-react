@@ -9,6 +9,7 @@ import SingleFolder from "./SingleFolder";
 
 import ListFolderView from "./ListFolderView";
 import SingleListFolderView from "./SingleListFolderView";
+import NotificationPage from "./NotificationPage";
 
 
 
@@ -22,6 +23,7 @@ export {
   ResourceView,
   SingleFolder,
   ListFolderView,
-  SingleListFolderView
+  SingleListFolderView,
+  NotificationPage
  
 }

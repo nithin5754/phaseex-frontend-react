@@ -1,5 +1,11 @@
 
+import useAuth from "@/hooks/useAuth";
+import { SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
+import { Socket, io } from "socket.io-client";
+import { SearchUser } from "./search";
+import { useSelector } from "react-redux";
+import { getNotification } from "@/app/redux/slice/notificationSlice";
 
 
 
@@ -9,27 +15,16 @@ import { Link } from "react-router-dom"
 
 
 const DashBoard = () => {
-//   const {
-//     data,
-//     isLoading,
-//     isSuccess,
-//     isError,
-//     error
-// }=useGetTestingQuery(undefined,{
-//   pollingInterval:60000,
-//   refetchOnFocus:true,
-//   refetchOnMountOrArgChange:true
-// })
 
 
 
 
-// if(isLoading)return <h1>loading</h1>
-// {error &&<h1>something went wrong</h1>}
 
 
-  // console.log(data,"dashboard data");
-  
+
+
+
+
   return (
 
 
@@ -38,8 +33,10 @@ const DashBoard = () => {
      <Link to={'/hello'}>hello</Link>
      <Link to={'/login'}>login</Link>
 
-    
+        
     <Link to={'/'}>workspace</Link>
+  <div>
+  </div>
       
     </div>
 

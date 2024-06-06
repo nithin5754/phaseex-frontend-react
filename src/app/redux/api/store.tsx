@@ -8,6 +8,8 @@ import workSpaceReducer  from '@/app/redux/slice/workspaceSlice'
 import listSliceReducer from '../slice/listSlice'
 import taskSliceReducer from '../slice/taskSlice'
 import searchReducer from '../slice/searchSlice'
+import notificationReducer from '../slice/notificationSlice'
+import socketReducer from '../slice/socketSlice'
 
 
 // ...
@@ -20,11 +22,16 @@ export const store = configureStore({
     workspace:workSpaceReducer,
     lists:listSliceReducer,
     tasks:taskSliceReducer,
-    search:searchReducer
+    search:searchReducer,
+    notification:notificationReducer,
+    socketSlice:socketReducer
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-devTools: true
+    getDefaultMiddleware(
+      
+    ).concat(apiSlice.middleware),
+devTools: true,
+
 })
 
 setupListeners(store.dispatch)

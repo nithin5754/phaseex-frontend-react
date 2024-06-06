@@ -2,7 +2,26 @@
 import { LottieAnimation } from "@/components/lootie/Lootie"
 import EmptyWokSpace from '../../../public/json/empty-work-1.json'
 import EmptyRecent from '../../../public/json/empty-work-2.json'
+import { useSocket } from "@/app/socketContext";
+import useGreetings from "@/hooks/useGreetings";
+import useAuth from "@/hooks/useAuth";
 const HomePage = () => {
+  const { socket } = useSocket();
+
+  const user=useAuth()
+
+  const greet=useGreetings()
+  console.log(greet,"greetings");
+  
+            if(socket&&user){
+              socket.emit('sendNotification', {
+                senderName: user?.userId,
+                receiverName: user?.userId,
+                type:"greet",
+                name: '',
+                message: `${user?.userId} ${greet}`,
+              });
+            }
   return (
 <>
 

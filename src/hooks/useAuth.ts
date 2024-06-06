@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import {  jwtDecode,JwtPayload } from 'jwt-decode';;
+import {  jwtDecode,JwtPayload } from 'jwt-decode';import { useSelector } from 'react-redux';
+import { selectCurrentToken } from '@/features/auth/authSlice';
+;
 
 
 
@@ -11,24 +13,33 @@ interface DecodedToken {
 
 
 }
-let token="12345545"
+
 const useAuth = () => {
+
+  const currentToken=useSelector(selectCurrentToken)
 
   const [user, setUser] = useState<DecodedToken | null>(null);
 
   useEffect(() => {
-    if (token) {
-      const decodedToken = jwtDecode<JwtPayload>(token);
-       if(decodedToken){
-        const decodedTokenAsDecodedToken = decodedToken as DecodedToken;
-      setUser(decodedTokenAsDecodedToken);
-       }
+    if (currentToken) {
+      try {
+        const decodedToken = jwtDecode<DecodedToken>(currentToken);
+        setUser(decodedToken);
+      } catch (error) {
+        console.error('Failed to decode token', error);
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
-  }, [token]);
+  }, [currentToken]);
 
-  console.log(user,"use-auth");
   
-  return user;
+    if(user){
+      return user;
+    }
+
+    return null
 }
 
 

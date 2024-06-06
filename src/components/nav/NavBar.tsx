@@ -49,6 +49,9 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 export function NabBar() {
+
+
+  
   return (
 
 <nav className="bg-white  border-gray-200 dark:bg-background dark:text-white ">
