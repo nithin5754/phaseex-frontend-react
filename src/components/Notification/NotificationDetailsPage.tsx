@@ -9,10 +9,27 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
+import { useOnUpdateNotificationReadMutation } from '@/app/redux/api/notiificationApi'
+import { useEffect } from 'react'
 
 
  const NotificationDetailsPage = () => {
   const notificationDetails=useSelector(selectNotificationDetails)
+
+    
+    const [onUpdateNotificationRead]=useOnUpdateNotificationReadMutation()
+
+    useEffect(()=>{
+     fetch()
+    },[notificationDetails])
+
+
+    const fetch=async()=>{
+      if(notificationDetails){
+        await onUpdateNotificationRead(notificationDetails.id).unwrap()
+      }
+    }
+
    return (
     <>
            {

@@ -6,7 +6,6 @@ import { apiSlice } from "./apiSlice";
 
 
 
-
 export const notificationSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllNotificationUnRead:builder.query<
@@ -28,9 +27,54 @@ export const notificationSlice = apiSlice.injectEndpoints({
 
    
   }),
+
+
+  getAllNotification:builder.query<
+  any,void
+ >({
+   query: () => ({
+    url:'/notification/get-all-notification',
+     validateStatus: (
+       response: { status: number },
+       result: { isError: any }
+     ) => {
+       return response.status === 200 && !result.isError;
+     },
+
+     
+   }),
+   
+   providesTags: ["Notification"],
+
+  
+ }),
+
+
+
+
+  onUpdateNotificationRead: builder.mutation<boolean,string>({
+    query: (notificationId) => ({
+      url: `/notification/update-notification-unread/${notificationId}`,
+      method: "PATCH"
+    }),
+
+    invalidatesTags:["Notification"],
+  }),
+
+
+  onDeleteSingleNotification: builder.mutation<boolean,string>({
+    query: (notificationId) => ({
+      url: `/notification/single-delete-notification/${notificationId}`,
+      method: "DELETE"
+    }),
+
+    invalidatesTags:["Notification"],
+  }),
+
+
   })
 })
 
 
 
-export const {useGetAllNotificationUnReadQuery}=notificationSlice
+export const {useGetAllNotificationUnReadQuery,useOnUpdateNotificationReadMutation,useOnDeleteSingleNotificationMutation,useGetAllNotificationQuery}=notificationSlice

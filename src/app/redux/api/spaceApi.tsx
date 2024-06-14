@@ -4,6 +4,7 @@ import { apiSlice } from "./apiSlice";
 export interface CollaboratorType {
   assigneeId: string;
   role: string;
+  verified:boolean
 }
 
 export interface ResponseWorkspaceDataType {
@@ -31,9 +32,15 @@ export interface   SpaceCollabSendType {
   collaboratorId:string;
 }
 
+
+
+
+
 export interface ReceiveCollaboratorType {
   assignee: string; 
   role: string;
+  id:string;
+  verified:boolean
 }
 
 
@@ -182,13 +189,61 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
 
 
-      providesTags: ["Workspace"],
+      providesTags: (result, error, id) => [{ type: "Collaborators", id },"Workspace"],
+    }),
+
+
+    deleteCollaborator: builder.mutation<boolean, SpaceCollabSendType>({
+      query: (credentials) => ({
+        url: "/space/delete-collaborator",
+        method: "DELETE",
+        body: { ...credentials },
+      }),    
+      
+      async onQueryStarted({ workspaceId, collaboratorId }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          workApiSlice.util.updateQueryData('getAllCollabInSpace', workspaceId, (draft) => {
+            console.log(draft,"draft");  
+            return draft.filter((collab: ReceiveCollaboratorType) => collab.id !== collaboratorId);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          patchResult.undo();
+          console.error("Error deleting collaborator:", error);
+        }
+      },
+
+      invalidatesTags: (result, error, { workspaceId }) => [
+        { type: "Collaborators", id: workspaceId },
+        "Workspace"
+      ],
+
+    }),
+
+
+    verifyCollaborators: builder.mutation<boolean, SpaceCollabSendType>({
+      query: (credentials) => ({
+        url: "/space/verify-collaborator",
+        method: "PATCH",
+        body: { ...credentials },
+      }),     
+ 
+      invalidatesTags: (result, error, { workspaceId }) => [
+        { type: "Collaborators", id: workspaceId },
+        "Workspace"
+      ],
+
     }),
 
   }),
 });
 
-// '
+
+
+
+
 
 export const {
   useCreateSpaceMutation,
@@ -198,5 +253,7 @@ export const {
   useGetInActiveSpaceCountQuery,
   useGetSingleWorkSpaceQuery,
   useAddCollaboratorsMutation,
-  useGetAllCollabInSpaceQuery
+  useGetAllCollabInSpaceQuery,
+  useDeleteCollaboratorMutation,
+  useVerifyCollaboratorsMutation,
 } = workApiSlice;

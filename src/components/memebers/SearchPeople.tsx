@@ -12,7 +12,7 @@ import {
   CommandList,
 } from "../ui/command";
 import { AUserSearch } from "../Avatar";
-import { PlusCircleIcon } from "lucide-react";
+import { PlusCircleIcon, Verified } from "lucide-react";
 import { UserSearchSkeleton } from "../shimmer/index";
 import { useSelector } from "react-redux";
 import { cacheResults } from "@/app/redux/slice/searchSlice";
@@ -178,12 +178,20 @@ const SearchPeople = () => {
                     {searchItem && searchItem.length > 0 ? (
                       searchItem.map((search: ResponseSUserType) => (
                         <CommandItem key={search.id}>
-                          <PlusCircleIcon
-                            className="mr-4"
-                            onClick={() =>
-                              handleSubmit(search.id, search.userName)
-                            }
-                          />
+                    {
+                      user?.userId===search.id?(
+                        <>
+                        <Verified className="mr-4"/>
+                        </>
+                      ):(
+                        <PlusCircleIcon
+                        className="mr-4"
+                        onClick={() =>
+                          handleSubmit(search.id, search.userName)
+                        }
+                      />
+                      )
+                    }
                           <AUserSearch />
                           {search.userName}
                         </CommandItem>

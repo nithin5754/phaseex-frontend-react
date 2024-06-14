@@ -20,10 +20,10 @@ const TaskMainSection = ({singleTask}:Props) => {
 </div> 
     </ResizablePanel>
     <ResizableHandle/>
-    {/* <ResizablePanel>
+    <ResizablePanel>
 <TaskMainRight/>
 
-    </ResizablePanel> */}
+    </ResizablePanel>
   </ResizablePanelGroup>
   )
 }
