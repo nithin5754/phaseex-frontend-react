@@ -71,4 +71,17 @@ export interface ResponseTaskCountWiseType
 
 
 
+  
+export interface SendDescriptionTaskType {
+  task_description: string;
+  workspaceId: string;
+  folderId: string;
+  taskId:string;
+  listId: string;
+}
+
+
+
+
+
 

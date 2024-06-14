@@ -12,6 +12,7 @@ export interface Notification {
   link:string,
   priority:string,
   title:string,
+  messageSendBy:string,
   type:string,
   read:boolean,
   createdAt:string,

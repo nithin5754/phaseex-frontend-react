@@ -10,13 +10,15 @@ import SingleFolder from "./SingleFolder";
 import ListFolderView from "./ListFolderView";
 import SingleListFolderView from "./SingleListFolderView";
 import NotificationPage from "./NotificationPage";
+import TaskView from "./TaskView";
+import Invite from "./Invite";
+import MembersAddingSpace from "./MembersAddingSpace";
 
 
 
 export {
   HomePage,
   ViewSpace,
-
   SingleWorkSpace,
   FolderView,
   ListView,
@@ -24,6 +26,9 @@ export {
   SingleFolder,
   ListFolderView,
   SingleListFolderView,
-  NotificationPage
+  NotificationPage,
+  TaskView,
+  Invite,
+  MembersAddingSpace
  
 }

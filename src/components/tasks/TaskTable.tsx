@@ -6,6 +6,7 @@ import {  OpenModal as CreateTaskModal} from "../../components/modal/Task-create
 import { useGetAllTaskQuery } from "@/app/redux/api/taskapi";
 import PriorityTaskSetting from "./TaskPiroritySetting";
 import UpdateTaskStatus from "./UpdateTaskStatus";
+import { Link } from "react-router-dom";
 
 
 
@@ -33,7 +34,9 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
 
 
 
-  console.log(getAllTask,"all task");
+  const truncateDesc = (desc: string) => {
+    return desc.length > 10 ? desc.substring(0, 10) + "..." : desc;
+  };
   
 
   return (
@@ -44,7 +47,7 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
           <TableHead ></TableHead>
           <TableHead >name</TableHead>
           <TableHead className="" >description</TableHead>
-          <TableHead className="w-[300px] items-center text-center">assignee</TableHead>
+          <TableHead className=" items-center text-center">assignee</TableHead>
    
           <TableHead>status</TableHead>
           <TableHead >priority</TableHead>
@@ -57,8 +60,11 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
                  <TableCell className="font-medium">
                   <UpdateTaskStatus taskId={task.id} status={task.status_task}/>
                  </TableCell>
-              <TableCell className="font-medium">{task.task_title}</TableCell>
-              <TableCell>{task.task_description}</TableCell>
+                 <Link to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}>
+                 <TableCell className="font-medium">{task.task_title}</TableCell>
+     </Link>
+             
+              <TableCell>{truncateDesc(task.task_description)}</TableCell>
               <TableCell className="text-center">nill</TableCell>
               <TableCell className="w-[160px] ">  {task.status_task === 'complete' ? (
       <div className="flex  ">

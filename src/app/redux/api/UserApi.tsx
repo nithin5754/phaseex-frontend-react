@@ -53,6 +53,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }
     ),
 
+    
+
+    getUserById: builder.query<User, void>({
+      query: () => ({
+        url: `/auth/getUserById`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+
+      providesTags: ["User"],
+    }),
+
   })
 })
 
@@ -62,6 +75,7 @@ export const {
   useRegisterMutation,
   useResendOtpMutation,
   useVerifyUserMutation,
-  useFetchTimerDateMutation
+  useFetchTimerDateMutation,
+  useGetUserByIdQuery
 }
   =userApiSlice

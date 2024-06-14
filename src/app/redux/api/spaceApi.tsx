@@ -26,6 +26,18 @@ export interface SpaceDataType {
 }
 
 
+export interface   SpaceCollabSendType {
+  workspaceId:string;
+  collaboratorId:string;
+}
+
+export interface ReceiveCollaboratorType {
+  assignee: string; 
+  role: string;
+}
+
+
+
 
 export const workApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -147,8 +159,36 @@ export const workApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["Workspace"],
     }),
+
+
+
+    addCollaborators: builder.mutation<boolean, SpaceCollabSendType>({
+      query: (credentials) => ({
+        url: "/space/add-new-collaborators",
+        method: "POST",
+        body: { ...credentials },
+      }),     
+      invalidatesTags: ["Workspace"],
+
+    }),
+
+    getAllCollabInSpace: builder.query<ReceiveCollaboratorType[], string>({
+      query: (id: string) => ({
+        url: `/space/get-all-collab/${id}`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+
+
+
+      providesTags: ["Workspace"],
+    }),
+
   }),
 });
+
+// '
 
 export const {
   useCreateSpaceMutation,
@@ -156,5 +196,7 @@ export const {
   useChangeVisiblityMutation,
   useGetOnGoingSpacesQuery,
   useGetInActiveSpaceCountQuery,
-  useGetSingleWorkSpaceQuery
+  useGetSingleWorkSpaceQuery,
+  useAddCollaboratorsMutation,
+  useGetAllCollabInSpaceQuery
 } = workApiSlice;

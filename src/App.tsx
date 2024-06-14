@@ -18,7 +18,10 @@ import {
   SingleFolder,
   ListFolderView,
   SingleListFolderView,
-  NotificationPage
+  NotificationPage,
+  TaskView,
+  Invite,
+  MembersAddingSpace
 } from "./features/main-sections/index";
 
 import DashBoard from "./components/DashBoard";
@@ -30,13 +33,14 @@ import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { SearchPeople } from "./components/memebers/index";
 
 
+
+
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/">
           <Route index element={<LandingPage />} />
-
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="verify-otp" element={<VerifyOtp />} />
@@ -47,10 +51,12 @@ function App() {
             element={<ChangeForgotAuthPassword />}
           />
 
+
           {/* <Route element={<PersistLogin />}> */}
           <Route element={<RequireAuth />}>
             <Route element={<MainLayout />}>
               <Route path="homepage" element={<HomePage />} />
+              <Route path="invite" element={<Invite/>}/>
 
               <Route path="space">
                 <Route index element={<ViewSpace />} />
@@ -64,13 +70,21 @@ function App() {
                         <Route index element={<ListFolderView />} />
                         <Route
                           path=":listId"
-                          element={<SingleListFolderView />}
-                        />
+                          
+                        >
+                          <Route index element={<SingleListFolderView />}/>
+
+                          <Route path="tasks">
+                              <Route path=":taskId" element={<TaskView />}/>
+                          </Route>
+
+
+                        </Route>
                       </Route>
                     </Route>
                   </Route>
                   <Route path="lists" element={<ListView />} />
-                  <Route path="members" element={<SearchPeople />} />
+                  <Route path="members" element={<MembersAddingSpace />} />
                 </Route>
               </Route>
               <Route path="dashboard" element={<DashBoard />} />

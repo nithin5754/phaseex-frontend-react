@@ -12,3 +12,12 @@ export interface ResponseSUserType {
   updatedAt:Date
   
 }
+
+
+export interface sendTodoSearchType{
+  workspaceId:string;
+  folderId:string;
+  listId:string;
+  taskId:string;
+  todoKey:string;
+}

@@ -23,7 +23,7 @@ const ListMap = ({list,index,folderId,workspaceId}:Props) => {
 
 
  
- 
+
   return (
 <tr key={list.id} className="border-b border-gray-200 dark:border-border">
   <td className="px-5 py-3 text-sm bg-white dark:bg-background">

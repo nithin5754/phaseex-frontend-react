@@ -10,6 +10,7 @@ import taskSliceReducer from '../slice/taskSlice'
 import searchReducer from '../slice/searchSlice'
 import notificationReducer from '../slice/notificationSlice'
 import socketReducer from '../slice/socketSlice'
+import todoReducer from '../slice/todoSlice'
 
 
 // ...
@@ -24,7 +25,8 @@ export const store = configureStore({
     tasks:taskSliceReducer,
     search:searchReducer,
     notification:notificationReducer,
-    socketSlice:socketReducer
+    socketSlice:socketReducer,
+    todo:todoReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware(

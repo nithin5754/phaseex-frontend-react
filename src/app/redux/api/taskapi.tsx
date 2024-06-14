@@ -1,6 +1,6 @@
 import { SendTaskType,ResponseTaskType } from "@/features/types/index";
 import { apiSlice } from "./apiSlice";
-import {  SendPriorityTaskType, SendStatusTaskType } from "@/features/types/taskType";
+import {  SendDescriptionTaskType, SendPriorityTaskType, SendStatusTaskType } from "@/features/types/taskType";
 
 
  
@@ -83,16 +83,53 @@ import {  SendPriorityTaskType, SendStatusTaskType } from "@/features/types/task
     },
   }),
 
+  getSingleTask: builder.query<
+  ResponseTaskType,
+  { workspaceId: string;folderId:string,listId:string,taskId:string }
+>({
+  query: ({ workspaceId, folderId,listId,taskId }) => ({
+    url: `/task/get-single-task?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}`,
+    validateStatus: (
+      response: { status: number },
+      result: { isError: any }
+    ) => {
+      return response.status === 200 && !result.isError;
+    },
+
+  }),
+       providesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+      { type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
+    ],
+
+ 
+}),
+
+
+
+onUpdateDescriptionTask: builder.mutation<boolean, SendDescriptionTaskType>({
+  query: (credentials) => ({
+    url: `/task/update-task-description/${credentials.taskId}`,
+    method: "PATCH",
+    body: { ...credentials },
+  }),
+  invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
+    { type: 'TaskSpace', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
+  ],
+  
+
+}),
+
 
   })
  })
-
 
  export const {
 useOnCreateTaskMutation,
 useGetAllTaskQuery   ,
 useOnUpdatePriorityTaskMutation,
 useOnUpdateStatusTaskMutation,
+useGetSingleTaskQuery,
+useOnUpdateDescriptionTaskMutation
 
 
 
