@@ -1,6 +1,6 @@
 // /user
 
-import { ResponseSUserType } from "@/features/types/searchType";
+import { ResponseSUserType, WorkSpaceCollabType } from "@/features/types/searchType";
 import { apiSlice } from "./apiSlice";
 import { TodoType } from "@/features/types/TodoType";
 
@@ -24,11 +24,19 @@ export const searchApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Search"],
  
     }),
+    getSearchSpaceCollab: builder.mutation<WorkSpaceCollabType[],  { workspaceId: string;collabKey:string }>({
+      query: ({ workspaceId,collabKey }) => ({
+        url: `/search/space/?workspaceId=${workspaceId}&collabKey=${collabKey}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Search"],
+    }),
   })
 })
 
 
 
 export const {useGetSearchUserMutation,
-  useGetSearchTodoMutation
+  useGetSearchTodoMutation,
+  useGetSearchSpaceCollabMutation,
 }=searchApiSlice

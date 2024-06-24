@@ -6,22 +6,7 @@ import { useSocket } from "@/app/socketContext";
 import useGreetings from "@/hooks/useGreetings";
 import useAuth from "@/hooks/useAuth";
 const HomePage = () => {
-  const { socket } = useSocket();
-
-  const user=useAuth()
-
-  const greet=useGreetings()
-  console.log(greet,"greetings");
-  
-            if(socket&&user){
-              socket.emit('sendNotification', {
-                senderName: user?.userId,
-                receiverName: user?.userId,
-                type:"greet",
-                name: '',
-                message: `${user?.userId} ${greet}`,
-              });
-            }
+ 
   return (
 <>
 

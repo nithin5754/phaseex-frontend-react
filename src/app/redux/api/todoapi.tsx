@@ -1,4 +1,4 @@
-import { SendDeleteTodoTask, SendEditTodoTask, SendTodoCheckBox, SendTodoTask, TodoType } from "@/features/types/TodoType";
+import { SendAddCollabTodoTask, SendDeleteTodoTask, SendEditTodoTask, SendTodoCheckBox, SendTodoTask, TodoType } from "@/features/types/TodoType";
 import { apiSlice } from "./apiSlice";
 import { deleteTodo, updateTodoName, updateTodoStatus } from "../slice/todoSlice";
 
@@ -112,6 +112,29 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
  
   }),
 
+
+  /**
+   * @return {boolean}
+   * @api {"/add-collab-todo/:todoId"}
+   * @param {workspaceId,folderId,listId,todoId,collabId}
+   */
+
+
+
+
+  onAddCollabToTodo: builder.mutation<boolean ,SendAddCollabTodoTask>({
+    query: (credentials) => ({
+      url: `/todo/add-collab-todo/${credentials.todoId}`,
+      method: "PATCH",
+      body: { ...credentials },
+    }),
+    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
+    ],
+
+  }),
+
+
  
 
   })
@@ -126,7 +149,8 @@ export const {
   useOnCreateTaskTodoMutation,
   useOnUpdateStatusTodoMutation,
   useOnUpdateTaskTodoMutation,
-  useOnDeleteTaskTodoMutation
+  useOnDeleteTaskTodoMutation,
+  useOnAddCollabToTodoMutation
   
   
   

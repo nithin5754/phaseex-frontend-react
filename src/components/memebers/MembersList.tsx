@@ -73,13 +73,13 @@ className="dark:border dark:border-none"
               </div>
        
               <>
-         {collab.verified?(<h1 className="text-green-800">verified</h1>):(<h1 className="border border-border rounded-full text-sm w-[85px] px-[5px] ">not verified</h1>)}
+         {collab.verified?(<h1 className="text-green-800">Accepted</h1>):(<h1 className="border border-border rounded-full text-sm w-[85px] px-[5px] ">not Accepted</h1>)}
                </>
 
-               <div className="flex gap-2 ">
+               {/* <div className="flex gap-2 ">
                 <p className="text-sm font-medium leading-none">{collab.id===user?.userId.toString()?"owner":"developer"}</p>
  
-              </div>
+              </div> */}
             
               <div className="ml-auto font-medium">
                 <button className="text-gray-500 hover:text-gray-700" onClick={() => handleDelete(id, collab.id)}>

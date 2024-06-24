@@ -11,9 +11,9 @@ import searchReducer from '../slice/searchSlice'
 import notificationReducer from '../slice/notificationSlice'
 import socketReducer from '../slice/socketSlice'
 import todoReducer from '../slice/todoSlice'
+import utilReducer from '../slice/uttilSlice'
 
 
-// ...
 
 export const store = configureStore({
   reducer: {
@@ -26,7 +26,8 @@ export const store = configureStore({
     search:searchReducer,
     notification:notificationReducer,
     socketSlice:socketReducer,
-    todo:todoReducer
+    todo:todoReducer,
+    util:utilReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware(

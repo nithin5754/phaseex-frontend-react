@@ -24,13 +24,14 @@ import {
   MembersAddingSpace
 } from "./features/main-sections/index";
 
-import DashBoard from "./components/DashBoard";
+
 import LandingPage from "./components/LandingPage";
 
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { SearchPeople } from "./components/memebers/index";
+import { DashBoard } from "./components/DashBoard";
 
 
 

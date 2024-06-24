@@ -14,6 +14,12 @@ export interface SendListData {
   listData: ListType;
 }
 
+
+export interface ListCollaboratorType {
+  assignee: string; 
+  role:"developer"|"listManager"|"spaceOwner"|"viewer";
+}
+
 export interface ResponseListDataType {
   id: string;
   list_title: string;
@@ -22,6 +28,7 @@ export interface ResponseListDataType {
   priority_list: string;
   progressTask:number;
   list_start_date:string,
+  list_collaborators:ListCollaboratorType[];
   list_due_date:string,
   folderId: string;
   createdAt: string;
@@ -47,6 +54,30 @@ export interface SendDateListType {
   folderId: string;
   listId: string;
 }
+
+
+
+export interface SendAddCollabListType {
+
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  collabId:string;
+
+}
+
+
+
+
+
+export interface ListCollaboratorDetailType {
+  id:string;
+  fullName: string; 
+  email:string
+  imageUrl:string;
+  role:"listManager"|"spaceOwner"|"viewer";
+}
+
 
 export const listApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -129,6 +160,65 @@ export const listApiSlice = apiSlice.injectEndpoints({
 
       providesTags: ["ListSpace"],
     }),
+
+
+    addCollaboratorToList: builder.mutation<boolean, SendAddCollabListType>({
+      query: (credentials) => ({
+        url: `/list/add-members-list/${credentials.listId}`,
+        method: "PATCH",
+        body: { ...credentials },
+      }),     
+      invalidatesTags: ["ListSpace"],
+
+    }),
+
+    
+    getCollabListById: builder.query<
+    ListCollaboratorDetailType[],
+    { workspaceId: string; folderId: string; listId: string }
+  >({
+    query: ({ workspaceId, folderId, listId }) => ({
+      url: `/list/all-collab-list-id?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}`,
+      validateStatus: (
+        response: { status: number },
+        result: { isError: any }
+      ) => {
+        return response.status === 200 && !result.isError;
+      },
+    }),
+
+    providesTags: ["ListSpace"],
+  }),
+
+/**
+ * @api  "/update-collab-list-role/:collabId"
+ */
+
+  updateCollaboratorToListRole: builder.mutation<boolean, SendAddCollabListType&{role:"listManager"|"spaceOwner"|"viewer"}>({
+    query: (credentials) => ({
+      url: `/list/update-collab-list-role/${credentials.collabId}`,
+      method: "PATCH",
+      body: { ...credentials },
+    }),     
+    invalidatesTags: ["ListSpace"],
+
+  }),
+
+  /***
+   * @api /delete-collab-list-assignee
+   */
+
+
+  deleteCollaboratorToListAssignee: builder.mutation<boolean, SendAddCollabListType>({
+    query: (credentials) => ({
+      url: `/list/delete-collab-list-assignee/${credentials.collabId}`,
+      method: "DELETE",
+      body: { ...credentials },
+    }),     
+    invalidatesTags: ["ListSpace"],
+
+  }),
+
   }),
 });
 
@@ -138,5 +228,9 @@ export const {
   useGetAllListByPageQuery,
   useOnUpdatePriorityListMutation,
   useOnUpdateDateListMutation,
-  useGetSingleListQuery
+  useGetSingleListQuery,
+  useAddCollaboratorToListMutation,
+  useGetCollabListByIdQuery,
+  useUpdateCollaboratorToListRoleMutation,
+  useDeleteCollaboratorToListAssigneeMutation
 } = listApiSlice;

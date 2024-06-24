@@ -28,7 +28,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2 gap-3  py-10 ",
+        "flex flex-row flex-wrap justify-center items-center  gap-2  ",
         className
       )}
     >
@@ -59,7 +59,7 @@ export const HoverEffect = ({
 
         return(
           <>
-<Card className="max-w-md mx-auto bg-white shadow-lg rounded-xl  dark:bg-background dark:text-primary dark:border-border">
+<Card className="w-[360px] min-w-[260px]  h-[200px] bg-white shadow-lg rounded-xl  dark:bg-background dark:text-primary dark:border-border">
   <div className="flex flex-row items-start mb-4  ">
     <div className="flex  w-full mb-2  m-auto">
       <div   className={`w-10 h-10 ${color} rounded-sm flex items-center justify-center text-primary  mr-4 text-xl font-semibold`}
@@ -74,7 +74,7 @@ export const HoverEffect = ({
 
   </div>
   <CardDescription className="mt-2 dark:text-primary">{truncateDesc(item.description)}</CardDescription>
-  <div className="mt-4 flex gap-3 items-center">
+  <div className="mt-4 flex gap-2 items-center">
     <span className="">Type:</span>
     <span className="">{item.type} </span> <span>{item.type==='shared'?<Earth className="w-4"/>:<Lock className="w-4"/>} </span>
   </div>

@@ -9,6 +9,13 @@ import TaskSelectionButton from "./TaskSelectionButton";
 import TaskMainSection from "./TaskMainSection";
 import TaskMainLeft from "./TaskMainLeft";
 import TaskMainRight from "./TaskMainRight";
+import { TaskProgressTodo } from "./TaskProgressTodo";
+import SuggestionTaskCollab from "./Suggestion-collab-task";
+import CollabTask from "./TaskCollabList";
+import MembersSingleTaskCollab from "./MembersSingleCollab";
+import MembersTaskAddPage from "./MembersTaskAddPage";
+import DeleteCollabTask from "./DeleteCollabTask";
+import { AnimatedTaskProfile } from "./AnimatedTaskProfile";
 
 export{
   TaskTable,
@@ -20,6 +27,13 @@ UpdateTaskStatus,
   TaskSelectionButton,
   TaskMainSection,
   TaskMainLeft,
-  TaskMainRight
+  TaskMainRight,
+  TaskProgressTodo,
+  SuggestionTaskCollab,
+  CollabTask,
+  MembersSingleTaskCollab,
+  MembersTaskAddPage,
+  DeleteCollabTask,
+  AnimatedTaskProfile
 
 }

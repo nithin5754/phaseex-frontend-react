@@ -8,7 +8,8 @@ import { EditTodo } from "./TodoEditForm"
 import RecentlySearch from "./RecentlySearch"
 
 import TodoSearch from "./TodoSearch"
-
+import CollabTodo from "./CollabTodo"
+import AddTodoCollabSuggestion from "./AddTodoCollabSuggestion"
 export {
   Todos,
   TodoTable,
@@ -17,5 +18,7 @@ export {
   EditTodo,
   RecentlySearch,
 
-  TodoSearch
+  TodoSearch,
+  CollabTodo,
+  AddTodoCollabSuggestion
 }

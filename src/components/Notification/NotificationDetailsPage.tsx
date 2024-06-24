@@ -10,11 +10,13 @@ import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 import { useOnUpdateNotificationReadMutation } from '@/app/redux/api/notiificationApi'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
  const NotificationDetailsPage = () => {
   const notificationDetails=useSelector(selectNotificationDetails)
+
+  const [isUseLink,setUseLink]=useState<boolean>(false)
 
     
     const [onUpdateNotificationRead]=useOnUpdateNotificationReadMutation()
@@ -30,6 +32,9 @@ import { useEffect } from 'react'
       }
     }
 
+
+    const handleUseInviteLink=()=>setUseLink(true)
+
    return (
     <>
            {
@@ -39,7 +44,7 @@ import { useEffect } from 'react'
             <span className="text-slate-500 font-sfpro">empty message</span>
             </div> 
             </>):(<>
-              <div className="border dark:border-slate-500 h-full m-2 rounded-sm shadow-lg p-2 px-4 mb-4 dark:hover:bg-slate-600 dark:hover:bg-opacity-20 ">
+              <div className=" h-full m-2 rounded-sm shadow-lg p-2 px-4 mb-4 dark:hover:bg-slate-600 dark:hover:bg-opacity-20 ">
      <div className="flex flex-row gap-2 items-center justify-center">
      <Avatar className="hidden h-9 w-9 sm:flex ">
                   <AvatarImage src="/avatars/01.png" alt="Avatar" />
@@ -77,11 +82,28 @@ import { useEffect } from 'react'
                {notificationDetails.Description}
                   </p>
 
-<Link to=  {`${notificationDetails.link}${notificationDetails.id}&senderId=${notificationDetails.ownerId}`}>
-<Button className="text-sm text-muted-foreground mt-7 ">
-              accept
-             </Button>
-</Link>
+<>
+
+ {
+   notificationDetails.type==='invite'&&(
+    <>
+    {
+          notificationDetails.link===" "||isUseLink?(<>
+            <Button className="text-sm text-muted-foreground mt-7 " >
+                       used already
+                      </Button>
+           </>):(<>
+             <Link to=  {`${notificationDetails.link}${notificationDetails.id}&senderId=${notificationDetails.ownerId}`}>
+         <Button className="text-sm text-muted-foreground mt-7 " onClick={handleUseInviteLink}>
+                       accept
+                      </Button>
+         </Link>
+           </>)
+    }
+    </>
+   )
+ }
+</>
           
        </div>
             </>)

@@ -1,19 +1,29 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../api/store";
 import { TodoType } from "@/features/types/TodoType";
+import { WorkSpaceCollabType } from "@/features/types/searchType";
 
 export interface TodoSliceType {
   searchTodoItem: TodoType[] | null;
   searchTodoQuery: string | "";
   recentlySearched: string[];
   todoRecentlySearchSuggestion:boolean
+
+  todoSearchCollab:WorkSpaceCollabType[]|null,
+  todoSearchQueyCollab:string;
+  todoSuggestionOpenClose:boolean
 }
 
 const initialState: TodoSliceType = {
   searchTodoItem: null,
   searchTodoQuery: "",
   recentlySearched: [],
-  todoRecentlySearchSuggestion: false
+  todoRecentlySearchSuggestion: false,
+
+
+  todoSearchCollab: null,
+  todoSearchQueyCollab:'',
+  todoSuggestionOpenClose:false
 };
 
 export interface TodoStatus {
@@ -85,6 +95,21 @@ export const TodoSlice = createSlice({
     setTodoRecentlySearchSuggestion:(state,action:PayloadAction<boolean>)=>{
       
       state.todoRecentlySearchSuggestion=action.payload
+    },
+
+    setSearchTodoCollab(state,action:PayloadAction<WorkSpaceCollabType[]>){
+      state.todoSearchCollab=action.payload
+    },
+    removeSearchTodoCollab(state,_action){
+      state.todoSearchCollab=null
+    },
+
+
+    setSuggestionOpen(state,_action){
+      state.todoSuggestionOpenClose=true
+    },
+    setSuggestionClose(state,_action){
+      state.todoSuggestionOpenClose=false
     }
   },
 });
@@ -96,7 +121,12 @@ export const {
   deleteTodo,
   updateTodoName,
   setRecentlySearched,
-  setTodoRecentlySearchSuggestion
+  setTodoRecentlySearchSuggestion,
+  setSearchTodoCollab,
+  removeSearchTodoCollab,
+  setSuggestionOpen,
+  setSuggestionClose
+
 } = TodoSlice.actions;
 
 export default TodoSlice.reducer;
@@ -111,3 +141,10 @@ export const selectRecentlySearchQuery = (store: RootState) =>
 
 
   export const selectShowRecently=(store:RootState)=>store.todo.todoRecentlySearchSuggestion
+
+
+  export const selectTodoCollabSpace=(state:RootState)=>state.todo.todoSearchCollab
+
+export const selectSearchQuery=(state:RootState)=>state.todo.todoSearchQueyCollab
+
+export const selectSUggestionCollabTodoOpenClose=(state:RootState)=>state.todo.todoSuggestionOpenClose

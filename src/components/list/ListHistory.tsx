@@ -67,7 +67,7 @@ const ListHistory = ({workspaceId,folderId,listId}:Props) => {
    <div className="p-[30px]">
    {/* <OpenModal title={"edit"} icon={Plus} spaceId={workspaceId} />
     */}
-    <p>details</p>
+    {/* <p>details</p> */}
    </div>
     </div>
 

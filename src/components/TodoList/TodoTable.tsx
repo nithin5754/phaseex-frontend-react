@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Checkbox } from "../ui/checkbox"
-import { CheckCircle,  LoaderCircle,  LoaderIcon, MoreHorizontal} from "lucide-react"
+import { CheckCircle,  FileText,  LoaderCircle,  LoaderIcon, MoreHorizontal, Settings, UserPlus2} from "lucide-react"
 import { SendTodoCheckBox, TodoType } from "@/features/types/TodoType"
 
 import { useOnUpdateStatusTodoMutation } from "@/app/redux/api/todoapi";
@@ -19,6 +19,7 @@ import TodoDropDown from "./TodoDropDown";
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
 import { selectTodoItem, selectTodoQuery } from "@/app/redux/slice/todoSlice";
+import { TodoCollabModal } from "../modal/add-todo-collab";
 
 
 interface Props {
@@ -80,13 +81,33 @@ const TodoTable = ({getAllTodoTask}:Props) => {
 
     <Table>
     <TableHeader>
-      <TableRow>
-        <TableHead ></TableHead>
-        <TableHead>todo</TableHead>
-        <TableHead>assignee</TableHead>
-        <TableHead>status</TableHead>
-        <TableHead className="text-center">action</TableHead>
-      </TableRow>
+    <TableRow className="">
+  <TableHead className="  "></TableHead>
+  <TableHead className="  ">
+     <div className="flex items-center justify-center gap-2">
+     <FileText className="w-4 h-4 text-gray-600" />
+     <span>todo</span>
+     </div>
+  </TableHead>
+  {/* <TableHead className="flex  gap-2">
+    <User className="w-4 h-4 text-gray-600" />
+    <span>assignee</span>
+  </TableHead> */}
+  <TableHead className=" ">
+    <div className="flex items-center justify-center gap-2">
+    <CheckCircle className="w-4 h-4 text-gray-600" />
+    <span>status</span>
+    </div>
+  
+  </TableHead>
+  <TableHead className="   ">
+    <div className="flex items-center justify-center gap-2">
+    <Settings className="w-4 h-4 text-gray-600" />
+    <span>action</span>
+    </div>
+  
+  </TableHead>
+</TableRow>
     </TableHeader>
 <>
 {
@@ -106,7 +127,9 @@ const TodoTable = ({getAllTodoTask}:Props) => {
             />
           </TableCell>
           <TableCell>{todo.todo}</TableCell>
-          <TableCell>{todo.assignee}</TableCell>
+          {/* <TableCell>
+            <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+          </TableCell> */}
           <TableCell>
           {loadingStates[todo.id]? (
                 <LoaderIcon className="animate-spin " size={24}/>

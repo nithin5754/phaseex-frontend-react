@@ -1,50 +1,39 @@
 
-import useAuth from "@/hooks/useAuth";
-import { SetStateAction, useEffect, useState } from "react";
-import { Link } from "react-router-dom"
-import { Socket, io } from "socket.io-client";
-import { SearchUser } from "./search";
-import { useSelector } from "react-redux";
-import { getNotification } from "@/app/redux/slice/notificationSlice";
+import { BentoGrid, BentoGridItem } from "../components/aceternityuI/cards/bento-grid";
+import {
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
 
-
-
-
-
-
-
-
-const DashBoard = () => {
-
-
-
-
-
-
-
-
-
-
+export function DashBoard() {
   return (
-
-
-
-    <div className="p-8">
-     <Link to={'/hello'}>hello</Link>
-     <Link to={'/login'}>login</Link>
-
-        
-    <Link to={'/'}>workspace</Link>
-  <div>
-  </div>
-      
-    </div>
-
-
-
-      )
-
-
-
+    <BentoGrid className="max-w-6xl mx-auto md:grid-cols-3 lg:grid-cols-4 gap-4  md:auto-rows-[10rem]">
+      {items.map((item, i) => (
+        <BentoGridItem
+          key={i}
+          title={item.title}
+          description={item.description} id={""} handleHideSubmit={function (id: string): Promise<any> {
+            throw new Error("Function not implemented.");
+          } } type={""}       
+          // icon={item.icon}
+        />
+      ))}
+    </BentoGrid>
+  );
 }
-export default DashBoard
+
+const items = [
+  {
+    title: "The Dawn of Innovation",
+    description: "Explore the birth of groundbreaking ideas and inventions.",
+
+   
+    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+  },
+
+];
+
+
+

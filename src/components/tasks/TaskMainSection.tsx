@@ -19,9 +19,9 @@ const TaskMainSection = ({singleTask}:Props) => {
 
 </div> 
     </ResizablePanel>
-    <ResizableHandle/>
-    <ResizablePanel>
-<TaskMainRight/>
+    <ResizableHandle style={{ backgroundColor: 'transparent' }} />
+    <ResizablePanel className=" p-4 ">
+<TaskMainRight singleTask={singleTask}/>
 
     </ResizablePanel>
   </ResizablePanelGroup>

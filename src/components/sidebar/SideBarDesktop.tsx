@@ -5,16 +5,17 @@ import SideBarButton from "./SideBar-btb";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import {LogOut, MoreHorizontal, Settings ,X as CloseButton } from "lucide-react";
+import {LogOut, MoreHorizontal, Settings ,X as CloseButton, SidebarClose, SidebarOpen, SidebarOpenIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {useEffect, useState } from "react";
 import {useSendLogOutMutation } from "@/app/redux/api/AuthApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { ModeToggle } from "../mode-toggle";
 import { useAppDispatch } from "@/app/redux/api/store";
 import { getNotification, notificationOpen } from "@/app/redux/slice/notificationSlice";
 import { useSocket } from "@/app/socketContext";
+import { selectSideCloseOpen, setSideBarClose, setSideBarOpen } from "@/app/redux/slice/uttilSlice";
 
 
 
@@ -54,9 +55,12 @@ const userName=useSelector(selectCurrentUserName)
   const location=useLocation()
   const pathname=location.pathname
    
+  const sliceDispatch=useDispatch()
 
   const handleClose=()=>{
-    setClose(!isClose)
+    // setClose(!isClose)
+
+    sliceDispatch(setSideBarClose(undefined))
   
   }
 
@@ -76,26 +80,36 @@ const userName=useSelector(selectCurrentUserName)
 
  
 
-
-  const {socket}=useSocket()
-
-  
+  const selectDashOpenClose=useSelector(selectSideCloseOpen)
 
 
+  const handleOpenSideBar=()=>{
+dispatch(setSideBarOpen(undefined))
+  }
 
   return (
-   <aside  className={`${isClose ? 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r hidden' : 'w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border'}`}>
-         <div className='h-full px-3 py-4'>
+   <aside  className={`${!selectDashOpenClose ? 'min-w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border  ' : ' max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border   '}`}>
+         <div className={`${!selectDashOpenClose?'h-full px-3 py-4':'h-full px-3 py-4'}`}>
           <div className="flex justify-between m-auto">
-          <h3 className='mx-3 text-lg font-semibold text-foreground'>Phaseex</h3>
-          <CloseButton/>
+      {
+        !selectDashOpenClose?(
+          <>
+              <h3 className='mx-3 text-lg font-semibold text-foreground'>Phaseex</h3>
+              <CloseButton onClick={handleClose}/>
+          </>
+        ):(
+          <>
+          <SidebarOpenIcon size={23} className="mx-3" onClick={handleOpenSideBar}/>
+          </>
+        )
+      }
 
             </div>  
          <div className='mt-5'>
          <div className='flex flex-col gap-1 w-full'>
               {
                 props.sidebarItems.links.map((link,index)=>{
-                  console.log(link);
+              
                   
                   return (
               <>
@@ -126,7 +140,8 @@ const userName=useSelector(selectCurrentUserName)
                icon={link.icon}
                className="w-full"
                >
-                   {link.label}
+                   {!selectDashOpenClose&&link.label}
+
               </SideBarButton>
           </Link>
               
@@ -151,9 +166,18 @@ const userName=useSelector(selectCurrentUserName)
                         <AvatarImage src='https://github.com/max-programming.png' />
                         <AvatarFallback>{userName?userName:'nithin'}</AvatarFallback>
                       </Avatar>
-                      <span>{userName?userName:'nithin'}</span>
+                      <>
+                      {
+                           !selectDashOpenClose&&(<>
+                           
+                            <span>{userName?userName:'nithin'}</span>
+                           </>)
+                      }
+                      </>
                     </div>
-                    <MoreHorizontal size={20} />
+                   {
+                    !selectDashOpenClose&& <MoreHorizontal size={20} />
+                   }
                   </div>
                 </Button>
               </PopoverTrigger>

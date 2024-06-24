@@ -21,3 +21,10 @@ export interface sendTodoSearchType{
   taskId:string;
   todoKey:string;
 }
+
+
+export interface WorkSpaceCollabType {
+  id:string
+  fullName:string;
+  email:string
+}

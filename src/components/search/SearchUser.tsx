@@ -19,7 +19,7 @@ interface Props {
         setTimeout(() => {
           setShowSuggestions(false);
         }, 200); 
-      };
+      };   
       return (
 <div className="relative p-2">
   <UserSearch className="absolute mt-2 w-[18px]  ml-2"/>

@@ -23,23 +23,15 @@ interface LoginResponse {
   accessToken: string;
 }
 
-
-
-
 interface ForgotPasswordOtpResponse {
   message: string;
   tokenId: string;
 }
 
-
-
 interface ForgotPasswordChange {
   message: string;
-  isPasswordChanged:boolean;
+  isPasswordChanged: boolean;
 }
-
-
-
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -52,7 +44,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }),
       }
     ),
-  
+
     forgotPasswordVerify: builder.mutation<User, { email: string }>({
       query: (credentials) => ({
         url: "/auth/forgotPasswordSendOtp",
@@ -60,7 +52,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
-    forgotPasswordOtp:builder.mutation<ForgotPasswordOtpResponse, { otp: string,tokenId:string }>({
+    forgotPasswordOtp: builder.mutation<
+      ForgotPasswordOtpResponse,
+      { otp: string; tokenId: string }
+    >({
       query: (credentials) => ({
         url: "/auth/forgotPasswordVerifyOtp",
         method: "POST",
@@ -68,18 +63,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    forgotPasswordSetNewPass:builder.mutation<ForgotPasswordChange,{password:string,tokenId:string}>({
+    forgotPasswordSetNewPass: builder.mutation<
+      ForgotPasswordChange,
+      { password: string; tokenId: string }
+    >({
       query: (credentials) => ({
-        url: '/auth/change-forgot-password-change',
+        url: "/auth/change-forgot-password-change",
         method: "POST",
         body: { ...credentials },
       }),
     }),
-  
 
     getName: builder.query<User, void>({
       query: () => "/auth/getUserName",
-    
     }),
 
     getDashBoard: builder.query<void, void>({
@@ -115,17 +111,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled
-          const { accessToken } = data
-          console.log(data)
-          dispatch(setCredentials({ accessToken }))
-        } catch (error:any) {
-          console.log(error,"refersh endpoint persist")
+          const { data } = await queryFulfilled;
+          const { accessToken } = data;
+          console.log(data);
+          dispatch(setCredentials({ accessToken }));
+        } catch (error: any) {
+          console.log(error, "refersh endpoint persist");
         }
-      }
+      },
     }),
-
-
   }),
 });
 
@@ -134,9 +128,9 @@ export const {
   useGetDashBoardQuery,
   useSendLogOutMutation,
   useGetTestingQuery,
-useRefreshMutation,
+  useRefreshMutation,
   useForgotPasswordVerifyMutation,
   useForgotPasswordOtpMutation,
   useForgotPasswordSetNewPassMutation,
-  useGetNameQuery
+  useGetNameQuery,
 } = authApiSlice;

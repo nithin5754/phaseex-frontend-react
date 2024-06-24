@@ -6,6 +6,9 @@ import { OnGoingSideBar } from "./index";
 import { Button } from "../ui/button";
 import { WorkSpaceFolderList } from "../../components/folder/index";
 import ReactPaginate from 'react-paginate';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
+import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
 
 interface Props {
   allSpaces: ResponseWorkspaceDataType[] | [];
@@ -28,23 +31,37 @@ const SpaceHome = ({
 
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row dark:bg-background dark:text-primary dark:border-border ">
-      <div className="flex-1 p-4 lg:order-1 ">
-        <div className="flex justify-between items-center mb-4">
+
+
+
+<div className="min-h-screen p-6">
+<div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-sfpro ">All Galaxy</h1>
           <button className="bg-slate-600 text-white text-sm px-2 py-1 rounded-lg">
             + New Galaxy
           </button>
         </div>
 
-        {allSpaces.length > 0 && !allSpaces.every((space) => space.active) ? (
+
+<ResizablePanelGroup
+      direction="horizontal"
+      className=" rounded-lg border-0  p-4  "
+    >
+      <ResizablePanel defaultSize={50} className="min-h-[580px] dark:border dark:border-border rounded-md mr-4">
+
+
+
+      <ScrollArea className="h-[590px]  rounded-md   ">
+      <div className="p-4   " >
+        <h4 className="mb-4 text-sm font-sfpro leading-none sticky  top-0 z-50 dark:bg-background py-4">Hidden and Completed </h4>
+      {allSpaces.length > 0 && !allSpaces.every((space) => space.active) ? (
       
           <>
           <WorkSpaceFolderList hiddenProjects={allSpaces} handleHideSubmit={handleHideSubmit } />
            </>
         ) : (
-          <div className="flex items-center justify-center bg-white border border-gray-200 rounded-lg  min-h-screen dark:bg-background dark:text-primary dark:border-border">
-            <div className="text-center">
+          <div className="flex h-[520px]  items-center justify-center my-auto bg-white  dark:bg-background dark:text-primary dark:border-border">
+        <div className="flex flex-col justify-center items-center h-full">
         
               <LottieAnimation
                 animationData={emptyLootieWorkSpace}
@@ -58,46 +75,39 @@ const SpaceHome = ({
             
           </div>
         )}
-
- 
-        <div className="flex items-center justify-center dark:bg-background dark:text-primary dark:border-border">
-          {allSpaces.length > 0 &&
-            !allSpaces.every((space) => space.active) && (
-              <div className="pagination flex items-center space-x-2">
-                <Button
-                  className="p-1 text-sm w-12 bg-slate-500 text-[12px] text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
-                  disabled={currentPage <= 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  Prev
-                </Button>
-                <span className="text-sm">{currentPage}</span>
-                <Button
-                  className="p-1 text-sm w-12 bg-slate-500 text-[12px] text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
-                  disabled={currentPage >= totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-        </div>
-        {/* <ReactPaginate
-        pageCount={totalPages}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={2}
-        onPageChange={({ selected }) => setCurrentPage(selected + 1)}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-      /> */}
       </div>
+    </ScrollArea>
+  
 
 
+     
+    
+
+       
+
+
+      </ResizablePanel>
+ <ResizableHandle style={{ backgroundColor: 'transparent' }} />
+
+      <ResizablePanel defaultSize={50} className="min-h-[580px] dark:border dark:border-border rounded-md">
+        <ResizablePanelGroup direction="vertical">
+          <ResizablePanel defaultSize={25}>
+            <div className="flex h-full  ">
+            {/* ongoing workspace */}
       <OnGoingSideBar
         getOnGoingSpace={getOnGoingSpace ? getOnGoingSpace : []}
         handleHideSubmit={handleHideSubmit}
       />
-    </div>
+            </div>
+          </ResizablePanel>
+
+
+
+        </ResizablePanelGroup>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+</div>
+
   );
 };
 export default SpaceHome;

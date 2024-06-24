@@ -30,7 +30,7 @@ const WorkSpaceDeatils = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-4">
+    <div className="flex flex-col gap-6 p-4 ">
       <div className="flex flex-row w-full gap-2 items-center  justify-center ">
         <div className="flex w-full bg-white text-black border border-gray-200 rounded-lg h-[100px] p-4 dark:text-primary dark:bg-background dark:border-border">
           <div className="flex flex-col justify-between">

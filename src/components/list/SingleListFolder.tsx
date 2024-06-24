@@ -45,7 +45,7 @@ import {
 
         <ResizablePanelGroup
       direction="horizontal"
-      className="   rounded-lg border dark:border-border"
+      className="   rounded-lg border dark:border-border flex flex-col w-full  mx-4 font-sfpro "
     >
      <ResizablePanel defaultSize={65} minSize={35} maxSize={75} >
       <div className="flex flex-col gap-5  p-6 m-auto font-sfpro ">
@@ -63,9 +63,9 @@ import {
 </div>
 </div> 
       </ResizablePanel>
-      <ResizableHandle/>
+      {/* <ResizableHandle/>
       <ResizablePanel>
-      <div className="relative flex h-full min-h-screen  flex-col  bg-muted/50 p-4 lg:col-span-2">
+      <div className="relative flex h-full min-h-[84vh] flex-col  bg-muted/50 p-4 lg:col-span-2">
           <Badge variant="outline" className="absolute right-3 top-3">
           Group Message <GroupIcon/>
           </Badge>
@@ -112,7 +112,7 @@ import {
           </form>
         </div>
 
-      </ResizablePanel>
+      </ResizablePanel> */}
     </ResizablePanelGroup>
       
   

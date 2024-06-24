@@ -1,8 +1,10 @@
-import { ResponseListDataType } from "@/app/redux/api/listapi"
-import { ListProgressBar, PriorityListSetting, UpdateDateList } from "../list/index";
+import { ResponseListDataType, SendAddCollabListType, useAddCollaboratorToListMutation } from "@/app/redux/api/listapi"
+import { AnimatedProfile, ListProgressBar, PriorityListSetting, UpdateDateList } from "../list/index";
 import moment from 'moment'
 import useTimeDue from "@/hooks/useTimeDue";
 import { Link } from "react-router-dom";
+import { PersonStanding, Plus, User2, UserPlus2, UserPlus2Icon } from "lucide-react";
+import { ListCollabModal } from "../modal/add-list-collab-modal";
 
 
 
@@ -22,7 +24,6 @@ const ListMap = ({list,index,folderId,workspaceId}:Props) => {
  let due:number= useTimeDue({list_start_date:list.list_start_date,list_due_date: list.list_due_date})
 
 
- 
 
   return (
 <tr key={list.id} className="border-b border-gray-200 dark:border-border">
@@ -38,8 +39,11 @@ const ListMap = ({list,index,folderId,workspaceId}:Props) => {
     <ListProgressBar percentage={list.progressTask}/>
   </td>
   <td className="px-5 py-3 text-sm bg-white dark:bg-background">
-    list
-  </td>
+  <div className="flex items-center gap-4">
+    <ListCollabModal icon={UserPlus2Icon} spaceId={workspaceId} folderId={folderId} listId={list.id} />
+    <AnimatedProfile workspaceId={workspaceId} folderId={folderId} listId={list.id} />
+  </div>
+</td>
     
   <td className="flex px-5 py-3 my-auto text-[12px] dark:bg-background">
 

@@ -59,12 +59,27 @@ export interface SendEditTodoTask {
 }
 
 
+
+
+
+
 export interface SendDeleteTodoTask {
   workspaceId:string,
   folderId:string,
   listId:string,
   taskId:string,
   todoId:string
+  
+}
+
+
+export interface SendAddCollabTodoTask {
+  workspaceId:string,
+  folderId:string,
+  listId:string,
+  taskId:string,
+  todoId:string
+  collabId:string
   
 }
 

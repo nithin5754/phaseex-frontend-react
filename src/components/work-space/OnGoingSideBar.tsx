@@ -13,11 +13,13 @@ interface Props {
 
 const OnGoingSideBar = ({getOnGoingSpace,handleHideSubmit}:Props) => {
   return (
-    <aside className="w-full mt-16 mr-4 lg:w-[350px] bg-white text-black border-r font-sfpro my-auto items-center border-b border-t border-gray-200 p-4 lg:order-2 rounded-lg  lg:border-l dark:bg-background dark:text-primary dark:border-border ">
-    <h2 className="font-sfpro text-lg mb-4 ">OnGoing Galaxy</h2>
-  {
+
+    // <h2 className="font-sfpro text-lg mb-4 ">OnGoing Galaxy</h2>
+<>
+
+{
     getOnGoingSpace.length>0&&getOnGoingSpace.some(space=>space.active)?(
-      <ul>
+      <ul className="w-full p-4">
       {getOnGoingSpace.map((space) => {
           if (!space.active) {
            
@@ -60,12 +62,14 @@ const OnGoingSideBar = ({getOnGoingSpace,handleHideSubmit}:Props) => {
       })}
     </ul>
     ):(
-      <div className="flex justify-center my-auto">
+      <div className="flex justify-center m-auto">
         <LottieAnimation animationData={EmptyBoxLottie} height={200} width={200}/>
       </div>
     )
   }
-  </aside>
+
+</>
+
   )
 }
 export default OnGoingSideBar

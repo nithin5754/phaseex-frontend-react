@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useGetAllNotificationUnReadQuery } from "./redux/api/notiificationApi";
 import { skipToken } from "@reduxjs/toolkit/query";
+import useGreetings from "@/hooks/useGreetings";
 
 
 export interface Notification {
@@ -51,6 +52,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const user=useAuth()
 
 
+  const greet=useGreetings()
 
   
 
@@ -65,9 +67,19 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     newSocket.emit('newUser', user.userId);
 
+
+
     newSocket.on('getNotification', (notification: Notification) => {
       setUnReadNotifications((prev) => [notification,...prev]);
       setUnreadCount((prev) => prev + 1);
+    });
+
+    newSocket.emit('sendNotification', {
+      senderName: user?.userId,
+      receiverName: user?.userId,
+      type:"greet",
+      messageSendBy: `${greet}`,
+      message: `welcome to phaseex project tool software`,
     });
 
     return () => {
