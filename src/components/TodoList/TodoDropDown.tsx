@@ -1,5 +1,5 @@
 
-import { Delete,FileEdit, LoaderPinwheel,  } from "lucide-react";
+import { Delete,FileEdit, LoaderPinwheel, Trash,  } from "lucide-react";
 
 import { TodoModalEdit } from "../modal/Todo-edit-modal";
 import { Button } from "../ui/button";
@@ -73,7 +73,7 @@ const handleDelete=async()=>{
           isLoading?(<>
              <LoaderPinwheel className="animate-spin " size={24}/>
           </>):( <>
-            <Delete size={23} onClick={handleDelete}/>
+            <Trash size={23} onClick={handleDelete}/>
             </>)
          }
          </>

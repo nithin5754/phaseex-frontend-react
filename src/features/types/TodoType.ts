@@ -83,6 +83,15 @@ export interface SendAddCollabTodoTask {
   
 }
 
+export interface TodoCollabType {
+
+  id:string;
+  fullName: string; 
+  email:string;
+  imageUrl:string;
+  role:string;
+
+}
 
 
 

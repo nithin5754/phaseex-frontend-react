@@ -3,6 +3,8 @@ import EmptyBoxLottie from '../../../public/json/emptyBox.json'
 import { LottieAnimation } from "../lootie/Lootie";
 import { Link } from "react-router-dom";
 import PopOverWorkSpace from "./PopOverWorkSpace";
+import { DeleteWS } from "./index"
+import useAuth from "@/hooks/useAuth";
 
 interface Props {
   getOnGoingSpace: ResponseWorkspaceDataType[] | [];
@@ -12,6 +14,8 @@ interface Props {
 
 
 const OnGoingSideBar = ({getOnGoingSpace,handleHideSubmit}:Props) => {
+
+  const user=useAuth()
   return (
 
     // <h2 className="font-sfpro text-lg mb-4 ">OnGoing Galaxy</h2>
@@ -56,7 +60,17 @@ const OnGoingSideBar = ({getOnGoingSpace,handleHideSubmit}:Props) => {
               </Link>
               </div>
             </div>
+     {
+      user?.userId===space.workspaceOwner&&(
+        <>
+          <div className="flex items-center justify-center gap-4">
+            <DeleteWS workspaceId={space.id} />
             <PopOverWorkSpace handleHideSubmit={handleHideSubmit} id={space.id} text={"Do yo want make this hidden ?"}/>
+            </div>
+        </>
+      )
+          
+     }
           </li>
         );
       })}

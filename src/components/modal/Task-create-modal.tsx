@@ -44,12 +44,12 @@ interface OpenModalProps{
   return (
     <Credenza open={open} onOpenChange={setOpen} >
       <CredenzaTrigger asChild>
-      <Button   className='w-full items-center gap-2 justify-end hover:bg-transparent text-black bg-transparent  dark:text-primary'
+      <Button   className='w-full items-center gap-2 justify-end hover:bg-transparent font-sfpro  bg-transparent  dark:text-primary'
      >{title} <span>{Icon &&<Icon size={20}/>} </span></Button>
       </CredenzaTrigger>
       <CredenzaContent  >
         <CredenzaHeader>
-          <CredenzaTitle className="dark:text-primary">create new List</CredenzaTitle>
+          <CredenzaTitle className="dark:text-primary">create new Task</CredenzaTitle>
           <CredenzaDescription className="dark:text-primary">
          We are creating a dedicated space for your project within our tool signifies the inception of a strategic journey towards achieving your objectives
           </CredenzaDescription>

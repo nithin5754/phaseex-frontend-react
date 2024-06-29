@@ -5,11 +5,12 @@ import {  AddTodoCollabInput } from "../search"
 import collabLootie from '.././../../public/json/collabrative-1.json'
 
 import { useSelector } from "react-redux";
-import { selectSUggestionCollabListOpenClose } from "@/app/redux/slice/listSlice";
-import { useGetCollabListByIdQuery } from "@/app/redux/api/listapi";
-import { AddTodoCollabSuggestion } from "./index";
+
+import { AddTodoCollabSuggestion, MembersTodoCollabPage } from "./index";
 import { selectSUggestionCollabTodoOpenClose } from "@/app/redux/slice/todoSlice";
-import { todo } from "node:test";
+
+import { useGetAllTodoCollabByIdQuery } from "@/app/redux/api/todoapi";
+
 
 
 interface Props {
@@ -23,22 +24,26 @@ const CollabTodo = ({workspaceId,folderId,listId,taskId,todoId}:Props) => {
 
   const openClose=useSelector(selectSUggestionCollabTodoOpenClose)
 
-  // const {data:getCollabListById}=useGetCollabListByIdQuery({workspaceId,folderId,listId})  
+  const {data:getAllTodoCollabById}=useGetAllTodoCollabByIdQuery({workspaceId,folderId,listId,taskId,todoId})  
+
+  console.log(getAllTodoCollabById,"hey uii todo list mhnnn");
+  
   return (
      <div className="flex  flex-col mx-auto mt-4  ">
-      <AddTodoCollabInput/>
+      <AddTodoCollabInput taskId={taskId}/>
       <>
       {
         openClose&& <AddTodoCollabSuggestion workspaceId={workspaceId} folderId={folderId} listId={listId} taskId={taskId} todoId={todoId}/>
       }
       </>
-    {/* {
-      getCollabListById&&getCollabListById.length>0?(
+    {
+      getAllTodoCollabById&&getAllTodoCollabById.length>0?(
         <>
-        <MembersListAddPage workspaceId={workspaceId} folderId={folderId} listId={listId}/>
+        <MembersTodoCollabPage workspaceId={workspaceId} folderId={folderId} listId={listId} taskId={taskId} todoId={todoId}/>
+
         </>
       ):(<LottieAnimation animationData={collabLootie} height={300} width={300}/>)
-    } */}
+    }
      
      </div>
   )

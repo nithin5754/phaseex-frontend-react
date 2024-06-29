@@ -7,7 +7,8 @@ export interface TodoSliceType {
   searchTodoItem: TodoType[] | null;
   searchTodoQuery: string | "";
   recentlySearched: string[];
-  todoRecentlySearchSuggestion:boolean
+  todoRecentlySearchSuggestion:boolean;
+  SearchTodoCollabQuery:string|""
 
   todoSearchCollab:WorkSpaceCollabType[]|null,
   todoSearchQueyCollab:string;
@@ -17,6 +18,7 @@ export interface TodoSliceType {
 const initialState: TodoSliceType = {
   searchTodoItem: null,
   searchTodoQuery: "",
+  SearchTodoCollabQuery:"",
   recentlySearched: [],
   todoRecentlySearchSuggestion: false,
 
@@ -52,6 +54,14 @@ export const TodoSlice = createSlice({
         state.searchTodoQuery = action.payload;
       } else {
         state.searchTodoQuery = "";
+      }
+    },
+
+    setSearchTodoCollabQuery: (state, action: PayloadAction<string | "">) => {
+      if (action.payload) {
+        state.SearchTodoCollabQuery = action.payload;
+      } else {
+        state.SearchTodoCollabQuery = "";
       }
     },
 
@@ -125,6 +135,7 @@ export const {
   setSearchTodoCollab,
   removeSearchTodoCollab,
   setSuggestionOpen,
+  setSearchTodoCollabQuery,
   setSuggestionClose
 
 } = TodoSlice.actions;
@@ -135,6 +146,9 @@ export const selectTodoQuery = (store: RootState) => store.todo.searchTodoQuery;
 export const selectTodoItem = (store: RootState) => store.todo.searchTodoItem;
 export const selectRecentlySearchQuery = (store: RootState) =>
   store.todo.recentlySearched;
+
+export const selectTodoCollabQuery = (store: RootState) =>
+  store.todo.SearchTodoCollabQuery;
 
 
 // export const selectRecentlySearchedItem=(store:RootState)=>store.todo.todoRecentlySearchSuggestion

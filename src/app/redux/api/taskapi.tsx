@@ -226,6 +226,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
         },
+        { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
       ],
   
     }),

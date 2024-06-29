@@ -9,6 +9,7 @@ import ReactPaginate from 'react-paginate';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
+import { useState } from "react";
 
 interface Props {
   allSpaces: ResponseWorkspaceDataType[] | [];
@@ -30,6 +31,8 @@ const SpaceHome = ({
 
 
 
+
+
   return (
 
 
@@ -47,26 +50,27 @@ const SpaceHome = ({
       direction="horizontal"
       className=" rounded-lg border-0  p-4  "
     >
-      <ResizablePanel defaultSize={50} className="min-h-[580px] dark:border dark:border-border rounded-md mr-4">
+      <ResizablePanel defaultSize={50} minSize={30} maxSize={65}  className="min-h-[580px] dark:border dark:border-border rounded-md mr-4">
+
 
 
 
       <ScrollArea className="h-[590px]  rounded-md   ">
       <div className="p-4   " >
-        <h4 className="mb-4 text-sm font-sfpro leading-none sticky  top-0 z-50 dark:bg-background py-4">Hidden and Completed </h4>
+        <h4 className="mb-4 text-xl  font-sfpro leading-none sticky  top-0 z-50 dark:bg-background py-4">Hidden and Completed </h4>
       {allSpaces.length > 0 && !allSpaces.every((space) => space.active) ? (
       
           <>
           <WorkSpaceFolderList hiddenProjects={allSpaces} handleHideSubmit={handleHideSubmit } />
            </>
         ) : (
-          <div className="flex h-[520px]  items-center justify-center my-auto bg-white  dark:bg-background dark:text-primary dark:border-border">
+          <div className="flex h-[400px]  items-center justify-center my-auto bg-white  dark:bg-background dark:text-primary dark:border-border">
         <div className="flex flex-col justify-center items-center h-full">
         
               <LottieAnimation
                 animationData={emptyLootieWorkSpace}
                 height={200}
-                width={200}
+                width={200}  
               />
               <p className="mt-4 text-gray-600">
                 All Galaxy completed, joined, hidden
@@ -88,12 +92,14 @@ const SpaceHome = ({
 
       </ResizablePanel>
  <ResizableHandle style={{ backgroundColor: 'transparent' }} />
+ 
 
-      <ResizablePanel defaultSize={50} className="min-h-[580px] dark:border dark:border-border rounded-md">
+      <ResizablePanel   className="min-h-[580px] dark:border dark:border-border rounded-md">
         <ResizablePanelGroup direction="vertical">
           <ResizablePanel defaultSize={25}>
-            <div className="flex h-full  ">
-            {/* ongoing workspace */}
+            <div className="flex flex-col items-center h-full  ">
+            <h4 className="mb-4 text-xl font-sfpro text-center mt-4 mx-auto  dark:bg-background py-4">On Going Galaxy </h4>
+          
       <OnGoingSideBar
         getOnGoingSpace={getOnGoingSpace ? getOnGoingSpace : []}
         handleHideSubmit={handleHideSubmit}

@@ -39,6 +39,10 @@ const ViewSpace = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  
+
+  
+
   useEffect(() => {
     if (getInactive && getInactive?.count) {
       setTotalPages(Math.ceil(getInactive.count / 6));

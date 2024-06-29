@@ -49,14 +49,14 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
   
 
   return (
-    <Table >
+    <Table  className="" >
       <TableCaption>divide the task to developers</TableCaption>
-      <TableHeader>
-      <TableRow className="">
+      <TableHeader className="">
+      <TableRow className="dark:border dark:border-border ">
       <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
       </TableHead>
       <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-start justify-start gap-2">
 
         <FileText className="w-4 h-4" />
         <span>name</span>
@@ -93,27 +93,27 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
       </TableHead>
     </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="dark:border dark:border-border">
         {getAllTask&&getAllTask.length>0&&getAllTask.map((task) =>{
           return(
-            <TableRow key={task.id}>
-                 <TableCell className="font-medium text-center">
+            <TableRow key={task.id} className="dark:border dark:border-border">
+                 <TableCell  className="font-medium text-center  m-auto">
                   <UpdateTaskStatus taskId={task.id} status={task.status_task}/>
                  </TableCell>
                  <Link to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}>
-                 <TableCell className="font-medium text-center">{task.task_title}</TableCell>
+                 <TableCell className="font-medium text-center m-auto">{task.task_title}</TableCell>
      </Link>
              
-              <TableCell className="text-center">{truncateDesc(task.task_description)}</TableCell>
+              <TableCell className="text-center  m-auto">{truncateDesc(task.task_description)}</TableCell>
               <TableCell className="text-center m-auto">
-              <div className="flex items-start justify-start m-auto gap-4">
+              <div className="flex items-center justify-center m-auto gap-2">
                   <TaskCollabModal icon={UserPlus} spaceId={spaceId} folderId={folderId} taskId={task.id} listId={listId}/>
          
     
               <AnimatedTaskProfile workspaceId={spaceId} folderId={folderId} listId={listId} taskId={task.id}/>
               </div>
               </TableCell>
-              <TableCell className="w-[160px] text-center">  {task.status_task === 'complete' ? (
+              <TableCell className="w-[160px] text-center  m-auto">  {task.status_task === 'complete' ? (
       <div className="flex  ">
         <Check className="w-[16px] text-green-800 " style={{ strokeWidth: 6 }}/>
         {task.status_task} 
@@ -121,7 +121,7 @@ const TaskTable = ({folderId,spaceId,listId}:Props) => {
     ) : (
       task.status_task
     )}</TableCell>
-              <TableCell>
+              <TableCell className=" text-center  m-auto">
                 <PriorityTaskSetting priority={task.priority_task} workspaceId={spaceId} folderId={folderId} taskId={task.id} id={listId}/>
               </TableCell>
         

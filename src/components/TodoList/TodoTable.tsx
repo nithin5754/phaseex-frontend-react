@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Checkbox } from "../ui/checkbox"
-import { CheckCircle,  FileText,  LoaderCircle,  LoaderIcon, MoreHorizontal, Settings, UserPlus2} from "lucide-react"
+import { CheckCircle,  FileText,  LoaderCircle,  LoaderIcon, MoreHorizontal, Settings, User2, UserPlus2} from "lucide-react"
 import { SendTodoCheckBox, TodoType } from "@/features/types/TodoType"
 
 import { useOnUpdateStatusTodoMutation } from "@/app/redux/api/todoapi";
@@ -20,6 +20,7 @@ import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
 import { selectTodoItem, selectTodoQuery } from "@/app/redux/slice/todoSlice";
 import { TodoCollabModal } from "../modal/add-todo-collab";
+import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile";
 
 
 interface Props {
@@ -84,24 +85,27 @@ const TodoTable = ({getAllTodoTask}:Props) => {
     <TableRow className="">
   <TableHead className="  "></TableHead>
   <TableHead className="  ">
-     <div className="flex items-center justify-center gap-2">
+  <div className="flex items-start justify-start gap-2">
      <FileText className="w-4 h-4 text-gray-600" />
      <span>todo</span>
      </div>
   </TableHead>
-  {/* <TableHead className="flex  gap-2">
-    <User className="w-4 h-4 text-gray-600" />
+  <TableHead className="flex  gap-2">
+  <div className="flex items-center justify-center gap-2">
+    <User2 className="w-4 h-4 text-gray-600" />
     <span>assignee</span>
-  </TableHead> */}
+
+  </div>
+  </TableHead>
   <TableHead className=" ">
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-start justify-start gap-2">
     <CheckCircle className="w-4 h-4 text-gray-600" />
     <span>status</span>
     </div>
   
   </TableHead>
   <TableHead className="   ">
-    <div className="flex items-center justify-center gap-2">
+  <div className="flex items-start justify-start gap-2">
     <Settings className="w-4 h-4 text-gray-600" />
     <span>action</span>
     </div>
@@ -117,19 +121,21 @@ const TodoTable = ({getAllTodoTask}:Props) => {
       <TableBody key={todo.id}>
         <TableRow
         className={todo.todo_status==='completed'?'line-through':''}
-      
         >
           <TableCell >
             <Checkbox
-      
               checked={todo.todo_status==='completed'}
               onClick={() => handleChangeCheckBox(todo)}
             />
           </TableCell>
           <TableCell>{todo.todo}</TableCell>
-          {/* <TableCell>
-            <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
-          </TableCell> */}
+          <TableCell>
+          <div className="flex items-center gap-4">
+            <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} 
+            listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+          <AnimatedTodoProfile workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+          </div>
+          </TableCell>
           <TableCell>
           {loadingStates[todo.id]? (
                 <LoaderIcon className="animate-spin " size={24}/>
@@ -165,8 +171,15 @@ const TodoTable = ({getAllTodoTask}:Props) => {
             />
           </TableCell>
           <TableCell>{todo.todo}</TableCell>
-          <TableCell>{todo.assignee}</TableCell>
           <TableCell>
+          <div className="flex items-center gap-4">
+            <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} 
+            listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+          <AnimatedTodoProfile workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+          </div>
+            </TableCell>
+          <TableCell>
+          <div className="flex items-center gap-4">
           {loadingStates[todo.id]? (
                 <LoaderIcon className="animate-spin " size={24}/>
               ) : (
@@ -176,6 +189,7 @@ const TodoTable = ({getAllTodoTask}:Props) => {
                   <CheckCircle size={24} color="green" />
                 )
               )}
+              </div>
 </TableCell>
           <TableCell className="">
          

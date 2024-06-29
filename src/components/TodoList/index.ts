@@ -10,6 +10,11 @@ import RecentlySearch from "./RecentlySearch"
 import TodoSearch from "./TodoSearch"
 import CollabTodo from "./CollabTodo"
 import AddTodoCollabSuggestion from "./AddTodoCollabSuggestion"
+import MembersTodoCollabPage from "./TodoMemebers"
+import MembersTodoSingleCollab from "./MembersTodoSingleCollab"
+
+import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile"
+import DeleteTodoCollab from "./DeleteTodoCollab"
 export {
   Todos,
   TodoTable,
@@ -17,8 +22,11 @@ export {
   TodoDropDown,
   EditTodo,
   RecentlySearch,
-
+  MembersTodoCollabPage,
   TodoSearch,
   CollabTodo,
-  AddTodoCollabSuggestion
+  AddTodoCollabSuggestion,
+  AnimatedTodoProfile,
+  MembersTodoSingleCollab,
+  DeleteTodoCollab
 }

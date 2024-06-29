@@ -237,6 +237,67 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     }),
 
+
+
+       /**
+   * @param {workspaceId}
+   * @api {/delete-workSpace/:workspaceId}
+   * @return {boolean}
+   */
+
+
+       
+    deleteWorkSpace: builder.mutation<boolean,{ workspaceId:string}>({
+      query: ({ workspaceId}) => ({
+        url: `/space/delete-workSpace/${workspaceId}`,
+        method: "POST",
+      }),     
+ 
+      async onQueryStarted({ workspaceId }, { dispatch, queryFulfilled }) {
+        let workspaceWasActive = false;
+        const patchResult = dispatch(
+          workApiSlice.util.updateQueryData(
+            "getOnGoingSpaces",
+            undefined,
+            (draft) => {
+              const workspace = draft.find((space) => space.id === workspaceId);
+              if (workspace) {
+                workspaceWasActive=workspace.active
+                workspace.active = !workspace.active;
+              }
+            }
+          )
+        );
+        let pageId: string = "1";
+        const onGoingResult = dispatch(
+          workApiSlice.util.updateQueryData("getAllSpaces", pageId, (draft) => {
+            const workspace = draft.find((space) => space.id === workspaceId);
+            if (workspace) {
+              workspace.active = !workspace.active;
+            }
+          })
+        );
+        const inactiveCountResult=dispatch(
+          workApiSlice.util.updateQueryData('getInActiveSpaceCount',undefined,(draft)=>{
+            if (workspaceWasActive) {
+              draft.count += 1;
+            }else{
+              draft.count -= 1;
+            }
+          })
+        )
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+          onGoingResult.undo();
+          inactiveCountResult.undo();
+        }
+      },
+      invalidatesTags: ["Workspace"],
+
+    }),
+
   }),
 });
 
@@ -256,4 +317,5 @@ export const {
   useGetAllCollabInSpaceQuery,
   useDeleteCollaboratorMutation,
   useVerifyCollaboratorsMutation,
+  useDeleteWorkSpaceMutation
 } = workApiSlice;

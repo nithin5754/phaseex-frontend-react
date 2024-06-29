@@ -68,12 +68,12 @@ className="dark:border dark:border-none"
                 <AvatarFallback>{FirstTwoCharacter(collab.assignee)}</AvatarFallback>
               </Avatar>
               <div className="flex gap-2 ">
-                <p className="text-sm font-medium leading-none">{collab.assignee}</p>
+                <p className="text-sm font-sfpro leading-none">{collab.assignee}</p>
  
               </div>
        
               <>
-         {collab.verified?(<h1 className="text-green-800">Accepted</h1>):(<h1 className="border border-border rounded-full text-sm w-[85px] px-[5px] ">not Accepted</h1>)}
+         {collab.verified?(<h1 className="text-green-800">Accepted</h1>):(<h1 className="border border-border rounded-md text-sm w-[100px] px-[5px] text-red-800">not Accepted</h1>)}
                </>
 
                {/* <div className="flex gap-2 ">

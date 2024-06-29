@@ -2,7 +2,7 @@
 
 import { ResponseSUserType, WorkSpaceCollabType } from "@/features/types/searchType";
 import { apiSlice } from "./apiSlice";
-import { TodoType } from "@/features/types/TodoType";
+import { TodoCollabType, TodoType } from "@/features/types/TodoType";
 
 // 
 export const searchApiSlice = apiSlice.injectEndpoints({
@@ -31,6 +31,39 @@ export const searchApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Search"],
     }),
+
+
+
+
+
+  /**
+   * @param {}
+   * @api {/task-collab?workspaceId={workspaceId}&folderId={folderId}&listId={listId}&collabKey={collabkey}}
+   * @return {}
+   */
+
+  getSearchTodoCollab: builder.mutation<TodoCollabType[],  { workspaceId: string;folderId:string,listId:string,taskId:string,collabKey:string }>({
+    query: ({ workspaceId,folderId,listId,taskId,collabKey }) => ({
+      url: `/search/task-collab?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}&collabKey=${collabKey}`,
+      method: "POST",
+    }),
+ 
+
+    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId}) => [
+     "Search", { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
+    ],
+  }),
+
+
+
+
+
+ 
+
+
+
+
+
   })
 })
 
@@ -39,4 +72,5 @@ export const searchApiSlice = apiSlice.injectEndpoints({
 export const {useGetSearchUserMutation,
   useGetSearchTodoMutation,
   useGetSearchSpaceCollabMutation,
+  useGetSearchTodoCollabMutation
 }=searchApiSlice

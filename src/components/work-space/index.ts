@@ -9,6 +9,7 @@ import WorkSpaceDeatils from "./WorkSpaceDeatils";
 import { WorkSpaceNav } from "../nav/WorkSpaceNav";
 import PopOverWorkSpace from "./PopOverWorkSpace";
 // import { SpaceCards } from "./SpaceCards";
+import DeleteWS from "./DeleteWS";
 
 
 
@@ -22,6 +23,7 @@ export {
   WorkSpaceDeatils,
   // SpaceCards,
   WorkSpaceNav,
+  DeleteWS,
   PopOverWorkSpace
 
 
