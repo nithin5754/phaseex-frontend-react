@@ -25,7 +25,11 @@ const CollabTask = ({workspaceId,folderId,listId,taskId}:Props) => {
   const openClose=useSelector(selectSUggestionCollabTaskOpenClose)
 
 
-  const {data:getCollabTaskById}=useGetCollabTaskByIdQuery({workspaceId,folderId,listId,taskId})  
+  const {data:getCollabTaskById}=useGetCollabTaskByIdQuery({workspaceId,folderId,listId,taskId},    {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  })  
   return (
      <div className="flex  flex-col mx-auto mt-4  ">
    

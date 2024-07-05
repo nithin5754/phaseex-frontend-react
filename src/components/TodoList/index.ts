@@ -15,6 +15,10 @@ import MembersTodoSingleCollab from "./MembersTodoSingleCollab"
 
 import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile"
 import DeleteTodoCollab from "./DeleteTodoCollab"
+import TodoTHead from "./TodoTHead"
+
+
+import TodoSingle from "./TodoSingle"
 export {
   Todos,
   TodoTable,
@@ -28,5 +32,8 @@ export {
   AddTodoCollabSuggestion,
   AnimatedTodoProfile,
   MembersTodoSingleCollab,
-  DeleteTodoCollab
+  DeleteTodoCollab,
+  TodoTHead,
+
+  TodoSingle
 }

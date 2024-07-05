@@ -120,8 +120,8 @@ export function UpdateDateList({
 
   return (
     <div className={cn("grid gap-2 font-sfpro ", className)}>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+      <Popover open={open} onOpenChange={setOpen} >
+        <PopoverTrigger asChild >
           <CalendarDaysIcon className="ml-2 h-4 w-4 shrink-0  opacity-50 " />
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0  mr-4" align="start">

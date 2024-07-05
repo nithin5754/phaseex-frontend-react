@@ -12,6 +12,8 @@ import { LottieAnimation } from "../lootie/Lootie";
 
 import emptyTodoTask from '../../../public/json/empty-todo-task-1.json'
 import { TodoModalCreate } from "../modal/todo-modal-create";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import UseListRole from "@/hooks/UseListRole";
 
 const Todos = () => {
 
@@ -26,7 +28,9 @@ const Todos = () => {
 return <h1>loading....</h1>
   }
 
+  const isSpaceOwner=UseSpaceRoles({workspaceId:id})
 
+  const isListRoles=UseListRole({workspaceId:id,folderId,listId})
 const {data:getAllTodoTask}=useGetAllTodoTaskQuery( { workspaceId:id,folderId,listId,taskId },
   {
     pollingInterval:60000,
@@ -40,28 +44,25 @@ console.log(getAllTodoTask,"hello todo")
 <div className="flex w-full flex-col mt-8">
   <div className="flex justify-between">
     <h1 className="font-sfpro text-xl w-28">Todo Task</h1>
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-        <TodoModalCreate  spaceId={id} folderId={folderId} listId={listId} taskId={taskId} icon={Plus}/>
-        </TooltipTrigger>
-        <TooltipContent className="dark:border dark:border-border">
-          <p className="font-sfpro">Add  todo task</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+
+    {
+(isListRoles.role==='listManager'||isSpaceOwner)&&(
+  <TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild>
+    <TodoModalCreate  spaceId={id} folderId={folderId} listId={listId} taskId={taskId} icon={Plus}/>
+    </TooltipTrigger>
+    <TooltipContent className="dark:border dark:border-border">
+      <p className="font-sfpro">Add  todo task</p>
+    </TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+)
+    }
+   
    
   </div>
     <div className="flex items-end justify-end py-4">
-        {/* <Input
-          placeholder="Filter todo list here..."
-          value={"hello"}
-          onChange={() =>
-         console.log("hello")
-         
-          }
-          className="max-w-sm h-8 w-[300px]"
-        /> */}
         <TodoSearch/>
         </div>
 

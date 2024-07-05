@@ -51,11 +51,7 @@ export function FolderForm({ handleClose, spaceId }: Props) {
 
   const [onCreateFolder, { isLoading }] = useOnCreateFolderMutation();
 
-  // export interface FolderDataType {
-  //   folder_title: string;
-  //   folder_description: string;
-  //   workspaceId: string;
-  // }
+  
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let folderData: FolderDataType = {

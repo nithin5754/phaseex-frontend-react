@@ -3,7 +3,9 @@ import { Label } from "../ui/label";
 import { OpenModal } from "../modal/folderEdit-modal";
 import { OpenModal as CreateListModal } from "../modal/list-create-modal";
 import { Input } from "../ui/input";
-import { Plus } from "lucide-react";
+import { EllipsisIcon, Plus } from "lucide-react";
+import UseinviteUserAuth from "@/hooks/UseinviteUserAuth";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
 interface Props {
 
  id:string
@@ -12,6 +14,9 @@ interface Props {
 
 
 const FolderDetails = ({id,folderId}:Props) => {
+
+
+  const isSpaceOwner=UseSpaceRoles({workspaceId:id})
   const {
     data: singleFolder,
     error,
@@ -32,15 +37,29 @@ const FolderDetails = ({id,folderId}:Props) => {
     return <h1>loading...</h1>;
   }
 
+
+
   return (
     <div className="flex flex-row w-full  gap-2  items-center justify-around ">
     <div className="flex flex-1 bg-white border border-gray-200 rounded-lg h-36 p-4 dark:bg-background  dark:text-primary dark:border-border">
       {singleFolder && (
-        <div className="flex flex-row">
+        <div className="flex flex-row ">
           <div className="flex flex-col justify-between h-full">
-            <h1 className="font-sfpro text-lg mb-2">
+          <div className="flex flex-row justify-between">
+          <h1 className="font-sfpro text-lg mb-2">
               Folder {singleFolder.folder_title}
             </h1>
+          <div className="my-auto items-center">
+          {
+                isSpaceOwner&&(
+                  <OpenModal title={""} icon={EllipsisIcon} spaceId={id} />
+
+                )
+          }
+          </div>
+          
+          </div>
+          
             <p className="text-gray-600 text-sm font-sfpro mb-4 dark:text-primary">
               Description: {truncateDesc(singleFolder.folder_description)}
             </p>
@@ -48,12 +67,16 @@ const FolderDetails = ({id,folderId}:Props) => {
               Created at {singleFolder.createdAt}
             </h1>
           </div>
-          <OpenModal title={"edit"} icon={Plus} spaceId={id} />
+     
         </div>
       )}
     </div>
 
-    <div className="flex items-center w-[350px] justify-center bg-white border border-gray-200 rounded-lg h-36 dark:bg-background  dark:text-primary dark:border-border">
+    <>
+    {
+     isSpaceOwner&&(
+       <>
+           <div className="flex items-center w-[350px] justify-center bg-white border border-gray-200 rounded-lg h-36 dark:bg-background  dark:text-primary dark:border-border">
       <div className="text-center">
         <CreateListModal
           title={"create list"}
@@ -64,18 +87,16 @@ const FolderDetails = ({id,folderId}:Props) => {
       </div>
     </div>
 
-    <div className="flex items-center flex-1 justify-center bg-white border border-gray-200 rounded-lg h-36 dark:bg-background  dark:text-primary dark:border-border">
-      <div className="flex flex-col items-center justify-center mx-4">
-        <Label htmlFor="picture" className="font-sfpro text-md mb-4 ">
-          Upload resource for this folder
-        </Label>
-        <Input
-          id="picture"
-          type="file"
-          className="dark:bg-input dark:text-primary"
-        />
-      </div>
-    </div>
+ 
+       
+       </>
+      )
+    }
+    
+    
+    </>
+
+
   </div>
   )
 }

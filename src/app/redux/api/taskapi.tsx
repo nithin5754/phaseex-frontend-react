@@ -15,6 +15,13 @@ export interface SendAddCollabTaskType {
   collabId: string;
 }
 
+export interface SendToCheckCollab {
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+
+}
+
 export interface TResponseCollaboratorDetailType {
   id: string;
   fullName: string;
@@ -121,11 +128,11 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       providesTags: (
         result,
         error,
-        { workspaceId, folderId, listId, taskId }
+        { workspaceId, folderId, listId }
       ) => [
         {
           type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
+          id: `${workspaceId}-${folderId}-${listId}`,
         },
       ],
     }),
@@ -140,11 +147,11 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         invalidatesTags: (
           _result,
           _error,
-          { workspaceId, folderId, listId, taskId }
+          { workspaceId, folderId, listId }
         ) => [
           {
             type: "TaskSpace",
-            id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
+            id: `${workspaceId}-${folderId}-${listId}`,
           },
         ],
       }
@@ -165,19 +172,24 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (
         _result,
         _error,
-        { workspaceId, folderId, listId, taskId }
+        { workspaceId, folderId,listId }
       ) => [
         {
           type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
+          id: `${workspaceId}-${folderId}-${listId}`,
         },
       ],
-    }),
+
+
+
+
+  }
+  ),
 
     /**
-  * @returns {Promise<id:string;fullName: string, email:string ,imageUrl:string, role:string []>}
-  * @param { workspaceId, folderId, listId,taskId}
-  */
+     * @returns {Promise<id:string;fullName: string, email:string ,imageUrl:string, role:string []>}
+     * @param { workspaceId, folderId, listId,taskId}
+     */
 
     getCollabTaskById: builder.query<
       TResponseCollaboratorDetailType[],
@@ -196,46 +208,89 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       providesTags: (
         result,
         error,
-        { workspaceId, folderId, listId, taskId }
+        { workspaceId, folderId, listId }
       ) => [
         {
           type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
+          id: `${workspaceId}-${folderId}-${listId}`,
         },
       ],
     }),
 
     /**
-  *@returns {Promise<boolean>}
+     *@returns {Promise<boolean>}
+     * @param { workspaceId, folderId, listId,taskId,collabId }
+     */
 
-  * @param { workspaceId, folderId, listId,taskId,collabId }
-  */
-
-    deleteCollaboratorToTaskAssignee: builder.mutation<boolean, SendAddCollabTaskType>({
+    deleteCollaboratorToTaskAssignee: builder.mutation<
+      boolean,
+      SendAddCollabTaskType
+    >({
       query: (credentials) => ({
         url: `/task/delete-collabId-task/${credentials.collabId}`,
         method: "DELETE",
         body: { ...credentials },
-      }),     
+      }),
       invalidatesTags: (
         _result,
         _error,
-        { workspaceId, folderId, listId, taskId }
+        { workspaceId, folderId, listId,taskId}
       ) => [
         {
           type: "TaskSpace",
+          id: `${workspaceId}-${folderId}-${listId}`,
+        },
+        {
+          type: "TodoTask",
           id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
         },
-        { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
       ],
-  
+
+
+      async onQueryStarted(
+        { workspaceId, folderId, listId,taskId },
+        { dispatch, queryFulfilled }
+      ) {
+        try {
+          await queryFulfilled;
+          dispatch(
+            taskApiSlice.util.invalidateTags([
+              { type: "TaskSpace", id: `${workspaceId}-${folderId}-${listId}` },
+              {
+                type: "TodoTask",
+                id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
+              },
+            ])
+          );
+        } catch (error) {
+          console.error("Update status failed", error);
+        }
+      },
     }),
 
-
-
-
-
-
+    /**
+     * @returns {Promise<boolean>}
+     * @url  `/task/check-collab-in-list-group?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}&collaboratorId=${credentials.collaboratorId}`,
+     * @param { SendToCheckCollab}
+     */
+    checkCollabInListGrp: builder.query<boolean, SendToCheckCollab>({
+      query: (credentials) => ({
+        url: `/task/check-collab-in-list-group?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}`,
+        validateStatus: (
+          response: { status: number },
+          result: { isError: any }
+        ) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+      providesTags: (result, error, { workspaceId, folderId, listId }) => [
+        {
+          type: "TaskSpace",
+          id: `${workspaceId}-${folderId}-${listId}`,
+        },
+    
+      ],
+    }),
   }),
 });
 
@@ -248,5 +303,6 @@ export const {
   useOnUpdateDescriptionTaskMutation,
   useAddCollaboratorToTaskMutation,
   useGetCollabTaskByIdQuery,
-  useDeleteCollaboratorToTaskAssigneeMutation
+  useDeleteCollaboratorToTaskAssigneeMutation,
+  useCheckCollabInListGrpQuery,
 } = taskApiSlice;

@@ -26,7 +26,8 @@ const DeleteCollabTask = ({ checkingDetails }: Props) => {
  await deleteCollaboratorToTaskAssignee(
       sendResponseData
     ).unwrap();
-
+ 
+      
 
   };
 

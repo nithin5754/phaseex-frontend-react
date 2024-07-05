@@ -42,8 +42,8 @@ interface OpenModalProps{
   return (
     <Credenza open={open} onOpenChange={setOpen} >
       <CredenzaTrigger asChild>
-      <Button   className='w-[76px] p-0 font-sfpro items-center gap-2 justify-center text-white dark:text-primary dark:bg-input'
-     >{title} <span>{Icon &&<Icon size={14}/>} </span></Button>
+      <Button   className='w-[76px] p-0 font-sfpro items-center gap-2 justify-center text-gray-500 dark:text-primary dark:bg-input border-0 bg-none bg-transparent dark:bg-transparent hover:bg-transparent focus-within:bg-transparent '
+     >{title} <span>{Icon &&<Icon size={18}/>} </span></Button>
       </CredenzaTrigger>
       <CredenzaContent  >
         <CredenzaHeader>

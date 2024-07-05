@@ -17,7 +17,11 @@ interface Props {
 export function AnimatedTaskProfile({workspaceId,folderId,listId,taskId}:Props) {
 
 
-  const {data:getCollabTaskById}=useGetCollabTaskByIdQuery({workspaceId,folderId,listId,taskId})
+  const {data:getCollabTaskById}=useGetCollabTaskByIdQuery({workspaceId,folderId,listId,taskId},    {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  })
 
   console.log(getCollabTaskById,"task animated collab");
   

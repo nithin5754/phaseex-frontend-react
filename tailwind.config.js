@@ -86,7 +86,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        'sfpro': ['SF Pro Display', 'sans-serif'],
+        'sfpro': ['Poppins', 'sans-serif'],
       },
     },
   },

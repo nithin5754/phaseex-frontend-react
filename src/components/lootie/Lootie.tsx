@@ -1,4 +1,5 @@
 
+import { color } from 'framer-motion';
 import Lottie from 'react-lottie'; 
 
 interface LootieProps {

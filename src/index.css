@@ -2,6 +2,22 @@
   @tailwind components;
   @tailwind utilities;
 
+
+
+  /* fonts.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('path/to/Poppins-Regular.ttf') format('truetype'),
+       url('path/to/Poppins-Medium.ttf') format('truetype'),
+       url('path/to/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
   
 @layer base {
   :root {

@@ -12,6 +12,8 @@ import {
 
 import { SendPriorityListType, useOnUpdatePriorityListMutation } from "@/app/redux/api/listapi";
 import { toast } from "../ui/use-toast";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import UseListRole from "@/hooks/UseListRole";
 
 interface Props {
   priority:string,
@@ -25,6 +27,10 @@ interface PriorityChangeEvent {
 }
 
 const PriorityListSetting = ({folderId,priority,id,workspaceId}:Props) => {
+
+  const isSpaceOwner=UseSpaceRoles({workspaceId})
+
+  const isListRoles=UseListRole({workspaceId,folderId,listId:id})
 
 
   const [onUpdatePriorityList]=useOnUpdatePriorityListMutation()
@@ -53,8 +59,8 @@ const PriorityListSetting = ({folderId,priority,id,workspaceId}:Props) => {
 
     
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <DropdownMenu >
+      <DropdownMenuTrigger asChild disabled={isSpaceOwner?false:isListRoles.role!=='listManager'}>
         <Button
           variant="outline"
           className="border-none dark:bg-background  dark:border-none dark:text-primary w-[100px]"

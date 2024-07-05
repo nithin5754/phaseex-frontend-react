@@ -100,9 +100,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-
-
-
       providesTags: ["Workspace"],
     }),
 
@@ -298,6 +295,26 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     }),
 
+
+       /**
+   * @param {string [manager.viewer,developer]}
+   * @api  // /update-space-collab-role
+   * @return {boolean}
+   */
+       updateCollaboratorRole: builder.mutation<boolean, SpaceCollabSendType&{role:string}>({
+        query: (credentials) => ({
+          url: "/space/update-space-collab-role",
+          method: "PATCH",
+          body: { ...credentials },
+        }),     
+   
+        invalidatesTags: (result, error, { workspaceId }) => [
+          { type: "Collaborators", id: workspaceId },
+          "Workspace"
+        ],
+  
+      }),
+
   }),
 });
 
@@ -317,5 +334,6 @@ export const {
   useGetAllCollabInSpaceQuery,
   useDeleteCollaboratorMutation,
   useVerifyCollaboratorsMutation,
-  useDeleteWorkSpaceMutation
+  useDeleteWorkSpaceMutation,
+  useUpdateCollaboratorRoleMutation
 } = workApiSlice;

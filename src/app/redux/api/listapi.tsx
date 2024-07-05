@@ -87,7 +87,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       }),
-      invalidatesTags: ["ListSpace"],
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId}
+      ) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
     }),
 
     onUpdatePriorityList: builder.mutation<boolean, SendPriorityListType>({
@@ -96,7 +105,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { ...credentials },
       }),
-      invalidatesTags: ["ListSpace"],
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId}
+      ) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
     }),
 
     onUpdateDateList: builder.mutation<boolean, SendDateListType>({
@@ -105,7 +123,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { ...credentials },
       }),
-      invalidatesTags: ["ListSpace"],
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId}
+      ) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
     }),
 
     getAllList: builder.query<
@@ -122,7 +149,12 @@ export const listApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: ["ListSpace"],
+      providesTags: (result, error, { workspaceId, folderId }) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
     }),
 
 
@@ -140,7 +172,12 @@ export const listApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
-    providesTags: ["ListSpace"],
+    providesTags: (result, error, { workspaceId, folderId }) => [
+      {
+        type: "ListSpace",
+        id: `${workspaceId}-${folderId}}`,
+      },
+    ],
   }),
 
 
@@ -158,7 +195,12 @@ export const listApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: ["ListSpace"],
+      providesTags: (result, error, { workspaceId, folderId }) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
     }),
 
 
@@ -168,7 +210,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { ...credentials },
       }),     
-      invalidatesTags: ["ListSpace"],
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId }
+      ) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
 
     }),
 
@@ -187,7 +238,12 @@ export const listApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
-    providesTags: ["ListSpace"],
+    providesTags: (result, error, { workspaceId, folderId }) => [
+      {
+        type: "ListSpace",
+        id: `${workspaceId}-${folderId}`,
+      },
+    ],
   }),
 
 /**
@@ -200,7 +256,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
       method: "PATCH",
       body: { ...credentials },
     }),     
-    invalidatesTags: ["ListSpace"],
+    invalidatesTags: (
+      _result,
+      _error,
+      { workspaceId, folderId}
+    ) => [
+      {
+        type: "ListSpace",
+        id: `${workspaceId}-${folderId}`,
+      },
+    ],
 
   }),
 
@@ -215,7 +280,16 @@ export const listApiSlice = apiSlice.injectEndpoints({
       method: "DELETE",
       body: { ...credentials },
     }),     
-    invalidatesTags: ["ListSpace"],
+    invalidatesTags: (
+      _result,
+      _error,
+      { workspaceId, folderId }
+    ) => [
+      {
+        type: "ListSpace",
+        id: `${workspaceId}-${folderId}`,
+      },
+    ],
 
   }),
 

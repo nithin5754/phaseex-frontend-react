@@ -46,8 +46,9 @@ export function WorkSpaceNav({id}:Props) {
         {
            components.map((component,index)=>{
             return(
+
               <div key={component.href}>
-   <Link  to={`/space/${id}${component.href}`}>
+   <Link   to={`/space/${id}${component.href}`}>
    <li key={component.title}>
           <h1>{component.title}</h1>
         </li>

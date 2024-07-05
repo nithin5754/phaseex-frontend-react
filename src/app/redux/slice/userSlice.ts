@@ -17,6 +17,7 @@ interface UsersState {
 
 
 const initialState: UsersState = {
+
   timer:null,
   authId:null,
   socketConnection:null
@@ -27,6 +28,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    
+ 
+
     resetOrUpdateTimer(state, action: PayloadAction<Date | null>) {
       state.timer = action.payload;
     },
@@ -42,10 +46,12 @@ export const userSlice = createSlice({
 
 
 
-export const { resetOrUpdateTimer,resetOrUpdateAuthId,setSocketConnection } = userSlice.actions;
+export const { resetOrUpdateTimer,resetOrUpdateAuthId,setSocketConnection} = userSlice.actions;
 
 
 export default userSlice.reducer
 
 
 export const currentSocketConnection=(state:RootState)=>state.user.socketConnection
+
+

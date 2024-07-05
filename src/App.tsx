@@ -29,7 +29,7 @@ import LandingPage from "./components/LandingPage";
 
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
-import { MainLayout, SpaceLayout } from "./features/layouts/index";
+import {  MainLayout, SpaceLayout } from "./features/layouts/index";
 import { SearchPeople } from "./components/memebers/index";
 import { DashBoard } from "./components/DashBoard";
 
@@ -67,21 +67,26 @@ function App() {
                     <Route index element={<FolderView />} />
                     <Route path=":folderId">
                       <Route index element={<SingleFolder />} />
+            
                       <Route path="lists">
                         <Route index element={<ListFolderView />} />
                         <Route
                           path=":listId"
                           
                         >
+ 
                           <Route index element={<SingleListFolderView />}/>
-
-                          <Route path="tasks">
+                          <Route path="tasks" >
                               <Route path=":taskId" element={<TaskView />}/>
                           </Route>
+
+                    
+
 
 
                         </Route>
                       </Route>
+              
                     </Route>
                   </Route>
                   <Route path="lists" element={<ListView />} />

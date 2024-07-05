@@ -6,6 +6,7 @@ import { useGetAllFolderQuery } from "@/app/redux/api/FolderApi";
 import { WorkSpaceFolder } from "../folder/index";
 import { ListWorkSpace } from "../list/index";
 import { SpaceViewALLskelton } from "../shimmer/index";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 const WorkSpaceDeatils = () => {
   const { id } = useParams();
@@ -14,13 +15,15 @@ const WorkSpaceDeatils = () => {
     return <h1>loading....</h1>;
   }
 
+  const isSpaceOwner=UseSpaceRoles({workspaceId:id})
+
   const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id,{
-    pollingInterval:120000,
+    pollingInterval:60000,
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true
   });
   const { data: getAllFolder } = useGetAllFolderQuery(id,{
-    pollingInterval:120000,
+    pollingInterval:60000,
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true
   });
@@ -61,12 +64,21 @@ const WorkSpaceDeatils = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primary dark:border-border">
-          <div className="text-center">
-            <h1 className="font-sfpro text-lg "></h1>
-            <OpenModal title={"create new Folder"} icon={Plus} spaceId={id} />
+        <>
+        {
+          isSpaceOwner&&(
+            <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primary dark:border-border">
+            <div className="text-center">
+              <h1 className="font-sfpro text-lg "></h1>
+              <OpenModal title={"create new Folder"} icon={Plus} spaceId={id} />
+            </div>
           </div>
-        </div>
+          )
+        }
+        
+        </>
+
+       
       </div>
 
       {/* /**

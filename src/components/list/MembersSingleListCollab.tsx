@@ -8,6 +8,7 @@ import { DeleteCollabListAssignee, UpdateRoleMemberCollab } from "./index";
 import {  useEffect, useState } from "react";
 
 import { toast } from "../ui/use-toast";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 interface Props {
   collabList: ListCollaboratorDetailType;
@@ -15,6 +16,10 @@ interface Props {
 }
 
 const MembersSingleListCollab = ({ collabList, checkingDetails }: Props) => {
+
+
+  const isSpaceOwner=UseSpaceRoles({workspaceId:checkingDetails.workspaceId})
+
   const [isRole, setIsRole] = useState<"listManager" | "spaceOwner" | "viewer">(
     collabList.role
   );
@@ -79,12 +84,22 @@ const MembersSingleListCollab = ({ collabList, checkingDetails }: Props) => {
               {collabList.email}
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <UpdateRoleMemberCollab role={isRole} setIsRole={setIsRole} />
-            <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-              <DeleteCollabListAssignee checkingDetails={checkingDetails} />
-            </button>
-          </div>
+          <>
+          {
+            isSpaceOwner&&(
+              <div className="flex items-center gap-2">
+
+              <UpdateRoleMemberCollab role={isRole} setIsRole={setIsRole} />
+              <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                <DeleteCollabListAssignee checkingDetails={checkingDetails} />
+              </button>
+            </div>
+            )
+          }
+          
+          
+          </>
+     
         </div>
       </div>
     </li>

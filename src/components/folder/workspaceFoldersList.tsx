@@ -18,7 +18,6 @@ export function WorkSpaceFolderList({hiddenProjects,handleHideSubmit}:Props) {
   description:space.workspace_description,
   handleHideSubmit:handleHideSubmit,
   id:space.id,
- 
   type:space.workspaceType
   ,
   link: "/",
