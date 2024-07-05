@@ -1,8 +1,7 @@
 import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
-import { HoverEffect } from "../aceternityuI/index";
-// import { SpaceCards } from "../work-space";
+
 import { BentoGrid, BentoGridItem } from "../aceternityuI/cards/bento-grid";
-import { title } from "process";
+
 
 
 interface Props {
@@ -28,7 +27,7 @@ export function WorkSpaceFolderList({hiddenProjects,handleHideSubmit}:Props) {
   return (
 
    
-  //  <HoverEffect items={projects} />
+
     
     <BentoGrid className="flex flex-wrap justify-center  transition-all duration-1000 ease-out">
     {items.map((item, i) => (

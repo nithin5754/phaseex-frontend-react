@@ -74,14 +74,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setUnreadCount((prev) => prev + 1);
     });
 
-    newSocket.emit('sendNotification', {
-      senderName: user?.userId,
-      receiverName: user?.userId,
-      type:"greet",
-      messageSendBy: `${greet}`,
-      message: `welcome to phaseex project tool software`,
-    });
 
+    
     return () => {
       newSocket.close();
     };

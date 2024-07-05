@@ -55,31 +55,10 @@ export const workApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
       invalidatesTags: ["Workspace"],
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          let pageId: string = "1";
-          dispatch(workApiSlice.endpoints.getAllSpaces.initiate());
-        } catch (error) {
-          console.error("Error creating space:", error);
-        }
-      },
+      
     }),
   
-    getInActiveSpaceCount: builder.query< { count: number }, void>({
-      query: () => ({
-        url: "/space/allInactive-workspace",
-        validateStatus: (response, result) => {
-          console.log(result,"hello",response,"response");
-          
-          return response.status === 200 &&!result.isError;
-        },
-        
-      }),
  
-    
-    }),
-
 
 
     getSingleWorkSpace: builder.query< ResponseWorkspaceDataType,string>({
@@ -101,6 +80,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         },
       }),
       providesTags: ["Workspace"],
+      keepUnusedDataFor: 100, 
     }),
 
     getOnGoingSpaces: builder.query<ResponseWorkspaceDataType[], void>({
@@ -112,6 +92,8 @@ export const workApiSlice = apiSlice.injectEndpoints({
       }),
 
       providesTags: ["Workspace"],
+      keepUnusedDataFor: 100, 
+     
     }),
 
     changeVisiblity: builder.mutation<boolean, { id: string }>({
@@ -120,8 +102,9 @@ export const workApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       }),
+      invalidatesTags: ["Workspace"],
       async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
-        let workspaceWasActive = false;
+     
         const patchResult = dispatch(
           workApiSlice.util.updateQueryData(
             "getOnGoingSpaces",
@@ -129,38 +112,34 @@ export const workApiSlice = apiSlice.injectEndpoints({
             (draft) => {
               const workspace = draft.find((space) => space.id === id);
               if (workspace) {
-                workspaceWasActive = workspace.active;
+          
                 workspace.active = !workspace.active;
               }
             }
           )
         );
+   
         const onGoingResult = dispatch(
-          workApiSlice.util.updateQueryData("getAllSpaces", undefined, (draft) => {
+          workApiSlice.util.updateQueryData("getAllSpaces",undefined, (draft) => {
             const workspace = draft.find((space) => space.id === id);
             if (workspace) {
               workspace.active = !workspace.active;
             }
           })
         );
-        const inactiveCountResult = dispatch(
-          workApiSlice.util.updateQueryData("getInActiveSpaceCount", undefined, (draft) => {
-            if (workspaceWasActive) {
-              draft.count += 1;
-            } else {
-              draft.count -= 1;
-            }
-          })
-        );
+   
         try {
           await queryFulfilled;
+          dispatch(workApiSlice.endpoints.getAllSpaces.initiate());
+          dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());
+    
         } catch {
           patchResult.undo();
           onGoingResult.undo();
-          inactiveCountResult.undo();
+
         }
       },
-      invalidatesTags: ["Workspace"],
+   
     }),
 
 
@@ -242,53 +221,54 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
 
        
-       deleteWorkSpace: builder.mutation<boolean, { workspaceId: string }>({
-        query: ({ workspaceId }) => ({
-          url: `/space/delete-workSpace/${workspaceId}`,
-          method: "POST",
-        }),
-        async onQueryStarted({ workspaceId }, { dispatch, queryFulfilled }) {
-          let workspaceWasActive = false;
-          const patchResult = dispatch(
-            workApiSlice.util.updateQueryData(
-              "getOnGoingSpaces",
-              undefined,
-              (draft) => {
-                const workspace = draft.find((space) => space.id === workspaceId);
-                if (workspace) {
-                  workspaceWasActive = workspace.active;
-                  workspace.active = !workspace.active;
-                }
-              }
-            )
-          );
-          const onGoingResult = dispatch(
-            workApiSlice.util.updateQueryData("getAllSpaces", undefined, (draft) => {
+    deleteWorkSpace: builder.mutation<boolean,{ workspaceId:string}>({
+      query: ({ workspaceId}) => ({
+        url: `/space/delete-workSpace/${workspaceId}`,
+        method: "POST",
+      }),    
+      invalidatesTags: (result, error, { workspaceId }) => [
+        { type: "Collaborators", id: workspaceId },
+        "Workspace"
+      ],
+ 
+      async onQueryStarted({ workspaceId }, { dispatch, queryFulfilled }) {
+  
+        const patchResult = dispatch(
+          workApiSlice.util.updateQueryData(
+            "getOnGoingSpaces",
+            undefined,
+            (draft) => {
               const workspace = draft.find((space) => space.id === workspaceId);
               if (workspace) {
-                workspace.active = !workspace.active;
+            
+                workspace.active = false;
               }
-            })
-          );
-          const inactiveCountResult = dispatch(
-            workApiSlice.util.updateQueryData("getInActiveSpaceCount", undefined, (draft) => {
-              if (workspaceWasActive) {
-                draft.count += 1;
-              } else {
-                draft.count -= 1;
-              }
-            })
-          );
-          try {
-            await queryFulfilled;
-          } catch {
-            patchResult.undo();
-            onGoingResult.undo();
-            inactiveCountResult.undo();
-          }
-        },
-        invalidatesTags: ["Workspace"],
-      }),
+            }
+          )
+        );
+
+        const onGoingResult = dispatch(
+          workApiSlice.util.updateQueryData("getAllSpaces", undefined, (draft) => {
+            const workspace = draft.find((space) => space.id === workspaceId);
+            if (workspace) {
+              workspace.active =true;
+            }
+          })
+        );
+
+        try {
+          await queryFulfilled;
+          dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());
+          dispatch(workApiSlice.util.invalidateTags(["Workspace"]));
+        } catch {
+          patchResult.undo();
+          onGoingResult.undo();
+
+        }
+      },
+     
+
+    }),
 
 
        /**
@@ -325,7 +305,6 @@ export const {
   useGetAllSpacesQuery,
   useChangeVisiblityMutation,
   useGetOnGoingSpacesQuery,
-  useGetInActiveSpaceCountQuery,
   useGetSingleWorkSpaceQuery,
   useAddCollaboratorsMutation,
   useGetAllCollabInSpaceQuery,
