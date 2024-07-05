@@ -22,7 +22,7 @@ const ViewSpace = () => {
 
   let pageId: string = currentPage.toString();
 
-  const { data: getAllSpaces, isLoading } = useGetAllSpacesQuery(pageId, {
+  const { data: getAllSpaces, isLoading } = useGetAllSpacesQuery(undefined, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

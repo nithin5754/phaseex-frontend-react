@@ -59,7 +59,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
           let pageId: string = "1";
-          dispatch(workApiSlice.endpoints.getAllSpaces.initiate(pageId));
+          dispatch(workApiSlice.endpoints.getAllSpaces.initiate());
         } catch (error) {
           console.error("Error creating space:", error);
         }
@@ -93,9 +93,9 @@ export const workApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     
-    getAllSpaces: builder.query<ResponseWorkspaceDataType[], string>({
-      query: (pageId: string) => ({
-        url: `/space/workspace?pageId=${pageId}`,
+    getAllSpaces: builder.query<ResponseWorkspaceDataType[], void>({
+      query: () => ({
+        url: `/space/workspace`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;
         },
@@ -129,30 +129,29 @@ export const workApiSlice = apiSlice.injectEndpoints({
             (draft) => {
               const workspace = draft.find((space) => space.id === id);
               if (workspace) {
-                workspaceWasActive=workspace.active
+                workspaceWasActive = workspace.active;
                 workspace.active = !workspace.active;
               }
             }
           )
         );
-        let pageId: string = "1";
         const onGoingResult = dispatch(
-          workApiSlice.util.updateQueryData("getAllSpaces", pageId, (draft) => {
+          workApiSlice.util.updateQueryData("getAllSpaces", undefined, (draft) => {
             const workspace = draft.find((space) => space.id === id);
             if (workspace) {
               workspace.active = !workspace.active;
             }
           })
         );
-        const inactiveCountResult=dispatch(
-          workApiSlice.util.updateQueryData('getInActiveSpaceCount',undefined,(draft)=>{
+        const inactiveCountResult = dispatch(
+          workApiSlice.util.updateQueryData("getInActiveSpaceCount", undefined, (draft) => {
             if (workspaceWasActive) {
               draft.count += 1;
-            }else{
+            } else {
               draft.count -= 1;
             }
           })
-        )
+        );
         try {
           await queryFulfilled;
         } catch {
@@ -200,7 +199,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted({ workspaceId, collaboratorId }, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           workApiSlice.util.updateQueryData('getAllCollabInSpace', workspaceId, (draft) => {
-            console.log(draft,"draft");  
             return draft.filter((collab: ReceiveCollaboratorType) => collab.id !== collaboratorId);
           })
         );
@@ -244,56 +242,53 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
 
        
-    deleteWorkSpace: builder.mutation<boolean,{ workspaceId:string}>({
-      query: ({ workspaceId}) => ({
-        url: `/space/delete-workSpace/${workspaceId}`,
-        method: "POST",
-      }),     
- 
-      async onQueryStarted({ workspaceId }, { dispatch, queryFulfilled }) {
-        let workspaceWasActive = false;
-        const patchResult = dispatch(
-          workApiSlice.util.updateQueryData(
-            "getOnGoingSpaces",
-            undefined,
-            (draft) => {
+       deleteWorkSpace: builder.mutation<boolean, { workspaceId: string }>({
+        query: ({ workspaceId }) => ({
+          url: `/space/delete-workSpace/${workspaceId}`,
+          method: "POST",
+        }),
+        async onQueryStarted({ workspaceId }, { dispatch, queryFulfilled }) {
+          let workspaceWasActive = false;
+          const patchResult = dispatch(
+            workApiSlice.util.updateQueryData(
+              "getOnGoingSpaces",
+              undefined,
+              (draft) => {
+                const workspace = draft.find((space) => space.id === workspaceId);
+                if (workspace) {
+                  workspaceWasActive = workspace.active;
+                  workspace.active = !workspace.active;
+                }
+              }
+            )
+          );
+          const onGoingResult = dispatch(
+            workApiSlice.util.updateQueryData("getAllSpaces", undefined, (draft) => {
               const workspace = draft.find((space) => space.id === workspaceId);
               if (workspace) {
-                workspaceWasActive=workspace.active
                 workspace.active = !workspace.active;
               }
-            }
-          )
-        );
-        let pageId: string = "1";
-        const onGoingResult = dispatch(
-          workApiSlice.util.updateQueryData("getAllSpaces", pageId, (draft) => {
-            const workspace = draft.find((space) => space.id === workspaceId);
-            if (workspace) {
-              workspace.active = !workspace.active;
-            }
-          })
-        );
-        const inactiveCountResult=dispatch(
-          workApiSlice.util.updateQueryData('getInActiveSpaceCount',undefined,(draft)=>{
-            if (workspaceWasActive) {
-              draft.count += 1;
-            }else{
-              draft.count -= 1;
-            }
-          })
-        )
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo();
-          onGoingResult.undo();
-          inactiveCountResult.undo();
-        }
-      },
-      invalidatesTags: ["Workspace"],
-
-    }),
+            })
+          );
+          const inactiveCountResult = dispatch(
+            workApiSlice.util.updateQueryData("getInActiveSpaceCount", undefined, (draft) => {
+              if (workspaceWasActive) {
+                draft.count += 1;
+              } else {
+                draft.count -= 1;
+              }
+            })
+          );
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+            onGoingResult.undo();
+            inactiveCountResult.undo();
+          }
+        },
+        invalidatesTags: ["Workspace"],
+      }),
 
 
        /**
@@ -318,7 +313,9 @@ export const workApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-
+/**
+ * @main
+ */
 
 
 
