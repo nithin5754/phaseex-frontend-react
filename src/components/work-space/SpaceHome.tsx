@@ -15,18 +15,13 @@ interface Props {
   allSpaces: ResponseWorkspaceDataType[] | [];
   getOnGoingSpace: ResponseWorkspaceDataType[] | [];
   handleHideSubmit: (id: string) => Promise<any>;
-  setCurrentPage: (page: number) => void;
-  currentPage: number;
-  totalPages: number;
 }
 
 const SpaceHome = ({
   allSpaces,
   getOnGoingSpace,
   handleHideSubmit,
-  currentPage,
-  setCurrentPage,
-  totalPages,
+
 }: Props) => {
 
 
@@ -50,7 +45,7 @@ const SpaceHome = ({
       direction="horizontal"
       className=" rounded-lg border-0  p-4  "
     >
-      <ResizablePanel defaultSize={50} minSize={30} maxSize={65}  className="min-h-[580px] dark:border dark:border-border rounded-md mr-4">
+      <ResizablePanel defaultSize={50} minSize={30} maxSize={75}  className="min-h-[580px] dark:border dark:border-border rounded-md mr-4">
 
 
 
