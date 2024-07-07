@@ -1,9 +1,9 @@
-import LootieEmptyMembers from '../../../public/json/empty-members-1.json'
+import LootieEmptyMembers from '../../../public/json/boxing.json'
 import { LottieAnimation } from '../lootie/Lootie'
 
  const EmptyMembers = () => {
    return (
-     <LottieAnimation animationData={LootieEmptyMembers} height={400} width={400}/>
+     <LottieAnimation animationData={LootieEmptyMembers} height={200} width={200}/>
    )
  }
  export default EmptyMembers
