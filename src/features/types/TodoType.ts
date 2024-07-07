@@ -1,41 +1,32 @@
-
-
-
 export interface TodoType {
-  id:string;
-  workspaceId:string;
-  folderId:string;
-  listId:string;
-  taskId:string;
-  todo:string;
-  assignee:string;
-  todo_status:"in progress"|"completed"|"hidden";
-  createdAt:string,
-  updatedAt:string
+  id: string;
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  todo: string;
+  assignee: string;
+  todo_status: "in progress" | "completed" | "hidden";
+  createdAt: string;
+  updatedAt: string;
 }
-
 
 export interface SendTodoTask {
-  workspaceId:string;
-  folderId:string;
-  listId:string;
-  taskId:string;
-  todo:string;
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  todo: string;
 }
-
 
 export interface SendTodoCheckBox {
-
-  workspaceId:string
-  folderId:string
-  todo_status:"in progress"|"completed"|"hidden"
-  listId:string
-  taskId:string
-  id:string
+  workspaceId: string;
+  folderId: string;
+  todo_status: "in progress" | "completed" | "hidden";
+  listId: string;
+  taskId: string;
+  id: string;
 }
-
-
-
 
 // export interface SendUpdateTodoTask {
 //   workspaceId:string,
@@ -46,55 +37,45 @@ export interface SendTodoCheckBox {
 //   id:string
 // }
 
-
-
 export interface SendEditTodoTask {
-  workspaceId:string,
-  folderId:string,
-  todo:string,
-  listId:string,
-  taskId:string,
-  todoId:string
-  
+  workspaceId: string;
+  folderId: string;
+  todo: string;
+  listId: string;
+  taskId: string;
+  todoId: string;
 }
-
-
-
-
-
 
 export interface SendDeleteTodoTask {
-  workspaceId:string,
-  folderId:string,
-  listId:string,
-  taskId:string,
-  todoId:string
-  
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  todoId: string;
 }
 
-
 export interface SendAddCollabTodoTask {
-  workspaceId:string,
-  folderId:string,
-  listId:string,
-  taskId:string,
-  todoId:string
-  collabId:string
-  
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  todoId: string;
+  collabId: string;
 }
 
 export interface TodoCollabType {
-
-  id:string;
-  fullName: string; 
-  email:string;
-  imageUrl:string;
-  role:string;
-
+  id: string;
+  fullName: string;
+  email: string;
+  imageUrl: string;
+  role: string;
 }
 
-
-
-
-
-
+export interface SendTodoReassignType {
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  todoId: string;
+  collabId: string;
+}

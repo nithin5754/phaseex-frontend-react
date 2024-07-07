@@ -16,6 +16,7 @@ import MembersTodoSingleCollab from "./MembersTodoSingleCollab"
 import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile"
 import DeleteTodoCollab from "./DeleteTodoCollab"
 import TodoTHead from "./TodoTHead"
+import ReassignTodo from "./ReassignTodo"
 
 
 import TodoSingle from "./TodoSingle"
@@ -34,6 +35,7 @@ export {
   MembersTodoSingleCollab,
   DeleteTodoCollab,
   TodoTHead,
+  ReassignTodo,
 
   TodoSingle
 }

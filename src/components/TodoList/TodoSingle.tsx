@@ -1,4 +1,4 @@
-import { CheckCircle, LoaderCircle, LoaderIcon, UserPlus2 } from "lucide-react"
+import { CheckCircle, Dna, LoaderCircle, LoaderIcon, UserPlus2 } from "lucide-react"
 import { TodoCollabModal } from "../modal/add-todo-collab"
 import { TableBody, TableCell, TableRow } from "../ui/table"
 import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile"
@@ -8,6 +8,7 @@ import { TodoType } from "@/features/types/TodoType"
 import UseListRole from "@/hooks/UseListRole"
 import UseSpaceRoles from "@/hooks/useSpaceRoles"
 import UseTodoRoles from "@/hooks/useTodoRoles"
+import { ReassignTodo } from "./index";
 
 
 interface Props {
@@ -62,6 +63,11 @@ const TodoSingle = ({todo,loadingStates,handleChangeCheckBox}:Props) => {
       <TodoDropDown workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id} todo={todo.todo} todo_status={todo.todo_status} />
 
       </TableCell>
+      <TableCell className="">
+     
+<ReassignTodo/>
+
+     </TableCell>
     </TableRow>
   </TableBody>
   )

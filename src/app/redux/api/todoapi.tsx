@@ -1,4 +1,4 @@
-import { SendAddCollabTodoTask, SendDeleteTodoTask, SendEditTodoTask, SendTodoCheckBox, SendTodoTask, TodoCollabType, TodoType } from "@/features/types/TodoType";
+import { SendAddCollabTodoTask, SendDeleteTodoTask, SendEditTodoTask, SendTodoCheckBox, SendTodoReassignType, SendTodoTask, TodoCollabType, TodoType } from "@/features/types/TodoType";
 import { apiSlice } from "./apiSlice";
 import { deleteTodo, updateTodoName, updateTodoStatus } from "../slice/todoSlice";
 
@@ -182,6 +182,31 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
   }),
+
+
+
+
+
+  /**
+   * @param { workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string,collabId:string,reassignId:string}
+   * @api/reassign-task/:todoId
+   * @return {boolean}
+   */
+
+
+  onUpdateReassignTodo: builder.mutation<boolean,SendTodoReassignType>({
+    query: (credentials) => ({
+      url: `/todo/reassign-task/${credentials.todoId}`,
+      method: "PATCH",
+      body: { ...credentials },
+    }),
+
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
+      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
+    ],
+  }),
+
+
   })
 
 })
@@ -196,7 +221,8 @@ export const {
   useOnDeleteTaskTodoMutation,
   useOnAddCollabToTodoMutation,
   useGetAllTodoCollabByIdQuery,
-  useOnDeleteCollabToTodoMutation
+  useOnDeleteCollabToTodoMutation,
+  useOnUpdateReassignTodoMutation
   
   
   
