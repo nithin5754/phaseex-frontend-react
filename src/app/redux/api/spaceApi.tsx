@@ -113,7 +113,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
               const workspace = draft.find((space) => space.id === id);
               if (workspace) {
           
-                workspace.active = !workspace.active;
+                workspace.active =false;
               }
             }
           )
@@ -123,7 +123,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
           workApiSlice.util.updateQueryData("getAllSpaces",undefined, (draft) => {
             const workspace = draft.find((space) => space.id === id);
             if (workspace) {
-              workspace.active = !workspace.active;
+              workspace.active = true;
             }
           })
         );
@@ -241,7 +241,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
               const workspace = draft.find((space) => space.id === workspaceId);
               if (workspace) {
           
-                workspace.active = !workspace.active;
+                workspace.active = false;
               }
             }
           )
@@ -251,14 +251,15 @@ export const workApiSlice = apiSlice.injectEndpoints({
           workApiSlice.util.updateQueryData("getAllSpaces",undefined, (draft) => {
             const workspace = draft.find((space) => space.id === workspaceId);
             if (workspace) {
-              workspace.active = !workspace.active;
+              workspace.active =true;
             }
           })
         );
         try {
           await queryFulfilled;
+          dispatch(workApiSlice.endpoints.getAllSpaces.initiate());
           dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());
-           dispatch(workApiSlice.util.invalidateTags(["Workspace", { type: "Collaborators", id: workspaceId }]));
+          dispatch(workApiSlice.util.invalidateTags(["Workspace"]));
         } catch {
           patchResult.undo();
           onGoingResult.undo();
