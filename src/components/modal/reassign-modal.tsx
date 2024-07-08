@@ -43,7 +43,7 @@ interface OpenModalProps{
     </DialogTrigger>
     <DialogContent className="sm:max-w-[425px] min-h-[400px]  dark:border-border dark:border ">
       <DialogHeader>
-        <DialogTitle className="dark:text-primary text-white w-full text-center font-thin"> Add Collaborator to Todo Task</DialogTitle>
+        <DialogTitle className="dark:text-primary text-white w-full text-center font-thin"> Re-assign Collaborator to Todo Task</DialogTitle>
 
       </DialogHeader>
     

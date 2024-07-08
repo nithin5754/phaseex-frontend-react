@@ -25,42 +25,44 @@ interface Props {
   collabId:string
 }
 
-  const ReassignSuggestion = ({workspaceId,folderId,listId,taskId,todoId,collabId}:Props) => {
+  const ReassignSuggestion = ({workspaceId,folderId,listId,taskId,todoId}:Props) => {
   
     const getListCollabSuggestion=useSelector(selectTodoCollabSpace)
 
     const dispatch=useDispatch()
     
-    const [onUpdateReassignTodo]=useOnUpdateReassignTodoMutation()
+      
+    const [onAddCollabToTodo]=useOnAddCollabToTodoMutation()
     
-
-    const handleSubmit =async(reassignId:string)=>{
- let responseData:SendTodoReassignType={      
-   workspaceId,
-   folderId,
-   listId,
-   taskId,
-   todoId,
-   collabId,
-   reassignId
- }
+    const handleSubmit =async(collabId:string)=>{
+      let responseData:SendAddCollabTodoTask={
+        workspaceId,
+        folderId,
+        listId,
+        taskId,
+        todoId,
+        collabId
+      }
+     
+      
+      try {
+       await onAddCollabToTodo(responseData).unwrap()  
+     } catch (error:any) {
+       if (!error.status) {
+         toast({
+           title: "no response",
+           variant: "destructive",
+         });
+       } else if (error.status) {
+         toast({
+           title: `${error.data.message}`,
+           variant: "destructive",
+         });
+       }
+     }
 
  
- try {
-  await onUpdateReassignTodo(responseData).unwrap()  
-} catch (error:any) {
-  if (!error.status) {
-    toast({
-      title: "no response",
-      variant: "destructive",
-    });
-  } else if (error.status) {
-    toast({
-      title: `${error.data.message}`,
-      variant: "destructive",
-    });
-  }
-}
+
 
 
     

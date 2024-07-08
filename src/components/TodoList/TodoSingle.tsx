@@ -41,9 +41,16 @@ const TodoSingle = ({todo,loadingStates,handleChangeCheckBox}:Props) => {
       </TableCell>
       <TableCell>{todo.todo}</TableCell>
       <TableCell>
-      <div className="flex items-center gap-4">
-        <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} 
-        listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+      <div className="flex items-center justify-center gap-4">
+        {
+         ( isSpaceOwner||isListRoles.role==='listManager')&&(
+            <>
+            <TodoCollabModal icon={UserPlus2} spaceId={todo.workspaceId} folderId={todo.folderId} 
+            listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
+            
+            </>
+          )
+        }
       <AnimatedTodoProfile workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id}/>
       </div>
       </TableCell>
@@ -63,7 +70,7 @@ const TodoSingle = ({todo,loadingStates,handleChangeCheckBox}:Props) => {
       <TodoDropDown workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id} todo={todo.todo} todo_status={todo.todo_status} />
 
       </TableCell>
-      <TableCell className="">
+      <TableCell className=" flex justify-center items-center mx-auto">
      
 <ReassignTodo collabId={todo.assignee} todo={todo}/>
 

@@ -1,4 +1,4 @@
-import { CheckCircle, FileText, Settings, User2 } from "lucide-react"
+import { CheckCircle, Dna, FileText, Settings, User2 } from "lucide-react"
 import { TableHead, TableHeader, TableRow } from "../ui/table"
 
 
@@ -37,7 +37,10 @@ const TodoTHead = () => {
   </TableHead>
   <TableHead className="   ">
 
-  
+  <div className="flex items-start justify-start gap-2">
+    <Dna className="w-4 h-4 text-gray-600" />
+    <span>re-assign</span>
+    </div>
   </TableHead>
 </TableRow>
     </TableHeader>
