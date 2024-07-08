@@ -65,7 +65,7 @@ const TodoSingle = ({todo,loadingStates,handleChangeCheckBox}:Props) => {
       </TableCell>
       <TableCell className="">
      
-<ReassignTodo/>
+<ReassignTodo collabId={todo.assignee} todo={todo}/>
 
      </TableCell>
     </TableRow>
