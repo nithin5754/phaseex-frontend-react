@@ -1,27 +1,45 @@
-deleteCollaborator: builder.mutation<boolean, SpaceCollabSendType>({
-query: (credentials) => ({
-url: "/space/delete-collaborator",
-method: "DELETE",
-body: { ...credentials },
-}),
+ 
+        {/* <div className="flex items-center justify-center dark:bg-background dark:text-primary dark:border-border">
+          {allSpaces.length > 0 &&
+            !allSpaces.every((space) => space.active) && (
+              <div className="pagination flex items-center space-x-2">
+                <Button
+                  className="p-1 text-sm w-12 bg-slate-500 text-[12px] text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  disabled={currentPage <= 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Prev
+                </Button>
+                <span className="text-sm">{currentPage}</span>
+                <Button
+                  className="p-1 text-sm w-12 bg-slate-500 text-[12px] text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  disabled={currentPage >= totalPages}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+        </div> */}
+   
+    
+        {/* </div> */}
 
-      async onQueryStarted({ workspaceId, collaboratorId }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
-          workApiSlice.util.updateQueryData('getAllCollabInSpace', workspaceId, (draft) => {
-            return draft.filter((collab: ReceiveCollaboratorType) => collab.id !== collaboratorId);
-          })
-        );
-        try {
-          await queryFulfilled;
-        } catch (error) {
-          patchResult.undo();
-          console.error("Error deleting collaborator:", error);
-        }
-      },
 
-      invalidatesTags: (result, error, { workspaceId }) => [
-        { type: "Collaborators", id: workspaceId },
-        "Workspace"
-      ],
 
-    }),
+        //LIST COLLOBORATOR
+
+         const [addCollaboratorToList]=useAddCollaboratorToListMutation()
+
+ const handleAddCollab=async()=>{
+
+ let sendDataAddCollab:SendAddCollabListType={
+   workspaceId:workspaceId,
+   folderId:folderId,
+   listId: list.id,
+   collabId:,
+   roles: ""
+ }
+
+  await addCollaboratorToList(sendDataAddCollab).unwrap()
+ }
