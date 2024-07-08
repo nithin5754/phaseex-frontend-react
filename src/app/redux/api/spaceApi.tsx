@@ -258,9 +258,10 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
         try {
           await queryFulfilled;
-          dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());
-          dispatch(workApiSlice.util.invalidateTags(["Workspace"]));
-        } catch {
+     
+          dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());      
+          dispatch(workApiSlice.util.invalidateTags(["Workspace"]));      
+          } catch {
           patchResult.undo();
           onGoingResult.undo();
 
