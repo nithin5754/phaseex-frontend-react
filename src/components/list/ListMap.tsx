@@ -41,13 +41,6 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
   });
 
 
-  // const handleCheck=()=> {
-       
-  //   if((isSpaceOwner||isListRoles.status||isListRoles.taskGrp)){
-  //       navigate(`/space/${workspaceId}/folders/${folderId}/lists/${list.id}`)
-  //   }
-     
-  // }
 
   return (
     <tr key={list.id} className="border-b border-gray-200 dark:border-border">
@@ -67,9 +60,6 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
           <>{list.list_title}</>
         )}
 
-
-
-       {/* <button onClick={handleCheck} className="border-none bg-none ">{list.list_title}</button> */}
       </td>
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <ListProgressBar percentage={list.progressTask} />

@@ -15,6 +15,8 @@ const TaskMainSection = ({singleTask}:Props) => {
    <ResizablePanel defaultSize={65} minSize={35} maxSize={75} >
     <div className="flex flex-col gap-5  p-6 m-auto font-sfpro ">
 
+      
+
   <TaskMainLeft singleTask={singleTask} />
 
 </div> 

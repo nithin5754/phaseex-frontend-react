@@ -2,6 +2,9 @@ import { SendTaskType, ResponseTaskType } from "@/features/types/index";
 import { apiSlice } from "./apiSlice";
 import {
   SendDescriptionTaskType,
+  SendDLinkTaskType,
+  SendFiles,
+  sendLinkDelete,
   SendPriorityTaskType,
   SendStatusTaskType,
 } from "@/features/types/taskType";
@@ -19,7 +22,6 @@ export interface SendToCheckCollab {
   workspaceId: string;
   folderId: string;
   listId: string;
-
 }
 
 export interface TResponseCollaboratorDetailType {
@@ -125,11 +127,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-      providesTags: (
-        result,
-        error,
-        { workspaceId, folderId, listId }
-      ) => [
+      providesTags: (result, error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -169,22 +167,13 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { ...credentials },
       }),
-      invalidatesTags: (
-        _result,
-        _error,
-        { workspaceId, folderId,listId }
-      ) => [
+      invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
         },
       ],
-
-
-
-
-  }
-  ),
+    }),
 
     /**
      * @returns {Promise<id:string;fullName: string, email:string ,imageUrl:string, role:string []>}
@@ -205,11 +194,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: (
-        result,
-        error,
-        { workspaceId, folderId, listId }
-      ) => [
+      providesTags: (result, error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -234,7 +219,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (
         _result,
         _error,
-        { workspaceId, folderId, listId,taskId}
+        { workspaceId, folderId, listId, taskId }
       ) => [
         {
           type: "TaskSpace",
@@ -246,9 +231,8 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         },
       ],
 
-
       async onQueryStarted(
-        { workspaceId, folderId, listId,taskId },
+        { workspaceId, folderId, listId, taskId },
         { dispatch, queryFulfilled }
       ) {
         try {
@@ -288,9 +272,62 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
         },
-    
       ],
     }),
+
+    /**
+     * @returns {Promise<boolean>}
+     * @param {workspaceId,folderId,listId,taskId,link,link_name}
+     * @api  `/task/ /add_link/task/${credentials.taskId}`
+     */
+
+    addLinkToTask: builder.mutation<boolean, SendDLinkTaskType>({
+      query: (credentials) => ({
+        url: `/task/add_link/task/${credentials.taskId}`,
+        method: "PATCH",
+        body: { ...credentials },
+      }),
+      invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
+        {
+          type: "TaskSpace",
+          id: `${workspaceId}-${folderId}-${listId}`,
+        },
+      ],
+    }),
+
+    /**
+     * @returns {Promise<boolean>}
+     * @param {workspaceId,folderId,listId,taskId,linkId}
+     * @api  `/delete-link-task/:taskId`
+     */
+
+    deleteLinkTask: builder.mutation<boolean, sendLinkDelete>({
+      query: (credentials) => ({
+        url: `/task/delete-link-task/${credentials.taskId}`,
+        method: "DELETE",
+        body: credentials,
+      }),
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId, listId, taskId }
+      ) => [
+        {
+          type: "TaskSpace",
+          id: `${workspaceId}-${folderId}-${listId}`,
+        },
+      ],
+    }),
+
+    /**
+     * @returns {Promise<boolean>}
+     * @param  {workspaceId: string;folderId: string;listId: string;taskId: string;files:FileList} 
+     * @api  `/task/update-files`
+     */
+
+
+
+
   }),
 });
 
@@ -305,4 +342,7 @@ export const {
   useGetCollabTaskByIdQuery,
   useDeleteCollaboratorToTaskAssigneeMutation,
   useCheckCollabInListGrpQuery,
+  useAddLinkToTaskMutation,
+  useDeleteLinkTaskMutation,
+
 } = taskApiSlice;

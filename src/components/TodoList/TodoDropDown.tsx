@@ -9,6 +9,10 @@ import { SendDeleteTodoTask } from "@/features/types/TodoType";
 import { toast } from "../ui/use-toast";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import UseListRole from "@/hooks/UseListRole";
+import { CActivitySendType } from "@/features/types/TActivity";
+import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
+import { useSelector } from "react-redux";
+import { selectCurrentUserName } from "@/features/auth/authSlice";
 
 interface Props {
   workspaceId:string,
@@ -27,6 +31,8 @@ const isSpaceOwner = UseSpaceRoles({ workspaceId });
 const isListRoles = UseListRole({ workspaceId, folderId, listId });
 
 console.log(isListRoles,"hello list roles")
+const [onCreateActivity]=useOnCreateActivityMutation() 
+const currentName=useSelector(selectCurrentUserName)
 
 const handleDelete=async()=>{
 
@@ -40,6 +46,18 @@ const handleDelete=async()=>{
 
    try {
    let response= await onDeleteTaskTodo(TaskTodoData).unwrap();
+
+   if(response){
+              
+    let ActivityData:CActivitySendType={
+      workspaceId,
+      folderId,
+      listId,
+      taskId,
+      activity:`${currentName} deleted the todo ${todo} `
+    }
+    await onCreateActivity(ActivityData).unwrap()
+   }
 
 
    

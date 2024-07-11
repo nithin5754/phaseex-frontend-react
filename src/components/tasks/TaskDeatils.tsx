@@ -33,7 +33,7 @@ import { useParams } from "react-router-dom";
     return (
    <div className=" flex flex-col w-full  mx-4 font-sfpro gap-4  ">
    <TaskHistory singleTask={singleTask?singleTask:null}/>
-   <TaskSelectionButton/>
+   <TaskSelectionButton singleTask={singleTask?singleTask:null}/>
    <TaskMainSection singleTask={singleTask?singleTask:null} />
    
    

@@ -13,7 +13,10 @@ import { LottieAnimation } from "../lootie/Lootie"
 import { toast } from "../ui/use-toast"
 import { selectTodoCollabSpace, setSearchTodoQuery } from "@/app/redux/slice/todoSlice"
 import { useOnAddCollabToTodoMutation, useOnUpdateReassignTodoMutation } from "@/app/redux/api/todoapi"
-import { SendAddCollabTodoTask, SendTodoReassignType } from "@/features/types/TodoType"
+import { SendAddCollabTodoTask, SendTodoReassignType, TodoType } from "@/features/types/TodoType"
+import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi"
+import { selectCurrentUserName } from "@/features/auth/authSlice"
+import { CActivitySendType } from "@/features/types/TActivity"
 
   
 interface Props {
@@ -23,14 +26,16 @@ interface Props {
   taskId:string;
   todoId:string;
   collabId:string
+  todo:TodoType
 }
 
-  const ReassignSuggestion = ({workspaceId,folderId,listId,taskId,todoId}:Props) => {
+  const ReassignSuggestion = ({workspaceId,folderId,listId,taskId,todoId,todo}:Props) => {
   
     const getListCollabSuggestion=useSelector(selectTodoCollabSpace)
 
     const dispatch=useDispatch()
-    
+    const [onCreateActivity]=useOnCreateActivityMutation() 
+    const currentName=useSelector(selectCurrentUserName)
       
     const [onAddCollabToTodo]=useOnAddCollabToTodoMutation()
     
@@ -46,7 +51,18 @@ interface Props {
      
       
       try {
-       await onAddCollabToTodo(responseData).unwrap()  
+     let response=  await onAddCollabToTodo(responseData).unwrap() 
+     if(response) {
+         
+      let ActivityData:CActivitySendType={
+        workspaceId:workspaceId,
+        folderId:folderId,
+        listId:listId,
+        taskId:taskId,
+        activity:`${currentName} reassigned the todo ${todo.todo}  `
+      }
+      await onCreateActivity(ActivityData).unwrap()
+     }
      } catch (error:any) {
        if (!error.status) {
          toast({

@@ -1,3 +1,5 @@
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,18 +19,16 @@ import { Loader2 } from "lucide-react";
 
 import React from "react";
 
-import { SendTodoTask } from "@/features/types/TodoType";
 import { toast } from "../ui/use-toast";
 import { useOnCreateTaskTodoMutation } from "@/app/redux/api/todoapi";
-import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
-import { CActivitySendType } from "@/features/types/TActivity";
-import { selectCurrentUserName } from "@/features/auth/authSlice";
-import { useSelector } from "react-redux";
+import { SendDLinkTaskType } from "@/features/types/taskType";
+import { useAddLinkToTaskMutation } from "@/app/redux/api/taskapi";
 
 const FormSchema = z.object({
-  todo: z.string().min(2, {
-    message: "todo name must be at least 4 characters.",
+  link_name: z.string().min(6, {
+    message: "todo name must be at least 6 characters.",
   }),
+  link: z.string()
 });
 
 interface Props {
@@ -39,7 +39,7 @@ interface Props {
   taskId: string;
 }
 
-export function CreateTodo({
+export function AddLink({
   handleClose,
   workspaceId,
   folderId,
@@ -49,41 +49,31 @@ export function CreateTodo({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      todo: "",
+      link: "",
+      link_name:""
     },
   });
 
-  const [onCreateTaskTodo, { isLoading: todoLoading }] =
-    useOnCreateTaskTodoMutation();
-
-    const currentName=useSelector(selectCurrentUserName)
-
-    const [onCreateActivity]=useOnCreateActivityMutation() 
+  const [addLinkToTask, { isLoading: todoLoading }] =
+  useAddLinkToTaskMutation();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    let TaskTodoData: SendTodoTask = {
-      todo: data.todo,
+    let TaskTodoData: SendDLinkTaskType = {
       taskId,
       workspaceId,
       folderId,
       listId,
+      link_name:data.link_name,
+      link:data.link
     };
 
     if (TaskTodoData) {
       try {
-        const response = await onCreateTaskTodo(TaskTodoData).unwrap();
+        console.log(TaskTodoData, "todo data set");
+        const response = await addLinkToTask(TaskTodoData).unwrap();
 
-        if (response.id) {
+        if (response) {
           handleClose();
-          
-          let ActivityData:CActivitySendType={
-            workspaceId:response.workspaceId,
-            folderId:response.folderId,
-            listId:response.listId,
-            taskId:response.taskId,
-            activity:`${currentName} created todo ${response.todo} `
-          }
-          await onCreateActivity(ActivityData).unwrap()
         } else {
           toast({
             title:
@@ -115,10 +105,24 @@ export function CreateTodo({
       >
         <FormField
           control={form.control}
-          name="todo"
+          name="link_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Enter name of the todo</FormLabel>
+              <FormLabel className="dark:text-primary">Enter name of the link</FormLabel>
+              <FormControl>
+                <Input placeholder="eg:todo-1" {...field} className="w-full dark:text-primary " />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+<FormField
+          control={form.control}
+          name="link"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="dark:text-primary">Enter link </FormLabel>
               <FormControl>
                 <Input placeholder="eg:todo-1" {...field} className="w-full dark:text-primary" />
               </FormControl>

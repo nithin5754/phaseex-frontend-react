@@ -9,6 +9,9 @@ import { ResponseTaskType } from "@/features/types"
 import { SendDescriptionTaskType } from "@/features/types/taskType"
 import { useOnUpdateDescriptionTaskMutation } from "@/app/redux/api/taskapi"
 import { toast } from "../ui/use-toast"
+import TaskLinks from "./TaskLinks"
+import { ScrollArea } from "../ui/scroll-area"
+
 
 interface Props {
 
@@ -92,12 +95,19 @@ const TaskMainLeft = ({singleTask}:Props) => {
     >
       {singleTask? singleTask.task_description:"write description about task...."}
     </p>
+
   </div>
 </div>
 
 
      
      </>)}
+     <div
+
+>
+
+  {singleTask&&singleTask.taskLink.length>0&&<TaskLinks links={singleTask?.taskLink}/>}
+</div>
     {openDescTask&&(
       <div className="flex flex-col gap-4 mb-6">
       <Textarea  placeholder="write description about task...." value={isDescription} onChange={(e)=>setDescription(e.target.value)}/>
@@ -107,8 +117,10 @@ const TaskMainLeft = ({singleTask}:Props) => {
     </div>
       </div>
     )}
-
+  
     <Todos/>
+
+
    
 
     </div>

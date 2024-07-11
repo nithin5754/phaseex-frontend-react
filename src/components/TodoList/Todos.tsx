@@ -52,7 +52,7 @@ console.log(getAllTodoTask,"hello todo")
     <TooltipTrigger asChild>
     <TodoModalCreate  spaceId={id} folderId={folderId} listId={listId} taskId={taskId} icon={Plus}/>
     </TooltipTrigger>
-    <TooltipContent className="dark:border dark:border-border">
+    <TooltipContent className="">
       <p className="font-sfpro">Add  todo task</p>
     </TooltipContent>
   </Tooltip>

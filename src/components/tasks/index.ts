@@ -17,6 +17,8 @@ import MembersTaskAddPage from "./MembersTaskAddPage";
 import DeleteCollabTask from "./DeleteCollabTask";
 import { AnimatedTaskProfile } from "./AnimatedTaskProfile";
 import SingleTask from "./SingleTask";
+import { AddLink } from "./AddLink";
+import TaskLinks from "./TaskLinks";
 
 export{
   TaskTable,
@@ -36,6 +38,8 @@ UpdateTaskStatus,
   MembersTaskAddPage,
   DeleteCollabTask,
   AnimatedTaskProfile,
-  SingleTask
+  SingleTask,
+  AddLink,
+  TaskLinks
 
 }

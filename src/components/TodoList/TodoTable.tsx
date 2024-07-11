@@ -16,6 +16,10 @@ import { selectTodoItem, selectTodoQuery } from "@/app/redux/slice/todoSlice";
 
 import { TodoSingle, TodoTHead } from "./index";
 
+import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
+import { CActivitySendType } from "@/features/types/TActivity";
+import { selectCurrentUserName } from "@/features/auth/authSlice";
+
 
 
 interface Props {
@@ -31,7 +35,9 @@ const TodoTable = ({getAllTodoTask}:Props) => {
 
   const searchTodoItem=useSelector(selectTodoItem)
   const searchTodoQuery=useSelector(selectTodoQuery)
-
+  const currentName =useSelector(selectCurrentUserName)
+  
+  const [onCreateActivity]=useOnCreateActivityMutation() 
   
 
 
@@ -53,6 +59,15 @@ const TodoTable = ({getAllTodoTask}:Props) => {
       const response=await onUpdateStatusTodo(todoSendData).unwrap()
       if(response){
         setLoadingStates({...loadingStates, [todo.id]: false });
+          
+        let ActivityData:CActivitySendType={
+          workspaceId:todo.workspaceId,
+          folderId:todo.folderId,
+          listId:todo.listId,
+          taskId:todo.taskId,
+          activity:`${currentName} ${todo_status==='completed'?'completed the ':'unchecked the'} ${todo.todo}  `
+        }
+        await onCreateActivity(ActivityData).unwrap()
       }
 
     
@@ -83,16 +98,22 @@ const TodoTable = ({getAllTodoTask}:Props) => {
 <>
 {
   searchTodoQuery===""?(
+        
    <>
     {getAllTodoTask.map((todo:TodoType) => (
     <TodoSingle key={todo.id} todo={todo} loadingStates={loadingStates} handleChangeCheckBox={handleChangeCheckBox }/>
-    ))}
+  ))}
+
    </>
   ):(<>
+
       {searchTodoItem&&searchTodoItem.length>0&&searchTodoItem.map((todo:TodoType) => (
+        
     <TodoSingle key={todo.id} todo={todo} loadingStates={loadingStates} handleChangeCheckBox={handleChangeCheckBox }/>
   ))}
-  </>)
+  </>
+
+  )
 }
 </>
   </Table>

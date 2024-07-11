@@ -36,6 +36,13 @@ import { SendTaskType } from "@/features/types";
 import { useOnCreateTaskMutation } from "@/app/redux/api/taskapi";
 
 
+import { CActivitySendType } from "@/features/types/TActivity";
+import { useSelector } from "react-redux";
+import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
+
+
+
 
 const FormSchema = z.object({
   task_title: z.string().min(2, {
@@ -64,6 +71,10 @@ export function CreateForm({ handleClose, workspaceId, folderId,listId }: Props)
 
   const [taskPriority, setTaskPriority] = React.useState("low");
   const [onCreateTask, { isLoading: taskLoading }] = useOnCreateTaskMutation();
+  const [onCreateActivity]=useOnCreateActivityMutation() 
+
+
+const currentName=useSelector(selectCurrentUserName)
 
  
  
@@ -76,6 +87,7 @@ export function CreateForm({ handleClose, workspaceId, folderId,listId }: Props)
    workspaceId,
    folderId,
    listId
+
  }
    
  
@@ -91,9 +103,15 @@ export function CreateForm({ handleClose, workspaceId, folderId,listId }: Props)
           
             if (response.id) {
               handleClose()
-        
 
-
+              let ActivityData:CActivitySendType={
+                workspaceId:response.workspaceId,
+                folderId:response.folderId,
+                listId:response.listId,
+                taskId:response.id,
+                activity:`${currentName} created task ${response.task_title} `
+              }
+              await onCreateActivity(ActivityData).unwrap()
             } else {
               toast({
                 title:

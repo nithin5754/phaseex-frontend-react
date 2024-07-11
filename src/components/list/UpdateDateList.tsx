@@ -58,7 +58,7 @@ export function UpdateDateList({
 
   React.useEffect(() => {
     if (date && date.from && date.to) {
-      console.log(date.from, "hello hello");
+  
 
       const startList = format(date.from, "MMMM d, yyyy - h:mm a");
       const dueList = format(date.to, "MMMM d, yyyy - h:mm a");

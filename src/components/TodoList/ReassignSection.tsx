@@ -18,7 +18,7 @@ const ReassignSection = ({todo}:Props) => {
     <AddTodoCollabInput taskId={todo.taskId}/>
     <>
     {
-      openClose&& <ReassignSuggestion workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id} collabId={todo.assignee}/>
+      openClose&& <ReassignSuggestion workspaceId={todo.workspaceId} folderId={todo.folderId} listId={todo.listId} taskId={todo.taskId} todoId={todo.id} collabId={todo.assignee} todo={todo}/>
     }
     </>
 

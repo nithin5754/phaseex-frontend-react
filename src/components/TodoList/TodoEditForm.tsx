@@ -22,6 +22,10 @@ import { Loader2 } from "lucide-react";
 import { SendEditTodoTask } from "@/features/types/TodoType";
 import { toast } from "../ui/use-toast";
 import { useOnCreateTaskTodoMutation, useOnUpdateTaskTodoMutation } from "@/app/redux/api/todoapi";
+import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
+import { CActivitySendType } from "@/features/types/TActivity";
+import { useSelector } from "react-redux";
+import { selectCurrentUserName } from "@/features/auth/authSlice";
 
 const FormSchema = z.object({
   todo: z.string().min(2, {
@@ -57,6 +61,8 @@ export function EditTodo({
 
   const [onUpdateTaskTodo, { isLoading: todoLoading }] =
     useOnUpdateTaskTodoMutation();
+    const [onCreateActivity]=useOnCreateActivityMutation() 
+    const currentName=useSelector(selectCurrentUserName)
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let TaskTodoData: SendEditTodoTask = {
@@ -75,6 +81,16 @@ export function EditTodo({
 
         if (response) {
           handleClose();
+                    
+          let ActivityData:CActivitySendType={
+            workspaceId:workspaceId,
+            folderId:folderId,
+            listId:listId,
+            taskId:taskId,
+            activity:`${currentName} edited todo name ${todo} to ${data.todo}  `
+          }
+          await onCreateActivity(ActivityData).unwrap()
+          
         } else {
           toast({
             title:
