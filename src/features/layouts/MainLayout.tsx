@@ -25,9 +25,9 @@ const MainLayout = () => {
   
   </>
     <div className="flex-1 flex-col   mx-auto flex">
-  <div className="hidden md:block">
+  {/* <div className="hidden md:block">
   <NabBar/>
-  </div>
+  </div> */}
       <div className="">
       <Outlet/>
       </div>

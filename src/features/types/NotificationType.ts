@@ -17,3 +17,29 @@
     createdAt:string;
     updatedAt:string;
   }
+
+
+
+
+  export interface ReceiveNotificationVideoType {
+    senderId:string
+    ownerName:string
+    workspaceId:string
+    url:string
+    type:string
+  }
+
+  
+
+  export interface TVideoInviteLink {
+
+    id:string;
+    senderId:string;
+    workspaceId:string;
+    ownerName:string;
+    url:string;
+    type:"video"|"chat"
+    createdAt:string
+
+
+ }

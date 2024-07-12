@@ -14,6 +14,8 @@ import TaskView from "./TaskView";
 import Invite from "./Invite";
 import MembersAddingSpace from "./MembersAddingSpace";
 
+import VideoCall from "./VideoCall";
+
 
 
 export {
@@ -29,6 +31,7 @@ export {
   NotificationPage,
   TaskView,
   Invite,
-  MembersAddingSpace
+  MembersAddingSpace,
+  VideoCall
  
 }

@@ -5,6 +5,8 @@ import EmptyRecent from '../../../public/json/empty-work-2.json'
 import { useSocket } from "@/app/socketContext";
 import useGreetings from "@/hooks/useGreetings";
 import useAuth from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 const HomePage = () => {
  
   return (
@@ -39,7 +41,7 @@ const HomePage = () => {
     <div className="flex justify-between items-center mb-4">
       <h1 className="text-xl font-semibold">Recent Work</h1>
       <div className="flex space-x-2">
-   
+
      
       </div>
     </div>

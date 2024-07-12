@@ -21,7 +21,8 @@ import {
   NotificationPage,
   TaskView,
   Invite,
-  MembersAddingSpace
+  MembersAddingSpace,
+  VideoCall
 } from "./features/main-sections/index";
 
 
@@ -32,6 +33,7 @@ import PersistLogin from "./features/auth/PersistLogin";
 import {  MainLayout, SpaceLayout } from "./features/layouts/index";
 import { SearchPeople } from "./components/memebers/index";
 import { DashBoard } from "./components/DashBoard";
+import { Head } from "react-day-picker";
 
 
 
@@ -39,6 +41,9 @@ import { DashBoard } from "./components/DashBoard";
 function App() {
   return (
     <div className="App">
+
+  
+  
       <Routes>
         <Route path="/">
           <Route index element={<LandingPage />} />
@@ -58,11 +63,13 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="homepage" element={<HomePage />} />
               <Route path="invite" element={<Invite/>}/>
+         
 
               <Route path="space">
                 <Route index element={<ViewSpace />} />
                 <Route path=":id" element={<SpaceLayout />}>
                   <Route index element={<SingleWorkSpace />} />
+                <Route path="room/:roomID" element={<VideoCall/>}/>
                   <Route path="folders">
                     <Route index element={<FolderView />} />
                     <Route path=":folderId">
