@@ -47,9 +47,15 @@ interface OpenModalProps{
   return (
     <Dialog open={open} onOpenChange={setOpen} >
     <DialogTrigger asChild>
-    <div className="px-3.5 py-2 bg-gray-100 rounded    gap-3 inline-flex fixed right-[205px] bottom-[300px] z-50">
+    <div className="px-3.5 py-2    gap-3 inline-flex fixed right-[205px] bottom-[300px] z-50">
     <button>
-    <h5 className="text-gray-900 text-sm font-sfpro  font-normal leading-snug h-4"> welcome {currentName?currentName:"to the chat world "} </h5>
+    <div className="flex justify-start items-start p-4">
+  <div className="relative bg-blue-500 text-white text-sm font-sfpro font-normal leading-snug p-3 rounded-lg max-w-xs">
+    <span className="block h-4">Welcome {currentName ? currentName : "to the chat world"}</span>
+    <div className="absolute bottom-0 left-0 transform -translate-x-2 translate-y-full w-0 h-0 border-t-[10px] border-t-blue-500 border-r-[10px] border-r-transparent border-l-[10px] border-l-transparent"></div>
+  </div>
+</div>
+
 
     </button>
     </div>
