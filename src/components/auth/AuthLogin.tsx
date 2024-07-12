@@ -112,8 +112,7 @@ if(token){
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 dark:bg-background dark:text-primary dark:border-border">
-              <h1 className="font-sfpro text-center text-3xl">Login Form</h1>
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 bg-transparent dark:text-primary dark:border-border">
         <FormField
           control={form.control}
           name="email"
@@ -124,7 +123,7 @@ if(token){
                 <Input
                   type="text"
                   placeholder="example@gmail.com"
-                  className="text-white dark:text-primary"
+                  className="text-white dark:text-primary bg-transparent"
                   {...field}
                 />
               </FormControl>
@@ -148,7 +147,7 @@ if(token){
                 <Input
                   type="password"
                   placeholder="enter new password"
-                  className="text-white dark:text-primary"
+                  className="text-white dark:text-primary bg-transparent"
                   {...field}
                 />
               </FormControl>

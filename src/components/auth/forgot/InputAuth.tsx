@@ -69,8 +69,7 @@ const InputAuth = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-      <h1 className="font-sfpro text-center text-xl">forgot password</h1>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-6">
     
 
         <FormField
@@ -78,7 +77,7 @@ const InputAuth = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>enter already registered email</FormLabel>
+              <FormLabel className="text-neutral-400 font-sfpro ">Enter already registered email</FormLabel>
               <FormControl>
                 <Input placeholder="example@gmail.com" {...field} />
               </FormControl>

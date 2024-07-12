@@ -158,8 +158,7 @@ if(token){
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
-      <h1 className="font-sfpro text-center text-3xl">Register Form</h1>
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-3">
         <FormField
           control={form.control}
           name="username"
