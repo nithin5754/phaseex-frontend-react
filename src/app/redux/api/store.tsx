@@ -12,12 +12,14 @@ import notificationReducer from '../slice/notificationSlice'
 import socketReducer from '../slice/socketSlice'
 import todoReducer from '../slice/todoSlice'
 import utilReducer from '../slice/uttilSlice'
+import googleApiSlice from './googleApi'
 
 
 
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
+    [googleApiSlice.reducerPath]: googleApiSlice.reducer,
     auth: authReducer,
     user:userReducer,
     workspace:workSpaceReducer,
@@ -32,7 +34,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware(
       
-    ).concat(apiSlice.middleware),
+    ).concat(apiSlice.middleware,googleApiSlice.middleware),
 devTools: true,
 
 })
