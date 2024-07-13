@@ -17,7 +17,7 @@ import { getNotification, notificationOpen } from "@/app/redux/slice/notificatio
 import { useSocket } from "@/app/socketContext";
 import { selectSideCloseOpen, setSideBarClose, setSideBarOpen } from "@/app/redux/slice/uttilSlice";
 
-
+import { googleLogout } from '@react-oauth/google';
 
 
 interface SideBarDesktopProps {
@@ -66,7 +66,8 @@ const userName=useSelector(selectCurrentUserName)
 
 
   const handleLogOut=async()=>{
-   await sendLogOut().unwrap()
+    await googleLogout()
+    await sendLogOut().unwrap()
  
   
   }

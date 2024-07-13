@@ -99,10 +99,22 @@ export const authApiSlice = apiSlice.injectEndpoints({
           console.log("success!", data);
 
           dispatch(logOut());
+          dispatch(apiSlice.util.resetApiState());
         } catch (err) {
           console.log("error... ", err);
         }
       },
+      invalidatesTags: ["User",
+        "Workspace",
+        "FolderSpace",
+        "ListSpace",
+        "TaskSpace",
+        "Search",
+        "Notification",
+        "TodoTask",
+        "Collaborators",
+        "Activity",
+        "VideoChat"],
     }),
     refresh: builder.mutation({
       query: () => ({

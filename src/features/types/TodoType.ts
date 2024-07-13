@@ -31,7 +31,6 @@ export interface SendTodoCheckBox {
 // export interface SendUpdateTodoTask {
 //   workspaceId:string,
 //   folderId:string,
-//   todo:string,
 //   listId:string,
 //   taskId:string,
 //   id:string

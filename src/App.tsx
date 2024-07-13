@@ -26,7 +26,8 @@ import {
 } from "./features/main-sections/index";
 
 
-import LandingPage from "./components/LandingPage";
+
+import {LandingPage} from "./components/LandingPage";
 
 import Hello from "./components/Hello";
 import PersistLogin from "./features/auth/PersistLogin";
