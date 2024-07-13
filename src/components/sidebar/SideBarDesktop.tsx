@@ -66,8 +66,10 @@ const userName=useSelector(selectCurrentUserName)
 
 
   const handleLogOut=async()=>{
-    await googleLogout()
-    await sendLogOut().unwrap()
+      googleLogout()
+   await sendLogOut().unwrap()
+
+  navigate('/', { replace: true });
  
   
   }

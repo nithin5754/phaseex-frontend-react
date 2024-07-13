@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <div className="h-screen flex lg:flex-row flex-col mx-auto bg-neutral-950 dark:text-primary ">
       <AuthSideImg />
-      <div className="h-[32rem] max-w-md w-full m-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black z-50">
+      <div className="h-auto max-w-md w-full m-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black z-50">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
           Welcome to Phaseex.com
         </h2>
@@ -15,7 +15,7 @@ const Login = () => {
         </p>
 
         <AuthLogin />
-        <h3 className="text-center font-sfpro">or</h3>
+        <h3 className="text-center font-sfpro  text-slate-600 my-4">or you can signIn with </h3>
         <GoogleAuth />
       </div>
 

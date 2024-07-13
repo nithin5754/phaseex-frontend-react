@@ -3,14 +3,11 @@ import { useGoogleAuthMutation } from '@/app/redux/api/googleApi';
 import { useAppDispatch } from '@/app/redux/api/store';
 
 import { setCredentials, setUserName } from '@/features/auth/authSlice';
+import { googleClientId } from '@/lib/constant';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-
-
-const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
 
 
 const GoogleAuth = () => {

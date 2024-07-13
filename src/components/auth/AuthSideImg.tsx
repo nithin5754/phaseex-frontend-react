@@ -1,6 +1,6 @@
 const AuthSideImg = () => {
   return (
-    <div className="lg:flex hidden w-1/2 bg-gradient-to-tr ">
+    <div className=" lg:flex hidden w-1/2 bg-gradient-to-tr ">
       <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-around antialiased">
         <h1 className="absolute top-4 left-2 z-50 text-lg md:text-2xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
           PHASEEX

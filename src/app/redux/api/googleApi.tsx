@@ -1,5 +1,6 @@
 
 
+import { baseUrl } from "@/lib/constant";
 import {
   createApi,
   fetchBaseQuery,
@@ -7,7 +8,7 @@ import {
 
 export const googleApiSlice = createApi({
   reducerPath: 'googleApi',
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4500/api/v1" }),
+  baseQuery: fetchBaseQuery({ baseUrl: baseUrl}),
   endpoints: (builder) => ({
     googleAuth:builder.mutation<any, { token:string }>(
       {

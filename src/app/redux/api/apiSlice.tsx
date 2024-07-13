@@ -2,6 +2,7 @@
 
 import type { RootState } from "./store";
 import { logOut, setCredentials } from "@/features/auth/authSlice";
+import { baseUrl } from "@/lib/constant";
 import {
   BaseQueryFn,
   FetchArgs,
@@ -11,7 +12,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:4500/api/v1",
+  baseUrl:baseUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
