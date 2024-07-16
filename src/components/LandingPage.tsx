@@ -24,7 +24,7 @@ export function LandingPage() {
     }
   }, [navigate, token, location, from]);
   return (
-    <div className="dark:bg-background">
+    <div className="dark:bg-background pb-6">
       <HeroParallax products={products} />
     </div>
   );

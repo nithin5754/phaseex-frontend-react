@@ -81,7 +81,7 @@ const TaskMainRight = ({ singleTask }: Props) => {
 
         
 
-        {/* <form
+    <form
           className=" overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
           x-chunk="dashboard-03-chunk-1"
         >
@@ -99,7 +99,7 @@ const TaskMainRight = ({ singleTask }: Props) => {
               <CornerDownLeft className="size-3.5" />
             </Button>
           </div>
-        </form> */}
+        </form>
       </div>
     </>
   );

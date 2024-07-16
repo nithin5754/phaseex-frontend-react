@@ -1,4 +1,4 @@
-import { Link, Notebook, Pin, Turtle } from "lucide-react";
+import { Link, Notebook, Pin, PinIcon, Turtle } from "lucide-react";
 import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { setOpenDescTask } from "@/app/redux/slice/taskSlice";
@@ -14,11 +14,16 @@ const TaskSelectionButton = ({ singleTask }: Props) => {
   return (
     <div className="flex p-4 justify-end items-end    gap-4 bg-white  border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primaryr">
       <Button onClick={() => dispatch(setOpenDescTask(true))}>
-        <Notebook /> description
+        <Notebook  size={16} /> description
+      </Button>
+
+      <Button >
+        <PinIcon size={16} /> Attachment
       </Button>
       <>
         {singleTask && (
           <TaskLinkModal
+    
             icon={Link}
             spaceId={singleTask.workspaceId}
             folderId={singleTask.folderId}

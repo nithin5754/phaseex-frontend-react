@@ -60,7 +60,7 @@ function App() {
 
 
           {/* <Route element={<PersistLogin />}> */}
-          <Route element={<RequireAuth />}>
+          <Route element={<RequireAuth  />}>
             <Route element={<MainLayout />}>
               <Route path="homepage" element={<HomePage />} />
               <Route path="invite" element={<Invite/>}/>
