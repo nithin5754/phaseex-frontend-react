@@ -9,14 +9,15 @@ import { RootState } from '../api/store';
 
 interface UtilType {
    sidebarCloseOpen:boolean
+   color:number
 }
 
 
 
 
 const initialState:UtilType = {
-sidebarCloseOpen:false
-
+  sidebarCloseOpen: false,
+  color: 0
 };
 
 export const userSlice = createSlice({
@@ -29,6 +30,10 @@ export const userSlice = createSlice({
     setSideBarOpen(state, _action) {
       state.sidebarCloseOpen =false
     },
+
+    setColor(state, action:PayloadAction<number>) {
+      state.color =action.payload
+    },
   
    
   },  
@@ -37,11 +42,13 @@ export const userSlice = createSlice({
 
 
 
-export const { setSideBarClose,setSideBarOpen } = userSlice.actions;
+export const { setSideBarClose,setSideBarOpen,setColor } = userSlice.actions;
 
 
 export default userSlice.reducer
 
 
 export const selectSideCloseOpen=(store:RootState)=>store.util.sidebarCloseOpen
+
+export const selectCurrentColor=(store:RootState)=>store.util.color
 

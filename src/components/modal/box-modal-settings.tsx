@@ -16,7 +16,8 @@ import { LucideIcon } from "lucide-react";
 import { WorkspaceForm } from "../work-space/index";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectSideCloseOpen } from "@/app/redux/slice/uttilSlice";
+import { selectCurrentColor, selectSideCloseOpen } from "@/app/redux/slice/uttilSlice";
+import { getColor } from "@/lib/colors";
 
 
 
@@ -33,13 +34,16 @@ interface OpenModalProps{
   export  function OpenModal({title,icon:Icon}:OpenModalProps) {
     const [open, setOpen] = useState<boolean>(false);
 
+    const isSelectedColor=useSelector(selectCurrentColor)
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const isSideOpenClose=useSelector(selectSideCloseOpen)
+
   return (
     <Credenza open={open} onOpenChange={setOpen} >
       <CredenzaTrigger asChild>
-        <Button   className='w-full  gap-2   text-white dark:bg-primary   dark:text-background'
+        <Button   className={`w-full  gap-2 ${getColor(isSelectedColor)}`}
      >{!isSideOpenClose&&title} <span >{Icon &&<Icon size={20}/>} </span></Button>
       </CredenzaTrigger>
       <CredenzaContent  >

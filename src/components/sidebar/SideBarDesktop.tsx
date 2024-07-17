@@ -18,6 +18,7 @@ import { useSocket } from "@/app/socketContext";
 import { selectSideCloseOpen, setSideBarClose, setSideBarOpen } from "@/app/redux/slice/uttilSlice";
 
 import { googleLogout } from '@react-oauth/google';
+import { ProfileModal } from "../modal/profile-modal";
 
 
 interface SideBarDesktopProps {
@@ -187,9 +188,9 @@ dispatch(setSideBarOpen(undefined))
               <PopoverContent className='mb-6 w-56 p-3 rounded-lg'>
                 <div className='space-y-1'>
              
-                    <SideBarButton size='sm' icon={Settings} className='w-full'>
-                    <ModeToggle />
-                    </SideBarButton>
+            
+                      <ProfileModal/>
+              
               
                   <SideBarButton onClick={handleLogOut} size='sm' icon={LogOut} className='w-full'>
                     Log Out

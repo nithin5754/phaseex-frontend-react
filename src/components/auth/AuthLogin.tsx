@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/app/redux/api/AuthApi";
 import { useAppDispatch } from "@/app/redux/api/store";
-import { selectCurrentToken, setCredentials, setUserName } from "@/features/auth/authSlice";
+import { selectCurrentToken, setCredentials, setUserEmail, setUserName } from "@/features/auth/authSlice";
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
 import { useSocket } from "@/app/socketContext";
@@ -79,6 +79,7 @@ if(token){
         if (userData.accessToken) {
           dispatch(setCredentials(userData.accessToken));
           dispatch(setUserName(userData.data.userName))
+          dispatch(setUserEmail(data.email))
 
 
             

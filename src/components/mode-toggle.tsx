@@ -1,37 +1,42 @@
 import { Moon, Sun } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import { useTheme } from "@/components/theme-provider"
+import { Skeleton } from "./ui/skeleton"
 
 export function ModeToggle() {
   const { setTheme } = useTheme()
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="">
+      <h1 className="dark:text-primary mb-2">Theme Setting</h1>
+<div className="flex flex-row gap-4">
+
+<Button onClick={() => setTheme("light")} className="bg-white hover:border-2 border-border  border-2 hover:bg-white h-[60px]">
+    <div className="flex items-center space-x-2">
+      <Skeleton className="h-6 w-6 rounded-full  bg-slate-400" />
+      <div className="space-y-2 ">
+        <Skeleton className="h-2 w-[50px] bg-slate-400" />
+        <Skeleton className="h-2 w-[30px] bg-slate-400" />
+      </div>
+    </div>
+    </Button>
+    <Button onClick={() => setTheme("dark")} className="bg-slate-700 hover:border-2 border-border h-[60px] border hover:bg-slate-700">
+    <div className="flex items-center space-x-2">
+      <Skeleton className="h-6 w-6 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-2 w-[50px]" />
+        <Skeleton className="h-2 w-[30px]" />
+      </div>
+    </div>
+    </Button>
+    <Button onClick={() => setTheme("system")} className="bg-slate-700 hover:border-2 border-border h-[60px] border hover:bg-slate-700 w-[140px]">
+      System 
+    </Button>
+
+</div>
+
+    </div>
   )
 }

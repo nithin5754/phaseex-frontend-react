@@ -1,16 +1,19 @@
 
 
 // src/app/api/authSlice.ts
+import { RootState } from '@/app/redux/api/store';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
   token: string | null;
   userName:string|null
+  email:string|null;
 }
 
 const initialState: AuthState = {
-  token: localStorage.getItem("accessToken")?localStorage.getItem("accessToken"):null,
-  userName: localStorage.getItem("userInfo")?localStorage.getItem("userInfo"):null,
+  token: localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null,
+  userName: localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null,
+  email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
 };
 
 export const authSlice = createSlice({
@@ -33,6 +36,10 @@ export const authSlice = createSlice({
     state.userName=action.payload
     localStorage.setItem('userInfo', action.payload);
   },
+  setUserEmail:(state,action)=>{
+    state.email=action.payload
+    localStorage.setItem('email', action.payload);
+  },
   logOut: (state) => {
     state.userName=null
     state.token = null
@@ -42,10 +49,11 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setCredentials,logOut,setUserName } = authSlice.actions;
+export const { setCredentials,logOut,setUserName,setUserEmail } = authSlice.actions;
 
 export default authSlice.reducer;
 
 
 export const selectCurrentToken = (state:any) => state.auth.token
 export const selectCurrentUserName=(state:any)=>state.auth.userName
+export const selectCurrentEmail=(state:RootState)=>state.auth.email

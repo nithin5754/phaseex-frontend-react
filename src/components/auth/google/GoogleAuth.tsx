@@ -2,7 +2,7 @@
 import { useGoogleAuthMutation } from '@/app/redux/api/googleApi';
 import { useAppDispatch } from '@/app/redux/api/store';
 
-import { setCredentials, setUserName } from '@/features/auth/authSlice';
+import { setCredentials, setUserEmail, setUserName } from '@/features/auth/authSlice';
 import { googleClientId } from '@/lib/constant';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
@@ -37,6 +37,7 @@ const from = location.state?.from?.pathname || "/homepage";
            if (data.accessToken) {
       dispatch(setCredentials(data.accessToken));
       dispatch(setUserName(data.data.userName))
+      dispatch(setUserEmail(data.data.email))
 
 
         

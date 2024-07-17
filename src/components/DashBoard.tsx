@@ -1,9 +1,9 @@
 
-  import { Sample } from "./Sample";
+
 
 export function DashBoard() {
   return (
-   <Sample/>
+<h1>hello</h1>
   );
 }
 
