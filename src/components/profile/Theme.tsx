@@ -1,43 +1,49 @@
+import { colors, colorSets } from "@/lib/colors";
+import { useEffect, useState } from "react";
 
-import { colors } from "@/lib/colors"
-import { useEffect, useState } from "react"
-
-import { CircleOff } from 'lucide-react';
+import { CircleOff } from "lucide-react";
 import { useAppDispatch } from "@/app/redux/api/store";
-import { setColor } from "@/app/redux/slice/uttilSlice";
+import {
+  bgColor,
+  borderColor,
+  fontColor,
+  setColor,
+} from "@/app/redux/slice/uttilSlice";
 
-   const Theme = () => {
-    const [isColors,setColors]=useState<string[]|[]>([])
-const dispatch=useAppDispatch()
+const Theme = () => {
+  const [isColors, setColors] = useState<string[] | []>([]);
+  const dispatch = useAppDispatch();
 
-    useEffect(()=>{
-  setColors(colors)
-    
-    },[])
+  useEffect(() => {
+    setColors(colors);
+  }, []);
 
-     return(
-
-     <div className="flex flex-col gap-2">
+  return (
+    <div className="flex flex-col gap-2">
       <h1 className="dark:text-primary">Colors</h1>
       <div className="flex flex-center gap-4">
-      {    isColors.map((color:string,index:number)=>{
-         return(
-           <>
-           <button
-           onClick={()=>dispatch(setColor(index))
-           }
-          
-className={`uppercase h-12 w-12  border-[1px] flex items-center justify-center rounded-full ${color}`}
->
-{index===4&&<CircleOff className="h-full w-full"/>}
-</button>
-           </>
-         )
-       })}
+        <>
+          {colorSets.map((color, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  dispatch(bgColor(color.bg));
+                  dispatch(borderColor(color.border));
+                  dispatch(fontColor(color.fontColor));
+                }}
+                className={`uppercase h-12 w-12 flex items-center justify-center rounded-full`}
+                style={{
+                  backgroundColor: color.bg,
+                  color: color.fontColor,
+                  border: `1px solid ${color.border}`,
+                }}
+              ></button>
+            );
+          })}
+        </>
+      </div>
     </div>
-     </div>
-     )
-    
-     
-   }
-   export default Theme
+  );
+};
+export default Theme;

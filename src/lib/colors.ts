@@ -13,6 +13,37 @@ export const colors = [
 ];
 
 
+export const colorSets = [
+  {
+    bg: "rgba(255, 182, 193, 0.35)", // light pink
+    border: "#ff69b4", // hot pink
+    fontColor: "#c71585" // medium violet red
+  },
+  {
+    bg: "rgba(173, 216, 230, 0.35)", // light blue
+    border: "#4682b4", // steel blue
+    fontColor: "#00008b" // dark blue
+  },
+  {
+    bg: "rgba(144, 238, 144, 0.35)", // light green
+    border: "#32cd32", // lime green
+    fontColor: "#006400" // dark green
+  },
+  {
+    bg: "rgba(255, 239, 213, 0.35)", // papaya whip
+    border: "#ffa07a", // light salmon
+    fontColor: "#d2691e" // chocolate
+  },
+  {
+    bg: "rgba(255, 218, 185, 0.35)", // peach puff
+    border: "#ff6347", // tomato
+    fontColor: "#b22222" // firebrick
+  }
+];
+
+
+
+
 export const getColor=(color:any)=>{
   if(color>=0&&color<colors.length){
     return colors[color]

@@ -10,27 +10,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
 import { Profile } from "../profile/index"
 import { User } from "lucide-react"
+import { useState } from "react";
 
 export function ProfileModal() {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full  border-0 flex gap-2 justify-start "><User/> Profile</Button>
+        <Button variant="outline" className="w-full  border-0 flex gap-2 justify-start  " onClick={handleOpen}><User/> Profile</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[850px] h-[600px] dark:border-border">
+      <DialogContent className="sm:max-w-[850px] h-[650px] dark:border-border">
         <DialogHeader>
           <DialogTitle className="dark:text-primary text-4xl font-sfpro ">Profile</DialogTitle>
-          {/* <DialogDescription className="dark:text-primary">
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription> */}
+
         </DialogHeader>
 <Profile/>
         <DialogFooter>
-          <Button type="submit">close</Button>
+        <DialogTrigger asChild>
+        <Button type="submit" onClick={handleClose}>close</Button>
+      </DialogTrigger>
+   
         </DialogFooter>
       </DialogContent>
     </Dialog>

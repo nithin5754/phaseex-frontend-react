@@ -1,25 +1,23 @@
 import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { getColor } from "@/lib/colors";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { ProfileForm } from "../profile/index";
+
+import { ColorPickerButton, ProfileForm } from "../profile/index";
 import Theme from "./Theme";
 import { ModeToggle } from "../mode-toggle";
 import { Plus } from "lucide-react";
 import { useSelector } from "react-redux";
-import { selectCurrentColor } from "@/app/redux/slice/uttilSlice";
+import { selectBGCurrentColor, selectBorderCurrentColor, selectCurrentColor, selectFontColorCurrentColor } from "@/app/redux/slice/uttilSlice";
+
 
 const Profile = () => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [image, setImage] = useState<string | null>(null);
- const isSelectedColor=useSelector(selectCurrentColor)
+
+
+ const bgColor=useSelector(selectBGCurrentColor)
+ const borderColor=useSelector(selectBorderCurrentColor)
+ const fontColor=useSelector(selectFontColorCurrentColor)
   return (
     <div className="grid grid-cols-2 ">
       <div
@@ -35,9 +33,12 @@ const Profile = () => {
           ) : (
             <div
               className={`uppercase h-full w-32 md:w-48 md:h-48 text-6xl 
-                border-[1px] flex items-center justify-center rounded-full ${getColor(
-                isSelectedColor
-              )}`}
+                flex items-center justify-center rounded-full `}
+                style={{
+                  backgroundColor: bgColor,
+                  color:fontColor,
+                  border: `1px solid ${borderColor}`,
+                }}
             >
               N
             </div>
@@ -51,7 +52,15 @@ const Profile = () => {
       </div>
       <div className="w-[600px] flex flex-col gap-4">
         <ProfileForm />
-        <Theme />
+     
+          <Theme />
+
+              
+         <div className="flex flex-col">
+         <h1 className="dark:text-primary mb-4">Custom Colors</h1>
+        <ColorPickerButton/>
+         </div>
+
 
         <ModeToggle />
       </div>
