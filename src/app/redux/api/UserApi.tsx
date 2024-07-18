@@ -53,7 +53,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }
     ),
 
-    
+
+
+    AddProfile: builder.mutation<any, FormData>({
+      query: (imageFile) => ({
+        url: '/auth/add-profile',
+        method: "POST",
+        body:imageFile
+      }),
+      invalidatesTags: ["User"],
+    }),
 
     getUserById: builder.query<User, void>({
       query: () => ({
@@ -62,6 +71,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
+
+
+
 
       providesTags: ["User"],
     }),
@@ -76,6 +88,7 @@ export const {
   useResendOtpMutation,
   useVerifyUserMutation,
   useFetchTimerDateMutation,
-  useGetUserByIdQuery
+  useGetUserByIdQuery,
+  useAddProfileMutation
 }
   =userApiSlice

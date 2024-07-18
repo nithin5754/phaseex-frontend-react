@@ -37,26 +37,40 @@ export const ColorPickerButton = () => {
       {/* /** * @desc background color picker */ }
      
 
-      <ColorPicker
+  <div className="flex flex-col gap-4">
+  <ColorPicker
         onChange={(v) => {
           setBgColor(v);
         }}
         value={IsbgColor}
       />
+      <h1 className="text-border">bg </h1>
+  </div>
+
       {/* /** * @desc border color picker */ }
+
+      <div className="flex flex-col gap-4">
       <ColorPicker
         onChange={(v) => {
           setBorColor(v);
         }}
         value={isBorderColor}
       />
+      <h1 className="text-border">border </h1>
+  </div>
+  
       {/* /** * @desc font color changer */ }
+
+      <div className="flex flex-col gap-4 ">
       <ColorPicker
         onChange={(v) => {
           setFColor(v);
         }}
         value={IsfontColor}
       />
+      <h1 className="text-border">font </h1>
+  </div>
+
     </div>
   );
 };

@@ -15,6 +15,7 @@ import Invite from "./Invite";
 import MembersAddingSpace from "./MembersAddingSpace";
 
 import VideoCall from "./VideoCall";
+import ProfilePage from "./ProfilePage";
 
 
 
@@ -32,6 +33,7 @@ export {
   TaskView,
   Invite,
   MembersAddingSpace,
-  VideoCall
+  VideoCall,
+  ProfilePage
  
 }

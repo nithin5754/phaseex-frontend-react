@@ -5,12 +5,12 @@ import SideBarButton from "./SideBar-btb";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import {LogOut, MoreHorizontal, Settings ,X as CloseButton, SidebarClose, SidebarOpen, SidebarOpenIcon } from "lucide-react";
+import {LogOut, MoreHorizontal, Settings ,X as CloseButton, SidebarClose, SidebarOpen, SidebarOpenIcon, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {useEffect, useState } from "react";
 import {useSendLogOutMutation } from "@/app/redux/api/AuthApi";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { selectCurrentUserImg, selectCurrentUserName } from "@/features/auth/authSlice";
 import { ModeToggle } from "../mode-toggle";
 import { useAppDispatch } from "@/app/redux/api/store";
 import { getNotification, notificationOpen } from "@/app/redux/slice/notificationSlice";
@@ -86,10 +86,17 @@ const userName=useSelector(selectCurrentUserName)
 
   const selectDashOpenClose=useSelector(selectSideCloseOpen)
 
+  const isProfileImage=useSelector(selectCurrentUserImg)
+
 
   const handleOpenSideBar=()=>{
 dispatch(setSideBarOpen(undefined))
   }
+
+  const handleOpenProfile=()=>{
+      navigate('/profile',{ replace: true })
+      }
+
 
   return (
    <aside  className={`${!selectDashOpenClose ? 'min-w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border  ' : ' max-w-xs h-screen fixed left-0 top-0 z-40 border-r block dark:bg-background dark:text-primary dark:border-border   '}`}>
@@ -167,7 +174,7 @@ dispatch(setSideBarOpen(undefined))
                   <div className='flex justify-between items-center w-full'>
                     <div className='flex gap-2'>
                       <Avatar className='h-5 w-5'>
-                        <AvatarImage src='https://github.com/max-programming.png' />
+                        <AvatarImage src={isProfileImage?isProfileImage:'https://github.com/max-programming.png'} />
                         <AvatarFallback>{userName?userName:'nithin'}</AvatarFallback>
                       </Avatar>
                       <>
@@ -189,8 +196,11 @@ dispatch(setSideBarOpen(undefined))
                 <div className='space-y-1'>
              
             
-                      <ProfileModal/>
-              
+                      {/* <ProfileModal/> */}
+
+                    <SideBarButton onClick={handleOpenProfile} size='sm' icon={User} className='w-full'>
+                   Profile
+                  </SideBarButton>
               
                   <SideBarButton onClick={handleLogOut} size='sm' icon={LogOut} className='w-full'>
                     Log Out

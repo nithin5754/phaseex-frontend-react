@@ -11,11 +11,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { Profile } from "../profile/index"
-import { User } from "lucide-react"
+import { AddProfile } from "../profile/index"
+import { Plus, User } from "lucide-react"
 import { useState } from "react";
 
-export function ProfileModal() {
+interface Props {
+  hovered:boolean
+}
+
+export function ProfileModal({hovered}:Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
@@ -23,14 +27,21 @@ export function ProfileModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full  border-0 flex gap-2 justify-start  " onClick={handleOpen}><User/> Profile</Button>
+        <Button   className={`absolute z-50 text-white hover:bg-transparent bg-transparent  ${hovered ? 'opacity-100 hover:bg-transparent ' : 'opacity-0 hover:bg-transparent '} transition-opacity duration-700`} 
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} onClick={handleOpen}>    <Plus
+          size={74}
+        
+        /></Button>
+
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[850px] h-[650px] dark:border-border">
+      <DialogContent className=" dark:border-border">
         <DialogHeader>
-          <DialogTitle className="dark:text-primary text-4xl font-sfpro ">Profile</DialogTitle>
+        
+<h1 className="font-sfpro text-3xl text-center dark:text-primary">upload profile picture</h1>
+      
 
         </DialogHeader>
-<Profile/>
+<AddProfile/>
         <DialogFooter>
         <DialogTrigger asChild>
         <Button type="submit" onClick={handleClose}>close</Button>

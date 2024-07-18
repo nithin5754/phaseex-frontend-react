@@ -8,12 +8,14 @@ interface AuthState {
   token: string | null;
   userName:string|null
   email:string|null;
+  profile_img:string|null
 }
 
 const initialState: AuthState = {
   token: localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null,
   userName: localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null,
   email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
+  profile_img: localStorage.getItem("img") ? localStorage.getItem("img") : null,
 };
 
 export const authSlice = createSlice({
@@ -40,16 +42,23 @@ export const authSlice = createSlice({
     state.email=action.payload
     localStorage.setItem('email', action.payload);
   },
+  setUserImg:(state,action)=>{
+    state.profile_img=action.payload
+    localStorage.setItem('img', action.payload);
+  },
   logOut: (state) => {
     state.userName=null
     state.token = null
     localStorage.removeItem("accessToken")
     localStorage.removeItem("userInfo")
+    localStorage.removeItem('img')
+    localStorage.removeItem('email')
+    
 }
   },
 });
 
-export const { setCredentials,logOut,setUserName,setUserEmail } = authSlice.actions;
+export const { setCredentials,logOut,setUserName,setUserEmail,setUserImg } = authSlice.actions;
 
 export default authSlice.reducer;
 
@@ -57,3 +66,4 @@ export default authSlice.reducer;
 export const selectCurrentToken = (state:any) => state.auth.token
 export const selectCurrentUserName=(state:any)=>state.auth.userName
 export const selectCurrentEmail=(state:RootState)=>state.auth.email
+export const selectCurrentUserImg=(state:RootState)=>state.auth.profile_img
