@@ -93,8 +93,8 @@ const TaskMainRight = ({ singleTask }: Props) => {
             placeholder="Type your comment  here..."
             className="min-h-[10px] resize-none border-0 p-3 shadow-none focus-visible:ring-0"
           />
-          <div className="flex items-center 0 py-2 pr-4 pt-0">
-            <Button type="submit"  className="ml-auto gap-1.5 text-sm ">
+          <div className="flex items-center 0 py-2 pl-4 pt-0">
+            <Button type="submit"  className="mr-auto gap-1.5 text-sm ">
               Send comment
               <CornerDownLeft className="size-3.5" />
             </Button>

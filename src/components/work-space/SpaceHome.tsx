@@ -32,7 +32,7 @@ const SpaceHome = ({
 
 
 
-<div className="min-h-screen p-6">
+<div className="min-h-screen p-6 m-4">
 <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-sfpro ">All Galaxy</h1>
           <button className="bg-slate-600 text-white text-sm px-2 py-1 rounded-lg">

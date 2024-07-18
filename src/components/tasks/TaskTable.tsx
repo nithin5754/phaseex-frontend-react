@@ -47,7 +47,7 @@ const TaskTable = ({ folderId, spaceId, listId }: Props) => {
     <Table className="">
       <TableCaption>divide the task to developers</TableCaption>
       <TableHeader className="">
-        <TableRow className="dark:border border-r-0 border-l-0 dark:border-border ">
+        <TableRow className="dark:border border-r-0 border-l-0 dark:border-border  ">
           <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"></TableHead>
           <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
             <div className="flex items-start justify-start gap-2">
