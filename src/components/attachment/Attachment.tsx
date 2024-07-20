@@ -32,7 +32,18 @@ const Attachment = () => {
   }
 
   if (error) {
-    return <div>Error loading attachments</div>;
+    return (
+      <ScrollArea className="  w-[100%] h-[500px] rounded-xl bg-muted/50 py-4 ">
+      <div className="p-4">
+        <h4 className="mb-4 text-sm font-medium leading-none">Files</h4>
+        <div className="w-full flex flex-wrap  mx-auto justify-center items-center">
+        <div className="flex m-auto items-center justify-center">
+           <LottieAnimation animationData={EmptyLootieFile} height={200} width={200}/>
+         </div> 
+  </div>
+      </div>
+    </ScrollArea>
+    )
   }
 
   const attachments: AttachMentType[] = getAllAttachment?.attachmentLists || [];
