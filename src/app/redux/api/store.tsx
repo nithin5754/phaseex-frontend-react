@@ -13,6 +13,7 @@ import socketReducer from '../slice/socketSlice'
 import todoReducer from '../slice/todoSlice'
 import utilReducer from '../slice/uttilSlice'
 import googleApiSlice from './googleApi'
+import attachmentSlice from '../slice/attachmentSlice'
 
 
 
@@ -29,7 +30,8 @@ export const store = configureStore({
     notification:notificationReducer,
     socketSlice:socketReducer,
     todo:todoReducer,
-    util:utilReducer
+    util:utilReducer,
+    attachment:attachmentSlice
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware(

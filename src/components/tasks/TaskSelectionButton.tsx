@@ -5,6 +5,8 @@ import { setOpenDescTask } from "@/app/redux/slice/taskSlice";
 import { TaskLinkModal } from "../modal/add-link-modal";
 import { ResponseTaskType } from "@/features/types";
 
+import { AttachmentAddModal } from "../modal/add-attachment-modal";
+
 interface Props {
   singleTask: ResponseTaskType | null;
 }
@@ -17,9 +19,7 @@ const TaskSelectionButton = ({ singleTask }: Props) => {
         <Notebook  size={16} /> description
       </Button>
 
-      <Button >
-        <PinIcon size={16} /> Attachment
-      </Button>
+      <AttachmentAddModal/>
       <>
         {singleTask && (
           <TaskLinkModal

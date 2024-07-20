@@ -1,80 +1,78 @@
+import { useAddProfileMutation } from "@/app/redux/api/UserApi";
+import {
+  selectCurrentUserImg,
+  setLoadingImg,
+  setUserImg,
+} from "@/features/auth/authSlice";
 
-import { useAddProfileMutation } from "@/app/redux/api/UserApi"
-import { selectCurrentToken, selectCurrentUserImg, setUserImg } from "@/features/auth/authSlice"
-import axios from "axios"
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-
-
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Input } from "../ui/input";
 
 const AddProfile = () => {
-  const dispatch = useDispatch()
-  const profile = useSelector(selectCurrentUserImg)
-  const [saveChange, SetSaveChange] = useState(false)
+  const dispatch = useDispatch();
+  const profile = useSelector(selectCurrentUserImg);
 
-  const [loading, setLoading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(profile);
 
-  
+  const [AddProfile] = useAddProfileMutation();
 
-
-
-
- 
-
-  const [AddProfile]=useAddProfileMutation()
-
-
-
-  const imageUpload = async(formData:FormData) => {
-
+  const imageUpload = async (formData: FormData) => {
     try {
-      setLoading(true);
- 
+      dispatch(setLoadingImg(true));
 
-      const response=await AddProfile(formData).unwrap()
+      const response = await AddProfile(formData).unwrap();
 
-      if(response){
-        dispatch(setUserImg(response.profile_image))
+      if (response) {
+        dispatch(setUserImg(response.profile_image));
+        dispatch(setLoadingImg(false));
       }
-      
- 
-      setLoading(false);
+
     } catch (error) {
       console.error("Failed to upload image:", error);
-      setLoading(false); 
+      dispatch(setLoadingImg(false));
+    }finally{
+      dispatch(setLoadingImg(false));
     }
   };
 
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
 
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const files = event.target.files;
-      if (files && files.length > 0) {
-          const selectedFile = files[0];
-       
-          const fileReader = new FileReader();
-      
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreviewUrl(fileReader.result as string);
+      };
 
-          fileReader.readAsDataURL(selectedFile);
+      fileReader.readAsDataURL(selectedFile);
 
-          const formData = new FormData();
-          formData.append('profile_image', selectedFile);
+      const formData = new FormData();
+      formData.append("profile_image", selectedFile);
 
-
-
- 
-          imageUpload(formData)
-
-      }
-
+      imageUpload(formData);
+    }
   };
   return (
-    <input
-    type="file"
-    accept="image/*"
-    className="w-full h-full  bg-white text-black"
-    id="setting-form-1"
-    onChange={handleImageChange}
-/>
-  )
-}
-export default AddProfile
+    <div className=" shadow-sm relative flex flex-col items-center justify-center rounded-md py-8 mt-3">
+      <img
+        className="inline-block h-40 w-40 rounded-full ring-2 ring-white"
+        src={previewUrl ? previewUrl : ""}
+        alt=""
+      />
+
+      <Input
+        type="file"
+        accept="image/*"
+        className="w-full h-full top-0 left-0 absolute opacity-0"
+        onChange={handleImageChange}
+      />
+    </div>
+
+
+  );
+};
+export default AddProfile;

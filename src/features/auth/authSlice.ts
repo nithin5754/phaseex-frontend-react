@@ -9,6 +9,7 @@ interface AuthState {
   userName:string|null
   email:string|null;
   profile_img:string|null
+  loadingImage:boolean
 }
 
 const initialState: AuthState = {
@@ -16,6 +17,7 @@ const initialState: AuthState = {
   userName: localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null,
   email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
   profile_img: localStorage.getItem("img") ? localStorage.getItem("img") : null,
+  loadingImage: false
 };
 
 export const authSlice = createSlice({
@@ -46,6 +48,10 @@ export const authSlice = createSlice({
     state.profile_img=action.payload
     localStorage.setItem('img', action.payload);
   },
+  setLoadingImg:(state,action)=>{
+    state.loadingImage=action.payload
+   
+  },
   logOut: (state) => {
     state.userName=null
     state.token = null
@@ -58,7 +64,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setCredentials,logOut,setUserName,setUserEmail,setUserImg } = authSlice.actions;
+export const { setCredentials,logOut,setUserName,setUserEmail,setUserImg,setLoadingImg } = authSlice.actions;
 
 export default authSlice.reducer;
 
@@ -67,3 +73,5 @@ export const selectCurrentToken = (state:any) => state.auth.token
 export const selectCurrentUserName=(state:any)=>state.auth.userName
 export const selectCurrentEmail=(state:RootState)=>state.auth.email
 export const selectCurrentUserImg=(state:RootState)=>state.auth.profile_img
+
+export const selectCurrentLoadingImage=(state:RootState)=>state.auth.loadingImage

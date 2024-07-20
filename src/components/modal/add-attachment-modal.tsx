@@ -1,5 +1,8 @@
 
 
+
+  
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -12,14 +15,15 @@ import {
 } from "@/components/ui/dialog"
 
 import { AddProfile } from "../profile/index"
-import { Plus, User } from "lucide-react"
+import { File, PinIcon, Plus, User } from "lucide-react"
 import { useState } from "react";
+import {AddAttachment} from "../attachment/index";
 
 interface Props {
-  hovered:boolean
+
 }
 
-export function ProfileModal({hovered}:Props) {
+export function AttachmentAddModal() {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
@@ -27,21 +31,19 @@ export function ProfileModal({hovered}:Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button   className={`absolute z-50 text-white hover:bg-transparent bg-transparent  ${hovered ? 'opacity-100 hover:bg-transparent ' : 'opacity-0 hover:bg-transparent '} transition-opacity duration-700`} 
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} onClick={handleOpen}>    <Plus
-          size={74}
-        
-        /></Button>
-
+     
+      <Button >
+        <PinIcon size={16} /> Attachment
+      </Button>
       </DialogTrigger>
       <DialogContent className=" dark:border-border">
         <DialogHeader>
         
-<h1 className="font-sfpro text-3xl text-center dark:text-primary">update profile picture</h1>
+<h1 className="font-sfpro text-2xl text-center dark:text-primary"><File className="mr-4" size={18}/> Add Attachments</h1>
       
 
         </DialogHeader>
-<AddProfile/>
+<AddAttachment handleClose={handleClose}/>
         <DialogFooter>
         <DialogTrigger asChild>
         <Button type="submit" onClick={handleClose}>close</Button>

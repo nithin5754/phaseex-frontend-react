@@ -52,7 +52,7 @@ const SpaceHome = ({
 
       <ScrollArea className="h-[590px]  rounded-md   ">
       <div className="p-4   " >
-        <h4 className="mb-4 text-xl  font-sfpro leading-none sticky  top-0 z-50 dark:bg-background py-4">Hidden and Completed </h4>
+        <h4 className="mb-4 text-xl  font-sfpro leading-none sticky  top-0  dark:bg-background py-4">Hidden and Completed </h4>
       {allSpaces.length > 0 && !allSpaces.every((space) => space.active) ? (
       
           <>

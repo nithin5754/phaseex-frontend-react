@@ -12,7 +12,7 @@ const TaskMainSection = ({singleTask}:Props) => {
     direction="horizontal"
     className="   rounded-lg border dark:border-border min-h-[200px]"
   >
-   <ResizablePanel defaultSize={65} minSize={35} maxSize={75} >
+   <ResizablePanel defaultSize={65} minSize={15} maxSize={70} >
     <div className="flex flex-col gap-5  p-6 m-auto font-sfpro ">
 
       
@@ -22,7 +22,7 @@ const TaskMainSection = ({singleTask}:Props) => {
 </div> 
     </ResizablePanel>
     <ResizableHandle style={{ backgroundColor: 'transparent' }} />
-    <ResizablePanel className=" p-4 ">
+    <ResizablePanel className=" p-4 flex m-auto">
 <TaskMainRight singleTask={singleTask}/>
 
     </ResizablePanel>

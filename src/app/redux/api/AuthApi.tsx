@@ -114,7 +114,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         "TodoTask",
         "Collaborators",
         "Activity",
-        "VideoChat"],
+        "VideoChat",
+        "Attachment"],
     }),
     refresh: builder.mutation({
       query: () => ({

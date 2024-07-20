@@ -51,7 +51,7 @@ interface OpenModalProps{
 
       </DialogHeader>
     
-    <AddLink workspaceId={spaceId} folderId={folderId} listId={listId} taskId={taskId} handleClose={handleClose } />
+    <AddLink workspaceId={spaceId} folderId={folderId} listId={listId} taskId={taskId} handleClose={handleClose} />
     
 
       <DialogFooter>
