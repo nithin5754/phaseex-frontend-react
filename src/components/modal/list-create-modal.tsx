@@ -37,7 +37,6 @@ interface OpenModalProps{
   export  function OpenModal({title,icon:Icon,spaceId,folderId}:OpenModalProps) {
     const [open, setOpen] = useState<boolean>(false);
 
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   return (
     <Credenza open={open} onOpenChange={setOpen} >

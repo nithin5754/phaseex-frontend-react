@@ -22,7 +22,7 @@ const Single = () => {
     return <h1>loading....</h1>;
   }
 
-  const { data: getAllList, isLoading: listLoading } = useGetAllListByPageQuery(
+  const { data: getAllList} = useGetAllListByPageQuery(
     { workspaceId: id, folderId, page: CurrentPage },
     {
       pollingInterval: 60000,

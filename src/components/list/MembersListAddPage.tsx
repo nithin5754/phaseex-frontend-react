@@ -1,6 +1,5 @@
 import { SendAddCollabListType, useGetCollabListByIdQuery } from "@/app/redux/api/listapi";
-import { Separator } from "../ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 import MembersSingleListCollab from "./MembersSingleListCollab";
 
 interface Props {

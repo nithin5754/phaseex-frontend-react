@@ -1,4 +1,3 @@
-
 import {
   useGetAllSpacesQuery,
   useGetOnGoingSpacesQuery,
@@ -6,17 +5,11 @@ import {
 import { SpaceHome } from "../../components/work-space/index";
 
 import { useChangeVisiblityMutation } from "@/app/redux/api/spaceApi";
-import { useAppDispatch } from "@/app/redux/api/store";
 
 import { SpaceSkelton } from "../../components/shimmer/index";
 
 const ViewSpace = () => {
-
-
   const [changeVisibility] = useChangeVisiblityMutation();
-
-
-
 
   const { data: getAllSpaces, isLoading } = useGetAllSpacesQuery(undefined, {
     pollingInterval: 60000,
@@ -38,8 +31,6 @@ const ViewSpace = () => {
     }
   };
 
-
-
   if (isLoading) return <SpaceSkelton />;
 
   return (
@@ -48,7 +39,6 @@ const ViewSpace = () => {
         allSpaces={getAllSpaces ? getAllSpaces : []}
         getOnGoingSpace={getOnGoingSpace ? getOnGoingSpace : []}
         handleHideSubmit={handleHideSubmit}
-
       />
     </>
   );

@@ -7,14 +7,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   LogOut,
   MoreHorizontal,
-
   X as CloseButton,
-
   SidebarOpenIcon,
   User,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSendLogOutMutation } from "@/app/redux/api/AuthApi";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,10 +21,6 @@ import {
 } from "@/features/auth/authSlice";
 
 import { useAppDispatch } from "@/app/redux/api/store";
-import {
-  
-  notificationOpen,
-} from "@/app/redux/slice/notificationSlice";
 
 import {
   selectSideCloseOpen,
@@ -36,13 +30,11 @@ import {
 
 import { googleLogout } from "@react-oauth/google";
 
-
 interface SideBarDesktopProps {
   sidebarItems: SideBarItemsType;
 }
 
 const SideBarDesktop = (props: SideBarDesktopProps) => {
-  const [isClose, setClose] = useState<boolean>(false);
   const navigate = useNavigate();
   const userName = useSelector(selectCurrentUserName);
 
@@ -60,8 +52,6 @@ const SideBarDesktop = (props: SideBarDesktopProps) => {
   const sliceDispatch = useDispatch();
 
   const handleClose = () => {
-    // setClose(!isClose)
-
     sliceDispatch(setSideBarClose(undefined));
   };
 
@@ -73,10 +63,6 @@ const SideBarDesktop = (props: SideBarDesktopProps) => {
   };
 
   const dispatch = useAppDispatch();
-
-  const handleNotificationOpen = () => {
-    dispatch(notificationOpen(true));
-  };
 
   const selectDashOpenClose = useSelector(selectSideCloseOpen);
 

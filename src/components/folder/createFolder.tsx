@@ -15,12 +15,12 @@ import { Input } from "@/components/ui/input";
 
 import { Textarea } from "../ui/textarea";
 
-
 import { toast } from "../ui/use-toast";
-import { useNavigate } from "react-router-dom";
-import { FolderDataType, useOnCreateFolderMutation } from "@/app/redux/api/FolderApi";
+import {
+  FolderDataType,
+  useOnCreateFolderMutation,
+} from "@/app/redux/api/FolderApi";
 import { Loader2 } from "lucide-react";
-
 
 const FormSchema = z.object({
   folder_name: z.string().min(2, {
@@ -37,8 +37,6 @@ interface Props {
 }
 
 export function FolderForm({ handleClose, spaceId }: Props) {
-  let workspaceId = "";
-  const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,11 +45,7 @@ export function FolderForm({ handleClose, spaceId }: Props) {
     },
   });
 
-
-
   const [onCreateFolder, { isLoading }] = useOnCreateFolderMutation();
-
-  
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let folderData: FolderDataType = {
@@ -67,7 +61,6 @@ export function FolderForm({ handleClose, spaceId }: Props) {
         const response = await onCreateFolder(folderData).unwrap();
         console.log(response, "create folder");
         if (response.id) {
-          // navigate('/space')
           handleClose();
         } else {
           toast({

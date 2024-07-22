@@ -1,4 +1,4 @@
-import { Link, Notebook, Pin, PinIcon, Turtle } from "lucide-react";
+import { Link, Notebook } from "lucide-react";
 import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { setOpenDescTask } from "@/app/redux/slice/taskSlice";

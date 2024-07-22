@@ -1,5 +1,3 @@
-
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,11 +15,9 @@ import { Input } from "@/components/ui/input";
 
 import { Loader2 } from "lucide-react";
 
-
-
 import { SendEditTodoTask } from "@/features/types/TodoType";
 import { toast } from "../ui/use-toast";
-import { useOnCreateTaskTodoMutation, useOnUpdateTaskTodoMutation } from "@/app/redux/api/todoapi";
+import { useOnUpdateTaskTodoMutation } from "@/app/redux/api/todoapi";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { CActivitySendType } from "@/features/types/TActivity";
 import { useSelector } from "react-redux";
@@ -39,8 +35,8 @@ interface Props {
   folderId: string;
   listId: string;
   taskId: string;
-  todoId:string,
-  todo:string
+  todoId: string;
+  todo: string;
 }
 
 export function EditTodo({
@@ -50,19 +46,19 @@ export function EditTodo({
   listId,
   taskId,
   todoId,
-  todo
+  todo,
 }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      todo:todo,
+      todo: todo,
     },
   });
 
   const [onUpdateTaskTodo, { isLoading: todoLoading }] =
     useOnUpdateTaskTodoMutation();
-    const [onCreateActivity]=useOnCreateActivityMutation() 
-    const currentName=useSelector(selectCurrentUserName)
+  const [onCreateActivity] = useOnCreateActivityMutation();
+  const currentName = useSelector(selectCurrentUserName);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let TaskTodoData: SendEditTodoTask = {
@@ -76,21 +72,19 @@ export function EditTodo({
 
     if (TaskTodoData) {
       try {
-       
         const response = await onUpdateTaskTodo(TaskTodoData).unwrap();
 
         if (response) {
           handleClose();
-                    
-          let ActivityData:CActivitySendType={
-            workspaceId:workspaceId,
-            folderId:folderId,
-            listId:listId,
-            taskId:taskId,
-            activity:`${currentName} edited todo name ${todo} to ${data.todo}  `
-          }
-          await onCreateActivity(ActivityData).unwrap()
-          
+
+          let ActivityData: CActivitySendType = {
+            workspaceId: workspaceId,
+            folderId: folderId,
+            listId: listId,
+            taskId: taskId,
+            activity: `${currentName} edited todo name ${todo} to ${data.todo}  `,
+          };
+          await onCreateActivity(ActivityData).unwrap();
         } else {
           toast({
             title:
@@ -127,7 +121,11 @@ export function EditTodo({
             <FormItem>
               <FormLabel>Enter name of the todo</FormLabel>
               <FormControl>
-                <Input placeholder="eg:todo-1" {...field} className="w-full dark:text-primary" />
+                <Input
+                  placeholder="eg:todo-1"
+                  {...field}
+                  className="w-full dark:text-primary"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

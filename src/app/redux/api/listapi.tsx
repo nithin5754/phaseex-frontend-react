@@ -149,7 +149,7 @@ export const listApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: (result, error, { workspaceId, folderId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId }) => [
         {
           type: "ListSpace",
           id: `${workspaceId}-${folderId}`,
@@ -172,7 +172,7 @@ export const listApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
-    providesTags: (result, error, { workspaceId, folderId }) => [
+    providesTags: (_result, _error, { workspaceId, folderId }) => [
       {
         type: "ListSpace",
         id: `${workspaceId}-${folderId}}`,
@@ -195,7 +195,7 @@ export const listApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: (result, error, { workspaceId, folderId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId }) => [
         {
           type: "ListSpace",
           id: `${workspaceId}-${folderId}`,
@@ -238,7 +238,7 @@ export const listApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
-    providesTags: (result, error, { workspaceId, folderId }) => [
+    providesTags: (_result, _error, { workspaceId, folderId }) => [
       {
         type: "ListSpace",
         id: `${workspaceId}-${folderId}`,

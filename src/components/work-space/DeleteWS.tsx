@@ -1,6 +1,6 @@
 import { useDeleteWorkSpaceMutation } from "@/app/redux/api/spaceApi"
 import { toast } from "../ui/use-toast"
-import { Delete, DeleteIcon, Trash } from "lucide-react"
+import {  Trash } from "lucide-react"
 
 
 interface Props {

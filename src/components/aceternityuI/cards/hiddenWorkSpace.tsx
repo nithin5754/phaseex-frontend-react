@@ -2,7 +2,7 @@
 import { cn } from "../../../lib/utils";
 
 import {  Earth,Lock } from "lucide-react";
-import { useState } from "react";
+
 import { PopOverWorkSpace } from "../../work-space/index";
 
 
@@ -23,7 +23,6 @@ export const HoverEffect = ({
 }) => {
 
 
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div

@@ -1,8 +1,8 @@
 
-import React, { useEffect } from "react";
+
 import { AnimatedTooltip } from "../aceternityuI/tooltip/animated-tooltip";
 import { useGetCollabListByIdQuery } from "@/app/redux/api/listapi";
-import { useNavigate, useParams } from "react-router-dom";
+
 
 
 

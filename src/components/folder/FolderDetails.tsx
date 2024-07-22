@@ -1,10 +1,10 @@
-import { ResponseFolderDataType, useGetSingleFolderQuery } from "@/app/redux/api/FolderApi"
-import { Label } from "../ui/label";
+import { useGetSingleFolderQuery } from "@/app/redux/api/FolderApi"
+
 import { OpenModal } from "../modal/folderEdit-modal";
 import { OpenModal as CreateListModal } from "../modal/list-create-modal";
-import { Input } from "../ui/input";
+
 import { EllipsisIcon, Plus } from "lucide-react";
-import UseinviteUserAuth from "@/hooks/UseinviteUserAuth";
+
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 interface Props {
 
@@ -19,7 +19,6 @@ const FolderDetails = ({id,folderId}:Props) => {
   const isSpaceOwner=UseSpaceRoles({workspaceId:id})
   const {
     data: singleFolder,
-    error,
     isLoading,
   } = useGetSingleFolderQuery(
     { spaceId: id, folderId },

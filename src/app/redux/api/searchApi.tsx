@@ -49,7 +49,7 @@ export const searchApiSlice = apiSlice.injectEndpoints({
     }),
  
 
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId}) => [
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId}) => [
      "Search", { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
   }),

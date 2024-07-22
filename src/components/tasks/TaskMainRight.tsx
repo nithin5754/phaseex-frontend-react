@@ -12,8 +12,7 @@ interface Props {
   singleTask: ResponseTaskType | null;
 }
 
-const TaskMainRight = ({ singleTask }: Props) => {
-
+const TaskMainRight = ({ }: Props) => {
 
 
 

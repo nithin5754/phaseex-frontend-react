@@ -4,7 +4,7 @@ import {
 } from "@/app/redux/api/taskapi";
 
 import { DeleteIcon } from "lucide-react";
-import { useDispatch } from "react-redux";
+
 
 interface Props {
   checkingDetails: SendAddCollabTaskType;
@@ -13,7 +13,6 @@ interface Props {
 const DeleteCollabTask = ({ checkingDetails }: Props) => {
   const [deleteCollaboratorToTaskAssignee] =
     useDeleteCollaboratorToTaskAssigneeMutation();
-  const dispatch = useDispatch();
   const handleDelete = async () => {
     let sendResponseData: SendAddCollabTaskType = {
       workspaceId: checkingDetails.workspaceId,

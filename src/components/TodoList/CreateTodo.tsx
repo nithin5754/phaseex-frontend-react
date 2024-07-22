@@ -15,8 +15,6 @@ import { Input } from "@/components/ui/input";
 
 import { Loader2 } from "lucide-react";
 
-import React from "react";
-
 import { SendTodoTask } from "@/features/types/TodoType";
 import { toast } from "../ui/use-toast";
 import { useOnCreateTaskTodoMutation } from "@/app/redux/api/todoapi";
@@ -56,9 +54,9 @@ export function CreateTodo({
   const [onCreateTaskTodo, { isLoading: todoLoading }] =
     useOnCreateTaskTodoMutation();
 
-    const currentName=useSelector(selectCurrentUserName)
+  const currentName = useSelector(selectCurrentUserName);
 
-    const [onCreateActivity]=useOnCreateActivityMutation() 
+  const [onCreateActivity] = useOnCreateActivityMutation();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let TaskTodoData: SendTodoTask = {
@@ -75,15 +73,15 @@ export function CreateTodo({
 
         if (response.id) {
           handleClose();
-          
-          let ActivityData:CActivitySendType={
-            workspaceId:response.workspaceId,
-            folderId:response.folderId,
-            listId:response.listId,
-            taskId:response.taskId,
-            activity:`${currentName} created todo ${response.todo} `
-          }
-          await onCreateActivity(ActivityData).unwrap()
+
+          let ActivityData: CActivitySendType = {
+            workspaceId: response.workspaceId,
+            folderId: response.folderId,
+            listId: response.listId,
+            taskId: response.taskId,
+            activity: `${currentName} created todo ${response.todo} `,
+          };
+          await onCreateActivity(ActivityData).unwrap();
         } else {
           toast({
             title:
@@ -120,7 +118,11 @@ export function CreateTodo({
             <FormItem>
               <FormLabel>Enter name of the todo</FormLabel>
               <FormControl>
-                <Input placeholder="eg:todo-1" {...field} className="w-full dark:text-primary" />
+                <Input
+                  placeholder="eg:todo-1"
+                  {...field}
+                  className="w-full dark:text-primary"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,7 +1,7 @@
-import { selectListCollabSpace, selectSearchQuery, setSearchListQuery } from "@/app/redux/slice/listSlice"
+import { selectListCollabSpace, setSearchListQuery } from "@/app/redux/slice/listSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "../ui/command"
-import { LucidePlusSquare, Search, UserCircle2Icon } from "lucide-react"
+import { LucidePlusSquare, UserCircle2Icon } from "lucide-react"
 import noSearchUser from '../../../public/json/empty-user-1.json'
 import { LottieAnimation } from "../lootie/Lootie"
 import { SendAddCollabListType, useAddCollaboratorToListMutation } from "@/app/redux/api/listapi"

@@ -3,7 +3,7 @@
 
 import { Button } from "../ui/button"
 
-import { ListTodo, ListTodoIcon, LucideIcon, PlusCircle } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 
 import { useState } from "react";

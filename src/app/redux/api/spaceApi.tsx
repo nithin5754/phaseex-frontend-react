@@ -164,7 +164,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
 
 
-      providesTags: (result, error, id) => [{ type: "Collaborators", id },"Workspace"],
+      providesTags: (_result, _error, id) => [{ type: "Collaborators", id },"Workspace"],
     }),
 
 
@@ -189,7 +189,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         }
       },
 
-      invalidatesTags: (result, error, { workspaceId }) => [
+      invalidatesTags: (_result, _error, { workspaceId }) => [
         { type: "Collaborators", id: workspaceId },
         "Workspace"
       ],
@@ -204,7 +204,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),     
  
-      invalidatesTags: (result, error, { workspaceId }) => [
+      invalidatesTags: (_result, _error, { workspaceId }) => [
         { type: "Collaborators", id: workspaceId },
         "Workspace"
       ],
@@ -226,7 +226,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         url: `/space/delete-workSpace/${workspaceId}`,
         method: "POST",
       }),    
-      invalidatesTags: (result, error, { workspaceId }) => [
+      invalidatesTags: (_result, _error, { workspaceId }) => [
         { type: "Collaborators", id: workspaceId },
         "Workspace"
       ],
@@ -283,7 +283,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
           body: { ...credentials },
         }),     
    
-        invalidatesTags: (result, error, { workspaceId }) => [
+        invalidatesTags: (_result, _error, { workspaceId }) => [
           { type: "Collaborators", id: workspaceId },
           "Workspace"
         ],

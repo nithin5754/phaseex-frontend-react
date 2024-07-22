@@ -13,7 +13,7 @@ const Folder = () => {
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true
   });
-  console.log(getAllFolder, "all folders");
+
 
   const truncateDesc = (desc: string) => {
     return desc.length > 10 ? desc.substring(0, 10) + "..." : desc;

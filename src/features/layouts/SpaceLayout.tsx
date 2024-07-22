@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { WorkSpaceNav } from "../../components/work-space/index";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, MessageCircle, X } from "lucide-react";
+import { ArrowBigLeft, X } from "lucide-react";
 import { LottieAnimation } from "@/components/lootie/Lootie";
 import helloAnimation from "../../../public/json/helloman.json";
 import { useState } from "react";
@@ -18,8 +18,6 @@ const SpaceLayout = () => {
   const location = useLocation();
 
   const containsRoomPath = location.pathname.includes("/room");
-
-
 
   if (!id) {
     return;
@@ -80,18 +78,19 @@ const SpaceLayout = () => {
                           width={100}
                         />
                         <>
-                          {inviteCount.workspaceId===id &&inviteCount.count>0 && (
-                            <span
-                              className="absolute flex items-center justify-center w-6 h-6 text-white bg-green-500 rounded-full shadow-lg"
-                              style={{
-                                top: 9,
-                                right: 6,
-                                transform: "translate(50%, -50%)",
-                              }}
-                            >
-                              {inviteCount.count}
-                            </span>
-                          )}
+                          {inviteCount.workspaceId === id &&
+                            inviteCount.count > 0 && (
+                              <span
+                                className="absolute flex items-center justify-center w-6 h-6 text-white bg-green-500 rounded-full shadow-lg"
+                                style={{
+                                  top: 9,
+                                  right: 6,
+                                  transform: "translate(50%, -50%)",
+                                }}
+                              >
+                                {inviteCount.count}
+                              </span>
+                            )}
                         </>
                       </div>
                     )}

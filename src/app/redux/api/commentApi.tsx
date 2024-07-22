@@ -1,7 +1,7 @@
 
 
 
-import { SCreateTopComment, SendGetAllComment } from "@/features/types/comments";
+import { ResponseCommentList, SCreateTopComment, SendGetAllComment } from "@/features/types/comments";
 import { apiSlice } from "./apiSlice";
 
 export const commentsSlice = apiSlice.injectEndpoints({
@@ -43,7 +43,7 @@ export const commentsSlice = apiSlice.injectEndpoints({
     }),
 
 
-    getAllComment:builder.query<any,SendGetAllComment>({
+    getAllComment:builder.query<ResponseCommentList[],SendGetAllComment>({
       query: (credentials) => ({
         url: `/comments/get-all-comment?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}&taskId=${credentials.taskId}&todoId=${credentials.todoId}`,
         validateStatus: (response, result) => {
@@ -63,7 +63,7 @@ export const commentsSlice = apiSlice.injectEndpoints({
      * @api '/count-comment'
      * 
      */
-    
+
     getAllCount:builder.query<number,{workspaceId:string,folderId:string,listId:string,taskId:string,todoId:string}>({
       query: (credentials) => ({
         url:`/comments/count-comment?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}&taskId=${credentials.taskId}&todoId=${credentials.todoId}`,

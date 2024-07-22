@@ -3,11 +3,9 @@
 
 
 
-import * as React from "react"
-import { Input } from "../ui/input";
-import { LayoutDashboard, LayoutDashboardIcon, Search, SidebarOpen } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSideCloseOpen, setSideBarOpen } from "@/app/redux/slice/uttilSlice";
+
+import {  useSelector } from "react-redux";
+import { selectSideCloseOpen} from "@/app/redux/slice/uttilSlice";
 
 
 
@@ -18,7 +16,7 @@ export function NabBar() {
 
 
 
-  const selectDashOpenClose=useSelector(selectSideCloseOpen)
+useSelector(selectSideCloseOpen)
 
   
 

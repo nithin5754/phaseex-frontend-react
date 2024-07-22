@@ -3,13 +3,10 @@ import {
   Bell,
   Home,
   LayoutDashboard,
-  LucideSpace,
-  Mail,
   MoreHorizontal,
   PlusCircleIcon,
   Projector,
-  Space,
-  SpaceIcon,
+
 } from "lucide-react";
 import SideBarButton from "./SideBar-btb";
 import { useMediaQuery } from "usehooks-ts";

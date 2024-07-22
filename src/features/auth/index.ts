@@ -13,5 +13,5 @@ export {
   ForgotAuth,
   ForgotOtpVerify,
   ChangeForgotAuthPassword,
-  RequireAuth
+  RequireAuth,
 };

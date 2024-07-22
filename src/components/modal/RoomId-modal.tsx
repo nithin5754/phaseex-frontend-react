@@ -18,15 +18,10 @@ import { LucideIcon} from "lucide-react";
 import { useState } from "react";
 
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogFooter,  DialogTrigger } from "../ui/dialog";
 
-import { AddLink } from "../../components/tasks/index";
-import { CreateRoomId, VideoChatIcon } from "../VideoChat";
-import { LottieAnimation } from "../lootie/Lootie";
+import { CreateRoomId } from "../VideoChat";
 
-
-import helloAnimation from '../../../public/json/helloman.json'
-import { CredenzaBody } from "../ui/credenza";
 
 
 

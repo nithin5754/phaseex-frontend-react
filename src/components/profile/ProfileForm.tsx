@@ -1,46 +1,41 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-
-"use client"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
-import { useSelector } from "react-redux"
-import { selectCurrentEmail, selectCurrentUserName } from "@/features/auth/authSlice"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
+import { useSelector } from "react-redux";
+import {
+  selectCurrentEmail,
+  selectCurrentUserName,
+} from "@/features/auth/authSlice";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
   email: z.string().email(),
-})
+});
 
 export function ProfileForm() {
-
-  const userName=useSelector(selectCurrentUserName)
-  const email=useSelector(selectCurrentEmail)
-
+  const userName = useSelector(selectCurrentUserName);
+  const email = useSelector(selectCurrentEmail);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username:userName?userName:'',
-      email:email?email:''
+      username: userName ? userName : "",
+      email: email ? email : "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -50,7 +45,7 @@ export function ProfileForm() {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
-    })
+    });
   }
 
   return (
@@ -64,14 +59,18 @@ export function ProfileForm() {
             <FormItem>
               <FormLabel className="dark:text-primary">Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field}  className="text-black dark:text-primary"/>
+                <Input
+                  placeholder="shadcn"
+                  {...field}
+                  className="text-black dark:text-primary"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-<FormField
+        <FormField
           control={form.control}
           name="email"
           disabled
@@ -79,14 +78,17 @@ export function ProfileForm() {
             <FormItem>
               <FormLabel className="dark:text-primary">email</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field}  className="text-black dark:text-primary"/>
+                <Input
+                  placeholder="email"
+                  {...field}
+                  className="text-black dark:text-primary"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
- 
       </form>
     </Form>
-  )
+  );
 }

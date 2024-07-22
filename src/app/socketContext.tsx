@@ -1,9 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import { useGetAllNotificationUnReadQuery } from "./redux/api/notiificationApi";
-import { skipToken } from "@reduxjs/toolkit/query";
-import useGreetings from "@/hooks/useGreetings";
+
 import { ReceiveNotificationVideoType } from "@/features/types/NotificationType";
 
 
@@ -64,7 +62,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const user=useAuth()
 
 
-  const greet=useGreetings()
+
 
   
 

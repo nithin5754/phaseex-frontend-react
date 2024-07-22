@@ -21,7 +21,7 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       },
  
     }),
-         providesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+         providesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
         { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
       ],
 
@@ -49,13 +49,13 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       body: { ...credentials },
     }),
 
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    invalidatesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
 
     onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
         const {id,todo_status}=args
-      const patchResult = queryFulfilled.then(() => {
+          queryFulfilled.then(() => {
         dispatch(updateTodoStatus({ id, todo_status })); 
       }).catch(error => {
         console.error("Failed to update status", error);
@@ -74,12 +74,12 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       body: { ...credentials },
     }),
 
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    invalidatesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
     onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
       const {todoId,todo}=args
-    const patchResult = queryFulfilled.then(() => {
+        queryFulfilled.then(() => {
       dispatch(updateTodoName({ id:todoId, todo })); 
     }).catch(error => {
       console.error("Failed to update status", error);
@@ -97,13 +97,13 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       body: { ...credentials },
     }),
 
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
 
     onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
       const {todoId}=args
-    const patchResult = queryFulfilled.then(() => {
+    queryFulfilled.then(() => {
       dispatch(deleteTodo(todoId)); 
     }).catch(error => {
       console.error("Failed to update status", error);
@@ -128,7 +128,7 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       method: "PATCH",
       body: { ...credentials },
     }),
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
 
@@ -156,7 +156,7 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
     },
 
   }),
-       providesTags: (result, error, { workspaceId, folderId, listId,taskId,todoId }) => [
+       providesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
 
@@ -178,7 +178,7 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
       url: `/todo/delete-collab-todo?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}&todoId=${todoId}&collabId=${collabId}`,
       method: "DELETE",
     }),
-    invalidatesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    invalidatesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
       { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
     ],
   }),

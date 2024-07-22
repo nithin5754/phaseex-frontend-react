@@ -20,7 +20,7 @@ interface Props {
  */
 
 
-const UseinviteUserAuth = ({workspaceId,folderId,listId,taskId}:Props) => {
+const UseinviteUserAuth = ({workspaceId,folderId,listId}:Props) => {
 
   const {data:getCollabListById} =useGetCollabListByIdQuery({workspaceId,folderId,listId})
 

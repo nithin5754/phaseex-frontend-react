@@ -1,6 +1,6 @@
 import { useDeleteLinkTaskMutation } from "@/app/redux/api/taskapi";
 import { TaskLinkType } from "@/features/types/taskType";
-import { Navigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import {
   Tooltip,
   TooltipContent,

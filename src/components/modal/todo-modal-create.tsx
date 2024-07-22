@@ -3,7 +3,7 @@
 
 import { Button } from "../ui/button"
 
-import { ListTodo, ListTodoIcon, LucideIcon, PlusCircle } from "lucide-react";
+import {  LucideIcon, PlusCircle } from "lucide-react";
 
 
 import { useState } from "react";
@@ -28,7 +28,7 @@ taskId:string
 }
 
 
-  export  function TodoModalCreate({icon:Icon,spaceId,folderId,listId,taskId}:OpenModalProps) {
+  export  function TodoModalCreate({spaceId,folderId,listId,taskId}:OpenModalProps) {
     const [open, setOpen] = useState<boolean>(false);
 
     const handleClose = () => setOpen(false);

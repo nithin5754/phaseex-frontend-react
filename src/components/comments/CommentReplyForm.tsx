@@ -1,6 +1,6 @@
 
 
-import { useOnCreateReplyCommentMutation, useOnCreateTopCommentMutation } from "@/app/redux/api/commentApi";
+import { useOnCreateReplyCommentMutation } from "@/app/redux/api/commentApi";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Textarea } from "../ui/textarea";

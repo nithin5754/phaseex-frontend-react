@@ -2,8 +2,7 @@ import { ReceiveCollaboratorType, useDeleteCollaboratorMutation } from "@/app/re
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { FirstTwoCharacter } from "@/lib/FirstTwoCharacter"
 import { Trash } from "lucide-react"
-import { useNavigate, useParams } from "react-router-dom"
-import { useEffect } from "react"
+
 import MembersSpaceRole from "./MembersSpaceRole"
 import UseSpaceRoles from "@/hooks/useSpaceRoles"
 
@@ -54,7 +53,7 @@ const SingleMembers = ({collab,workspaceId}:Props) => {
      </>
   
     <div className="ml-auto font-medium flex flex-row gap-4">
-<MembersSpaceRole workspaceId={workspaceId} collab={collab} isSOwner={isSpaceOwner}/>
+<MembersSpaceRole workspaceId={workspaceId} collab={collab} isSOwner={isSpaceOwner?isSpaceOwner:false}/>
   {
   isSpaceOwner&&(
       <button  className="text-gray-500 hover:text-gray-700" onClick={() => handleDelete(workspaceId, collab.id)}>

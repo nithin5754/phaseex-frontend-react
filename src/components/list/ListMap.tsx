@@ -7,7 +7,7 @@ import {
 } from "../list/index";
 import moment from "moment";
 import useTimeDue from "@/hooks/useTimeDue";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { UserPlus2Icon } from "lucide-react";
 import { ListCollabModal } from "../modal/add-list-collab-modal";
 
@@ -25,7 +25,6 @@ interface Props {
 
 const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
 
-  const navigate=useNavigate()
   const start_date = moment(
     list.list_start_date,
     "MMMM D, YYYY - h:mm a"

@@ -42,7 +42,7 @@ export const activityApi = apiSlice.injectEndpoints({
       },
     }),
 
-    providesTags: (result, error, { workspaceId, folderId, listId,taskId }) => [
+    providesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
       {
         type: "Activity",
         id: `${workspaceId}-${folderId}-${listId}-${taskId}`,

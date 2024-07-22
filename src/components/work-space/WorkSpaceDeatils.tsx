@@ -15,21 +15,21 @@ const WorkSpaceDeatils = () => {
     return <h1>loading....</h1>;
   }
 
-  const isSpaceOwner=UseSpaceRoles({workspaceId:id})
+  const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
 
-  const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id,{
-    pollingInterval:60000,
-    refetchOnFocus:true,
-    refetchOnMountOrArgChange:true
+  const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
   });
-  const { data: getAllFolder } = useGetAllFolderQuery(id,{
-    pollingInterval:60000,
-    refetchOnFocus:true,
-    refetchOnMountOrArgChange:true
+  const { data: getAllFolder } = useGetAllFolderQuery(id, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
   });
 
   if (isLoading || !getAllFolder) {
-    return <SpaceViewALLskelton/>;
+    return <SpaceViewALLskelton />;
   }
 
   return (
@@ -65,20 +65,19 @@ const WorkSpaceDeatils = () => {
         </div>
 
         <>
-        {
-          isSpaceOwner&&(
+          {isSpaceOwner && (
             <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primary dark:border-border">
-            <div className="text-center">
-              <h1 className="font-sfpro text-lg "></h1>
-              <OpenModal title={"create new Folder"} icon={Plus} spaceId={id} />
+              <div className="text-center">
+                <h1 className="font-sfpro text-lg "></h1>
+                <OpenModal
+                  title={"create new Folder"}
+                  icon={Plus}
+                  spaceId={id}
+                />
+              </div>
             </div>
-          </div>
-          )
-        }
-        
+          )}
         </>
-
-       
       </div>
 
       {/* /**

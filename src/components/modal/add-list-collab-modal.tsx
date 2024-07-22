@@ -12,7 +12,7 @@ import { LucideIcon} from "lucide-react";
 import { useState } from "react";
 
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { CollabList } from "../list";
 
 

@@ -1,6 +1,5 @@
 import {
   CheckCircle,
-  Dna,
   LoaderCircle,
   LoaderIcon,
   UserPlus2,
@@ -15,7 +14,6 @@ import UseListRole from "@/hooks/UseListRole";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import UseTodoRoles from "@/hooks/useTodoRoles";
 import { ReassignTodo } from "./index";
-import { ScrollArea } from "../ui/scroll-area";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -35,73 +33,73 @@ const TodoSingle = ({ todo, loadingStates, handleChangeCheckBox }: Props) => {
   });
 
   return (
- 
-      <TableBody key={todo.id}>
-        <TableRow
-          className={todo.todo_status === "completed" ? "line-through" : ""}
-        >
-          <TableCell>
-            <Checkbox
-              disabled={!isTodoRoles}
-              checked={todo.todo_status === "completed"}
-              onClick={() => handleChangeCheckBox(todo)}
-              className={`${!isTodoRoles && "border-red-600"}`}
-            />
-          </TableCell>
-          <TableCell>
-          <Link to={`/space/${todo.workspaceId}/folders/${todo.folderId}/lists/${todo.listId}/tasks/${todo.taskId}/todo/${todo.id}/comments`}>
-          {todo.todo}
+    <TableBody key={todo.id}>
+      <TableRow
+        className={todo.todo_status === "completed" ? "line-through" : ""}
+      >
+        <TableCell>
+          <Checkbox
+            disabled={!isTodoRoles}
+            checked={todo.todo_status === "completed"}
+            onClick={() => handleChangeCheckBox(todo)}
+            className={`${!isTodoRoles && "border-red-600"}`}
+          />
+        </TableCell>
+        <TableCell>
+          <Link
+            to={`/space/${todo.workspaceId}/folders/${todo.folderId}/lists/${todo.listId}/tasks/${todo.taskId}/todo/${todo.id}/comments`}
+          >
+            {todo.todo}
           </Link>
-       </TableCell>
-          <TableCell>
-            <div className="flex items-center justify-center gap-4">
-              {(isSpaceOwner || isListRoles.role === "listManager") && (
-                <>
-                  <TodoCollabModal
-                    icon={UserPlus2}
-                    spaceId={todo.workspaceId}
-                    folderId={todo.folderId}
-                    listId={todo.listId}
-                    taskId={todo.taskId}
-                    todoId={todo.id}
-                  />
-                </>
-              )}
-              <AnimatedTodoProfile
-                workspaceId={todo.workspaceId}
-                folderId={todo.folderId}
-                listId={todo.listId}
-                taskId={todo.taskId}
-                todoId={todo.id}
-              />
-            </div>
-          </TableCell>
-          <TableCell>
-            {loadingStates[todo.id] ? (
-              <LoaderIcon className="animate-spin " size={24} />
-            ) : todo.todo_status === "in progress" ? (
-              <LoaderCircle size={24} />
-            ) : (
-              <CheckCircle size={24} color="green" />
+        </TableCell>
+        <TableCell>
+          <div className="flex items-center justify-center gap-4">
+            {(isSpaceOwner || isListRoles.role === "listManager") && (
+              <>
+                <TodoCollabModal
+                  icon={UserPlus2}
+                  spaceId={todo.workspaceId}
+                  folderId={todo.folderId}
+                  listId={todo.listId}
+                  taskId={todo.taskId}
+                  todoId={todo.id}
+                />
+              </>
             )}
-          </TableCell>
-          <TableCell className="">
-            <TodoDropDown
+            <AnimatedTodoProfile
               workspaceId={todo.workspaceId}
               folderId={todo.folderId}
               listId={todo.listId}
               taskId={todo.taskId}
               todoId={todo.id}
-              todo={todo.todo}
-              todo_status={todo.todo_status}
             />
-          </TableCell>
-          <TableCell className=" flex justify-center items-center mx-auto">
-            <ReassignTodo collabId={todo.assignee} todo={todo} />
-          </TableCell>
-        </TableRow>
-      </TableBody>
-
+          </div>
+        </TableCell>
+        <TableCell>
+          {loadingStates[todo.id] ? (
+            <LoaderIcon className="animate-spin " size={24} />
+          ) : todo.todo_status === "in progress" ? (
+            <LoaderCircle size={24} />
+          ) : (
+            <CheckCircle size={24} color="green" />
+          )}
+        </TableCell>
+        <TableCell className="">
+          <TodoDropDown
+            workspaceId={todo.workspaceId}
+            folderId={todo.folderId}
+            listId={todo.listId}
+            taskId={todo.taskId}
+            todoId={todo.id}
+            todo={todo.todo}
+            todo_status={todo.todo_status}
+          />
+        </TableCell>
+        <TableCell className=" flex justify-center items-center mx-auto">
+          <ReassignTodo collabId={todo.assignee} todo={todo} />
+        </TableCell>
+      </TableRow>
+    </TableBody>
   );
 };
 export default TodoSingle;

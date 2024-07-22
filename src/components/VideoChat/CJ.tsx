@@ -1,6 +1,6 @@
 import UseSpaceRoles from "@/hooks/useSpaceRoles"
 import { CreateRoomId } from "./CreateRoomId"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useSocket } from "@/app/socketContext"
 import VideoNotification from "./VideoNotification"
 import { useGetVideoInviteLinkQuery } from "@/app/redux/api/VideoChatApi"

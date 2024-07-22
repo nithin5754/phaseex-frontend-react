@@ -1,17 +1,16 @@
 import { colors, colorSets } from "@/lib/colors";
 import { useEffect, useState } from "react";
 
-import { CircleOff } from "lucide-react";
+
 import { useAppDispatch } from "@/app/redux/api/store";
 import {
   bgColor,
   borderColor,
   fontColor,
-  setColor,
 } from "@/app/redux/slice/uttilSlice";
 
 const Theme = () => {
-  const [isColors, setColors] = useState<string[] | []>([]);
+  const [_isColors, setColors] = useState<string[] | []>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

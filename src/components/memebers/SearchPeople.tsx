@@ -21,7 +21,11 @@ import { RootState, useAppDispatch } from "@/app/redux/api/store";
 import useAuth from "@/hooks/useAuth";
 
 import { useSocket } from "@/app/socketContext";
-import { SpaceCollabSendType, useAddCollaboratorsMutation, useGetSingleWorkSpaceQuery } from "@/app/redux/api/spaceApi";
+import {
+  SpaceCollabSendType,
+  useAddCollaboratorsMutation,
+  useGetSingleWorkSpaceQuery,
+} from "@/app/redux/api/spaceApi";
 import { useParams } from "react-router-dom";
 import { useGetUserByIdQuery } from "@/app/redux/api/UserApi";
 import { toast } from "../ui/use-toast";
@@ -43,45 +47,39 @@ const SearchPeople = () => {
   const [searchItem, setSearchItem] = useState<ResponseSUserType[] | null>(
     null
   );
-   const {id}=useParams()
+  const { id } = useParams();
 
-   const user = useAuth();
-   const dispatch = useAppDispatch();
- 
-   const { socket } = useSocket();
- 
-   const cache = useSelector((state: RootState) => state.search)
+  const user = useAuth();
+  const dispatch = useAppDispatch();
 
-   if(!id||typeof id !== 'string'){
-    return <h1>loading...</h1>
-   }
+  const { socket } = useSocket();
+
+  const cache = useSelector((state: RootState) => state.search);
+
+  if (!id || typeof id !== "string") {
+    return <h1>loading...</h1>;
+  }
 
   const [searchQuery, setSearchQuery] = useState<string | "">("");
   const [getSearchUser, { isLoading: searchLoading }] =
     useGetSearchUserMutation();
 
-    const {data:getSingleWorkSpace}=useGetSingleWorkSpaceQuery(id,  {
-      pollingInterval:120000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    })
+  const { data: getSingleWorkSpace } = useGetSingleWorkSpaceQuery(id, {
+    pollingInterval: 120000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
-
-    const {data:getUserById}=useGetUserByIdQuery(undefined,  {
-      pollingInterval:120000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    })
-
-
-   
+  const { data: getUserById } = useGetUserByIdQuery(undefined, {
+    pollingInterval: 120000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
-  const [addCollaborators]=useAddCollaboratorsMutation()
-
-
+  const [addCollaborators] = useAddCollaboratorsMutation();
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -118,31 +116,29 @@ const SearchPeople = () => {
       dispatch(cacheResults({ [searchQuery]: response }));
     }
   };
-  
- 
-  const handleSubmit = async(userId: string, userName: string) => {
 
-    if (socket && user&&getSingleWorkSpace&&getUserById) {
-    let collabData:SpaceCollabSendType={
-      workspaceId:getSingleWorkSpace?.id,
-      collaboratorId:userId
-    }
+  const handleSubmit = async (userId: string, userName: string) => {
+    if (socket && user && getSingleWorkSpace && getUserById) {
+      let collabData: SpaceCollabSendType = {
+        workspaceId: getSingleWorkSpace?.id,
+        collaboratorId: userId,
+      };
       try {
-        const response=await addCollaborators(collabData).unwrap()
-  
-          const inviteLink = `/invite?workspace=${getSingleWorkSpace.id}&username=${userId}&messageReceiver=${userName}&messageSendBy=${getUserById.userName}&workspaceName=${getSingleWorkSpace.title}&notificationId=`;
-          socket.emit("sendNotification", {
-            senderId: user.userId,
-            receiverName: userId,
-            workspaceName:getSingleWorkSpace.title,
-            Description:`hey ${userName} . I am reaching out to invite you to join our upcoming team-building event. This gathering is designed to foster stronger bonds among our team members, encouraging open communication and collaborative problem-solving. Your participation will not only enrich our team dynamics but also offer you a platform to share your ideas and learn from your peers .Please confirm it by clicking accept button  Looking forward to your positive response.`,
-            type: "invite",
-            messageReceiver:userName,
-            link:inviteLink,
-            messageSendBy:getUserById.userName,
-            message: `${getUserById.userName} inviting you to join our space ${getSingleWorkSpace.title}`,
-          });
-      } catch (error:any) {
+        await addCollaborators(collabData).unwrap();
+
+        const inviteLink = `/invite?workspace=${getSingleWorkSpace.id}&username=${userId}&messageReceiver=${userName}&messageSendBy=${getUserById.userName}&workspaceName=${getSingleWorkSpace.title}&notificationId=`;
+        socket.emit("sendNotification", {
+          senderId: user.userId,
+          receiverName: userId,
+          workspaceName: getSingleWorkSpace.title,
+          Description: `hey ${userName} . I am reaching out to invite you to join our upcoming team-building event. This gathering is designed to foster stronger bonds among our team members, encouraging open communication and collaborative problem-solving. Your participation will not only enrich our team dynamics but also offer you a platform to share your ideas and learn from your peers .Please confirm it by clicking accept button  Looking forward to your positive response.`,
+          type: "invite",
+          messageReceiver: userName,
+          link: inviteLink,
+          messageSendBy: getUserById.userName,
+          message: `${getUserById.userName} inviting you to join our space ${getSingleWorkSpace.title}`,
+        });
+      } catch (error: any) {
         if (!error.status) {
           toast({
             title: "no response",
@@ -154,9 +150,7 @@ const SearchPeople = () => {
             variant: "destructive",
           });
         }
-      
       }
-       
     }
   };
 
@@ -178,20 +172,18 @@ const SearchPeople = () => {
                     {searchItem && searchItem.length > 0 ? (
                       searchItem.map((search: ResponseSUserType) => (
                         <CommandItem key={search.id}>
-                    {
-                      user?.userId===search.id?(
-                        <>
-                        <Verified className="mr-4"/>
-                        </>
-                      ):(
-                        <PlusCircleIcon
-                        className="mr-4"
-                        onClick={() =>
-                          handleSubmit(search.id, search.userName)
-                        }
-                      />
-                      )
-                    }
+                          {user?.userId === search.id ? (
+                            <>
+                              <Verified className="mr-4" />
+                            </>
+                          ) : (
+                            <PlusCircleIcon
+                              className="mr-4"
+                              onClick={() =>
+                                handleSubmit(search.id, search.userName)
+                              }
+                            />
+                          )}
                           <AUserSearch />
                           {search.userName}
                         </CommandItem>

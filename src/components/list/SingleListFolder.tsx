@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { ListHistory } from "./index";
 import { Plus } from "lucide-react";
 import { TaskTable } from "../tasks/index";
-import { ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
+
 
 import { OpenModal as CreateTaskModal } from "../../components/modal/Task-create-modal";
 

@@ -13,7 +13,7 @@ const AttachmentDetails = ({ attachment }: Props) => {
   
   const handleDelete=async(attachmentId:string)=>{
      if(id&&folderId&&listId&&taskId){
-       let isDeleted=await onDeleteSingleAttachment({workspaceId:id,folderId,listId,taskId,attachment_id:attachmentId}).unwrap()
+     await onDeleteSingleAttachment({workspaceId:id,folderId,listId,taskId,attachment_id:attachmentId}).unwrap()
      }
 
   }

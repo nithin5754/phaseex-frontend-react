@@ -84,7 +84,7 @@ export const TodoSlice = createSlice({
     updateTodoName: (state, action: PayloadAction<TodoNameType>) => {
       const { id, todo } = action.payload;
 
-      console.log(action.payload, "update name");
+  
 
       if (state.searchTodoItem && state.searchTodoItem.length > 0) {
         const index = state.searchTodoItem.findIndex((todo) => todo.id === id);
@@ -151,7 +151,7 @@ export const selectTodoCollabQuery = (store: RootState) =>
   store.todo.SearchTodoCollabQuery;
 
 
-// export const selectRecentlySearchedItem=(store:RootState)=>store.todo.todoRecentlySearchSuggestion
+
 
 
   export const selectShowRecently=(store:RootState)=>store.todo.todoRecentlySearchSuggestion

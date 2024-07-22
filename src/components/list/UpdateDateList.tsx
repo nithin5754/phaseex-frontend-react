@@ -1,10 +1,6 @@
 import * as React from "react";
 import { format } from "date-fns";
-import {
-  CalendarDaysIcon,
-  Calendar as CalendarIcon,
-  ChevronsUpDown,
-} from "lucide-react";
+import { CalendarDaysIcon, Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
@@ -16,7 +12,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAppDispatch } from "@/app/redux/api/store";
-import { selectListDate, setDateListPicker, setDatePickerNull } from "@/app/redux/slice/listSlice";
+import {
+  selectListDate,
+  setDateListPicker,
+  setDatePickerNull,
+} from "@/app/redux/slice/listSlice";
 import {
   SendDateListType,
   useOnUpdateDateListMutation,
@@ -58,8 +58,6 @@ export function UpdateDateList({
 
   React.useEffect(() => {
     if (date && date.from && date.to) {
-  
-
       const startList = format(date.from, "MMMM d, yyyy - h:mm a");
       const dueList = format(date.to, "MMMM d, yyyy - h:mm a");
 
@@ -71,7 +69,7 @@ export function UpdateDateList({
 
   const handleSubmit = async () => {
     const currentDate = new Date();
-    const previousDate = new Date(currentDate.getTime() - 24*60*60*1000);
+    const previousDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
     const startDateToDateFormat = moment(
       listDatePicker.startList,
       "MMMM D, YYYY - h:mm a"
@@ -89,39 +87,36 @@ export function UpdateDateList({
     };
 
     if (data) {
-      if (
-        startDateToDateFormat < previousDate 
-      ) {
+      if (startDateToDateFormat < previousDate) {
         toast({
           title: "date is not valid ",
           variant: "destructive",
         });
-      }else if (endDateToDateFormat<previousDate){
+      } else if (endDateToDateFormat < previousDate) {
         toast({
           title: "date is not valid ",
           variant: "destructive",
         });
-      }else {
+      } else {
         const response = await onUpdateDateList(data).unwrap();
-       
 
         if (!response) {
           toast({
             title: "error in updating",
             variant: "destructive",
           });
-        }else {
+        } else {
           handleClose();
-          dispatch(setDatePickerNull({startList:null,dueList:null}))
-        }     
+          dispatch(setDatePickerNull({ startList: null, dueList: null }));
+        }
       }
     }
   };
 
   return (
     <div className={cn("grid gap-2 font-sfpro ", className)}>
-      <Popover open={open} onOpenChange={setOpen} >
-        <PopoverTrigger asChild >
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
           <CalendarDaysIcon className="ml-2 h-4 w-4 shrink-0  opacity-50 " />
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0  mr-4" align="start">
@@ -134,7 +129,9 @@ export function UpdateDateList({
             numberOfMonths={2}
           />
           <div className="flex gap-2 items-center justify-center mb-4">
-          <Button className=" p-2 font-sfpro" onClick={handleClose}>close</Button>
+            <Button className=" p-2 font-sfpro" onClick={handleClose}>
+              close
+            </Button>
             <Button
               id="date"
               variant={"outline"}

@@ -70,7 +70,7 @@ const FormSchema = z.object({
 
 const AuthRegister = () => {
   const [isLoading, setLoading] = useState(false);
-  const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
+  const [isConfirmPassMsg, _setConfirmPassMsg] = useState("");
 
   const token=useSelector(selectCurrentToken)
 

@@ -20,7 +20,7 @@ const MembersList = () => {
     return <h1>loading....</h1>
   }
 
-  const {data:getAllCollab,error}=useGetAllCollabInSpaceQuery(id, {
+  const {data:getAllCollab}=useGetAllCollabInSpaceQuery(id, {
     pollingInterval:120000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

@@ -1,4 +1,4 @@
-import { InboxIcon, MessageCircle } from "lucide-react";
+import { InboxIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -24,14 +24,18 @@ const VideoNotification = ({ owner, url }: Props) => {
             </div>
             <div className="flex  items-center ml-7">
               <div className="relative left-2 flex-shrink-0 flex justify-center">
-                <span className="absolute bottom-0 right-0 inline-flex items-center 
-                justify-center my-auto w-6 h-6 bg-primary-color rounded-full">
+                <span
+                  className="absolute bottom-0 right-0 inline-flex items-center 
+                justify-center my-auto w-6 h-6 bg-primary-color rounded-full"
+                >
                   <InboxIcon size={18} />
                 </span>
               </div>
               <div className="ms-3 text-sm font-normal">
-                <div className="text-base font-semibold text-gray-900
-                 dark:text-white">
+                <div
+                  className="text-base font-semibold text-gray-900
+                 dark:text-white"
+                >
                   {owner ? owner : ""}
                 </div>
                 <div className="text-sm font-normal">
@@ -45,8 +49,10 @@ const VideoNotification = ({ owner, url }: Props) => {
         </>
       ) : (
         <>
-          <div className="text-md text-center font-normal 
-          dark:text-primary  ">
+          <div
+            className="text-md text-center font-normal 
+          dark:text-primary  "
+          >
             <h1>No Invitation </h1>
           </div>
         </>

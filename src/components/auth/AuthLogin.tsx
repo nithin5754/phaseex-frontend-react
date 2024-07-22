@@ -21,8 +21,7 @@ import { useAppDispatch } from "@/app/redux/api/store";
 import { selectCurrentToken, setCredentials, setUserEmail, setUserName } from "@/features/auth/authSlice";
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
-import { useSocket } from "@/app/socketContext";
-import useGreetings from "@/hooks/useGreetings";
+
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/

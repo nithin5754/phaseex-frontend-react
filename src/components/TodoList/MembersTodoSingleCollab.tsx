@@ -1,20 +1,18 @@
-
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-import { SendAddCollabTodoTask, TodoCollabType } from "@/features/types/TodoType";
+import {
+  SendAddCollabTodoTask,
+  TodoCollabType,
+} from "@/features/types/TodoType";
 
 import { DeleteTodoCollab } from "./index";
 
-
 interface Props {
   collabList: TodoCollabType;
-  checkingDetails:SendAddCollabTodoTask
+  checkingDetails: SendAddCollabTodoTask;
 }
 
-const MembersTodoSingleCollab = ({ collabList,checkingDetails }: Props) => {
-
-
-
+const MembersTodoSingleCollab = ({ collabList, checkingDetails }: Props) => {
   return (
     <li className="pb-3 sm:pb-4 w-full">
       <div className="flex justify-between items-center space-x-4 rtl:space-x-reverse">
@@ -40,9 +38,10 @@ const MembersTodoSingleCollab = ({ collabList,checkingDetails }: Props) => {
           <div className="flex items-center gap-2">
             {/* <UpdateRoleMemberCollab role={isRole} setIsRole={setIsRole} /> */}
             <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-         <DeleteTodoCollab checkingDetails={checkingDetails} collabList={collabList} />
-         
-        
+              <DeleteTodoCollab
+                checkingDetails={checkingDetails}
+                collabList={collabList}
+              />
             </button>
           </div>
         </div>

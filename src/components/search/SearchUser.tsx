@@ -1,4 +1,4 @@
-import { Search, UserSearch } from "lucide-react";
+import { UserSearch } from "lucide-react";
 import { Input } from "../ui/input"
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import { useParams } from "react-router-dom";

@@ -7,26 +7,23 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
+
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { AddProfile } from "../profile/index"
-import { File, PinIcon, Plus, User } from "lucide-react"
+
+import { File, PinIcon} from "lucide-react"
 import { useState } from "react";
 import {AddAttachment} from "../attachment/index";
 
-interface Props {
 
-}
 
 export function AttachmentAddModal() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [_open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
     <Dialog>

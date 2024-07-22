@@ -4,7 +4,7 @@ import {
   ResizablePanelGroup,
 } from "../ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowUpRight, Bell, Trash } from "lucide-react";
+import { Bell} from "lucide-react";
 import { Input } from "../ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
@@ -119,9 +119,7 @@ const Notification = () => {
                   </div>
                        <AllNotificationMap/>
                 </ScrollArea>
-                {/* <Button className="item-center flex mx-auto mb-2">
-                  Mark all Read
-                </Button> */}
+            
               </TabsContent>
             </Tabs>
           </div>

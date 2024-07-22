@@ -3,12 +3,11 @@ import { apiSlice } from "./apiSlice";
 import {
   SendDescriptionTaskType,
   SendDLinkTaskType,
-  SendFiles,
   sendLinkDelete,
   SendPriorityTaskType,
   SendStatusTaskType,
 } from "@/features/types/taskType";
-import { SendAddCollabListType } from "./listapi";
+
 
 export interface SendAddCollabTaskType {
   workspaceId: string;
@@ -55,7 +54,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-      providesTags: (result, error, { workspaceId, folderId, listId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         { type: "TaskSpace", id: `${workspaceId}-${folderId}-${listId}` },
       ],
     }),
@@ -127,7 +126,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-      providesTags: (result, error, { workspaceId, folderId, listId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -194,7 +193,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: (result, error, { workspaceId, folderId, listId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -267,7 +266,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-      providesTags: (result, error, { workspaceId, folderId, listId }) => [
+      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -310,7 +309,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (
         _result,
         _error,
-        { workspaceId, folderId, listId, taskId }
+        { workspaceId, folderId, listId }
       ) => [
         {
           type: "TaskSpace",

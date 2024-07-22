@@ -1,30 +1,17 @@
-import {
-
-  CheckCircle,
-
-  ClipboardList,
-  FileText,
-
-  Star,
-  User,
-
-} from "lucide-react";
+import { CheckCircle, ClipboardList, FileText, Star, User } from "lucide-react";
 
 import {
   Table,
   TableBody,
   TableCaption,
-
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
 
-
 import { useGetAllTaskQuery } from "@/app/redux/api/taskapi";
 
-import {  SingleTask } from "./index";
-
+import { SingleTask } from "./index";
 
 interface Props {
   spaceId: string;
@@ -33,8 +20,7 @@ interface Props {
 }
 
 const TaskTable = ({ folderId, spaceId, listId }: Props) => {
-  
-  const { data: getAllTask, isLoading: listLoading } = useGetAllTaskQuery(
+  const { data: getAllTask } = useGetAllTaskQuery(
     { workspaceId: spaceId, folderId, listId },
     {
       pollingInterval: 60000,
@@ -98,8 +84,6 @@ const TaskTable = ({ folderId, spaceId, listId }: Props) => {
             );
           })}
       </TableBody>
-
- 
     </Table>
   );
 };

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { ProfileForm } from "../profile/index";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { selectBGCurrentColor, selectBorderCurrentColor, selectFontColorCurrentColor } from "@/app/redux/slice/uttilSlice";
 import { selectCurrentLoadingImage, selectCurrentUserImg } from "@/features/auth/authSlice";
 import { ProfileModal } from "../modal/profile-modal";
-import { Button } from "../ui/button";
+
 
 const PhotoDisplay = () => {
   const [hovered, setHovered] = useState<boolean>(false);

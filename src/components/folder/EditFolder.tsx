@@ -18,8 +18,8 @@ import { Textarea } from "../ui/textarea";
 
 
 import { toast } from "../ui/use-toast";
-import { useNavigate, useParams } from "react-router-dom";
-import { FolderDataType, useGetSingleFolderQuery, useOnCreateFolderMutation, useOnEditFolderMutation } from "@/app/redux/api/FolderApi";
+import { useParams } from "react-router-dom";
+import { FolderDataType, useGetSingleFolderQuery, useOnEditFolderMutation } from "@/app/redux/api/FolderApi";
 import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
@@ -44,10 +44,8 @@ export function EditFolder({ handleClose, spaceId }: Props) {
     return <h1>loading....</h1>
   }
 
-  const { data:editSingleFolder,isLoading:singleFolderLoading } = useGetSingleFolderQuery({ spaceId:id, folderId });
+  const { data:editSingleFolder } = useGetSingleFolderQuery({ spaceId:id, folderId });
 
-  let workspaceId = "";
-  const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -75,7 +73,6 @@ export function EditFolder({ handleClose, spaceId }: Props) {
         const response = await onEditFolder({folderData,folderId:idFolder}).unwrap();
         console.log(response, "create folder");
         if (response.id) {
-          // navigate('/space')
           handleClose();
         } else {
           toast({

@@ -9,8 +9,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-import { verifyToChangePassword } from "@/app/thunk/userThunk";
-
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -50,7 +48,7 @@ const ChangePassword = () => {
   const [searchParams] = useSearchParams();
   const tokenId:string = searchParams.get("tokenId") as string;
 
-  const [isLoading, setLoading] = useState(false);  
+  const [isLoading, _setLoading] = useState(false);  
   const [isConfirmPassMsg, setConfirmPassMsg] = useState("");
 
 
