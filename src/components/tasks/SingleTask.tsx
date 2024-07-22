@@ -33,7 +33,7 @@ const truncateDesc = (desc: string) => {
     const isUserInTask=useTaskAuth({task})
 
 
-    console.log(isUserInTask,"heyuiii")
+ 
 
 
     return (
@@ -58,10 +58,10 @@ const truncateDesc = (desc: string) => {
  {
   ( isSpaceOwner||(isListRoles.role==='listManager')||isUserInTask)?(
     <Link to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}>
-    <TableCell className="font-medium text-center m-auto">{task.task_title}</TableCell>
+    <TableCell className="font-medium text-center flex my-auto items-center">{task.task_title}</TableCell>
 </Link>
   ):(
-    <TableCell className="font-medium text-center m-auto">{task.task_title}</TableCell>
+    <TableCell className="font-medium text-center flex my-auto center">{task.task_title}</TableCell>
   )
  }
  </>

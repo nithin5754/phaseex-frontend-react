@@ -10,7 +10,7 @@ import { SendDescriptionTaskType } from "@/features/types/taskType"
 import { useOnUpdateDescriptionTaskMutation } from "@/app/redux/api/taskapi"
 import { toast } from "../ui/use-toast"
 import TaskLinks from "./TaskLinks"
-import { ScrollArea } from "../ui/scroll-area"
+
 
 
 interface Props {

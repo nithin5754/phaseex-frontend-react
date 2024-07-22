@@ -16,6 +16,7 @@ import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import UseTodoRoles from "@/hooks/useTodoRoles";
 import { ReassignTodo } from "./index";
 import { ScrollArea } from "../ui/scroll-area";
+import { Link } from "react-router-dom";
 
 interface Props {
   todo: TodoType;
@@ -47,7 +48,11 @@ const TodoSingle = ({ todo, loadingStates, handleChangeCheckBox }: Props) => {
               className={`${!isTodoRoles && "border-red-600"}`}
             />
           </TableCell>
-          <TableCell>{todo.todo}</TableCell>
+          <TableCell>
+          <Link to={`/space/${todo.workspaceId}/folders/${todo.folderId}/lists/${todo.listId}/tasks/${todo.taskId}/todo/${todo.id}/comments`}>
+          {todo.todo}
+          </Link>
+       </TableCell>
           <TableCell>
             <div className="flex items-center justify-center gap-4">
               {(isSpaceOwner || isListRoles.role === "listManager") && (

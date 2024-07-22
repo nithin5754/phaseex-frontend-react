@@ -23,6 +23,7 @@ import {
   MembersAddingSpace,
   VideoCall,
   ProfilePage,
+  CommentsPage,
 } from "./features/main-sections/index";
 
 import { LandingPage } from "./components/LandingPage";
@@ -72,7 +73,12 @@ function App() {
                         <Route path=":listId">
                           <Route index element={<SingleListFolderView />} />
                           <Route path="tasks">
-                            <Route path=":taskId" element={<TaskView />} />
+                            <Route path=":taskId">
+                            <Route index element={<TaskView />}/>
+                            <Route path="todo">
+                            <Route  path=":todoId/comments" element={<CommentsPage />} />  
+                            </Route>
+                            </Route>
                           </Route>
                         </Route>
                       </Route>

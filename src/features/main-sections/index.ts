@@ -16,6 +16,7 @@ import MembersAddingSpace from "./MembersAddingSpace";
 
 import VideoCall from "./VideoCall";
 import ProfilePage from "./ProfilePage";
+import CommentsPage from "./CommentsPage";
 
 
 
@@ -34,6 +35,7 @@ export {
   Invite,
   MembersAddingSpace,
   VideoCall,
-  ProfilePage
+  ProfilePage,
+  CommentsPage
  
 }
