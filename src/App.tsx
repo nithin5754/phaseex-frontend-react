@@ -28,12 +28,11 @@ import {
 
 import { LandingPage } from "./components/LandingPage";
 
-import Hello from "./components/Hello";
-import PersistLogin from "./features/auth/PersistLogin";
+
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
-import { SearchPeople } from "./components/memebers/index";
+
 import { DashBoard } from "./components/DashBoard";
-import { Head } from "react-day-picker";
+
 
 function App() {
   return (
@@ -51,7 +50,6 @@ function App() {
             element={<ChangeForgotAuthPassword />}
           />
 
-          {/* <Route element={<PersistLogin />}> */}
           <Route element={<RequireAuth />}>
             <Route element={<MainLayout />}>
               <Route path="homepage" element={<HomePage />} />
@@ -94,7 +92,7 @@ function App() {
           </Route>
         </Route>
 
-        {/* </Route> */}
+    
       </Routes>
     </div>
   );
