@@ -107,7 +107,7 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
           <h1 className="absolute top-0 left-4 z-50 text-lg md:text-2xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-            <Link to={'http://localhost:5173/space'}>PHASEEX</Link>
+            <Link to={'/space'}>PHASEEX</Link>
     
         </h1>
  
