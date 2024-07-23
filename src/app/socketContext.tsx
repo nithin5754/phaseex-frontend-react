@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
 import { ReceiveNotificationVideoType } from "@/features/types/NotificationType";
+import { rootUrl } from "@/lib/constant";
 
 
 export interface Notification {
@@ -69,11 +70,9 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   useEffect(() => {
    if(user){
-    const newSocket = io("http://localhost:4500");
+    const newSocket = io(rootUrl);
     setSocket(newSocket);
 
-    console.log(newSocket,"context api");
-    
 
     newSocket.emit('newUser', user.userId);
 
