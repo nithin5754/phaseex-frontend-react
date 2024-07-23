@@ -32,81 +32,81 @@ export function LandingPage() {
 export const products = [
   {
     title: "Galaxy space",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space1,
   },
   {
     title: "Full Galaxy",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space2,
   },
   {
     title: "Empty hidden One",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space3,
   },
 
   {
     title: "Folder",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: folder,
   },
 
   {
     title: "list",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: list,
   },
   {
     title: "Advanced Todo",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: todo,
   },
 
   {
     title: "list",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: list,
   },
 
   {
     title: "list",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: list,
   },
 
   {
     title: "todo",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: todo,
   },
 
   {
     title: "space",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space1,
   },
 
   {
     title: "folder",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: folder,
   },
 
   {
     title: "empty",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space3,
   },
 
   {
     title: "Galaxy",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: space2,
   },
   {
     title: "todo",
-    link: "http://localhost:5173/space",
+    link: "/space",
     thumbnail: todo,
   },
 ];

@@ -38,7 +38,7 @@ export const baseQueryWithReauth: BaseQueryFn<
     console.log("sending refresh token");
 
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
-    console.log(refreshResult, "hello");
+
 
     if (refreshResult.data) {
       api.dispatch(setCredentials(refreshResult.data));
