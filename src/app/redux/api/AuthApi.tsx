@@ -17,7 +17,7 @@ export interface User {
   updatedAt?: Date;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   message: string;
   data: User;
   accessToken: string;

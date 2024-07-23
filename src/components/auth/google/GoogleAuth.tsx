@@ -32,7 +32,7 @@ const from = location.state?.from?.pathname || "/homepage";
 
     if(token){
 
-    let data=  await googleAuth({token}).unwrap()
+    let data= await googleAuth({token}).unwrap()
 
            if (data.accessToken) {
       dispatch(setCredentials(data.accessToken));
