@@ -55,6 +55,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-just-parallax": "^3.1.16",
     "react-lottie": "^1.2.4",
     "react-paginate": "^8.2.0",
     "react-redux": "^9.1.2",
