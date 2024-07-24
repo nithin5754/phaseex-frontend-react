@@ -30,11 +30,14 @@ import {
 import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { DashBoard } from "./components/DashBoard";
+import { Suspense } from "react";
+import { SkeltonPage } from "./components/shimmer";
 
 
 function App() {
   return (
     <div className="App">
+<Suspense fallback={<SkeltonPage />}>
       <Routes>
         <Route path="/">
           <Route index element={<LandingPage />} />
@@ -47,7 +50,6 @@ function App() {
             path="change-forgot-password"
             element={<ChangeForgotAuthPassword />}
           />
-
           <Route element={<RequireAuth />}>
             <Route element={<MainLayout />}>
               <Route path="homepage" element={<HomePage />} />
@@ -88,10 +90,13 @@ function App() {
               <Route path="hello" element={<NotificationPage />} />
             </Route>
           </Route>
+
+   
         </Route>
 
     
       </Routes>
+          </Suspense>
     </div>
   );
 }
