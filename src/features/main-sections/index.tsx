@@ -1,21 +1,27 @@
-import { lazy } from "react";
-
 const HomePage = lazy(() => import("./HomePage"));
 const ViewSpace = lazy(() => import("./ViewSpace"));
 const SingleWorkSpace = lazy(() => import("./SingleWorkSpace"));
-const FolderView = lazy(() => import("./FolderView"));
-const ListView = lazy(() => import("./ListView"));
-const ResourceView = lazy(() => import("./ResourceView"));
-const SingleFolder = lazy(() => import("./SingleFolder"));
-const ListFolderView = lazy(() => import("./ListFolderView"));
-const SingleListFolderView = lazy(() => import("./SingleListFolderView"));
-const NotificationPage = lazy(() => import("./NotificationPage"));
-const TaskView = lazy(() => import("./TaskView"));
-const Invite = lazy(() => import("./Invite"));
-const MembersAddingSpace = lazy(() => import("./MembersAddingSpace"));
-const VideoCall = lazy(() => import("./VideoCall"));
-const ProfilePage = lazy(() => import("./ProfilePage"));
-const CommentsPage = lazy(() => import("./CommentsPage"));
+import FolderView from "./FolderView";
+import ListView from "./ListView";
+import ResourceView from "./ResourceView";
+import SingleFolder from "./SingleFolder";
+
+import ListFolderView from "./ListFolderView";
+import SingleListFolderView from "./SingleListFolderView";
+import NotificationPage from "./NotificationPage";
+import TaskView from "./TaskView";
+import Invite from "./Invite";
+import MembersAddingSpace from "./MembersAddingSpace";
+
+import VideoCall from "./VideoCall";
+import ProfilePage from "./ProfilePage";
+import CommentsPage from "./CommentsPage";
+import { lazy } from "react";
+
+
+
+
+
 
 export {
   HomePage,
@@ -33,5 +39,6 @@ export {
   MembersAddingSpace,
   VideoCall,
   ProfilePage,
-  CommentsPage,
-};
+  CommentsPage
+ 
+}
