@@ -3,15 +3,14 @@ import { differenceInDays } from 'date-fns';
 import moment from 'moment'
 
  interface Props{
-  list_start_date:string
   list_due_date:string
  }
 
-  const useTimeDue = ({list_start_date,list_due_date}:Props) => {
-    const start_date = moment(list_start_date, 'MMMM D, YYYY').toDate();
+  const useTimeDue = ({list_due_date}:Props) => {
+    const start_date = Date.now();
     const due_date = moment(list_due_date, 'MMMM D, YYYY').toDate();
     let Difference_In_Time:number =
-    due_date.getTime() - start_date.getTime();
+    due_date.getTime() - start_date;
 
 
     let Difference_In_Days:number =

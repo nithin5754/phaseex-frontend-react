@@ -1,7 +1,7 @@
 import * as React from "react";
 import { format } from "date-fns";
-import { CalendarDaysIcon, Calendar as CalendarIcon } from "lucide-react";
-import { DateRange } from "react-day-picker";
+import {Calendar as CalendarIcon } from "lucide-react";
+
 
 import { cn } from "@/lib/utils";
 
@@ -27,25 +27,19 @@ import { Button } from "../ui/button";
 import moment from "moment";
 
 interface Props {
-  start_date: Date;
-  due_date: Date;
   folderId: string;
   workspaceId: string;
   listId: string;
+
 }
 
 export function UpdateDateList({
   className,
-  start_date,
-  due_date,
   folderId,
   workspaceId,
-  listId,
+  listId
 }: Props & React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: start_date,
-    to: due_date,
-  });
+  const [date, setDate] = React.useState<Date>()
 
   const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -57,15 +51,16 @@ export function UpdateDateList({
   const [onUpdateDateList] = useOnUpdateDateListMutation();
 
   React.useEffect(() => {
-    if (date && date.from && date.to) {
-      const startList = format(date.from, "MMMM d, yyyy - h:mm a");
-      const dueList = format(date.to, "MMMM d, yyyy - h:mm a");
+    if (date) {
+      const startList = format(Date.now(), "MMMM d, yyyy - h:mm a");
+      const dueList = format(date, "MMMM d, yyyy - h:mm a");
+
 
       if (startList && dueList) {
         dispatch(setDateListPicker({ startList, dueList }));
       }
     }
-  }, [dispatch, date?.from, date?.to, date]);
+  }, [dispatch, date]);
 
   const handleSubmit = async () => {
     const currentDate = new Date();
@@ -117,43 +112,30 @@ export function UpdateDateList({
     <div className={cn("grid gap-2 font-sfpro ", className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <CalendarDaysIcon className="ml-2 h-4 w-4 shrink-0  opacity-50 " />
+        <Button
+          variant={"outline"}
+          className={cn(
+            "border-0 hover:bg-transparent",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+        </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0  mr-4" align="start">
-          <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
+    
+
+         <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
           <div className="flex gap-2 items-center justify-center mb-4">
             <Button className=" p-2 font-sfpro" onClick={handleClose}>
               close
             </Button>
-            <Button
-              id="date"
-              variant={"outline"}
-              className={cn(
-                "w-[300px] justify-start text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date?.from ? (
-                date.to ? (
-                  <>
-                    {format(date.from, "LLL dd, y")} -{" "}
-                    {format(date.to, "LLL dd, y")}
-                  </>
-                ) : (
-                  format(date.from, "LLL dd, y")
-                )
-              ) : (
-                <span className="">Pick a date</span>
-              )}
-            </Button>
+
 
             <Button onClick={handleSubmit}>save</Button>
           </div>

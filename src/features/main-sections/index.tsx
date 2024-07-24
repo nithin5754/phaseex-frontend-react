@@ -1,3 +1,4 @@
+import { lazy } from "react";
 const HomePage = lazy(() => import("./HomePage"));
 const ViewSpace = lazy(() => import("./ViewSpace"));
 const SingleWorkSpace = lazy(() => import("./SingleWorkSpace"));
@@ -16,7 +17,6 @@ import MembersAddingSpace from "./MembersAddingSpace";
 import VideoCall from "./VideoCall";
 import ProfilePage from "./ProfilePage";
 import CommentsPage from "./CommentsPage";
-import { lazy } from "react";
 
 
 
