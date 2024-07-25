@@ -37,8 +37,8 @@ const WorkSpaceDeatils = () => {
       <div className="flex flex-row w-full gap-2 items-center  justify-center ">
         <div className="flex w-full bg-white text-black border border-gray-200 rounded-lg h-[100px] p-4 dark:text-primary dark:bg-background dark:border-border">
           <div className="flex flex-col justify-between">
-            <h1 className="font-sfpro text-lg">
-              Space {singleWorkSpace?.title}
+            <h1 className="font-sfpro text-3xl">
+            <span className="text-lg">Space:</span> {singleWorkSpace?.title}
             </h1>
             <p className="text-gray-600  dark:text-primary">
               Description: {singleWorkSpace?.workspace_description}
@@ -58,37 +58,13 @@ const WorkSpaceDeatils = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primary dark:border-border">
-          <div className="text-center">
-            <h1 className="font-sfpro text-lg">create new List</h1>
-          </div>
-        </div>
 
-        <>
-          {isSpaceOwner && (
-            <div className="flex items-center w-[300px] justify-center bg-white border border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primary dark:border-border">
-              <div className="text-center">
-                <h1 className="font-sfpro text-lg "></h1>
-                <OpenModal
-                  title={"create new Folder"}
-                  icon={Plus}
-                  spaceId={id}
-                />
-              </div>
-            </div>
-          )}
-        </>
+
+
       </div>
 
-      {/* /**
- folder section overview here
- */}
 
       <WorkSpaceFolder getAllFolder={getAllFolder} />
-
-      {/* list section over view */}
-
-      <ListWorkSpace />
     </div>
   );
 };

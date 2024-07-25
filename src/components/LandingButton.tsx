@@ -10,14 +10,15 @@ export function LandingPageButton() {
   };
 
   return (
-    <div>
+   
       <Button
-        borderRadius="1.75rem"
-        className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 font-sfpro text-center "
+        borderRadius=".50rem"
+        className="bg-white px-4 py-2 dark:bg-slate-900 text-black dark:text-white border-neutral-200
+         dark:border-slate-800 font-sfpro text-center "
         onClick={handleNavigate}
       >
         Start here <ArrowRight className="ml-4" size={16} />
       </Button>
-    </div>
+
   );
 }

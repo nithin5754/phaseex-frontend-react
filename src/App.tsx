@@ -31,13 +31,13 @@ import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { DashBoard } from "./components/DashBoard";
 import { Suspense } from "react";
-import { SkeltonPage } from "./components/shimmer";
+import { SkeltonPage,MainSkelton } from "./components/shimmer";
 
 
 function App() {
   return (
     <div className="App">
-<Suspense fallback={<SkeltonPage />}>
+<Suspense fallback={<MainSkelton />}>
       <Routes>
         <Route path="/">
           <Route index element={<LandingPage />} />

@@ -18,7 +18,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
   const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
 
   return (
-    <div className=" bg-white border border-gray-200 rounded-lg h-[250px] dark:bg-background dark:text-primary dark:border-border">
+    <div className=" bg-white border border-gray-200 rounded-lg h-[350px] dark:bg-background dark:text-primary dark:border-border ">
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
         {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
@@ -26,7 +26,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
       {getAllFolder && getAllFolder.length > 0 ? (
         <>
           <div className="flex flex-wrap gap-2 m-2 justify-center">
-            {getAllFolder.slice(0, 6).map((folder) => {
+            {getAllFolder.slice(0, 15).map((folder) => {
               return (
                 <Link key={folder.id} to={`/space/${id}/folders/${folder.id}`}>
                   <div className="bg-white w-full md:w-[200px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2 dark:bg-secondary dark:border-border dark:text-primary dark:hover:bg-card">
@@ -42,7 +42,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
             })}
           </div>
           <span>
-            {getAllFolder.length > 6 && (
+            {getAllFolder.length > 15 && (
               <>
                 <Link to={`/space/${id}/folders`}>
                   <h3 className="font-sfpro text-center">view more</h3>

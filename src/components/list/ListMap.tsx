@@ -6,14 +6,12 @@ import {
   UpdateDateList,
 } from "../list/index";
 import useTimeDue from "@/hooks/useTimeDue";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserPlus2Icon } from "lucide-react";
 import { ListCollabModal } from "../modal/add-list-collab-modal";
 
 import UseListRole from "@/hooks/UseListRole";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
-
-  
 
 interface Props {
   list: ResponseListDataType;
@@ -23,7 +21,6 @@ interface Props {
 }
 
 const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
-
   const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
   const isListRoles = UseListRole({ workspaceId, folderId, listId: list.id });
@@ -32,15 +29,13 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
     list_due_date: list.list_due_date,
   });
 
-
-  
   return (
     <tr key={list.id} className="border-b border-gray-200 dark:border-border">
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         {index + 1}
       </td>
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
-        {(isSpaceOwner||isListRoles.status||isListRoles.taskGrp)? (
+        {isSpaceOwner || isListRoles.status || isListRoles.taskGrp ? (
           <>
             <Link
               to={`/space/${workspaceId}/folders/${folderId}/lists/${list.id}`}
@@ -51,7 +46,6 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
         ) : (
           <>{list.list_title}</>
         )}
-
       </td>
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <ListProgressBar percentage={list.progressTask} />
@@ -77,7 +71,7 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
       </td>
 
       <td className="flex px-5 py-3 my-auto text-[12px] dark:bg-background">
-      {list.list_due_date}
+        {list.list_due_date}
         <>
           {(isListRoles.role === "listManager" || isSpaceOwner) && (
             <UpdateDateList
