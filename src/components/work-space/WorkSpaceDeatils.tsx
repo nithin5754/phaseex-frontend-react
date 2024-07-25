@@ -1,10 +1,10 @@
 import { useGetSingleWorkSpaceQuery } from "@/app/redux/api/spaceApi";
 import { useParams } from "react-router-dom";
-import { EarthIcon, Lock, Plus } from "lucide-react";
-import { OpenModal } from "../modal/FolderModal";
+import { EarthIcon, Lock} from "lucide-react";
+
 import { useGetAllFolderQuery } from "@/app/redux/api/FolderApi";
 import { WorkSpaceFolder } from "../folder/index";
-import { ListWorkSpace } from "../list/index";
+
 import { SpaceViewALLskelton } from "../shimmer/index";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
@@ -15,7 +15,7 @@ const WorkSpaceDeatils = () => {
     return <h1>loading....</h1>;
   }
 
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
+ UseSpaceRoles({ workspaceId: id });
 
   const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id, {
     pollingInterval: 60000,

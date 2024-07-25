@@ -31,7 +31,7 @@ import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
 import { DashBoard } from "./components/DashBoard";
 import { Suspense } from "react";
-import { SkeltonPage,MainSkelton } from "./components/shimmer";
+import { MainSkelton } from "./components/shimmer";
 
 
 function App() {
