@@ -2,16 +2,22 @@ import { selectSideCloseOpen } from "@/app/redux/slice/uttilSlice";
 
 import SideBar from "@/components/sidebar/SdeBar";
 import { useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const MainLayout = () => {
   const selectSideBarCloseOpen = useSelector(selectSideCloseOpen);
+  const location = useLocation();
+
+  const containsRoomPath = location.pathname.includes("/phaseex-ai");
   return (
     <main className="flex dark:bg-background min-h-screen dark:text-white dark:border-border">
       <>
         {
           <>
-            <div
+          {
+            !containsRoomPath&&(
+              <>
+                 <div
               className={`${
                 !selectSideBarCloseOpen
                   ? "w-0 sm:w-[20%]"
@@ -20,6 +26,11 @@ const MainLayout = () => {
             >
               <SideBar />
             </div>
+              
+              </>
+            )
+          }
+         
           </>
         }
       </>

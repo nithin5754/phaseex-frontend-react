@@ -1,8 +1,8 @@
 import { SideBarItemsType } from "@/features/types/sideBarItemsType";
 import {
   Bell,
+  Globe,
   Home,
-  LayoutDashboard,
   MoreHorizontal,
   PlusCircleIcon,
   Projector,
@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 const sidebarItems: SideBarItemsType = {
   links: [
     { label: "Home", href: "/homepage", icon: Home },
-    { label: "DashBoard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "phaeexAI", href: "/phaseex-ai", icon: Globe },
     { label: "Inbox", href: "/hello", icon: Bell },
   ],
   extras: (
@@ -45,7 +45,7 @@ const sidebarItems: SideBarItemsType = {
 const sidebarItemsClose: SideBarItemsType = {
   links: [
     { label: "Home", href: "/homepage", icon: Home },
-    { label: "DashBoard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "phaeexAI", href: "/phaseex-ai", icon: Globe },
     { label: "Inbox", href: "/hello", icon: Bell },
   ],
   extras: (

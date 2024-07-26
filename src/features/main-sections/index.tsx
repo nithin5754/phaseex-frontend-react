@@ -19,6 +19,8 @@ import ProfilePage from "./ProfilePage";
 import CommentsPage from "./CommentsPage";
 
 
+import AIchatPage from "./AIchatPage";
+
 
 
 
@@ -39,6 +41,7 @@ export {
   MembersAddingSpace,
   VideoCall,
   ProfilePage,
-  CommentsPage
+  CommentsPage,
+  AIchatPage
  
 }

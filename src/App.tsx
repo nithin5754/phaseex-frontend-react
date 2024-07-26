@@ -24,12 +24,12 @@ import {
   VideoCall,
   ProfilePage,
   CommentsPage,
+  AIchatPage,
 } from "./features/main-sections/index";
 
 
 import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout } from "./features/layouts/index";
-import { DashBoard } from "./components/DashBoard";
 import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
 
@@ -86,7 +86,7 @@ function App() {
                   <Route path="members" element={<MembersAddingSpace />} />
                 </Route>
               </Route>
-              <Route path="dashboard" element={<DashBoard />} />
+              <Route path="phaseex-ai" element={<AIchatPage />} />
               <Route path="hello" element={<NotificationPage />} />
             </Route>
           </Route>
