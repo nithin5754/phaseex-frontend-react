@@ -1,6 +1,6 @@
 
 
-import { CActivitySendType, ResponseActivityModal } from "@/features/types/TActivity";
+import { CActivitySendType, ResponseActivityModal } from "@/types/TActivity";
 import { apiSlice } from "./apiSlice";
 
 export const activityApi = apiSlice.injectEndpoints({

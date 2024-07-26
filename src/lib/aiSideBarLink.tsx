@@ -1,19 +1,20 @@
-import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
+import { IconArrowLeft, IconSettings } from "@tabler/icons-react";
+import { HomeIcon, MessageCircleHeart } from "lucide-react";
 
 
 export const links:AIlinksType[] = [
   {
-    label: "Dashboard",
-    href: "#",
+    label: "AI Home",
+    href: "/phaseex-ai",
     icon: (
-      <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <HomeIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Profile",
-    href: "#",
+    label: "chat",
+    href: "/phaseex-ai/ai-chat",
     icon: (
-      <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <MessageCircleHeart className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {

@@ -6,8 +6,8 @@ import {
   SideBar,
   SidebarBody,
   SidebarLink,
-} from "../aceternityuI/sideBar/acernitySideBar";
-import { Logo, LogOutIcon, SideBarListAppear } from "./SideBar/index";
+} from "../components/aceternityuI/sideBar/acernitySideBar";
+import { Logo, LogOutIcon } from "../components/AI/SideBar/index";
 
 import {
   selectCurrentUserImg,
@@ -17,7 +17,12 @@ import { useSelector } from "react-redux";
 
 import { AIlinksType, links } from "@/lib/aiSideBarLink";
 
-export function AIsideBar() {
+import { Outlet } from "react-router-dom";
+import { Dot, ListChecks } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+
+
+export function AILayout() {
   const userName = useSelector(selectCurrentUserName);
   const isProfileImage = useSelector(selectCurrentUserImg);
 
@@ -37,6 +42,42 @@ export function AIsideBar() {
               {links.map((link: AIlinksType, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+            </div>
+            <div className="mt-8 flex flex-col gap-2">
+              <Separator/>
+
+     <SidebarLink link={{
+  label:"Recent Chat",
+  href: '/',
+  icon:''
+}}/>
+          
+            
+                        <SidebarLink link={{
+  label:"first chat",
+  href: '/',
+  icon:''
+}}/>
+                        <SidebarLink link={{
+  label:"first chat",
+  href: '/',
+  icon:''
+}}/>
+                        <SidebarLink link={{
+  label:"first chat",
+  href: '/',
+  icon:''
+}}/>
+                        <SidebarLink link={{
+  label:"first chat",
+  href: '/',
+  icon:''
+}}/>
+
+
+
+
+
             </div>
           </div>
           <div>
@@ -62,7 +103,7 @@ export function AIsideBar() {
           </div>
         </SidebarBody>
       </SideBar>
-      <SideBarListAppear />
+ <Outlet/>
     </div>
   );
 }

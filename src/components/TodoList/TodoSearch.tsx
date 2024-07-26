@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useGetSearchTodoMutation } from "@/app/redux/api/searchApi";
 import { useParams } from "react-router-dom";
-import { sendTodoSearchType } from "@/features/types/searchType";
+import { sendTodoSearchType } from "@/types/searchType";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectTodoItem,

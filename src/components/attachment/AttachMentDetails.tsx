@@ -1,5 +1,5 @@
 import { useOnDeleteSingleAttachmentMutation } from "@/app/redux/api/attachmentApi"
-import { Attachment } from "@/features/types/attachment"
+import { Attachment } from "@/types/attachment"
 import { Trash } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 

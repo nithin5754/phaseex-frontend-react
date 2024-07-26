@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../api/store";
-import { TodoType } from "@/features/types/TodoType";
-import { WorkSpaceCollabType } from "@/features/types/searchType";
+import { TodoType } from "@/types/TodoType";
+import { WorkSpaceCollabType } from "@/types/searchType";
 
 export interface TodoSliceType {
   searchTodoItem: TodoType[] | null;

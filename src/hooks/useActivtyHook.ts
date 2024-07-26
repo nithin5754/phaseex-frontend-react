@@ -1,5 +1,5 @@
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi"
-import { CActivitySendType } from "@/features/types/TActivity"
+import { CActivitySendType } from "@/types/TActivity"
 import { useEffect, useState } from "react"
 
 

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   ResponseCommentList,
   SendGetAllComment,
-} from "@/features/types/comments";
+} from "@/types/comments";
 import { useState } from "react";
 import Count from "./Count";
 

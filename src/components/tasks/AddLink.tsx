@@ -21,7 +21,7 @@ import { Loader2 } from "lucide-react";
 
 import { toast } from "../ui/use-toast";
 
-import { SendDLinkTaskType } from "@/features/types/taskType";
+import { SendDLinkTaskType } from "@/types/taskType";
 import { useAddLinkToTaskMutation } from "@/app/redux/api/taskapi";
 
 const FormSchema = z.object({

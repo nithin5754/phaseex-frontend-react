@@ -16,7 +16,7 @@ import {
   setSearchTodoQuery,
 } from "@/app/redux/slice/todoSlice";
 import { useOnAddCollabToTodoMutation } from "@/app/redux/api/todoapi";
-import { SendAddCollabTodoTask } from "@/features/types/TodoType";
+import { SendAddCollabTodoTask } from "@/types/TodoType";
 
 interface Props {
   workspaceId: string;

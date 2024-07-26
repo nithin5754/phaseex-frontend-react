@@ -1,7 +1,7 @@
 
 import useAuth from "./useAuth"
 
-import { TodoType } from "@/features/types/TodoType";
+import { TodoType } from "@/types/TodoType";
 
 interface Props {
   

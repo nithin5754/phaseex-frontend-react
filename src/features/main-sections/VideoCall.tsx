@@ -1,5 +1,5 @@
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { Element } from "../types/types";
+import { Element } from "../../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "../auth/authSlice";

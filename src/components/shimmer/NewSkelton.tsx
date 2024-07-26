@@ -1,6 +1,6 @@
 
 
-export const SideBarListAppear = () => {
+export const NewSkelton = () => {
   return (
     <div className="flex flex-1 ">
       <div className="p-2 md:p-10   bg-white dark:bg-background flex flex-col gap-2 flex-1 w-full h-full">

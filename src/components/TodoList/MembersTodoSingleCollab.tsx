@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   SendAddCollabTodoTask,
   TodoCollabType,
-} from "@/features/types/TodoType";
+} from "@/types/TodoType";
 
 import { DeleteTodoCollab } from "./index";
 

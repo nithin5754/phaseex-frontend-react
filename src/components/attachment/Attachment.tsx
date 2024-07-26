@@ -1,5 +1,5 @@
 import { useGetAllAttachmentQuery } from "@/app/redux/api/attachmentApi";
-import { Attachment as AttachMentType } from "@/features/types/attachment";
+import { Attachment as AttachMentType } from "@/types/attachment";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { SingleAttachment } from "./index";

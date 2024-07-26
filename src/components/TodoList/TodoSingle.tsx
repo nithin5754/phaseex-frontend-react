@@ -9,7 +9,7 @@ import { TableBody, TableCell, TableRow } from "../ui/table";
 import { AnimatedTodoProfile } from "./AnimatedTodoCollabProfile";
 import TodoDropDown from "./TodoDropDown";
 import { Checkbox } from "../ui/checkbox";
-import { TodoType } from "@/features/types/TodoType";
+import { TodoType } from "@/types/TodoType";
 import UseListRole from "@/hooks/UseListRole";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import UseTodoRoles from "@/hooks/useTodoRoles";

@@ -1,4 +1,4 @@
-import { ResponseTaskType } from "@/features/types"
+import { ResponseTaskType } from "@/types"
 import useAuth from "./useAuth"
 
 interface Props{

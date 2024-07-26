@@ -1,4 +1,4 @@
-import { ResponseTaskType } from "@/features/types";
+import { ResponseTaskType } from "@/types";
 import ActivityArea from "../activity/ActivtityArea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Attachment } from "../attachment/index";

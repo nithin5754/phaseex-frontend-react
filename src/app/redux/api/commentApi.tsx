@@ -1,7 +1,7 @@
 
 
 
-import { ResponseCommentList, SCreateTopComment, SendGetAllComment } from "@/features/types/comments";
+import { ResponseCommentList, SCreateTopComment, SendGetAllComment } from "@/types/comments";
 import { apiSlice } from "./apiSlice";
 
 export const commentsSlice = apiSlice.injectEndpoints({

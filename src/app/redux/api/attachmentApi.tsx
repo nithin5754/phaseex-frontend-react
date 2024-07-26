@@ -1,4 +1,4 @@
-import { AttachmentSliceType } from "@/features/types/attachment";
+import { AttachmentSliceType } from "@/types/attachment";
 import { apiSlice } from "./apiSlice";
 
 export const AttachMentSlice = apiSlice.injectEndpoints({

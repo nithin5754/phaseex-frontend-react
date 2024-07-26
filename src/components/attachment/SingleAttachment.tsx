@@ -1,4 +1,4 @@
-import { Attachment } from "@/features/types/attachment";
+import { Attachment } from "@/types/attachment";
 import { PinContainer } from "../aceternityuI/3Dcard/PinContainer";
 import { Pin, TrashIcon } from "lucide-react";
 

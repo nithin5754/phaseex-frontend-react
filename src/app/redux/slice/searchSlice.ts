@@ -1,5 +1,5 @@
 
-import { ResponseSUserType } from '@/features/types/searchType';
+import { ResponseSUserType } from '@/types/searchType';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 

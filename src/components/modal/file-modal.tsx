@@ -9,7 +9,7 @@ import {
 import { Ellipsis } from "lucide-react";
 import { useState } from "react";
 import { AttachMentDetails } from "../attachment/index";
-import { Attachment } from "@/features/types/attachment";
+import { Attachment } from "@/types/attachment";
 
 interface Props {
   attachment: Attachment;

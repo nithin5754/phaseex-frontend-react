@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { setOpenDescTask } from "@/app/redux/slice/taskSlice";
 import { TaskLinkModal } from "../modal/add-link-modal";
-import { ResponseTaskType } from "@/features/types";
+import { ResponseTaskType } from "@/types";
 
 import { AttachmentAddModal } from "../modal/add-attachment-modal";
 

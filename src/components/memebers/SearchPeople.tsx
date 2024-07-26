@@ -1,6 +1,6 @@
 import { useGetSearchUserMutation } from "@/app/redux/api/searchApi";
 import { useEffect, useRef, useState } from "react";
-import { ResponseSUserType } from "@/features/types/searchType";
+import { ResponseSUserType } from "@/types/searchType";
 import { SearchUser } from "../search/index";
 import { LottieAnimation } from "../lootie/Lootie";
 import noSearchUser from "../../../public/json/empty-user-1.json";

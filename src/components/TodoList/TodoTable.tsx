@@ -1,6 +1,6 @@
 import { Table } from "@/components/ui/table";
 
-import { SendTodoCheckBox, TodoType } from "@/features/types/TodoType";
+import { SendTodoCheckBox, TodoType } from "@/types/TodoType";
 
 import { useOnUpdateStatusTodoMutation } from "@/app/redux/api/todoapi";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { selectTodoItem, selectTodoQuery } from "@/app/redux/slice/todoSlice";
 import { TodoSingle, TodoTHead } from "./index";
 
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
-import { CActivitySendType } from "@/features/types/TActivity";
+import { CActivitySendType } from "@/types/TActivity";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 
 interface Props {

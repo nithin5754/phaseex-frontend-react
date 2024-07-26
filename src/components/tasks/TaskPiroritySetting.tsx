@@ -12,7 +12,7 @@ import {
 
 import { toast } from "../ui/use-toast";
 import { useOnUpdatePriorityTaskMutation } from "@/app/redux/api/taskapi";
-import { SendPriorityTaskType } from "@/features/types/taskType";
+import { SendPriorityTaskType } from "@/types/taskType";
 import UseListRole from "@/hooks/UseListRole";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 

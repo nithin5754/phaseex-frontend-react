@@ -2,7 +2,7 @@ import { useOnDeleteCollabToTodoMutation } from "@/app/redux/api/todoapi";
 import {
   SendAddCollabTodoTask,
   TodoCollabType,
-} from "@/features/types/TodoType";
+} from "@/types/TodoType";
 import { Trash } from "lucide-react";
 
 interface Props {

@@ -15,11 +15,11 @@ import { Input } from "@/components/ui/input";
 
 import { Loader2 } from "lucide-react";
 
-import { SendTodoTask } from "@/features/types/TodoType";
+import { SendTodoTask } from "@/types/TodoType";
 import { toast } from "../ui/use-toast";
 import { useOnCreateTaskTodoMutation } from "@/app/redux/api/todoapi";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
-import { CActivitySendType } from "@/features/types/TActivity";
+import { CActivitySendType } from "@/types/TActivity";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
 

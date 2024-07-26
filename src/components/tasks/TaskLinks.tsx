@@ -1,4 +1,4 @@
-import { TaskLinkType } from '@/features/types/taskType';
+import { TaskLinkType } from '@/types/taskType';
 
 import { SingleLinks } from "../Links/index";
 

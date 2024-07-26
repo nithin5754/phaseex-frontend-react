@@ -1,9 +1,9 @@
-import { AIsideBar } from "@/components/AI"
+
 
 
 const AIchatPage = () => {
   return (
-    <AIsideBar/>
+ <h1>hello</h1>
   )
 }
 export default AIchatPage

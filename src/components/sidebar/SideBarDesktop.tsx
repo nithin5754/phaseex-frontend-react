@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { SideBarItemsType } from "../../features/types/sideBarItemsType";
+import { SideBarItemsType } from "../../types/sideBarItemsType";
 import SideBarButton from "./SideBar-btb";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";

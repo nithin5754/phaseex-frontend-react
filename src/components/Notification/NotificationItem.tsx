@@ -1,5 +1,5 @@
 import { setNotificationDetails } from "@/app/redux/slice/notificationSlice";
-import { NotificationDetailsType } from "@/features/types/NotificationType";
+import { NotificationDetailsType } from "@/types/NotificationType";
 import { Trash } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";

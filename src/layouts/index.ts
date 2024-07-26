@@ -1,5 +1,6 @@
 import MainLayout from "./MainLayout"
 import SpaceLayout from "./SpaceLayout"
+import { AILayout } from "./AILayout"
 
 
 
@@ -7,5 +8,6 @@ import SpaceLayout from "./SpaceLayout"
 export  {
 MainLayout,
 SpaceLayout,
+AILayout
 
 }

@@ -3,7 +3,7 @@ import { Dna } from "lucide-react"
 
 import useAuth from "@/hooks/useAuth"
 import { ReassignTodoModal } from "../modal/reassign-modal"
-import { TodoType } from "@/features/types/TodoType";
+import { TodoType } from "@/types/TodoType";
 
 
 interface Props {

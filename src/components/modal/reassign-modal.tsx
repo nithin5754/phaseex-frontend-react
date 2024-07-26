@@ -15,7 +15,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 
 import {  ReassignSection } from "../TodoList/index";
-import { TodoType } from "@/features/types/TodoType";
+import { TodoType } from "@/types/TodoType";
 
 
 

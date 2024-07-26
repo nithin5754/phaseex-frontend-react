@@ -1,6 +1,7 @@
+import NewChatPage from "./NewChatPage";
+import PhaseexAi from "./PhaseexAi";
+import { AISearchBar } from "./SearchBar";
+import EmptyPage from "./EmptyPage";
+import ChatBar from "./ChatBar";
 
-
-import { AIsideBar } from "./AIpage";
-
-
-export { AIsideBar }
+export { NewChatPage, PhaseexAi, AISearchBar, EmptyPage, ChatBar };

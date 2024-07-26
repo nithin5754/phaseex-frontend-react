@@ -16,10 +16,10 @@ import {
   setSearchTodoQuery,
 } from "@/app/redux/slice/todoSlice";
 import { useOnAddCollabToTodoMutation } from "@/app/redux/api/todoapi";
-import { SendAddCollabTodoTask, TodoType } from "@/features/types/TodoType";
+import { SendAddCollabTodoTask, TodoType } from "@/types/TodoType";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
-import { CActivitySendType } from "@/features/types/TActivity";
+import { CActivitySendType } from "@/types/TActivity";
 
 interface Props {
   workspaceId: string;

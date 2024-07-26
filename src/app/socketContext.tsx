@@ -2,7 +2,7 @@ import useAuth from "@/hooks/useAuth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-import { ReceiveNotificationVideoType } from "@/features/types/NotificationType";
+import { ReceiveNotificationVideoType } from "@/types/NotificationType";
 import { rootUrl } from "@/lib/constant";
 
 export interface Notification {

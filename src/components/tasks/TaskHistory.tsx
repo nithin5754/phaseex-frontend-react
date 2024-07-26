@@ -1,4 +1,4 @@
-import { ResponseTaskType } from "@/features/types";
+import { ResponseTaskType } from "@/types";
 
 interface Props {
   singleTask: ResponseTaskType | null;

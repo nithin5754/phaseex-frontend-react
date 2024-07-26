@@ -1,4 +1,4 @@
-import { SideBarItemsType } from "@/features/types/sideBarItemsType"
+import { SideBarItemsType } from "@/types/sideBarItemsType"
 import { Link, useLocation } from "react-router-dom"
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"

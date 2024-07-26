@@ -32,11 +32,11 @@ import React from "react";
 
 
 
-import { SendTaskType } from "@/features/types";
+import { SendTaskType } from "@/types";
 import { useOnCreateTaskMutation } from "@/app/redux/api/taskapi";
 
 
-import { CActivitySendType } from "@/features/types/TActivity";
+import { CActivitySendType } from "@/types/TActivity";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";

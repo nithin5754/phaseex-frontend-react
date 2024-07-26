@@ -5,11 +5,11 @@ import { TodoModalEdit } from "../modal/Todo-edit-modal";
 
 import { useOnDeleteTaskTodoMutation } from "@/app/redux/api/todoapi";
 
-import { SendDeleteTodoTask } from "@/features/types/TodoType";
+import { SendDeleteTodoTask } from "@/types/TodoType";
 import { toast } from "../ui/use-toast";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import UseListRole from "@/hooks/UseListRole";
-import { CActivitySendType } from "@/features/types/TActivity";
+import { CActivitySendType } from "@/types/TActivity";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";

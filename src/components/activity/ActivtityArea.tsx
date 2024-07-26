@@ -4,7 +4,7 @@ import { Activity } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 import { useOnGetAllActivityQuery } from "@/app/redux/api/activityApi";
-import { ResponseActivityArray } from "@/features/types/TActivity";
+import { ResponseActivityArray } from "@/types/TActivity";
 import { ScrollArea } from "../ui/scroll-area";
 
 const ActivityArea = () => {

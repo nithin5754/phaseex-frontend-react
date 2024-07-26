@@ -1,4 +1,4 @@
-import { SideBarItemsType } from "@/features/types/sideBarItemsType";
+import { SideBarItemsType } from "@/types/sideBarItemsType";
 import {
   Bell,
   Globe,

@@ -1,4 +1,4 @@
-import { SendTaskType, ResponseTaskType } from "@/features/types/index";
+import { SendTaskType, ResponseTaskType } from "@/types/index";
 import { apiSlice } from "./apiSlice";
 import {
   SendDescriptionTaskType,
@@ -6,7 +6,7 @@ import {
   sendLinkDelete,
   SendPriorityTaskType,
   SendStatusTaskType,
-} from "@/features/types/taskType";
+} from "@/types/taskType";
 
 
 export interface SendAddCollabTaskType {

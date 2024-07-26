@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { Circle } from "lucide-react";
 import { useOnUpdateStatusTaskMutation } from "@/app/redux/api/taskapi";
 import { useParams } from "react-router-dom";
-import { SendStatusTaskType } from "@/features/types/taskType";
+import { SendStatusTaskType } from "@/types/taskType";
 import { toast } from "../ui/use-toast";
 
 interface Props {

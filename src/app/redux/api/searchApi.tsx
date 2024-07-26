@@ -1,8 +1,8 @@
 // /user
 
-import { ResponseSUserType, WorkSpaceCollabType } from "@/features/types/searchType";
+import { ResponseSUserType, WorkSpaceCollabType } from "@/types/searchType";
 import { apiSlice } from "./apiSlice";
-import { TodoCollabType, TodoType } from "@/features/types/TodoType";
+import { TodoCollabType, TodoType } from "@/types/TodoType";
 
 // 
 export const searchApiSlice = apiSlice.injectEndpoints({

@@ -1,12 +1,12 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { WorkSpaceNav } from "../../components/work-space/index";
+import { WorkSpaceNav } from "../components/work-space/index";
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeft, X } from "lucide-react";
 import { LottieAnimation } from "@/components/lootie/Lootie";
-import helloAnimation from "../../../public/json/helloman.json";
+import helloAnimation from "../../public/json/helloman.json";
 import { useState } from "react";
 import { VideoChatModal } from "@/components/modal/chat-modal";
-import CallIcon from "../../../public/json/call-icon.json";
+import CallIcon from "../../public/json/call-icon.json";
 import { useSocket } from "@/app/socketContext";
 
 const SpaceLayout = () => {

@@ -1,4 +1,4 @@
-import { ResponseCommentList } from "@/features/types/comments";
+import { ResponseCommentList } from "@/types/comments";
 import { useState } from "react";
 import CommentReplyForm from "./CommentReplyForm";
 import { ChevronDown, ChevronUp } from "lucide-react";

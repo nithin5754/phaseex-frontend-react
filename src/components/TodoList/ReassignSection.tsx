@@ -2,7 +2,7 @@ import { selectSUggestionCollabTodoOpenClose } from "@/app/redux/slice/todoSlice
 import { AddTodoCollabInput } from "../search";
 import { ReassignSuggestion } from "./index";
 import { useSelector } from "react-redux";
-import { TodoType } from "@/features/types/TodoType";
+import { TodoType } from "@/types/TodoType";
 import { LottieAnimation } from "../lootie/Lootie";
 import Shakehand from "../../../public/json/handshake.json";
 

@@ -1,5 +1,5 @@
 import { useDeleteLinkTaskMutation } from "@/app/redux/api/taskapi";
-import { TaskLinkType } from "@/features/types/taskType";
+import { TaskLinkType } from "@/types/taskType";
 import {  useParams } from "react-router-dom";
 import {
   Tooltip,

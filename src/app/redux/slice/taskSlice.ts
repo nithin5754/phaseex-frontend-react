@@ -7,7 +7,7 @@
 
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../api/store';
-import { WorkSpaceCollabType } from '@/features/types/searchType';
+import { WorkSpaceCollabType } from '@/types/searchType';
 
 
 

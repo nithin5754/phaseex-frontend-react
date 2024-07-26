@@ -1,4 +1,4 @@
-import { TVideoInviteLink } from "@/features/types/NotificationType";
+import { TVideoInviteLink } from "@/types/NotificationType";
 import { apiSlice } from "./apiSlice";
 
 export const videoChatSlice = apiSlice.injectEndpoints({
