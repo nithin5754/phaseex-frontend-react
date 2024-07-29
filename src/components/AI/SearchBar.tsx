@@ -74,7 +74,7 @@ export function AISearchBar() {
   return (
     <div className="h-[8rem] flex flex-col justify-end items-end px-4 relative">
       <FileUpload
-        setImageArray={function (value: SetStateAction<string[] | []>): void {
+        setImageArray={function (_value: SetStateAction<string[] | []>): void {
           throw new Error("Function not implemented.");
         }}
       />
