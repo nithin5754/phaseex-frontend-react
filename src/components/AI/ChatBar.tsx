@@ -1,13 +1,13 @@
-import { ScrollArea } from "../ui/scroll-area"
-
+import { ScrollArea } from "../ui/scroll-area";
+import { Chat } from "./Chat/Chat";
 
 const ChatBar = () => {
   return (
-    <ScrollArea className="h-[400px] w-full rounded-md border flex m-auto">
-    <div className="p-4">
-
-    </div>
-  </ScrollArea>
-  )
-}
-export default ChatBar
+    <ScrollArea className="h-[500px] w-full  flex m-auto">
+      <div className="p-4">
+        <Chat />
+      </div>
+    </ScrollArea>
+  );
+};
+export default ChatBar;

@@ -27,6 +27,8 @@ export function WorkSpaceFolderList({hiddenProjects,handleHideSubmit}:Props) {
   return (
 
    
+<>
+
 
     
     <BentoGrid className="flex flex-wrap justify-center  transition-all duration-1000 ease-out">
@@ -39,6 +41,7 @@ export function WorkSpaceFolderList({hiddenProjects,handleHideSubmit}:Props) {
       />
     ))}
   </BentoGrid>
+</>
   
   );
 }

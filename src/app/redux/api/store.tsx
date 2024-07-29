@@ -14,6 +14,7 @@ import todoReducer from "../slice/todoSlice";
 import utilReducer from "../slice/uttilSlice";
 import googleApiSlice from "./googleApi";
 import attachmentSlice from "../slice/attachmentSlice";
+import geminiSlice from "../slice/geminiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ export const store = configureStore({
     todo: todoReducer,
     util: utilReducer,
     attachment: attachmentSlice,
+    gemini:geminiSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

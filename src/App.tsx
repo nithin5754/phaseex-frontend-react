@@ -30,7 +30,8 @@ import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout, AILayout } from "./layouts/index";
 import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
-import { AIHomepage, ChatPage } from "./features/AI";
+import { AIHomepage, ChatPage,CreateFormPage } from "./features/AI";
+
 
 function App() {
   return (
@@ -97,8 +98,11 @@ function App() {
                   <Route path="phaseex-ai">
                     <Route index element={<AIHomepage />} />
                     <Route path="ai-chat" element={<ChatPage />} />
+                    <Route path="create" element={<CreateFormPage />} />
+                    <Route path="chat/:groupId" element={<ChatPage />} />
                   </Route>
                 </Route>
+             
                 <Route path="hello" element={<NotificationPage />} />
               </Route>
             </Route>

@@ -14,10 +14,10 @@ const AIHomepage = () => {
     <PhaseexAi/>
         <h2 className="text-2xl font-semibold">Supercharge your creativity and productivity</h2>
         <h3 className="font-normal max-w-[70%] lg:max-w-full">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat sint dolorem doloribus, architecto dolor.
+        Get smarter responses, upload files, analyze images, and browse the web with our latest model.
         </h3>
-        <Link to="/phaseex-ai/ai-chat" className="mt-5 px-6 py-4 bg-[#217bfe] text-white rounded-full text-sm transition hover:bg-white hover:text-[#217bfe]">
-          Get Started
+        <Link to="/phaseex-ai/create" className="mt-5 px-6 py-4 bg-[#217bfe] text-white rounded-full text-sm transition hover:bg-white hover:text-[#217bfe]">
+          Get a new group
         </Link>
       </div>
       <div className="right flex-1 flex items-center justify-center h-full">
@@ -40,22 +40,22 @@ const AIHomepage = () => {
             />
             <TypeAnimation
               sequence={[
-                "Human:We produce food for Mice",
+                "hello i am phaseex ai",
                 2000,
                 () => {
                   setTypingStatus("bot");
                 },
-                "Bot:We produce food for Hamsters",
+                "Bot:i can analyze the code",
                 2000,
                 () => {
                   setTypingStatus("human2");
                 },
-                "Human2:We produce food for Guinea Pigs",
+                "Human2:i can understand human language",
                 2000,
                 () => {
                   setTypingStatus("bot");
                 },
-                "Bot:We produce food for Chinchillas",
+                "Bot:i can create stories",
                 2000,
                 () => {
                   setTypingStatus("human1");

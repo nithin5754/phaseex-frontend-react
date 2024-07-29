@@ -1,5 +1,5 @@
-import { IconArrowLeft, IconSettings } from "@tabler/icons-react";
-import { HomeIcon, MessageCircleHeart } from "lucide-react";
+import { IconArrowLeft} from "@tabler/icons-react";
+import { HomeIcon, MessageCircleHeart, Plus } from "lucide-react";
 
 
 export const links:AIlinksType[] = [
@@ -12,20 +12,20 @@ export const links:AIlinksType[] = [
   },
   {
     label: "chat",
-    href: "/phaseex-ai/ai-chat",
+    href: "/phaseex-ai/chat",
     icon: (
       <MessageCircleHeart className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Settings",
-    href: "#",
+    label: "create new chat",
+    href: "/phaseex-ai/create",
     icon: (
-      <IconSettings  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <Plus  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "back",
+    label: "exist",
     href: "/space",
     icon: (
       <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />

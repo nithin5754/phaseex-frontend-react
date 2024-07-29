@@ -66,7 +66,9 @@ export const apiSlice = createApi({
     "Activity",
     "VideoChat",
     "Attachment",
-    "Comments"
+    "Comments",
+    "Upload",
+    "GPT"
   ],
   endpoints: () => ({}),
 });
