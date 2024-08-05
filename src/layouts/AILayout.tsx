@@ -34,7 +34,7 @@ export function AILayout() {
   const promptList = useSelector(selectAllPrompt);
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+
 
   const { data: getAllGroup } = useGetAllGroupQuery(undefined, {
     pollingInterval: 60000,
@@ -77,8 +77,7 @@ export function AILayout() {
                   if (promptList[0] && promptList[0].groupId) {
                     link.href = `/phaseex-ai/chat/${promptList[0].groupId}`;
                   } else {
-                    navigate(-1);
-                    return null;
+                    link.href='/phaseex-ai'
                   }
                 }
                 return <SidebarLink key={idx} link={link} />;
