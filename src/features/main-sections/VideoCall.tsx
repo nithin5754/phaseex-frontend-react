@@ -3,7 +3,7 @@ import { Element } from "../../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "../auth/authSlice";
-import { zegoAppId, zegoCloudScrect } from "@/lib/constant";
+import { zegoCloudScrect } from "@/lib/constant";
 import { randomID } from "@/lib/randomId";
 
 
