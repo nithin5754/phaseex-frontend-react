@@ -19,7 +19,7 @@ export default function VideoCall() {
   }
   const myMeeting = async (element: Element) => {
     // generate Kit Token
-    const appID = zegoAppId;
+    const appID:number = zegoAppId as number;
     const serverSecret =zegoCloudScrect;
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
