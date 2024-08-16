@@ -3,7 +3,7 @@ import { Element } from "../../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "../auth/authSlice";
-import { zegoCloudScrect } from "@/lib/constant";
+import { zegoAppId, zegoCloudScrect } from "@/lib/constant";
 import { randomID } from "@/lib/randomId";
 
 
@@ -11,7 +11,7 @@ export default function VideoCall() {
   const navigate = useNavigate();
   const { roomID } = useParams();
   const currentName=useSelector(selectCurrentUserName)
-  console.log(roomID, "roomId");
+
 
   if (!roomID) {
     navigate("/home");
@@ -19,7 +19,7 @@ export default function VideoCall() {
   }
   const myMeeting = async (element: Element) => {
     // generate Kit Token
-    const appID = 401444796;
+    const appID = zegoAppId;
     const serverSecret =zegoCloudScrect;
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,

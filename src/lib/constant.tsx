@@ -11,3 +11,5 @@ export const imageKitEndPoint = import.meta.env.VITE_IMAGE_KIT_ENDPOINT;
 export const imageKitAccessKey = import.meta.env.VITE_IMAGE_KIT_KEY;
 
 export const geminiApi=import.meta.env.VITE_GOOGLE_GEMINI
+
+export const zegoAppId=import.meta.env.VITE_ZEGOCLOUD_APPID
