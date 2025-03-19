@@ -11,7 +11,6 @@ import {
 import {
   HomePage,
   SingleWorkSpace,
-  ViewSpace,
   FolderView,
   ListView,
   SingleFolder,
@@ -31,6 +30,7 @@ import { MainLayout, SpaceLayout, AILayout } from "./layouts/index";
 import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
 import { AIHomepage, ChatPage,CreateFormPage } from "./features/AI";
+import DashBoardWorkSpace from "./features/space/DashBoardWorkSpace";
 
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
                 <Route path="profile" element={<ProfilePage />} />
 
                 <Route path="space">
-                  <Route index element={<ViewSpace />} />
+                  <Route index element={<DashBoardWorkSpace />} />
                   <Route path=":id" element={<SpaceLayout />}>
                     <Route index element={<SingleWorkSpace />} />
                     <Route path="room/:roomID" element={<VideoCall />} />

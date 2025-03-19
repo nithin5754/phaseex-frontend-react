@@ -47,7 +47,7 @@ export function OpenModal({ title, icon: Icon }: OpenModalProps) {
     <Credenza open={open} onOpenChange={setOpen}>
       <CredenzaTrigger asChild>
         <Button
-          className={`w-full  gap-2 `}
+          className={`w-full  gap-2 capitalize `}
           style={{
             backgroundColor: bgColor,
             color: fontColor,

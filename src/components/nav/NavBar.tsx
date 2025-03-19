@@ -4,8 +4,6 @@
 
 
 
-import {  useSelector } from "react-redux";
-import { selectSideCloseOpen} from "@/app/redux/slice/uttilSlice";
 
 
 
@@ -14,18 +12,7 @@ import { selectSideCloseOpen} from "@/app/redux/slice/uttilSlice";
 
 export function NabBar() {
 
-
-
-useSelector(selectSideCloseOpen)
-
-  
-
-  
   return (
-
-
-
-
 
 
 <nav className="bg-background ">

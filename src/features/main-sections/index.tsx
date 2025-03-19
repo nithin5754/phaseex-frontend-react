@@ -1,6 +1,6 @@
 import { lazy } from "react";
 const HomePage = lazy(() => import("./HomePage"));
-const ViewSpace = lazy(() => import("./ViewSpace"));
+
 const SingleWorkSpace = lazy(() => import("./SingleWorkSpace"));
 import FolderView from "./FolderView";
 import ListView from "./ListView";
@@ -27,7 +27,6 @@ import AIchatPage from "./AIchatPage";
 
 export {
   HomePage,
-  ViewSpace,
   SingleWorkSpace,
   FolderView,
   ListView,

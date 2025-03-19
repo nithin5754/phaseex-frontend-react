@@ -80,7 +80,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
         },
       }),
       providesTags: ["Workspace"],
-      keepUnusedDataFor: 100, 
     }),
 
     getOnGoingSpaces: builder.query<ResponseWorkspaceDataType[], void>({
@@ -91,8 +90,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: ["Workspace"],
-      keepUnusedDataFor: 100, 
+      providesTags: ["Workspace"], 
      
     }),
 
@@ -103,43 +101,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
       invalidatesTags: ["Workspace"],
-      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
-     
-        const patchResult = dispatch(
-          workApiSlice.util.updateQueryData(
-            "getOnGoingSpaces",
-            undefined,
-            (draft) => {
-              const workspace = draft.find((space) => space.id === id);
-              if (workspace) {
-          
-                workspace.active =false;
-              }
-            }
-          )
-        );
-   
-        const onGoingResult = dispatch(
-          workApiSlice.util.updateQueryData("getAllSpaces",undefined, (draft) => {
-            const workspace = draft.find((space) => space.id === id);
-            if (workspace) {
-              workspace.active = true;
-            }
-          })
-        );
-   
-        try {
-          await queryFulfilled;
-          dispatch(workApiSlice.endpoints.getAllSpaces.initiate());
-          dispatch(workApiSlice.endpoints.getOnGoingSpaces.initiate());
-    
-        } catch {
-          patchResult.undo();
-          onGoingResult.undo();
-
-        }
-      },
-   
     }),
 
 

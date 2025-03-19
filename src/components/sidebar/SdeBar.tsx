@@ -2,7 +2,7 @@ import { SideBarItemsType } from "@/types/sideBarItemsType";
 import {
   Bell,
   Globe,
-  Home,
+
   MoreHorizontal,
   PlusCircleIcon,
   Projector,
@@ -19,15 +19,13 @@ import { useSelector } from "react-redux";
 
 const sidebarItems: SideBarItemsType = {
   links: [
-    { label: "Home", href: "/homepage", icon: Home },
+
     { label: "phaeexAI", href: "/phaseex-ai", icon: Globe },
     { label: "Inbox", href: "/hello", icon: Bell },
   ],
   extras: (
     <div className="flex flex-col gap-2">
-      <SideBarButton icon={MoreHorizontal} className="w-full">
-        More
-      </SideBarButton>
+     
       <OpenModal title={"create galaxy"} icon={PlusCircleIcon} />
 
 
@@ -44,19 +42,17 @@ const sidebarItems: SideBarItemsType = {
 
 const sidebarItemsClose: SideBarItemsType = {
   links: [
-    { label: "Home", href: "/homepage", icon: Home },
+
     { label: "phaeexAI", href: "/phaseex-ai", icon: Globe },
     { label: "Inbox", href: "/hello", icon: Bell },
   ],
   extras: (
     <div className="flex flex-col gap-2">
-      <SideBarButton icon={MoreHorizontal} className="w-full">
- 
-      </SideBarButton>
+    
       <OpenModal title={"create galaxy"} icon={PlusCircleIcon} />
 
       <Link to={"/space"}>
-        <SideBarButton icon={Projector} className="w-full">
+        <SideBarButton icon={MoreHorizontal} className="w-full">
     
         </SideBarButton>
       </Link>

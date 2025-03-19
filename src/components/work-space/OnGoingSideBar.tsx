@@ -1,20 +1,17 @@
-import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
 import EmptyBoxLottie from "../../../public/json/emptyBox.json";
 import { LottieAnimation } from "../lootie/Lootie";
 import { Link } from "react-router-dom";
 import PopOverWorkSpace from "./PopOverWorkSpace";
 import { DeleteWS } from "./index";
 import useAuth from "@/hooks/useAuth";
+import { useContext } from "react";
+import { WorkSpaceContext } from "@/features/space/context/space.providers";
 
-interface Props {
-  getOnGoingSpace: ResponseWorkspaceDataType[] | [];
-  handleHideSubmit: (id: string) => Promise<any>;
-}
-
-const OnGoingSideBar = ({ getOnGoingSpace, handleHideSubmit }: Props) => {
+const OnGoingSideBar = () => {
   const user = useAuth();
+  const { getOnGoingSpace, handleHideSubmit } = useContext(WorkSpaceContext);
   return (
-    // <h2 className="font-sfpro text-lg mb-4 ">OnGoing Galaxy</h2>
+   
     <>
       {getOnGoingSpace.length > 0 &&
       getOnGoingSpace.some((space) => space.active) ? (
