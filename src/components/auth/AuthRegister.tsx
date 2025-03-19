@@ -80,8 +80,8 @@ const AuthRegister = () => {
   const[register]=useRegisterMutation()
 
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/homepage";
-  console.log(from ,"hell path");
+  const from = location.state?.from?.pathname || "/space";
+
   
 
 

@@ -18,10 +18,14 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/app/redux/api/AuthApi";
 import { useAppDispatch } from "@/app/redux/api/store";
-import { selectCurrentToken, setCredentials, setUserEmail, setUserName } from "@/features/auth/authSlice";
+import {
+  selectCurrentToken,
+  setCredentials,
+  setUserEmail,
+  setUserName,
+} from "@/features/auth/authSlice";
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
-
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$%*?&])[A-Za-z\d@$%*?&]{8,}$/
@@ -43,17 +47,16 @@ const FormSchema = z.object({
 
 const AuthLogin = () => {
   const [isLoading, setLoading] = useState(false);
-const token=useSelector(selectCurrentToken)
+  const token = useSelector(selectCurrentToken);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/homepage";
+  const from = location.state?.from?.pathname || "/space";
 
-
-  useEffect(()=>{
-if(token){
-  navigate(from, { replace: true });
-}
-  },[navigate, token, location, from])
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  }, [navigate, token, location, from]);
 
   const [login] = useLoginMutation();
 
@@ -77,12 +80,9 @@ if(token){
         }).unwrap();
         if (userData.accessToken) {
           dispatch(setCredentials(userData.accessToken));
-          dispatch(setUserName(userData.data.userName))
-          dispatch(setUserEmail(data.email))
+          dispatch(setUserName(userData.data.userName));
+          dispatch(setUserEmail(data.email));
 
-
-            
-   
           navigate(from, { replace: true });
           setLoading(false);
         }
@@ -109,10 +109,12 @@ if(token){
     }
   }
 
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 bg-transparent dark:text-primary dark:border-border">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className=" space-y-6 bg-transparent dark:text-primary dark:border-border"
+      >
         <FormField
           control={form.control}
           name="email"
@@ -173,9 +175,9 @@ if(token){
             Sign-in
           </Button>
         )}
-      <Link to={'/register'} >
-         <h1 className="font-sfpro text-center mt-4">create an account</h1>
-      </Link>
+        <Link to={"/register"}>
+          <h1 className="font-sfpro text-center mt-4">create an account</h1>
+        </Link>
       </form>
     </Form>
   );

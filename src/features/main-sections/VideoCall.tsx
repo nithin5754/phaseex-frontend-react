@@ -14,7 +14,7 @@ export default function VideoCall() {
 
 
   if (!roomID) {
-    navigate("/home");
+    navigate("/space");
     return;
   }
   const myMeeting = async (element: Element) => {
