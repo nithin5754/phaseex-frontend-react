@@ -6,9 +6,14 @@ import { WorkSpaceFolder } from "../folder/index";
 import { SpaceViewALLskelton } from "../shimmer/index";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import { EarthIcon, Lock } from "lucide-react";
+import { useState } from "react";
+import InviteMemberModal from "./InviteMemberModal";
+import { Button } from "../ui/button";
+
 
 const WorkSpaceDeatils = () => {
   const { id } = useParams();
+  const [displayModal, setDisplayModal] = useState<boolean>(false);
 
   if (!id) {
     return <h1>loading....</h1>;
@@ -28,10 +33,20 @@ const WorkSpaceDeatils = () => {
   }
 
   return (
+    <>
+    {
+     displayModal&&(
+    
+       <InviteMemberModal onClose={()=>setDisplayModal(false)}/>
+ 
+     )
+    }
+
     <div className="flex flex-col gap-6 p-4 ">
   <div className="flex flex-col w-full items-center justify-center">
-  <div className="w-full bg-white text-black border border-gray-200 rounded-lg p-6 h-auto dark:text-primary dark:bg-background dark:border-border">
-    <div className="space-y-3">
+  <div className="w-full bg-white text-black border border-gray-200 rounded-lg p-6 h-auto dark:text-primary dark:bg-background 
+  dark:border-border flex flex-row justify-between">
+    <div className="space-y-3 flex-1">
       <h2 className="font-semibold text-lg">About This Space</h2>
 
       <div className="flex flex-col gap-2">
@@ -63,11 +78,16 @@ const WorkSpaceDeatils = () => {
         </div>
       </div>
     </div>
+<div className="">
+  <Button onClick={()=>setDisplayModal(true)} >invite friends +</Button>
+</div>
   </div>
 </div>
 
       <WorkSpaceFolder getAllFolder={getAllFolder} />
     </div>
+    </>
   );
+
 };
 export default WorkSpaceDeatils;
