@@ -30,7 +30,8 @@ import { MainLayout, SpaceLayout, AILayout } from "./layouts/index";
 import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
 import { AIHomepage, ChatPage,CreateFormPage } from "./features/AI";
-import DashBoardWorkSpace from "./features/space/DashBoardWorkSpace";
+import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
+
 
 
 function App() {

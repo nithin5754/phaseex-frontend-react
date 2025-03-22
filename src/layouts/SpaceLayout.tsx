@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { WorkSpaceNav } from "../components/work-space/index";
+
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeft, X } from "lucide-react";
 import { LottieAnimation } from "@/components/lootie/Lootie";
@@ -9,8 +9,9 @@ import { VideoChatModal } from "@/components/modal/chat-modal";
 import CallIcon from "../../public/json/call-icon.json";
 import { useSocket } from "@/app/socketContext";
 
+
 const SpaceLayout = () => {
-  const { id, folderId } = useParams();
+  const { id } = useParams();
   const { inviteCount } = useSocket();
   const navigate = useNavigate();
   const [isClose, setClose] = useState<boolean>(false);
@@ -30,8 +31,8 @@ const SpaceLayout = () => {
     <>
       {!containsRoomPath && (
         <>
-          {folderId ? (
-            <>
+        
+     
               <Button
                 className="bg-transparent hover:bg-transparent border-none text-slate-600"
                 onClick={goBack}
@@ -40,10 +41,8 @@ const SpaceLayout = () => {
                 <ArrowBigLeft />
               </Button>
             </>
-          ) : (
-            <WorkSpaceNav id={id} />
-          )}
-        </>
+        
+   
       )}
 
       <div className="">

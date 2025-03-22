@@ -5,18 +5,19 @@ import PopOverWorkSpace from "./PopOverWorkSpace";
 import { DeleteWS } from "./index";
 import useAuth from "@/hooks/useAuth";
 import { useContext } from "react";
-import { WorkSpaceContext } from "@/features/space/context/space.providers";
+import { WorkSpaceContext } from "../../features/spaces/providers/space.providers";
 
-const OnGoingSideBar = () => {
+
+const InvitedSpaceLists = () => {
   const user = useAuth();
-  const { getOnGoingSpace, handleHideSubmit } = useContext(WorkSpaceContext);
+  const { getAllInvitedSpaces, handleHideSubmit } = useContext(WorkSpaceContext);
   return (
    
     <>
-      {getOnGoingSpace.length > 0 &&
-      getOnGoingSpace.some((space) => space.active) ? (
+      {getAllInvitedSpaces.length > 0 &&
+      getAllInvitedSpaces.some((space) => space.active) ? (
         <ul className="w-full p-4">
-          {getOnGoingSpace.map((space) => {
+          {getAllInvitedSpaces.map((space) => {
             if (!space.active) {
               return null;
             }
@@ -82,4 +83,4 @@ const OnGoingSideBar = () => {
     </>
   );
 };
-export default OnGoingSideBar;
+export default InvitedSpaceLists;

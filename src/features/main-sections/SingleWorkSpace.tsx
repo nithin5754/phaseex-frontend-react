@@ -1,4 +1,5 @@
-import {  WorkSpaceDeatils} from "../../components/work-space/index";
+import { WorkSpaceDeatils } from "@/components/workspaces"
+
 
 const SingleWorkSpace = () => {
   return (

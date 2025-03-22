@@ -1,11 +1,11 @@
 import { ResponseWorkspaceDataType } from "@/app/redux/api/spaceApi";
-import { WorkSpaceContext } from "@/features/space/context/space.providers";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { DeleteWS, PopOverWorkSpace } from "../work-space";
 
-export function WorkSpaceFolderList() {
-  const { getAllSpaces: hiddenProjects, handleHideSubmit } =
+import { useContext } from "react";
+import { DeleteWS, PopOverWorkSpace } from ".";
+import { WorkSpaceContext } from "../../features/spaces/providers/space.providers";
+
+export function WorkSpaceHiddenLists() {
+  const { getAllHiddenSpaces: hiddenProjects, handleHideSubmit } =
     useContext(WorkSpaceContext);
 
   const items = hiddenProjects.map((space: ResponseWorkspaceDataType) => {
@@ -23,7 +23,6 @@ export function WorkSpaceFolderList() {
   return (
     <ul className="w-full p-4">
       {items.map((space) => {
-      
         let color = "bg-orange-400";
 
         if (/^([a-c])/i.test(space.title[0].toLowerCase())) {
@@ -53,9 +52,8 @@ export function WorkSpaceFolderList() {
                 >
                   {space.title[0].toUpperCase()}
                 </div>
-         
-                  <span>{truncateTitle(space.title)}</span>
-             
+
+                <span>{truncateTitle(space.title)}</span>
               </div>
             </div>
 

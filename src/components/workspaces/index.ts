@@ -3,8 +3,8 @@ import SpaceHome from "./SpaceHome";
 import { AssignedSort } from "./AssignesSort";
 import OnGoingSideBar from "./OnGoingSideBar";
 import WorkSpaceDeatils from "./WorkSpaceDeatils";
+ import { WorkSpaceHiddenLists } from "./workspaceFoldersList";
 
-import { WorkSpaceNav } from "../nav/WorkSpaceNav";
 import PopOverWorkSpace from "./PopOverWorkSpace";
 
 import DeleteWS from "./DeleteWS";
@@ -14,9 +14,10 @@ export {
   WorkspaceForm,
   SpaceHome,
   AssignedSort,
+  WorkSpaceHiddenLists,
   OnGoingSideBar,
   WorkSpaceDeatils,
-  WorkSpaceNav,
+
   DeleteWS,
   PopOverWorkSpace,
 

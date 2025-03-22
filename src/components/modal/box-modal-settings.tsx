@@ -13,7 +13,6 @@ import { Button } from "../ui/button";
 
 import { LucideIcon } from "lucide-react";
 
-import { WorkspaceForm } from "../work-space/index";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -23,6 +22,7 @@ import {
   selectFontColorCurrentColor,
   selectSideCloseOpen,
 } from "@/app/redux/slice/uttilSlice";
+import { WorkspaceForm } from "../workspaces";
 
 
 interface OpenModalProps {

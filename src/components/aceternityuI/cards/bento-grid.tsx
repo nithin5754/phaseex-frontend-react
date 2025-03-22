@@ -1,4 +1,5 @@
-import { PopOverWorkSpace } from "@/components/work-space/index";
+
+import { PopOverWorkSpace } from "@/components/workspaces";
 import { cn } from "../../../lib/utils";
 import { Earth, Lock } from "lucide-react";
 

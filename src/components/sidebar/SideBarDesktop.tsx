@@ -49,6 +49,8 @@ const SideBarDesktop = (props: SideBarDesktopProps) => {
   const location = useLocation();
   const pathname = location.pathname;
 
+
+
   const sliceDispatch = useDispatch();
 
   const handleClose = () => {
