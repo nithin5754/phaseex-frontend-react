@@ -12,14 +12,11 @@ import {
   HomePage,
   SingleWorkSpace,
   FolderView,
-
   SingleFolder,
-
   SingleListFolderView,
   NotificationPage,
   TaskView,
   Invite,
-  MembersAddingSpace,
   VideoCall,
   ProfilePage,
   CommentsPage,
@@ -29,10 +26,8 @@ import { LandingPage } from "./components/LandingPage";
 import { MainLayout, SpaceLayout, AILayout } from "./layouts/index";
 import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
-import { AIHomepage, ChatPage,CreateFormPage } from "./features/AI";
+import { AIHomepage, ChatPage, CreateFormPage } from "./features/AI";
 import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
-
-
 
 function App() {
   return (
@@ -92,7 +87,6 @@ function App() {
                       </Route>
                     </Route>
                     <Route path="lists" element={<h1>list page ...</h1>} />
-                    <Route path="members" element={<MembersAddingSpace />} />
                   </Route>
                 </Route>
                 <Route element={<AILayout />}>
@@ -103,7 +97,7 @@ function App() {
                     <Route path="chat/:groupId" element={<ChatPage />} />
                   </Route>
                 </Route>
-             
+
                 <Route path="hello" element={<NotificationPage />} />
               </Route>
             </Route>

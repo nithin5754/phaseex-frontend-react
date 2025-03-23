@@ -1,6 +1,6 @@
 
-import { ReceiveCollaboratorType, useGetAllCollabInSpaceQuery } from "@/app/redux/api/spaceApi";
-import { useParams } from "react-router-dom";
+import { ReceiveCollaboratorType } from "@/app/redux/api/spaceApi";
+
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import EmptyMembers from "./EmptyMembers";
 

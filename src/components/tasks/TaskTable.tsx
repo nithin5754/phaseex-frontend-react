@@ -1,4 +1,4 @@
-import { CheckCircle, ClipboardList, FileText, Star, User } from "lucide-react";
+import { CheckCircle, FileText, Star, User } from "lucide-react";
 
 import {
   Table,

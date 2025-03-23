@@ -8,7 +8,6 @@ import SingleListFolderView from "./SingleListFolderView";
 import NotificationPage from "./NotificationPage";
 import TaskView from "./TaskView";
 import Invite from "./Invite";
-import MembersAddingSpace from "./MembersAddingSpace";
 import VideoCall from "./VideoCall";
 import ProfilePage from "./ProfilePage";
 import CommentsPage from "./CommentsPage";
@@ -24,7 +23,6 @@ export {
   NotificationPage,
   TaskView,
   Invite,
-  MembersAddingSpace,
   VideoCall,
   ProfilePage,
   CommentsPage,
