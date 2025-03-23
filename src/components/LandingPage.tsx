@@ -8,7 +8,7 @@ export function LandingPage() {
   const token = useSelector(selectCurrentToken);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/homepage";
+  const from = location.state?.from?.pathname || "/space";
 
   useEffect(() => {
     if (token) {

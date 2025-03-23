@@ -60,7 +60,7 @@ const ListHistory = ({workspaceId,folderId,listId}:Props) => {
         </div>
         <div className="flex items-center">
       
-          {/* {isSpaceOwner && <OpenModal title={""} icon={EllipsisIcon} spaceId={id} />} */}
+        
         </div>
       </div>
 

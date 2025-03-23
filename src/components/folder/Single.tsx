@@ -1,5 +1,3 @@
-
-
 import { useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
 import EmptyList from "../../../public/json/empty-list-1.json";
@@ -22,11 +20,9 @@ const Single = () => {
     return <h1>loading....</h1>;
   }
 
-  const { data: getAllList} = useGetAllListByPageQuery(
+  const { data: getAllList } = useGetAllListByPageQuery(
     { workspaceId: id, folderId, page: CurrentPage },
     {
-      pollingInterval: 60000,
-      refetchOnFocus: true,
       refetchOnMountOrArgChange: true,
     }
   );
@@ -50,7 +46,7 @@ const Single = () => {
                     {getAllList.lists.slice(0, 4).map((list, index) => {
                       return (
                         <ListMap
-                        key={list.id}
+                          key={list.id}
                           list={list}
                           index={index}
                           folderId={folderId}

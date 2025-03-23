@@ -23,8 +23,6 @@ const TaskTable = ({ folderId, spaceId, listId }: Props) => {
   const { data: getAllTask } = useGetAllTaskQuery(
     { workspaceId: spaceId, folderId, listId },
     {
-      pollingInterval: 60000,
-      refetchOnFocus: true,
       refetchOnMountOrArgChange: true,
     }
   );
@@ -39,13 +37,6 @@ const TaskTable = ({ folderId, spaceId, listId }: Props) => {
             <div className="flex items-start justify-start gap-2">
               <FileText className="w-4 h-4" />
               <span>name</span>
-            </div>
-          </TableHead>
-          <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
-            <div className="flex items-center justify-center gap-2">
-              <ClipboardList className="w-4 h-4" />
-
-              <span>description</span>
             </div>
           </TableHead>
           <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
@@ -64,6 +55,12 @@ const TaskTable = ({ folderId, spaceId, listId }: Props) => {
             <div className="flex items-center justify-center gap-2">
               <Star className="w-4 h-4" />
               <span>priority</span>
+            </div>
+          </TableHead>
+          <TableHead className="pr-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
+            <div className="flex items-center justify-center gap-2">
+              <Star className="w-4 h-4" />
+              <span>View More</span>
             </div>
           </TableHead>
         </TableRow>

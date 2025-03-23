@@ -12,9 +12,9 @@ import {
   HomePage,
   SingleWorkSpace,
   FolderView,
-  ListView,
+
   SingleFolder,
-  ListFolderView,
+
   SingleListFolderView,
   NotificationPage,
   TaskView,
@@ -73,7 +73,7 @@ function App() {
                         <Route index element={<SingleFolder />} />
 
                         <Route path="lists">
-                          <Route index element={<ListFolderView />} />
+                          <Route index element={<h1>lists page here ..</h1>} />
                           <Route path=":listId">
                             <Route index element={<SingleListFolderView />} />
                             <Route path="tasks">
@@ -91,7 +91,7 @@ function App() {
                         </Route>
                       </Route>
                     </Route>
-                    <Route path="lists" element={<ListView />} />
+                    <Route path="lists" element={<h1>list page ...</h1>} />
                     <Route path="members" element={<MembersAddingSpace />} />
                   </Route>
                 </Route>

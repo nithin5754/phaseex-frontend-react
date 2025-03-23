@@ -39,8 +39,7 @@ const Todos = () => {
   const { data: getAllTodoTask } = useGetAllTodoTaskQuery(
     { workspaceId: id, folderId, listId, taskId },
     {
-      pollingInterval: 60000,
-      refetchOnFocus: true,
+
       refetchOnMountOrArgChange: true,
     }
   );
@@ -49,10 +48,17 @@ const Todos = () => {
 
   return (
     <div className="flex w-full flex-col mt-8">
-      <div className="flex justify-between">
-        <h1 className="font-sfpro text-xl w-28">Todo Task</h1>
+      <div className="flex flex-wrap m-auto gap-2">
+       <div className="">
+       <h1 className="font-sfpro text-xl w-28">Todo Task</h1>
+       </div>
 
-        {(isListRoles.role === "listManager" || isSpaceOwner) && (
+   
+
+        <TodoSearch />
+   
+
+      {(isListRoles.role === "listManager" || isSpaceOwner) && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -70,10 +76,9 @@ const Todos = () => {
             </Tooltip>
           </TooltipProvider>
         )}
+
       </div>
-      <div className="flex items-end justify-end py-4">
-        <TodoSearch />
-      </div>
+  
 
       <div className="w-full h-min-[300px] border bg-white text-black font-sfpro shadow-sm rounded-lg overflow-hidden dark:bg-background dark:text-primary dark:border-border">
         <div className="p-6">

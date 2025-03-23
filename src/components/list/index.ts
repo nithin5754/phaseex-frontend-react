@@ -1,5 +1,5 @@
 
-import List from "./List";
+
 import ListWorkSpace from "./ListWorkSpace";
 import { ListForm } from "./CreateList";
 import PriorityListSetting from "./PriorityListSetting";
@@ -23,7 +23,7 @@ import DeleteCollabListAssignee from "./DeleteCollabListAssignee";
 
 
 export {
-  List,
+
   ListWorkSpace,
   ListForm,
   PriorityListSetting,

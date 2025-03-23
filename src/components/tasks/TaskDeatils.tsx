@@ -21,16 +21,16 @@ const TaskDeatils = () => {
   const { data: singleTask } = useGetSingleTaskQuery(
     { workspaceId: id, folderId, listId, taskId },
     {
-      pollingInterval: 120000,
-      refetchOnFocus: true,
       refetchOnMountOrArgChange: true,
     }
   );
 
   return (
     <div className=" flex flex-col w-full  mx-4 font-sfpro gap-4  ">
-      <TaskHistory singleTask={singleTask ? singleTask : null} />
-      <TaskSelectionButton singleTask={singleTask ? singleTask : null} />
+   <div className="flex justify-between bg-white  border-gray-200 rounded-lg  dark:bg-muted/50   dark:text-primary">
+   <TaskHistory singleTask={singleTask ? singleTask : null} />
+   <TaskSelectionButton singleTask={singleTask ? singleTask : null} />
+   </div>
       <TaskMainSection singleTask={singleTask ? singleTask : null} />
     </div>
   );

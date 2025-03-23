@@ -19,7 +19,7 @@ const GoogleAuth = () => {
   
 const navigate=useNavigate()
 const location = useLocation();
-const from = location.state?.from?.pathname || "/homepage";
+const from = location.state?.from?.pathname || "/space";
 
 
 

@@ -14,16 +14,15 @@ interface Props {
 const TaskSelectionButton = ({ singleTask }: Props) => {
   const dispatch = useDispatch();
   return (
-    <div className="flex p-4 justify-end items-end    gap-4 bg-white  border-gray-200 rounded-lg h-[100px] dark:bg-background  dark:text-primaryr">
+    <div className="flex  m-auto  gap-4 px-6">
       <Button onClick={() => dispatch(setOpenDescTask(true))}>
-        <Notebook  size={16} /> description
+        <Notebook size={16} /> description
       </Button>
 
-      <AttachmentAddModal/>
+      <AttachmentAddModal />
       <>
         {singleTask && (
           <TaskLinkModal
-    
             icon={Link}
             spaceId={singleTask.workspaceId}
             folderId={singleTask.folderId}
