@@ -2,6 +2,7 @@ import { UserSearch } from "lucide-react";
 import { Input } from "../ui/input"
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import { useParams } from "react-router-dom";
+import { lowerCase } from "@/lib/utils.data";
 
 
 interface Props {
@@ -41,11 +42,11 @@ interface Props {
       
 <div className="relative p-2">
 <UserSearch className="absolute mt-2 w-[18px]  ml-2"/>
-<Input
-      className="rounded-full px-8  "
+<Input 
+      className="rounded-md  px-8  "
       placeholder="Type username.."
       value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
+      onChange={(e) => setSearchQuery(lowerCase(e.target.value))}
       ref={inputRef}
       onFocus={handleFocus}
       onBlur={handleBlur}

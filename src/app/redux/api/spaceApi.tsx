@@ -50,7 +50,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     getSingleWorkSpace: builder.query<ResponseWorkspaceDataType&{ownerName:string}, string>({
       query: (id: string) => ({
-        url: `/space/workspace/id.details/${id}`,
+        url: `/space/workspace/details/${id}`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;
         },
@@ -97,16 +97,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Workspace"],
     }),
 
-    getOnGoingSpaces: builder.query<ResponseWorkspaceDataType[], void>({
-      query: () => ({
-        url: "/space/ongoing-workspace",
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
-
-      providesTags: ["Workspace"],
-    }),
 
     changeVisiblity: builder.mutation<boolean, { id: string }>({
       query: (credentials) => ({
@@ -119,7 +109,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     addCollaborators: builder.mutation<boolean, SpaceCollabSendType>({
       query: (credentials) => ({
-        url: "/space/add-new-collaborators",
+        url: "/space/workspace/add/members",
         method: "POST",
         body: { ...credentials },
       }),
@@ -128,7 +118,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     getAllCollabInSpace: builder.query<ReceiveCollaboratorType[], string>({
       query: (id: string) => ({
-        url: `/space/get-all-collab/${id}`,
+        url: `/space/workspace/members/${id}`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;
         },
@@ -142,7 +132,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     deleteCollaborator: builder.mutation<boolean, SpaceCollabSendType>({
       query: (credentials) => ({
-        url: "/space/delete-collaborator",
+        url: "/space/workspace/delete/members",
         method: "DELETE",
         body: { ...credentials },
       }),
@@ -155,7 +145,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
 
     verifyCollaborators: builder.mutation<boolean, SpaceCollabSendType>({
       query: (credentials) => ({
-        url: "/space/verify-collaborator",
+        url: "/space/workspace/verify/member",
         method: "PATCH",
         body: { ...credentials },
       }),
@@ -193,7 +183,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
       SpaceCollabSendType & { role: string }
     >({
       query: (credentials) => ({
-        url: "/space/update-space-collab-role",
+        url: "/space/workspace/members/role/update",
         method: "PATCH",
         body: { ...credentials },
       }),
@@ -214,7 +204,6 @@ export const {
   useCreateSpaceMutation,
   useGetAllSpacesQuery,
   useChangeVisiblityMutation,
-  useGetOnGoingSpacesQuery,
   useGetSingleWorkSpaceQuery,
   useAddCollaboratorsMutation,
   useGetAllCollabInSpaceQuery,

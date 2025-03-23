@@ -65,14 +65,10 @@ const SearchPeople = () => {
     useGetSearchUserMutation();
 
   const { data: getSingleWorkSpace } = useGetSingleWorkSpaceQuery(id, {
-    pollingInterval: 120000,
-    refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
 
   const { data: getUserById } = useGetUserByIdQuery(undefined, {
-    pollingInterval: 120000,
-    refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
 
@@ -152,7 +148,7 @@ const SearchPeople = () => {
         }
       }
     }
-  };
+  }
 
   return (
     <div className="bg-white w-[80%] m-auto overflow-hidden dark:bg-background dark:text-primary dark:border-border">
@@ -185,7 +181,10 @@ const SearchPeople = () => {
                             />
                           )}
                           <AUserSearch />
-                          {search.userName}
+                          <div className="flex flex-col ">
+                            <span> {search.userName}</span>
+                            <span>{search.email}</span>
+                          </div>
                         </CommandItem>
                       ))
                     ) : (

@@ -49,8 +49,6 @@ const MembersSpaceRole = ({ workspaceId, collab,isSOwner }: Props) => {
 
   return (
     <div className="flex gap-2 ">
-      {/* <p className="text-sm font-medium leading-none">{collab.id===user?.userId.toString()?"owner":"developer"}</p>
-       */}
       <DropdownMenu >
         <DropdownMenuTrigger asChild disabled={!collab.verified||!isSOwner}>
           <Button

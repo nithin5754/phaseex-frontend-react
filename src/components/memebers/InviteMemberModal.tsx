@@ -2,8 +2,9 @@ import { FC } from "react";
 import ModalBg from "../modal/modal-bg";
 import { IInviteModalProps } from "@/types/modal.interface";
 import { Button } from "../ui/button";
-
 import { MembersTabList } from "./MembersTabList";
+
+
 
 
 const InviteMemberModal:FC<IInviteModalProps> = ({onClose}) => {

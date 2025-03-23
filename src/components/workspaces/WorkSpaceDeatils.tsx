@@ -7,8 +7,9 @@ import { SpaceViewALLskelton } from "../shimmer/index";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import { EarthIcon, Lock } from "lucide-react";
 import { useState } from "react";
-import InviteMemberModal from "./InviteMemberModal";
+
 import { Button } from "../ui/button";
+import InviteMemberModal from "../memebers/InviteMemberModal";
 
 
 const WorkSpaceDeatils = () => {

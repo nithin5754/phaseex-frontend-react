@@ -1,45 +1,30 @@
 
-import { useGetAllCollabInSpaceQuery } from "@/app/redux/api/spaceApi";
+import { ReceiveCollaboratorType, useGetAllCollabInSpaceQuery } from "@/app/redux/api/spaceApi";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import EmptyMembers from "./EmptyMembers";
 
 import {SingleMembers} from "./index";
+import { FC } from "react";
 
 
 
 
 
-const MembersList = () => {
+const MembersList:FC<{data: [] | ReceiveCollaboratorType[],id:string ,title:string}> = ({data,id,title}) => {
 
-  const {id}=useParams()
-
-
-
-  if(!id||typeof id !=='string'){
-    return <h1>loading....</h1>
-  }
-
-  const {data:getAllCollab}=useGetAllCollabInSpaceQuery(id, {
-    pollingInterval:120000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  })
 
   return (
 
 
-<Card
-x-chunk="dashboard-01-chunk-5 "
-className="dark:border dark:border-none"
->
+    <Card className=" h-[52vh] border border-transparent">
 <CardHeader>
-        <CardTitle>Invited members</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
 <CardContent className="grid gap-8">
   <>
-  {getAllCollab && getAllCollab.length > 0 ? (
-          getAllCollab.map((collab) => (
+  {data && data.length > 0 ? (
+          data.map((collab) => (
           <SingleMembers collab={collab} workspaceId={id}/>
           ))
         ) : (
