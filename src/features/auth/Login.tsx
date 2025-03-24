@@ -38,10 +38,10 @@ const Login = () => {
         </div>
 
         <AuthLogin />
-        <h3 className="text-center font-sfpro  text-slate-600 my-4">
+        {/* <h3 className="text-center font-sfpro  text-slate-600 my-4">
           or you can continue with{" "}
         </h3>
-        <GoogleAuth />
+        <GoogleAuth /> */}
       </div>
 
       <BackgroundBeams />
