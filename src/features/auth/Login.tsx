@@ -1,6 +1,6 @@
 import { BackgroundBeams } from "@/components/aceternityuI/Background/background-beams";
 import { AuthLogin, AuthSideImg } from "../../components/auth/index";
-import GoogleAuth from "@/components/auth/google/GoogleAuth";
+
 import { Copy } from "lucide-react";
 import UseHandleCopyLink from "@/hooks/useLinkCopy";
 

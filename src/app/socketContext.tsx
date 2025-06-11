@@ -71,7 +71,10 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (user) {
-      const newSocket = io(rootUrl);
+      const newSocket = io(rootUrl, {
+        transports: ["websocket", "polling"],
+        secure: true,
+      });
       setSocket(newSocket);
 
       newSocket.emit("newUser", user.userId);
@@ -98,7 +101,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
               workspaceId: count.workspaceId,
               count: count.count,
             });
-         
           }
         }
       );

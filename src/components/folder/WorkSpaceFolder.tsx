@@ -34,7 +34,10 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
         {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
-        <FolderTableToggleView handleToggle={handleToggleHandle} name={toggle} />
+        <FolderTableToggleView
+          handleToggle={handleToggleHandle}
+          name={toggle}
+        />
       </div>
       {getAllFolder && getAllFolder.length > 0 ? (
         <>
