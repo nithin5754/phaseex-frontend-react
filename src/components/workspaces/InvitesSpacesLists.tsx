@@ -1,4 +1,4 @@
-import EmptyBoxLottie from "../../../public/json/emptyBox.json";
+import InviteLootie from "../../../public/json/inivite.json";
 import { LottieAnimation } from "../lootie/Lootie";
 import { Link } from "react-router-dom";
 import PopOverWorkSpace from "./PopOverWorkSpace";
@@ -74,7 +74,7 @@ const InvitedSpaceLists = () => {
       ) : (
         <div className="flex justify-center m-auto">
           <LottieAnimation
-            animationData={EmptyBoxLottie}
+            animationData={InviteLootie}
             height={200}
             width={200}
           />
