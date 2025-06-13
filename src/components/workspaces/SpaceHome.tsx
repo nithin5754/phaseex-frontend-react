@@ -114,7 +114,7 @@ const SpaceHome: FC = (): ReactElement => {
                 </div>
               </ScrollArea>
             </ResizablePanel>
-          </ResizablePanelGroup>
+          </ResizablePanelGroup>        
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

@@ -34,13 +34,7 @@ const MainLayout = () => {
         }
       </>
       <div className="flex flex-col flex-1 max-h-screen">
-        {/* <header className="flex items-center justify-between px-6 py-4 h-[50px] container">
-   
-          <div className=""></div>
-          <div className="gap-2 flex items-end">
-            <DarkModeToggle/>
-          </div>
-        </header> */}
+  
         <Separator />
         <div className="overflow-auto">
           <div className="flex-1 container mt-4 text-accent-foreground">

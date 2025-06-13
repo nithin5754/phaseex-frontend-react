@@ -17,7 +17,7 @@ const TodoTHead = () => {
   <TableHead className="flex  gap-2">
   <div className="flex items-center justify-center gap-2">
     <User2 className="w-4 h-4 text-gray-600" />
-    <span>assignee</span>
+    <span>comments</span>
 
   </div>
   </TableHead>
@@ -35,13 +35,13 @@ const TodoTHead = () => {
     </div>
   
   </TableHead>
-  <TableHead className="   ">
+  {/* <TableHead className="   ">
 
   <div className="flex items-start justify-start gap-2">
     <Dna className="w-4 h-4 text-gray-600" />
     <span>re-assign</span>
     </div>
-  </TableHead>
+  </TableHead> */}
 </TableRow>
     </TableHeader>
   )
