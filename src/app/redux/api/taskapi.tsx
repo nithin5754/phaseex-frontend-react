@@ -154,125 +154,11 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       }
     ),
 
-    /**
-     * @returns {Promise<boolean>}
-     * @param {workspaceId,folderId,listId,taskId,collabId}
-     * @api /add-collab-task/:taskId
-     */
 
-    addCollaboratorToTask: builder.mutation<boolean, SendAddCollabTaskType>({
-      query: (credentials) => ({
-        url: `/task/add-collab-task/${credentials.taskId}`,
-        method: "PATCH",
-        body: { ...credentials },
-      }),
-      invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
-        {
-          type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}`,
-        },
-      ],
-    }),
 
-    /**
-     * @returns {Promise<id:string;fullName: string, email:string ,imageUrl:string, role:string []>}
-     * @param { workspaceId, folderId, listId,taskId}
-     */
 
-    getCollabTaskById: builder.query<
-      TResponseCollaboratorDetailType[],
-      { workspaceId: string; folderId: string; listId: string; taskId: string }
-    >({
-      query: ({ workspaceId, folderId, listId, taskId }) => ({
-        url: `/task/get-all-collab-task?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}`,
-        validateStatus: (
-          response: { status: number },
-          result: { isError: any }
-        ) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
 
-      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
-        {
-          type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}`,
-        },
-      ],
-    }),
 
-    /**
-     *@returns {Promise<boolean>}
-     * @param { workspaceId, folderId, listId,taskId,collabId }
-     */
-
-    deleteCollaboratorToTaskAssignee: builder.mutation<
-      boolean,
-      SendAddCollabTaskType
-    >({
-      query: (credentials) => ({
-        url: `/task/delete-collabId-task/${credentials.collabId}`,
-        method: "DELETE",
-        body: { ...credentials },
-      }),
-      invalidatesTags: (
-        _result,
-        _error,
-        { workspaceId, folderId, listId, taskId }
-      ) => [
-        {
-          type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}`,
-        },
-        {
-          type: "TodoTask",
-          id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
-        },
-      ],
-
-      async onQueryStarted(
-        { workspaceId, folderId, listId, taskId },
-        { dispatch, queryFulfilled }
-      ) {
-        try {
-          await queryFulfilled;
-          dispatch(
-            taskApiSlice.util.invalidateTags([
-              { type: "TaskSpace", id: `${workspaceId}-${folderId}-${listId}` },
-              {
-                type: "TodoTask",
-                id: `${workspaceId}-${folderId}-${listId}-${taskId}`,
-              },
-            ])
-          );
-        } catch (error) {
-          console.error("Update status failed", error);
-        }
-      },
-    }),
-
-    /**
-     * @returns {Promise<boolean>}
-     * @url  `/task/check-collab-in-list-group?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}&collaboratorId=${credentials.collaboratorId}`,
-     * @param { SendToCheckCollab}
-     */
-    checkCollabInListGrp: builder.query<boolean, SendToCheckCollab>({
-      query: (credentials) => ({
-        url: `/task/check-collab-in-list-group?workspaceId=${credentials.workspaceId}&folderId=${credentials.folderId}&listId=${credentials.listId}`,
-        validateStatus: (
-          response: { status: number },
-          result: { isError: any }
-        ) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
-      providesTags: (_result, _error, { workspaceId, folderId, listId }) => [
-        {
-          type: "TaskSpace",
-          id: `${workspaceId}-${folderId}-${listId}`,
-        },
-      ],
-    }),
 
     /**
      * @returns {Promise<boolean>}
@@ -337,10 +223,6 @@ export const {
   useOnUpdateStatusTaskMutation,
   useGetSingleTaskQuery,
   useOnUpdateDescriptionTaskMutation,
-  useAddCollaboratorToTaskMutation,
-  useGetCollabTaskByIdQuery,
-  useDeleteCollaboratorToTaskAssigneeMutation,
-  useCheckCollabInListGrpQuery,
   useAddLinkToTaskMutation,
   useDeleteLinkTaskMutation,
 

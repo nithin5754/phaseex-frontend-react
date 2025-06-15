@@ -6,11 +6,7 @@ import { NotificationItem } from "./index";
  const AllNotificationMap = () => {
 
   const { data: getAllNotification } =
-  useGetAllNotificationQuery(undefined, {
-    pollingInterval: 120000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  useGetAllNotificationQuery(undefined);
 
 
   

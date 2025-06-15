@@ -10,12 +10,7 @@ import TaskMainSection from "./TaskMainSection";
 import TaskMainLeft from "./TaskMainLeft";
 import TaskMainRight from "./TaskMainRight";
 import { TaskProgressTodo } from "./TaskProgressTodo";
-import SuggestionTaskCollab from "./Suggestion-collab-task";
-import CollabTask from "./TaskCollabList";
-import MembersSingleTaskCollab from "./MembersSingleCollab";
-import MembersTaskAddPage from "./MembersTaskAddPage";
-import DeleteCollabTask from "./DeleteCollabTask";
-import { AnimatedTaskProfile } from "./AnimatedTaskProfile";
+
 import SingleTask from "./SingleTask";
 import { AddLink } from "./AddLink";
 import TaskLinks from "./TaskLinks";
@@ -32,12 +27,6 @@ UpdateTaskStatus,
   TaskMainLeft,
   TaskMainRight,
   TaskProgressTodo,
-  SuggestionTaskCollab,
-  CollabTask,
-  MembersSingleTaskCollab,
-  MembersTaskAddPage,
-  DeleteCollabTask,
-  AnimatedTaskProfile,
   SingleTask,
   AddLink,
   TaskLinks

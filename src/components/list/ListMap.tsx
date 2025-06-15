@@ -1,16 +1,15 @@
 import { ResponseListDataType } from "@/app/redux/api/listapi";
 import {
-  AnimatedProfile,
+
   ListProgressBar,
   PriorityListSetting,
   UpdateDateList,
 } from "../list/index";
 import useTimeDue from "@/hooks/useTimeDue";
 import { Link } from "react-router-dom";
-import { UserPlus2Icon } from "lucide-react";
-import { ListCollabModal } from "../modal/add-list-collab-modal";
 
-import UseListRole from "@/hooks/UseListRole";
+
+
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 interface Props {
@@ -23,7 +22,7 @@ interface Props {
 const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
   const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
-  const isListRoles = UseListRole({ workspaceId, folderId, listId: list.id });
+
 
   let due: number = useTimeDue({
     list_due_date: list.list_due_date,
@@ -35,7 +34,7 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
         {index + 1}
       </td>
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
-        {isSpaceOwner || isListRoles.status || isListRoles.taskGrp ? (
+        {isSpaceOwner? (
           <>
             <Link
               to={`/space/${workspaceId}/folders/${folderId}/lists/${list.id}`}
@@ -53,33 +52,22 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <div className="flex items-center gap-4">
           <>
-            {isSpaceOwner && (
-              <ListCollabModal
-                icon={UserPlus2Icon}
-                spaceId={workspaceId}
-                folderId={folderId}
-                listId={list.id}
-              />
-            )}
+           add collab
+          
           </>
-          <AnimatedProfile
-            workspaceId={workspaceId}
-            folderId={folderId}
-            listId={list.id}
-          />
+    
         </div>
       </td>
 
       <td className="flex px-5 py-3 my-auto text-[12px] dark:bg-background">
         {list.list_due_date}
         <>
-          {(isListRoles.role === "listManager" || isSpaceOwner) && (
+    
             <UpdateDateList
               folderId={folderId}
               workspaceId={workspaceId}
               listId={list.id}
             />
-          )}
         </>
       </td>
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">{due}</td>

@@ -8,7 +8,7 @@ import { useOnDeleteTaskTodoMutation } from "@/app/redux/api/todoapi";
 import { SendDeleteTodoTask } from "@/types/TodoType";
 import { toast } from "../ui/use-toast";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
-import UseListRole from "@/hooks/UseListRole";
+
 import { CActivitySendType } from "@/types/TActivity";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const TodoDropDown = ({workspaceId,folderId,listId,taskId,todoId,todo,todo_statu
 const [onDeleteTaskTodo,{isLoading}]=useOnDeleteTaskTodoMutation()
 const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
-const isListRoles = UseListRole({ workspaceId, folderId, listId });
+
 
 const [onCreateActivity]=useOnCreateActivityMutation() 
 const currentName=useSelector(selectCurrentUserName)
@@ -84,7 +84,7 @@ const handleDelete=async()=>{
     <FileEdit size={23} color="#47504f" />
   ) : (
     <>
-      {isSpaceOwner || isListRoles.role === 'listManager' ? (
+      {isSpaceOwner ? (
         <TodoModalEdit
           icon={FileEdit}
           spaceId={workspaceId}
@@ -104,7 +104,7 @@ const handleDelete=async()=>{
       </>
 
       <>
-      {isSpaceOwner || isListRoles.role === 'listManager' ? (
+      {isSpaceOwner  ? (
         <>
         {
          isLoading?(<>

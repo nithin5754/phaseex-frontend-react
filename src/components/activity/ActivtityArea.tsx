@@ -29,11 +29,6 @@ const ActivityArea = () => {
       folderId,
       listId,
       taskId,
-    },
-    {
-      pollingInterval: 60000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
     }
   );
 

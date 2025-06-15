@@ -14,11 +14,7 @@ const ListHistory = ({ workspaceId, folderId, listId }: Props) => {
 
     isLoading: isSingleListLoading,
   } = useGetSingleListQuery(
-    { workspaceId, folderId, listId },
-    {
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    }
+    { workspaceId, folderId, listId }
   );
 
   if (isSingleListLoading) {
@@ -32,31 +28,7 @@ const ListHistory = ({ workspaceId, folderId, listId }: Props) => {
   dark:border-border flex flex-row justify-between"
       >
         {singleList && (
-          // <div className="flex flex-row p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-          //   <div className="flex flex-col justify-between w-full">
 
-          //     <div className="flex flex-row justify-between items-center">
-          //       <div className="flex items-center text-lg font-medium text-gray-800 dark:text-white gap-3">
-          //         <List size={18} className="text-primary" />
-          //         {
-          //           upperCase(singleList.list_title)
-          //         }
-
-          //       </div>
-          //       <div className="flex items-center">
-
-          //       </div>
-          //     </div>
-
-          //     <p className="text-gray-600 text-sm mt-2 dark:text-gray-300">
-          //       <span className="font-medium">Description:</span> {truncateDesc(singleList.list_description)}
-          //     </p>
-
-          //     <h1 className="text-gray-500 text-sm mt-2 dark:text-gray-400">
-          //       Created at {singleList.createdAt}
-          //     </h1>
-          //   </div>
-          // </div>
           <TemplateAbout
             templateAbout={{
               title: singleList?.list_title,

@@ -204,94 +204,13 @@ export const listApiSlice = apiSlice.injectEndpoints({
     }),
 
 
-    addCollaboratorToList: builder.mutation<boolean, SendAddCollabListType>({
-      query: (credentials) => ({
-        url: `/list/add-members-list/${credentials.listId}`,
-        method: "PATCH",
-        body: { ...credentials },
-      }),     
-      invalidatesTags: (
-        _result,
-        _error,
-        { workspaceId, folderId }
-      ) => [
-        {
-          type: "ListSpace",
-          id: `${workspaceId}-${folderId}`,
-        },
-      ],
 
-    }),
 
     
-    getCollabListById: builder.query<
-    ListCollaboratorDetailType[],
-    { workspaceId: string; folderId: string; listId: string }
-  >({
-    query: ({ workspaceId, folderId, listId }) => ({
-      url: `/list/all-collab-list-id?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}`,
-      validateStatus: (
-        response: { status: number },
-        result: { isError: any }
-      ) => {
-        return response.status === 200 && !result.isError;
-      },
-    }),
-
-    providesTags: (_result, _error, { workspaceId, folderId }) => [
-      {
-        type: "ListSpace",
-        id: `${workspaceId}-${folderId}`,
-      },
-    ],
-  }),
-
-/**
- * @api  "/update-collab-list-role/:collabId"
- */
-
-  updateCollaboratorToListRole: builder.mutation<boolean, SendAddCollabListType&{role:"listManager"|"spaceOwner"|"viewer"}>({
-    query: (credentials) => ({
-      url: `/list/update-collab-list-role/${credentials.collabId}`,
-      method: "PATCH",
-      body: { ...credentials },
-    }),     
-    invalidatesTags: (
-      _result,
-      _error,
-      { workspaceId, folderId}
-    ) => [
-      {
-        type: "ListSpace",
-        id: `${workspaceId}-${folderId}`,
-      },
-    ],
-
-  }),
-
-  /***
-   * @api /delete-collab-list-assignee
-   */
 
 
-  deleteCollaboratorToListAssignee: builder.mutation<boolean, SendAddCollabListType>({
-    query: (credentials) => ({
-      url: `/list/delete-collab-list-assignee/${credentials.collabId}`,
-      method: "DELETE",
-      body: { ...credentials },
-    }),     
-    invalidatesTags: (
-      _result,
-      _error,
-      { workspaceId, folderId }
-    ) => [
-      {
-        type: "ListSpace",
-        id: `${workspaceId}-${folderId}`,
-      },
-    ],
 
-  }),
+
 
   }),
 });
@@ -302,9 +221,5 @@ export const {
   useGetAllListByPageQuery,
   useOnUpdatePriorityListMutation,
   useOnUpdateDateListMutation,
-  useGetSingleListQuery,
-  useAddCollaboratorToListMutation,
-  useGetCollabListByIdQuery,
-  useUpdateCollaboratorToListRoleMutation,
-  useDeleteCollaboratorToListAssigneeMutation
+  useGetSingleListQuery
 } = listApiSlice;

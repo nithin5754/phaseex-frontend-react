@@ -113,98 +113,19 @@ export const todoTaskApiSlice = apiSlice.injectEndpoints({
   }),
 
 
-  /**
-   * @return {boolean}
-   * @api {"/add-collab-todo/:todoId"}
-   * @param {workspaceId,folderId,listId,todoId,collabId}
-   */
-
-
-
-
-  onAddCollabToTodo: builder.mutation<boolean ,SendAddCollabTodoTask>({
-    query: (credentials) => ({
-      url: `/todo/add-collab-todo/${credentials.todoId}`,
-      method: "PATCH",
-      body: { ...credentials },
-    }),
-    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
-      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
-    ],
-
-  }),
-
-  // 
-
-  /**
-   * @param { workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string}
-   * @api /get-collab-todo
-   * @return {TodoCollabType[]}
-   */
-
-  getAllTodoCollabById: builder.query<
-  TodoCollabType[],
-  { workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string }
->({
-  query: ({ workspaceId, folderId,listId,taskId,todoId }) => ({
-    url: `/todo/get-collab-todo?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}&todoId=${todoId}`,
-    validateStatus: (
-      response: { status: number },
-      result: { isError: any }
-    ) => {
-      return response.status === 200 && !result.isError;
-    },
-
-  }),
-       providesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
-      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
-    ],
-
- 
-}),
-
-
-
-
-  /**
-   * @param { workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string,collabId:string}
-   * @api /delete-collab-todo
-   * @return {boolean}
-   */
-
-
-  onDeleteCollabToTodo: builder.mutation<boolean ,{ workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string,collabId:string}>({
-    query: ({ workspaceId,folderId,listId,taskId,todoId,collabId}) => ({
-      url: `/todo/delete-collab-todo?workspaceId=${workspaceId}&folderId=${folderId}&listId=${listId}&taskId=${taskId}&todoId=${todoId}&collabId=${collabId}`,
-      method: "DELETE",
-    }),
-    invalidatesTags: (_result, _error,{ workspaceId, folderId, listId,taskId }) => [
-      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
-    ],
-  }),
 
 
 
 
 
-  /**
-   * @param { workspaceId: string;folderId:string,listId:string,taskId:string,todoId:string,collabId:string,reassignId:string}
-   * @api/reassign-task/:todoId
-   * @return {boolean}
-   */
 
 
-  onUpdateReassignTodo: builder.mutation<boolean,SendTodoReassignType>({
-    query: (credentials) => ({
-      url: `/todo/reassign-task/${credentials.todoId}`,
-      method: "PATCH",
-      body: { ...credentials },
-    }),
 
-    invalidatesTags: (_result, _error, { workspaceId, folderId, listId,taskId }) => [
-      { type: 'TodoTask', id: `${workspaceId}-${folderId}-${listId}-${taskId}` },
-    ],
-  }),
+
+
+
+
+
 
 
   })
@@ -219,10 +140,6 @@ export const {
   useOnUpdateStatusTodoMutation,
   useOnUpdateTaskTodoMutation,
   useOnDeleteTaskTodoMutation,
-  useOnAddCollabToTodoMutation,
-  useGetAllTodoCollabByIdQuery,
-  useOnDeleteCollabToTodoMutation,
-  useOnUpdateReassignTodoMutation
   
   
   

@@ -24,7 +24,7 @@ export interface SpaceDataType {
   title: string;
   workspaceType: string;
 }
-
+export type SpaceRole = 'developer' | 'manager' | 'viewer';
 export interface SpaceCollabSendType {
   workspaceId: string;
   collaboratorId: string;
@@ -32,7 +32,7 @@ export interface SpaceCollabSendType {
 
 export interface ReceiveCollaboratorType {
   assignee: string;
-  role: string;
+  role: SpaceRole;
   id: string;
   verified: boolean;
 }
@@ -180,7 +180,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
      */
     updateCollaboratorRole: builder.mutation<
       boolean,
-      SpaceCollabSendType & { role: string }
+      SpaceCollabSendType & { role: 'developer'|'manager'|'viewer' }
     >({
       query: (credentials) => ({
         url: "/space/workspace/members/role/update",

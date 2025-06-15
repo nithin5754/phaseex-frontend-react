@@ -28,10 +28,7 @@ const TaskTable = ({ folderId, spaceId, listId,toggle }: Props) => {
 
 
   const { data: getAllTask } = useGetAllTaskQuery(
-    { workspaceId: spaceId, folderId, listId },
-    {
-      refetchOnMountOrArgChange: true,
-    }
+    { workspaceId: spaceId, folderId, listId }
   );
 
   return (

@@ -23,11 +23,7 @@ const WorkSpaceDeatils = () => {
   UseSpaceRoles({ workspaceId: id });
 
   const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id);
-  const { data: getAllFolder } = useGetAllFolderQuery(id, {
-    pollingInterval: 60000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getAllFolder } = useGetAllFolderQuery(id);
 
   if (isLoading || !getAllFolder) {
     return <SpaceViewALLskelton />;

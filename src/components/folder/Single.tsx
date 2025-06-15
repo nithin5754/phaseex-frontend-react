@@ -17,7 +17,7 @@ const Single = () => {
   const { id, folderId } = useParams();
 
   const [toggle, setToggle] = useState<"table-view" | "folder-view">(
-    "folder-view"
+   "table-view"
   );
 
   const handleToggleHandle = (data: "table-view" | "folder-view"): void => {
@@ -32,9 +32,6 @@ const Single = () => {
 
   const { data: getAllList } = useGetAllListByPageQuery(
     { workspaceId: id, folderId, page: CurrentPage },
-    {
-      refetchOnMountOrArgChange: true,
-    }
   );
   return (
     <div className="flex flex-col w-full p-6 m-auto font-sfpro  ">

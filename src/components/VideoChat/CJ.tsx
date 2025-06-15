@@ -30,11 +30,7 @@ if(!id){
 const spaceId=UseSpaceRoles({workspaceId:id})
 
 
-const {data:getALLvideoLinkInvitation}=useGetVideoInviteLinkQuery({workspaceId:id}, {
-  pollingInterval: 120000,
-  refetchOnFocus: true,
-  refetchOnMountOrArgChange: true,
-})
+const {data:getALLvideoLinkInvitation}=useGetVideoInviteLinkQuery({workspaceId:id})
 
 
 

@@ -36,11 +36,7 @@ export function AILayout() {
 
 
 
-  const { data: getAllGroup } = useGetAllGroupQuery(undefined, {
-    pollingInterval: 60000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getAllGroup } = useGetAllGroupQuery(undefined);
 
   useEffect(() => {
     if (getAllGroup) {

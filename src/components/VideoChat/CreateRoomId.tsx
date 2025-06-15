@@ -42,11 +42,7 @@ export function CreateRoomId() {
   const currentName=useSelector(selectCurrentUserName)
 
 
-  const {data:getAllCollab}=useGetAllCollabInSpaceQuery(id, {
-    pollingInterval:120000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  })
+  const {data:getAllCollab}=useGetAllCollabInSpaceQuery(id)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

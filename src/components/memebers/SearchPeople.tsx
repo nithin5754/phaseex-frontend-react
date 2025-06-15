@@ -64,13 +64,9 @@ const SearchPeople = () => {
   const [getSearchUser, { isLoading: searchLoading }] =
     useGetSearchUserMutation();
 
-  const { data: getSingleWorkSpace } = useGetSingleWorkSpaceQuery(id, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getSingleWorkSpace } = useGetSingleWorkSpaceQuery(id);
 
-  const { data: getUserById } = useGetUserByIdQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getUserById } = useGetUserByIdQuery(undefined);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);

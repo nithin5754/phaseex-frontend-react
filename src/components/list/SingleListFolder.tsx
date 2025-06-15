@@ -10,7 +10,7 @@ import FolderTableToggleView from "../workspaces/FolderTableToggleView";
 const SingleListFolder = () => {
   const { id, folderId, listId } = useParams();
   const [toggle, setToggle] = useState<"table-view" | "folder-view">(
-    "folder-view"
+    "table-view"
   );
 
   const handleToggleHandle = (data: "table-view" | "folder-view"): void => {

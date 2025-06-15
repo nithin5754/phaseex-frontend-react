@@ -19,10 +19,7 @@ const TaskDeatils = () => {
   }
 
   const { data: singleTask } = useGetSingleTaskQuery(
-    { workspaceId: id, folderId, listId, taskId },
-    {
-      refetchOnMountOrArgChange: true,
-    }
+    { workspaceId: id, folderId, listId, taskId }
   );
 
   return (

@@ -13,7 +13,7 @@ import {
 import { toast } from "../ui/use-toast";
 import { useOnUpdatePriorityTaskMutation } from "@/app/redux/api/taskapi";
 import { SendPriorityTaskType } from "@/types/taskType";
-import UseListRole from "@/hooks/UseListRole";
+
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 interface Props {
@@ -37,7 +37,7 @@ const PriorityTaskSetting = ({
 }: Props) => {
   const [onUpdatePriorityTask] = useOnUpdatePriorityTaskMutation();
 
-  const isListRoles = UseListRole({ workspaceId, folderId, listId: id });
+
 
   const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
@@ -64,7 +64,7 @@ const PriorityTaskSetting = ({
     <DropdownMenu>
       <DropdownMenuTrigger
         asChild
-        disabled={isSpaceOwner ? false : isListRoles.role !== "listManager"}
+        disabled={isSpaceOwner ? false : true}
       >
         <Button
           variant="outline"

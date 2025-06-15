@@ -15,11 +15,6 @@ const FolderDetails = ({ id, folderId }: Props) => {
   const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
   const { data: singleFolder, isLoading } = useGetSingleFolderQuery(
     { spaceId: id, folderId },
-    {
-      pollingInterval: 120000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    }
   );
 
   if (isLoading) {

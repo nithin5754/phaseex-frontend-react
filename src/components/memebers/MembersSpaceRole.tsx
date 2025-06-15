@@ -1,6 +1,7 @@
 import {
   ReceiveCollaboratorType,
   SpaceCollabSendType,
+  SpaceRole,
   useUpdateCollaboratorRoleMutation,
 } from "@/app/redux/api/spaceApi";
 import {
@@ -18,39 +19,37 @@ import { toast } from "../ui/use-toast";
 
 interface Props {
   workspaceId: string;
-  
-  
+
   collab: ReceiveCollaboratorType;
-  isSOwner:boolean
+  isSOwner: boolean;
 }
 
-const MembersSpaceRole = ({ workspaceId, collab,isSOwner }: Props) => {
+const MembersSpaceRole = ({ workspaceId, collab, isSOwner }: Props) => {
+  const [updateCollaboratorRole] = useUpdateCollaboratorRoleMutation();
 
-
-
-  const [updateCollaboratorRole]=useUpdateCollaboratorRoleMutation()
-
-  const handleChange = async (spaceRole: string) => {
-    let data: SpaceCollabSendType & { role: string } = {
-      workspaceId,
-      collaboratorId:collab.id,
-      role:spaceRole,
-    };
-    if (data) {
-      const response = await updateCollaboratorRole(data).unwrap();
-      if (!response) {
-        toast({
-          title: "error in updating",
-          variant: "destructive",
-        });
+  const handleChange = async (spaceRole: SpaceRole) => {
+    if (["developer", "manager", "viewer"].includes(spaceRole as SpaceRole)) {
+      let data: SpaceCollabSendType & { role: SpaceRole } = {
+        workspaceId,
+        collaboratorId: collab.id,
+        role: spaceRole,
+      };
+      if (data) {
+        const response = await updateCollaboratorRole(data).unwrap();
+        if (!response) {
+          toast({
+            title: "error in updating",
+            variant: "destructive",
+          });
+        }
       }
     }
   };
 
   return (
     <div className="flex gap-2 ">
-      <DropdownMenu >
-        <DropdownMenuTrigger asChild disabled={!collab.verified||!isSOwner}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild disabled={!collab.verified || !isSOwner}>
           <Button
             variant="outline"
             className="border-none dark:bg-background focus:border-transparent    dark:border-none dark:text-primary w-[100px]"
@@ -64,7 +63,7 @@ const MembersSpaceRole = ({ workspaceId, collab,isSOwner }: Props) => {
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
             value={collab.role}
-            onValueChange={(value) => handleChange(value)}
+            onValueChange={(value) => handleChange(value as SpaceRole)}
           >
             <DropdownMenuRadioItem value="developer">
               developer

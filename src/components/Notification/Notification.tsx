@@ -23,11 +23,7 @@ const Notification = () => {
   const { UnReadNotifications, setUnReadNotifications } = useSocket();
 
   const { data: getUreadNotification } =
-    useGetAllNotificationUnReadQuery(undefined, {
-      pollingInterval: 120000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    });
+    useGetAllNotificationUnReadQuery(undefined);
 
 
 

@@ -7,16 +7,10 @@ import { WorkSpaceContext } from "./providers/space.providers";
 function DashBoardWorkSpace() {
   const [changeVisibility] = useChangeVisiblityMutation();
 
-  const { data: getAllHiddenSpaces } = useGetAllHiddenSpacesQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
-  const { data: getAllInvitedSpaces } = useGetAllInvitedSpacesQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getAllHiddenSpaces } = useGetAllHiddenSpacesQuery(undefined);
+  const { data: getAllInvitedSpaces } = useGetAllInvitedSpacesQuery(undefined);
 
-  const { data: getAllOwnerSpaces } = useGetAllOwnerSpacesQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getAllOwnerSpaces } = useGetAllOwnerSpacesQuery(undefined);
   const handleHideSubmit = async (id: string) => {
     try {
       await changeVisibility({ id }).unwrap();

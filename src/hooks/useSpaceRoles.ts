@@ -7,9 +7,7 @@ interface Props {
 
 const UseSpaceRoles = ({ workspaceId }: Props) => {
   if (workspaceId) {
-    const { data: getSingleSpace } = useGetSingleWorkSpaceQuery(workspaceId, {
-      refetchOnMountOrArgChange: true,
-    });
+    const { data: getSingleSpace } = useGetSingleWorkSpaceQuery(workspaceId);
 
     const userId = useAuth();
 
