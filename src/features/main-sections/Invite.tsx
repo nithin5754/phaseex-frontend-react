@@ -66,13 +66,7 @@ const Invite = () => {
     }
   };
 
-  console.log(
-    workspaceId,
-    username,
-    notificationId,
-    spaceOwner,
-    "invitation ids"
-  );
+
 
   return <div>Invite....</div>;
 };

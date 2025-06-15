@@ -18,6 +18,8 @@ import OnGoingOwnerSpaceLists from "./OnGoingSideBar";
 import InvitedSpaceLists from "./InvitesSpacesLists";
 import { WorkSpaceContext } from "../../features/spaces/providers/space.providers";
 
+
+
 const SpaceHome: FC = (): ReactElement => {
   const { getAllHiddenSpaces: allSpaces } = useContext(WorkSpaceContext);
 
@@ -111,6 +113,7 @@ const SpaceHome: FC = (): ReactElement => {
                   </h4>
 
                   <InvitedSpaceLists />
+         
                 </div>
               </ScrollArea>
             </ResizablePanel>

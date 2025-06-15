@@ -12,7 +12,7 @@ import { NotificationItem } from "./index";
     refetchOnMountOrArgChange: true,
   });
 
-  console.log(getAllNotification,"get all notification");
+
   
 
    return (

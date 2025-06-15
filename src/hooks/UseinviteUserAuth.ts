@@ -26,7 +26,6 @@ const UseinviteUserAuth = ({workspaceId,folderId,listId}:Props) => {
 
   
 
-  console.log(getCollabListById,"invited users list space")
 
 
 

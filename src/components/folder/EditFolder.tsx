@@ -65,13 +65,13 @@ export function EditFolder({ handleClose, spaceId }: Props) {
       folder_title: data.folder_name,
     };
 
-    console.log(folderData, folderData);
+ 
 
     if (folderData||folderId) {
       let idFolder:string=folderId as string
       try {
         const response = await onEditFolder({folderData,folderId:idFolder}).unwrap();
-        console.log(response, "create folder");
+
         if (response.id) {
           handleClose();
         } else {

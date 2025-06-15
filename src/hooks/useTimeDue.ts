@@ -18,7 +18,6 @@ import moment from 'moment'
         (Difference_In_Time / (1000 * 3600 * 24));
 
 
-        console.log(differenceInDays,"due days");
         
     return Difference_In_Days
   }

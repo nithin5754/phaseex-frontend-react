@@ -7,7 +7,7 @@ export const videoChatSlice = apiSlice.injectEndpoints({
       query: ({workspaceId}) => ({
         url: `/videochat/get-video-chat-noti/${workspaceId}`,
         validateStatus: (response, result) => {
-          console.log(result, "hello", response, "response");
+ 
 
           return response.status === 200 && !result.isError;
         },

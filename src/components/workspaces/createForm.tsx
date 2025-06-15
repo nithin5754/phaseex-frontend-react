@@ -69,7 +69,7 @@ export function WorkspaceForm({ handleClose }: Props) {
     if (spaceData) {
       try {
         const response = await createSpace(spaceData).unwrap();
-        console.log(response);
+
         if (response.id && response.workspaceOwner) {
           navigate("/space");
           handleClose();

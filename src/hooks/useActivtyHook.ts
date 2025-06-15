@@ -15,7 +15,7 @@ const useActivityHook = (activityData:CActivitySendType) => {
   const fetch=async()=>{
     let response=await onCreateActivity(activityData).unwrap()
 
-    console.log(response,"activity resposne")
+
 
     if(!response){
     setIsSuccess(false)

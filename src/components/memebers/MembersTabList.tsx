@@ -22,9 +22,7 @@ export function MembersTabList() {
     return <h1>loading....</h1>;
   }
 
-  const { data: getAllCollab } = useGetAllCollabInSpaceQuery(id, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: getAllCollab } = useGetAllCollabInSpaceQuery(id);
 
   useEffect(() => {
     if (getAllCollab) {
@@ -89,7 +87,6 @@ export function MembersTabList() {
                 </div>
               </form>
 
-              {/* List of invited emails */}
               {invitedEmails.length > 0 && (
                 <div className="mt-2">
                   <h3 className="text-sm font-medium text-gray-600 mb-2">
@@ -116,11 +113,11 @@ export function MembersTabList() {
         <FindMembers />
       </TabsContent>
       <TabsContent value="group-members">
-        <MembersList data={accepted} id={id} title="Invited Members"/>
+        <MembersList data={accepted} id={id} title="Invited Members" />
       </TabsContent>
 
       <TabsContent value="pending-request" className="">
-      <MembersList data={pending} id={id} title="Pending Members"/>
+        <MembersList data={pending} id={id} title="Pending Members" />
       </TabsContent>
     </Tabs>
   );

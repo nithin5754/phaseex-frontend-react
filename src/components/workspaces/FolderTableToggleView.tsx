@@ -10,7 +10,7 @@ const FolderTableToggleView:FC<{handleToggle:(data: "table-view" | "folder-view"
         <Menu size={18} onClick={()=>handleToggle('table-view')}/>
       </button>
       <button className={`px-3   w-[50px] rounded-r-full flex items-center gap-2 ${name==='folder-view' ?'bg-blue-50 h-full text-black':''}`}>
-        {/* <Check className="w-4 h-4" /> */}
+      
         <Grid  size={18} onClick={()=>handleToggle('folder-view')}/>
       </button>
     </div>

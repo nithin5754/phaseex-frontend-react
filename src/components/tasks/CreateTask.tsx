@@ -95,7 +95,7 @@ const currentName=useSelector(selectCurrentUserName)
     if (TaskData) {
       try {
      
-            console.log(TaskData,"data set");
+     
             const response = await onCreateTask(TaskData).unwrap();
 
       

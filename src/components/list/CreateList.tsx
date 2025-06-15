@@ -96,7 +96,6 @@ export function ListForm({ handleClose, spaceId, folderId }: Props) {
           }else{
             const response = await onCreateList(listDataSet).unwrap();
 
-            console.log(response, "create new list");
             if (response.id) {
               handleClose();
             } else {

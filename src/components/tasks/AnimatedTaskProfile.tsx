@@ -23,7 +23,7 @@ export function AnimatedTaskProfile({workspaceId,folderId,listId,taskId}:Props) 
     refetchOnMountOrArgChange: true,
   })
 
-  console.log(getCollabTaskById,"task animated collab");
+
   
 
 

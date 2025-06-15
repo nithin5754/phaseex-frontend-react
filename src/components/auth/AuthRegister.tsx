@@ -126,7 +126,7 @@ if(token){
       try {
         setLoading(true)
         let response=await register(userData).unwrap()
-        console.log(response,"register");
+
         
         if(response.verify_token && response.updatedAt){
           const url: string = `/verify-otp?tokenId=${response.verify_token}`;

@@ -45,38 +45,7 @@ const WorkSpaceDeatils = () => {
             className="w-full bg-white text-black border border-gray-200 rounded-lg p-6 h-auto dark:text-primary dark:bg-background 
   dark:border-border flex flex-row justify-between"
           >
-            {/* <div className="space-y-3 flex-1">
-      <h2 className="font-semibold text-lg">About This Space</h2>
 
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2  ">
-          <span className="text-gray-500 ">Title:</span>
-          <span className="font-medium capitalize">{singleWorkSpace?.title}</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-gray-500">Owner:</span>
-          <span className="font-medium capitalize">{singleWorkSpace?.ownerName}</span>
-        </div>
-
-        <div className="flex items-center gap-2 ">
-          <span className="text-gray-500">Description:</span>
-          <span className="font-normal capitalize">{singleWorkSpace?.workspace_description}</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-gray-500">Type:</span>
-          <div className="flex items-center gap-2">
-            <span className="font-medium dark:text-primary">{singleWorkSpace?.workspaceType}</span>
-            {singleWorkSpace?.workspaceType === "private" ? (
-              <Lock className="w-4 h-4 text-gray-500" />
-            ) : (
-              <EarthIcon className="w-4 h-4 text-gray-500" />
-            )}
-          </div>
-        </div>
-      </div>
-    </div> */}
             {singleWorkSpace && (
               <TemplateAbout
                 templateAbout={{

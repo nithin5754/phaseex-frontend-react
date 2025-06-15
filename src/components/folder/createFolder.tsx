@@ -54,12 +54,12 @@ export function FolderForm({ handleClose, spaceId }: Props) {
       folder_title: data.folder_name,
     };
 
-    console.log(folderData, folderData);
+   
 
     if (folderData) {
       try {
         const response = await onCreateFolder(folderData).unwrap();
-        console.log(response, "create folder");
+     
         if (response.id) {
           handleClose();
         } else {

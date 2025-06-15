@@ -120,6 +120,8 @@ const SearchPeople = () => {
         collaboratorId: userId,
       };
       try {
+
+
         await addCollaborators(collabData).unwrap();
 
         const inviteLink = `/invite?workspace=${getSingleWorkSpace.id}&username=${userId}&messageReceiver=${userName}&messageSendBy=${getUserById.userName}&workspaceName=${getSingleWorkSpace.title}&notificationId=`;

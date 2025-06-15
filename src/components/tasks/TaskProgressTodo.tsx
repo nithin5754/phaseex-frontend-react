@@ -10,7 +10,7 @@ interface Props{
 
 export function TaskProgressTodo({total,completed}:Props) {
   let percentage=(completed/total)*100
-  console.log(percentage,"todo....");
+
   
   const [progress, setProgress] = React.useState(0)
 

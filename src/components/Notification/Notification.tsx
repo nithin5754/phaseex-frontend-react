@@ -21,7 +21,7 @@ import {
 
 const Notification = () => {
   const { UnReadNotifications, setUnReadNotifications } = useSocket();
-  console.log(UnReadNotifications, "use context from");
+
   const { data: getUreadNotification } =
     useGetAllNotificationUnReadQuery(undefined, {
       pollingInterval: 120000,

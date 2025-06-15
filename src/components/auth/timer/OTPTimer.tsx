@@ -37,7 +37,7 @@ const OTPTimer: React.FC<OTPTimerProps> = ({ tokenId }) => {
   useEffect(() => {
     async function fetchData() {
       const res = await fetchTimerDate({tokenId}).unwrap();
-      console.log(res,"timer-from back");
+   
       
       const updateDate = res.updateDate
 

@@ -44,7 +44,7 @@ const Todos = () => {
     }
   );
 
-  console.log(getAllTodoTask, "hello todo");
+
 
   return (
     <div className="flex w-full flex-col mt-8">

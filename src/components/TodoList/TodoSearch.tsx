@@ -21,7 +21,7 @@ const TodoSearch = () => {
   const searchTodoItem = useSelector(selectTodoItem);
   const searchTodoQuery = useSelector(selectTodoQuery);
 
-  console.log(searchTodoItem, "search todo items");
+
 
   const [getSearchTodo] = useGetSearchTodoMutation();
 

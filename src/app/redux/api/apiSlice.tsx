@@ -35,7 +35,7 @@ export const baseQueryWithReauth: BaseQueryFn<
     (result.error && result.error.status === 403) ||
     (result.error && result.error.status === 401)
   ) {
-    console.log("sending refresh token");
+
 
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
 

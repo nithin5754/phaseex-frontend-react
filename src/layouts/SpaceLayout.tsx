@@ -1,14 +1,14 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, X } from "lucide-react";
+import { ArrowBigLeft, MessageCircle, X } from "lucide-react";
 import { LottieAnimation } from "@/components/lootie/Lootie";
 import helloAnimation from "../../public/json/helloman.json";
 import { useState } from "react";
-import { VideoChatModal } from "@/components/modal/chat-modal";
+import { ChatModal } from "@/components/modal/chat-modal";
 import CallIcon from "../../public/json/call-icon.json";
 import { useSocket } from "@/app/socketContext";
-
+import { useGetSingleWorkSpaceQuery } from "@/app/redux/api/spaceApi";
 
 const SpaceLayout = () => {
   const { id } = useParams();
@@ -16,6 +16,7 @@ const SpaceLayout = () => {
   const navigate = useNavigate();
   const [isClose, setClose] = useState<boolean>(false);
 
+  const [messageOpen, setMessageOpen] = useState<boolean>(false);
   const location = useLocation();
 
   const containsRoomPath = location.pathname.includes("/room");
@@ -24,6 +25,8 @@ const SpaceLayout = () => {
     return;
   }
 
+  const { data: sigleWSDetails } = useGetSingleWorkSpaceQuery(id);
+
   const goBack = () => {
     navigate(-1);
   };
@@ -31,33 +34,47 @@ const SpaceLayout = () => {
     <>
       {!containsRoomPath && (
         <>
-        
-     
-              <Button
-                className="bg-transparent hover:bg-transparent border-none text-slate-600"
-                onClick={goBack}
-              >
-                {" "}
-                <ArrowBigLeft />
-              </Button>
-            </>
-        
-   
+          <Button
+            className="bg-transparent hover:bg-transparent border-none text-slate-600"
+            onClick={goBack}
+          >
+            {" "}
+            <ArrowBigLeft />
+          </Button>
+        </>
       )}
 
       <div className="">
         <>
           {!containsRoomPath && (
             <>
-              {isClose && <VideoChatModal />}
+              {messageOpen && (
+                <ChatModal
+                  messageOpen={messageOpen}
+                  setMessageOpen={setMessageOpen}
+                  details={sigleWSDetails!}
+                />
+              )}
+
               <div className=" fixed right-0 bottom-0 z-50">
                 <div className="flex ">
                   {isClose && (
-                    <LottieAnimation
-                      animationData={helloAnimation}
-                      height={400}
-                      width={160}
-                    />
+                    <>
+                      <Button
+                        className="rounded-full"
+                        onClick={() => {
+                          setMessageOpen(true);
+                          setClose((prev) => !prev);
+                        }}
+                      >
+                        <MessageCircle /> chat with me!
+                      </Button>
+                      <LottieAnimation
+                        animationData={helloAnimation}
+                        height={400}
+                        width={160}
+                      />
+                    </>
                   )}
                   <Button
                     className={
@@ -70,28 +87,32 @@ const SpaceLayout = () => {
                     {isClose ? (
                       <X />
                     ) : (
-                      <div className="relative flex items-center justify-center">
-                        <LottieAnimation
-                          animationData={CallIcon}
-                          height={100}
-                          width={100}
-                        />
-                        <>
-                          {inviteCount.workspaceId === id &&
-                            inviteCount.count > 0 && (
-                              <span
-                                className="absolute flex items-center justify-center w-6 h-6 text-white bg-green-500 rounded-full shadow-lg"
-                                style={{
-                                  top: 9,
-                                  right: 6,
-                                  transform: "translate(50%, -50%)",
-                                }}
-                              >
-                                {inviteCount.count}
-                              </span>
-                            )}
-                        </>
-                      </div>
+                      <>
+                        {!messageOpen && (
+                          <div className="relative flex items-center justify-center">
+                            <LottieAnimation
+                              animationData={CallIcon}
+                              height={100}
+                              width={100}
+                            />
+                            <>
+                              {inviteCount.workspaceId === id &&
+                                inviteCount.count > 0 && (
+                                  <span
+                                    className="absolute flex items-center justify-center w-6 h-6 text-white bg-green-500 rounded-full shadow-lg"
+                                    style={{
+                                      top: 9,
+                                      right: 6,
+                                      transform: "translate(50%, -50%)",
+                                    }}
+                                  >
+                                    {inviteCount.count}
+                                  </span>
+                                )}
+                            </>
+                          </div>
+                        )}
+                      </>
                     )}
                   </Button>
                 </div>

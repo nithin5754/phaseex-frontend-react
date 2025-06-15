@@ -28,7 +28,7 @@ const from = location.state?.from?.pathname || "/space";
 
     const token = response.credential;
 
-    console.log(token)
+
 
     if(token){
 
@@ -47,7 +47,7 @@ const from = location.state?.from?.pathname || "/space";
   
     }
     }
-   console.log(googleAuth,"google response backend")
+
 
 };
 

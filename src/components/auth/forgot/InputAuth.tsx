@@ -44,7 +44,7 @@ const InputAuth = () => {
     }else{
       try {
       const response=await forgotPasswordVerify({email:data.email}).unwrap()
-      console.log(response,"forgotpasword");
+
       
        if(response&&response.verify_token&&response.email){
         const url: string = `/verify-auth-forgot-otp/?tokenId=${response.verify_token}`;

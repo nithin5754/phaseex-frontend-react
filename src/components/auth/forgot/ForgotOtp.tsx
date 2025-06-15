@@ -43,7 +43,7 @@ if (!tokenId) {
      if(data.pin){
        try {
         let response=await forgotPasswordOtp({otp:data.pin,tokenId}).unwrap()
-        console.log(response,"hello")  
+   
 
         if(response.tokenId){
           const url: string = `/change-forgot-password?tokenId=${response.tokenId}`;

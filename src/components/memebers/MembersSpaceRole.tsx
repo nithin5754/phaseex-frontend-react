@@ -26,7 +26,7 @@ interface Props {
 
 const MembersSpaceRole = ({ workspaceId, collab,isSOwner }: Props) => {
 
-  console.log(collab.verified,"hey huii hey")
+
 
   const [updateCollaboratorRole]=useUpdateCollaboratorRoleMutation()
 

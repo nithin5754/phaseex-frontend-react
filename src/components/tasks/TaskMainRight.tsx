@@ -21,9 +21,9 @@ const TaskMainRight = ({ }: Props) => {
 
 
 
-    <Tabs defaultValue="attachment" className="w-full ">
+    <Tabs defaultValue="attachment" className="w-full  ">
   <TabsList className="flex">
-    <TabsTrigger value="attachment" className="flex-1" ><Pin size={16} className="mr-4"/> Attachment</TabsTrigger>
+    <TabsTrigger value="attachment" className="flex-1 " ><Pin size={16} className="mr-4"/> Attachment</TabsTrigger>
     <TabsTrigger value="activity" className="flex-1"><Activity size={16} className="mr-4"/> Activity</TabsTrigger>
   </TabsList>
   <TabsContent value="attachment"><Attachment/></TabsContent>

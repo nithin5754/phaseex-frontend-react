@@ -26,7 +26,6 @@ const CollabTodo = ({workspaceId,folderId,listId,taskId,todoId}:Props) => {
 
   const {data:getAllTodoCollabById}=useGetAllTodoCollabByIdQuery({workspaceId,folderId,listId,taskId,todoId})  
 
-  console.log(getAllTodoCollabById,"hey uii todo list mhnnn");
   
   return (
      <div className="flex  flex-col mx-auto mt-4  ">
