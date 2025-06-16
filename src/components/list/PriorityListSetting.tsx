@@ -10,57 +10,51 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-import { SendPriorityListType, useOnUpdatePriorityListMutation } from "@/app/redux/api/listapi";
+import {
+  SendPriorityListType,
+  useOnUpdatePriorityListMutation,
+} from "@/app/redux/api/listapi";
 import { toast } from "../ui/use-toast";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
-
+import { useContext } from "react";
+import { ListContext } from "@/app/context/list.context";
 
 interface Props {
-  priority:string,
-  workspaceId:string,
-  folderId: string,
-  id:string
+  priority: string;
 }
 
 interface PriorityChangeEvent {
   priority: string;
 }
 
-const PriorityListSetting = ({folderId,priority,id,workspaceId}:Props) => {
+const PriorityListSetting = ({ priority }: Props) => {
+  const { list, folderId, workspaceId } = useContext(ListContext);
 
-  const isSpaceOwner=UseSpaceRoles({workspaceId})
+  const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
+  const [onUpdatePriorityList] = useOnUpdatePriorityListMutation();
 
-
-
-  const [onUpdatePriorityList]=useOnUpdatePriorityListMutation()
-
-
-
-  
-
-  const handleChange=async({priority}:PriorityChangeEvent)=>{
-    let data:SendPriorityListType={
-            folderId: folderId,
-            workspaceId: workspaceId,
-            priority:priority,
-            listId:id
-          }
-     if(data){
-      const response=await onUpdatePriorityList(data).unwrap()
-      if(!response){
+  const handleChange = async ({ priority }: PriorityChangeEvent) => {
+    let data: SendPriorityListType = {
+      folderId: folderId,
+      workspaceId: workspaceId,
+      priority: priority,
+      listId: list.id,
+    };
+    if (data) {
+      const response = await onUpdatePriorityList(data).unwrap();
+      if (!response) {
         toast({
           title: "error in updating",
           variant: "destructive",
         });
       }
-     }
-  }
+    }
+  };
 
-    
   return (
-    <DropdownMenu >
-      <DropdownMenuTrigger asChild disabled={isSpaceOwner?false:true}>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild disabled={isSpaceOwner ? false : true}>
         <Button
           variant="outline"
           className="border-none dark:bg-background  dark:border-none dark:text-primary w-[100px]"
@@ -74,7 +68,7 @@ const PriorityListSetting = ({folderId,priority,id,workspaceId}:Props) => {
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
           value={priority}
-          onValueChange={(value) =>handleChange({ priority: value })}
+          onValueChange={(value) => handleChange({ priority: value })}
         >
           <DropdownMenuRadioItem value="high">high</DropdownMenuRadioItem>
 

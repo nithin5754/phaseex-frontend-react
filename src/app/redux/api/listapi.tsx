@@ -17,7 +17,8 @@ export interface SendListData {
 
 export interface ListCollaboratorType {
   assignee: string; 
-  role:"developer"|"listManager"|"spaceOwner"|"viewer";
+  assignee_name?:string;
+  role:"developer"|"manager"|"owner"|"viewer";
 }
 
 export interface ResponseListDataType {
@@ -62,9 +63,12 @@ export interface SendAddCollabListType {
   workspaceId: string;
   folderId: string;
   listId: string;
-  collabId:string;
+  memberId:string;
+  role:'manager'|'viewer'
 
 }
+
+
 
 
 
@@ -203,11 +207,27 @@ export const listApiSlice = apiSlice.injectEndpoints({
       ],
     }),
 
-
+    onAddManagerViewerList: builder.mutation<boolean, SendAddCollabListType>({
+      query: (credentials) => ({
+        url: `/list/add-manager-viewer-list/${credentials.listId}`,
+        method: "POST",
+        body: { ...credentials },
+      }),
+      invalidatesTags: (
+        _result,
+        _error,
+        { workspaceId, folderId}
+      ) => [
+        {
+          type: "ListSpace",
+          id: `${workspaceId}-${folderId}`,
+        },
+      ],
+    }),
 
 
     
-
+// /
 
 
 
@@ -221,5 +241,6 @@ export const {
   useGetAllListByPageQuery,
   useOnUpdatePriorityListMutation,
   useOnUpdateDateListMutation,
-  useGetSingleListQuery
+  useGetSingleListQuery,
+  useOnAddManagerViewerListMutation
 } = listApiSlice;

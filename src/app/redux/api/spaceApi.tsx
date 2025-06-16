@@ -2,7 +2,7 @@ import { apiSlice } from "./apiSlice";
 
 export interface CollaboratorType {
   assigneeId: string;
-  role: string;
+  role: SpaceRole;
   verified: boolean;
 }
 
@@ -24,14 +24,14 @@ export interface SpaceDataType {
   title: string;
   workspaceType: string;
 }
-export type SpaceRole = 'developer' | 'manager' | 'viewer';
+export type SpaceRole = "developer" | "manager" | "viewer" | "owner";
 export interface SpaceCollabSendType {
   workspaceId: string;
   collaboratorId: string;
 }
 
 export interface ReceiveCollaboratorType {
-  assignee: string;
+  assignee: string; 
   role: SpaceRole;
   id: string;
   verified: boolean;
@@ -48,7 +48,10 @@ export const workApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Workspace"],
     }),
 
-    getSingleWorkSpace: builder.query<ResponseWorkspaceDataType&{ownerName:string}, string>({
+    getSingleWorkSpace: builder.query<
+      ResponseWorkspaceDataType & { ownerName: string },
+      string
+    >({
       query: (id: string) => ({
         url: `/space/workspace/details/${id}`,
         validateStatus: (response, result) => {
@@ -96,7 +99,6 @@ export const workApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Workspace"],
     }),
-
 
     changeVisiblity: builder.mutation<boolean, { id: string }>({
       query: (credentials) => ({
@@ -173,26 +175,7 @@ export const workApiSlice = apiSlice.injectEndpoints({
       ],
     }),
 
-    /**
-     * @param {string [manager.viewer,developer]}
-     * @api  // /update-space-collab-role
-     * @return {boolean}
-     */
-    updateCollaboratorRole: builder.mutation<
-      boolean,
-      SpaceCollabSendType & { role: 'developer'|'manager'|'viewer' }
-    >({
-      query: (credentials) => ({
-        url: "/space/workspace/members/role/update",
-        method: "PATCH",
-        body: { ...credentials },
-      }),
 
-      invalidatesTags: (_result, _error, { workspaceId }) => [
-        { type: "Collaborators", id: workspaceId },
-        "Workspace",
-      ],
-    }),
   }),
 });
 
@@ -210,7 +193,6 @@ export const {
   useDeleteCollaboratorMutation,
   useVerifyCollaboratorsMutation,
   useDeleteWorkSpaceMutation,
-  useUpdateCollaboratorRoleMutation,
   useGetAllHiddenSpacesQuery,
   useGetAllInvitedSpacesQuery,
   useGetAllOwnerSpacesQuery,

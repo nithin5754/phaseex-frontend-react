@@ -8,13 +8,12 @@ import {
   SendStatusTaskType,
 } from "@/types/taskType";
 
-
 export interface SendAddCollabTaskType {
   workspaceId: string;
   folderId: string;
   listId: string;
   taskId: string;
-  collabId: string;
+  memberId: string;
 }
 
 export interface SendToCheckCollab {
@@ -28,7 +27,7 @@ export interface TResponseCollaboratorDetailType {
   fullName: string;
   email: string;
   imageUrl: string;
-  role: string;
+  role: "owner" | "developer" | "viewer" | "manager";
 }
 
 export const taskApiSlice = apiSlice.injectEndpoints({
@@ -154,11 +153,25 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       }
     ),
 
+    /**
+     * @returns {Promise<boolean>}
+     * @param {workspaceId,folderId,listId,taskId,link,link_name}
+     * @api  `/task/ /add_link/task/${credentials.taskId}`
+     */
 
-
-
-
-
+    addCollabToTask: builder.mutation<boolean, SendAddCollabTaskType>({
+      query: (credentials) => ({
+        url: `/task/task-developer-add/${credentials.taskId}`,
+        method: "PATCH",
+        body: { ...credentials },
+      }),
+      invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
+        {
+          type: "TaskSpace",
+          id: `${workspaceId}-${folderId}-${listId}`,
+        },
+      ],
+    }),
 
     /**
      * @returns {Promise<boolean>}
@@ -192,11 +205,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
         body: credentials,
       }),
-      invalidatesTags: (
-        _result,
-        _error,
-        { workspaceId, folderId, listId }
-      ) => [
+      invalidatesTags: (_result, _error, { workspaceId, folderId, listId }) => [
         {
           type: "TaskSpace",
           id: `${workspaceId}-${folderId}-${listId}`,
@@ -206,13 +215,9 @@ export const taskApiSlice = apiSlice.injectEndpoints({
 
     /**
      * @returns {Promise<boolean>}
-     * @param  {workspaceId: string;folderId: string;listId: string;taskId: string;files:FileList} 
+     * @param  {workspaceId: string;folderId: string;listId: string;taskId: string;files:FileList}
      * @api  `/task/update-files`
      */
-
-
-
-
   }),
 });
 
@@ -225,5 +230,5 @@ export const {
   useOnUpdateDescriptionTaskMutation,
   useAddLinkToTaskMutation,
   useDeleteLinkTaskMutation,
-
+  useAddCollabToTaskMutation,
 } = taskApiSlice;

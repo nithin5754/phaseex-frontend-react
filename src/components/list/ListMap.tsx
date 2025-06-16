@@ -1,4 +1,4 @@
-import { ResponseListDataType } from "@/app/redux/api/listapi";
+
 import {
 
   ListProgressBar,
@@ -11,15 +11,19 @@ import { Link } from "react-router-dom";
 
 
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import { AddModalMembersList } from "../modal/add-members-list";
+import { useContext } from "react";
+import { ListContext } from "@/app/context/list.context";
 
 interface Props {
-  list: ResponseListDataType;
+
   index: number;
-  folderId: string;
-  workspaceId: string;
+
 }
 
-const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
+const ListMap = ({  index}: Props) => {
+
+  const { list, folderId, workspaceId }=useContext(ListContext)
   const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
 
@@ -52,7 +56,7 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <div className="flex items-center gap-4">
           <>
-           add collab
+      <AddModalMembersList/>
           
           </>
     
@@ -64,9 +68,7 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
         <>
     
             <UpdateDateList
-              folderId={folderId}
-              workspaceId={workspaceId}
-              listId={list.id}
+           
             />
         </>
       </td>
@@ -74,9 +76,7 @@ const ListMap = ({ list, index, folderId, workspaceId }: Props) => {
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <PriorityListSetting
           priority={list.priority_list}
-          id={list.id}
-          folderId={folderId}
-          workspaceId={workspaceId}
+       
         />
       </td>
     </tr>

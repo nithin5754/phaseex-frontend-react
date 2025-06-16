@@ -1,5 +1,4 @@
-
-import {FileEdit, LoaderPinwheel, Trash,  } from "lucide-react";
+import { FileEdit, LoaderPinwheel, Trash } from "lucide-react";
 
 import { TodoModalEdit } from "../modal/Todo-edit-modal";
 
@@ -13,116 +12,94 @@ import { CActivitySendType } from "@/types/TActivity";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { useContext } from "react";
+import { TodoContext } from "@/app/context/todo.context";
 
-interface Props {
-  workspaceId:string,
-  folderId:string,
-  listId:string,
-  taskId:string
-  todoId:string,
-  todo:string,
-  todo_status:string
-}
+interface Props {}
 
-const TodoDropDown = ({workspaceId,folderId,listId,taskId,todoId,todo,todo_status}:Props) => {
-const [onDeleteTaskTodo,{isLoading}]=useOnDeleteTaskTodoMutation()
-const isSpaceOwner = UseSpaceRoles({ workspaceId });
+const TodoDropDown = ({}: Props) => {
+  const { todo } = useContext(TodoContext);
+  const [onDeleteTaskTodo, { isLoading }] = useOnDeleteTaskTodoMutation();
+  const isSpaceOwner = UseSpaceRoles({ workspaceId: todo.workspaceId });
 
+  const [onCreateActivity] = useOnCreateActivityMutation();
+  const currentName = useSelector(selectCurrentUserName);
 
+  const handleDelete = async () => {
+    let TaskTodoData: SendDeleteTodoTask = {
+      taskId: todo.taskId,
+      workspaceId: todo.workspaceId,
+      folderId: todo.folderId,
+      listId: todo.listId,
+      todoId: todo.id,
+    };
 
-const [onCreateActivity]=useOnCreateActivityMutation() 
-const currentName=useSelector(selectCurrentUserName)
+    try {
+      let response = await onDeleteTaskTodo(TaskTodoData).unwrap();
 
-const handleDelete=async()=>{
+      if (response) {
+        let ActivityData: CActivitySendType = {
+          taskId: todo.taskId,
+          workspaceId: todo.workspaceId,
+          folderId: todo.folderId,
+          listId: todo.listId,
 
-  let TaskTodoData: SendDeleteTodoTask= {
-    taskId,
-    workspaceId,
-    folderId,
-    listId,
-    todoId,
+          activity: `${currentName} deleted the todo ${todo} `,
+        };
+        await onCreateActivity(ActivityData).unwrap();
+      }
+    } catch (error: any) {
+      if (!error.status) {
+        toast({
+          title: "no response",
+          variant: "destructive",
+        });
+      } else if (error.status) {
+        toast({
+          title: `${error.data.message}`,
+          variant: "destructive",
+        });
+      }
+    }
   };
-
-   try {
-   let response= await onDeleteTaskTodo(TaskTodoData).unwrap();
-
-   if(response){
-              
-    let ActivityData:CActivitySendType={
-      workspaceId,
-      folderId,
-      listId,
-      taskId,
-      activity:`${currentName} deleted the todo ${todo} `
-    }
-    await onCreateActivity(ActivityData).unwrap()
-   }
-
-
-   
-   } catch (error: any) {
-    if (!error.status) {
-      toast({
-        title: "no response",
-        variant: "destructive",
-      });
-    } else if (error.status) {
-      toast({
-        title: `${error.data.message}`,
-        variant: "destructive",
-      });
-    }
-  } 
-  
-}
 
   return (
     <div className="flex gap-3 ">
       <>
-      {
-  todo_status === 'completed' ? (
-    <FileEdit size={23} color="#47504f" />
-  ) : (
-    <>
-      {isSpaceOwner ? (
-        <TodoModalEdit
-          icon={FileEdit}
-          spaceId={workspaceId}
-          folderId={folderId}
-          listId={listId}
-          taskId={taskId}
-          todoId={todoId}
-          todo={todo}
-        />
-      ) : (
-        <FileEdit size={23} color="#47504f" />
-      )}
-    </>
-  )
-}
-
+        {todo.todo_status === "completed" ? (
+          <FileEdit size={23} color="#47504f" />
+        ) : (
+          <>
+            {isSpaceOwner ? (
+              <TodoModalEdit
+                icon={FileEdit}
+            
+              />
+            ) : (
+              <FileEdit size={23} color="#47504f" />
+            )}
+          </>
+        )}
       </>
 
       <>
-      {isSpaceOwner  ? (
-        <>
-        {
-         isLoading?(<>
-            <LoaderPinwheel className="animate-spin " size={24}/>
-         </>):( <>
-           <Trash size={23} onClick={handleDelete}/>
-           </>)
-        }
-        </>
-      ) : (
-        <Trash size={23} color="#47504f" />
-      )}
-    </>
-
-
-      
+        {isSpaceOwner ? (
+          <>
+            {isLoading ? (
+              <>
+                <LoaderPinwheel className="animate-spin " size={24} />
+              </>
+            ) : (
+              <>
+                <Trash size={23} onClick={handleDelete} />
+              </>
+            )}
+          </>
+        ) : (
+          <Trash size={23} color="#47504f" />
+        )}
+      </>
     </div>
-      
-  )
-}
-export default TodoDropDown
+  );
+};
+export default TodoDropDown;

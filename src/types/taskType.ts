@@ -6,8 +6,9 @@ export interface ResponseTaskAttachmentType {
 }
 
 export interface ResponseTaskCollaboratorType {
-  assigneeId: string;
-  role: string;
+  assignee: string;
+  assignee_name?:string;
+  role:"developer"|"listManager"|"spaceOwner"|"viewer";
 }
 
 export interface ResponseTaskType {
@@ -77,6 +78,14 @@ export interface SendDLinkTaskType {
 }
 
 export interface sendLinkDelete {
+  workspaceId: string;
+  folderId: string;
+  listId: string;
+  taskId: string;
+  linkId: string;
+} 
+
+export interface sendTaskCollabType{
   workspaceId: string;
   folderId: string;
   listId: string;

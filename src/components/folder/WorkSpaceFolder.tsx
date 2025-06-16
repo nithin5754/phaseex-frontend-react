@@ -33,11 +33,15 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
     <div className=" bg-white border border-gray-200 rounded-lg  dark:bg-background dark:text-primary dark:border-border ">
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
-        {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
-        <FolderTableToggleView
+   <div className="flex ">
+         {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
+     <div className="flex my-auto">
+         <FolderTableToggleView
           handleToggle={handleToggleHandle}
           name={toggle}
         />
+     </div>
+   </div>
       </div>
       {getAllFolder && getAllFolder.length > 0 ? (
         <>

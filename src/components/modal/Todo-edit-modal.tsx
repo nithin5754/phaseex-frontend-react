@@ -18,6 +18,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 
 
 
+
 interface OpenModalProps{
   icon:LucideIcon;
   spaceId:string,
@@ -30,7 +31,9 @@ todo:string
 }
 
 
-  export  function TodoModalEdit({icon:Icon,spaceId,folderId,listId,taskId,todoId,todo}:OpenModalProps) {
+  export  function TodoModalEdit({icon:Icon}:OpenModalProps) {
+
+
     const [open, setOpen] = useState<boolean>(false);
 
     const handleClose = () => setOpen(false);
@@ -46,7 +49,7 @@ todo:string
            this will help to divide complex task into simple todo list
         </DialogDescription>
       </DialogHeader>
-      <EditTodo handleClose={handleClose} workspaceId={spaceId} folderId={folderId} listId={listId} taskId={taskId} todoId={todoId} todo={todo}/>
+      <EditTodo handleClose={handleClose} />
 
       <DialogFooter>
      <Button className="dark:text-primary" variant="outline" onClick={handleClose}>Close</Button>

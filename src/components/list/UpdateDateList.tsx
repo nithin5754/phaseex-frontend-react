@@ -1,7 +1,6 @@
 import * as React from "react";
 import { format } from "date-fns";
-import {Calendar as CalendarIcon } from "lucide-react";
-
+import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -25,21 +24,15 @@ import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import moment from "moment";
+import { ListContext } from "@/app/context/list.context";
 
-interface Props {
-  folderId: string;
-  workspaceId: string;
-  listId: string;
-
-}
+interface Props {}
 
 export function UpdateDateList({
   className,
-  folderId,
-  workspaceId,
-  listId
 }: Props & React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<Date>()
+  const { list, folderId, workspaceId } = React.useContext(ListContext);
+  const [date, setDate] = React.useState<Date>();
 
   const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -54,7 +47,6 @@ export function UpdateDateList({
     if (date) {
       const startList = format(Date.now(), "MMMM d, yyyy - h:mm a");
       const dueList = format(date, "MMMM d, yyyy - h:mm a");
-
 
       if (startList && dueList) {
         dispatch(setDateListPicker({ startList, dueList }));
@@ -78,7 +70,7 @@ export function UpdateDateList({
       list_due_date: listDatePicker.dueList,
       workspaceId: workspaceId,
       folderId: folderId,
-      listId: listId,
+      listId: list.id,
     };
 
     if (data) {
@@ -112,30 +104,27 @@ export function UpdateDateList({
     <div className={cn("grid gap-2 font-sfpro ", className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "border-0 hover:bg-transparent",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-        </Button>
+          <Button
+            variant={"outline"}
+            className={cn(
+              "border-0 hover:bg-transparent",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+          </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0  mr-4" align="start">
-    
-
-         <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            initialFocus
+          />
           <div className="flex gap-2 items-center justify-center mb-4">
             <Button className=" p-2 font-sfpro" onClick={handleClose}>
               close
             </Button>
-
 
             <Button onClick={handleSubmit}>save</Button>
           </div>

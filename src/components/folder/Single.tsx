@@ -12,6 +12,7 @@ import { ListMap, ListTableTitle } from "../list/index";
 import { FolderDetails } from "./index";
 import { useState } from "react";
 import FolderTableToggleView from "../workspaces/FolderTableToggleView";
+import { ListContext } from "@/app/context/list.context";
 
 const Single = () => {
   const { id, folderId } = useParams();
@@ -80,13 +81,14 @@ const Single = () => {
                         <>
                           {getAllList.lists.slice(0, 4).map((list, index) => {
                             return (
+                              <ListContext.Provider value={{workspaceId:id,folderId,listId:list.id,list}}>
                               <ListMap
                                 key={list.id}
-                                list={list}
+                            
                                 index={index}
-                                folderId={folderId}
-                                workspaceId={id}
+                           
                               />
+                              </ListContext.Provider>
                             );
                           })}
                         </>

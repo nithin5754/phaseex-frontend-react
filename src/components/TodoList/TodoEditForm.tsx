@@ -22,6 +22,8 @@ import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { CActivitySendType } from "@/types/TActivity";
 import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { TodoContext } from "@/app/context/todo.context";
+import { useContext } from "react";
 
 const FormSchema = z.object({
   todo: z.string().min(2, {
@@ -31,23 +33,14 @@ const FormSchema = z.object({
 
 interface Props {
   handleClose: () => void;
-  workspaceId: string;
-  folderId: string;
-  listId: string;
-  taskId: string;
-  todoId: string;
-  todo: string;
+
 }
 
 export function EditTodo({
   handleClose,
-  workspaceId,
-  folderId,
-  listId,
-  taskId,
-  todoId,
-  todo,
+
 }: Props) {
+      const {todo:{workspaceId,folderId,listId,taskId,id,todo}}=useContext(TodoContext)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -67,7 +60,7 @@ export function EditTodo({
       workspaceId,
       folderId,
       listId,
-      todoId,
+      todoId:id,
     };
 
     if (TaskTodoData) {
@@ -142,7 +135,8 @@ export function EditTodo({
             </>
           ) : (
             <Button
-              className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white font-bold py-1 px-2 rounded w-1/2 dark:text-primary dark:border-border "
+              className="bg-transparent  hover:bg-slate-800 text-black border-black border hover:text-white 
+              font-bold py-1 px-2 rounded w-1/2 dark:text-primary dark:border-border "
               type="submit"
             >
               create new todo

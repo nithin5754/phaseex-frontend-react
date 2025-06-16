@@ -1,55 +1,34 @@
 import { Link } from "react-router-dom";
 import { TableCell, TableRow } from "../ui/table";
 import UpdateTaskStatus from "./UpdateTaskStatus";
-
-import { Check} from "lucide-react";
+import { Check, User } from "lucide-react";
 import PriorityTaskSetting from "./TaskPiroritySetting";
-import { ResponseTaskType } from "@/types";
+import { useContext } from "react";
+import { TaskContext } from "@/app/context/task.context";
+import { TaskCollabModal } from "../modal/add-task-collaborators";
 
+interface Props {}
 
-
-
-
-interface Props {
-  task: ResponseTaskType;
-  spaceId: string;
-  folderId: string;
-  listId: string;
-}
-
-const SingleTask = ({ task, spaceId, folderId, listId }: Props) => {
-  // const isSpaceOwner = UseSpaceRoles({ workspaceId: spaceId });
-
-
-
-
-
-
+const SingleTask = ({}: Props) => {
+  const { task, workspaceId, folderId, listId } = useContext(TaskContext);
 
   return (
     <TableRow key={task.id} className="dark:border dark:border-border">
       <TableCell className="font-medium text-center">
-
-          <UpdateTaskStatus taskId={task.id} status={task.status_task} />
-       
+        <UpdateTaskStatus taskId={task.id} status={task.status_task} />
       </TableCell>
 
       <TableCell className="font-medium text-center flex items-center">
-     
-          <Link
-            to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
-          >
-            {task.task_title}
-          </Link>
-     
+        <Link
+          to={`/space/${workspaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+        >
+          {task.task_title}
+        </Link>
       </TableCell>
 
       <TableCell className="text-center">
         <div className="flex items-center justify-center gap-2">
-    
-        <h1>  task collab add</h1>
-
-     
+     <TaskCollabModal icon={User}/>
         </div>
       </TableCell>
 
@@ -65,23 +44,15 @@ const SingleTask = ({ task, spaceId, folderId, listId }: Props) => {
       </TableCell>
 
       <TableCell className="text-center">
-        <PriorityTaskSetting
-          priority={task.priority_task}
-          workspaceId={spaceId}
-          folderId={folderId}
-          taskId={task.id}
-          id={listId}
-        />
+        <PriorityTaskSetting priority={task.priority_task} />
       </TableCell>
 
       <TableCell className="text-center">
-
-          <Link
-            to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
-          >
-            . . .
-          </Link>
-
+        <Link
+          to={`/space/${workspaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+        >
+          . . .
+        </Link>
       </TableCell>
     </TableRow>
   );

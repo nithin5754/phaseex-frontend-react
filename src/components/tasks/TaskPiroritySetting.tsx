@@ -15,29 +15,20 @@ import { useOnUpdatePriorityTaskMutation } from "@/app/redux/api/taskapi";
 import { SendPriorityTaskType } from "@/types/taskType";
 
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import { useContext } from "react";
+import { TaskContext } from "@/app/context/task.context";
 
 interface Props {
   priority: string;
-  workspaceId: string;
-  folderId: string;
-  taskId: string;
-  id: string;
 }
 
 interface PriorityChangeEvent {
   priority: string;
 }
 
-const PriorityTaskSetting = ({
-  folderId,
-  priority,
-  id,
-  workspaceId,
-  taskId,
-}: Props) => {
+const PriorityTaskSetting = ({ priority }: Props) => {
+  const { task, workspaceId, folderId, listId } = useContext(TaskContext);
   const [onUpdatePriorityTask] = useOnUpdatePriorityTaskMutation();
-
-
 
   const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
@@ -46,8 +37,8 @@ const PriorityTaskSetting = ({
       folderId: folderId,
       workspaceId: workspaceId,
       priority: priority,
-      listId: id,
-      taskId,
+      listId: listId,
+      taskId: task.id,
     };
     if (data) {
       const response = await onUpdatePriorityTask(data).unwrap();
@@ -62,10 +53,7 @@ const PriorityTaskSetting = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        asChild
-        disabled={isSpaceOwner ? false : true}
-      >
+      <DropdownMenuTrigger asChild disabled={isSpaceOwner ? false : true}>
         <Button
           variant="outline"
           className="border-none dark:bg-background  dark:border-none dark:text-primary w-[100px]"

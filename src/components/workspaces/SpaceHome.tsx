@@ -36,7 +36,7 @@ const SpaceHome: FC = (): ReactElement => {
         direction="horizontal"
         className=" rounded-lg border-0  p-4  h-[450px]"
       >
-        {/* 1 box */}
+  
         <ResizablePanel
           defaultSize={30}
           minSize={30}

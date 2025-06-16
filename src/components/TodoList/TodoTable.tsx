@@ -14,6 +14,7 @@ import { TodoSingle, TodoTHead } from "./index";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
 import { CActivitySendType } from "@/types/TActivity";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
+import { TodoContext } from "@/app/context/todo.context";
 
 interface Props {
   getAllTodoTask: TodoType[];
@@ -86,12 +87,11 @@ const TodoTable = ({ getAllTodoTask }: Props) => {
         {searchTodoQuery === "" ? (
           <>
             {getAllTodoTask.map((todo: TodoType) => (
-              <TodoSingle
+           <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
+               <TodoSingle
                 key={todo.id}
-                todo={todo}
-                loadingStates={loadingStates}
-                handleChangeCheckBox={handleChangeCheckBox}
               />
+           </TodoContext.Provider>
             ))}
           </>
         ) : (
@@ -99,12 +99,14 @@ const TodoTable = ({ getAllTodoTask }: Props) => {
             {searchTodoItem &&
               searchTodoItem.length > 0 &&
               searchTodoItem.map((todo: TodoType) => (
-                <TodoSingle
+                     <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
+          <TodoSingle
                   key={todo.id}
-                  todo={todo}
-                  loadingStates={loadingStates}
-                  handleChangeCheckBox={handleChangeCheckBox}
+      
                 />
+
+                     </TodoContext.Provider>
+      
               ))}
           </>
         )}

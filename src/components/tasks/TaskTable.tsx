@@ -14,22 +14,32 @@ import { useGetAllTaskQuery } from "@/app/redux/api/taskapi";
 import { SingleTask } from "./index";
 
 import { Link } from "react-router-dom";
+import { TaskContext } from "@/app/context/task.context";
+import { Fragment } from "react/jsx-runtime";
+import { useGetAllCollabInSpaceQuery } from "@/app/redux/api/spaceApi";
+import { useGetSingleListQuery } from "@/app/redux/api/listapi";
 
 interface Props {
   spaceId: string;
   folderId: string;
   listId: string;
-  toggle:"table-view" | "folder-view"
+  toggle: "table-view" | "folder-view";
 }
 
-const TaskTable = ({ folderId, spaceId, listId,toggle }: Props) => {
+const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
+  const { data: getAllTask } = useGetAllTaskQuery({
+    workspaceId: spaceId,
+    folderId,
+    listId,
+  });
 
+    const { data: getAllMembers } = useGetAllCollabInSpaceQuery(spaceId!, {
+    skip: !spaceId,
+  });
 
-
-
-  const { data: getAllTask } = useGetAllTaskQuery(
-    { workspaceId: spaceId, folderId, listId }
-  );
+      const { data:getListCollab } = useGetSingleListQuery({ workspaceId:spaceId!, folderId,listId }, {
+    skip: !spaceId,
+  });
 
   return (
     <>
@@ -38,25 +48,27 @@ const TaskTable = ({ folderId, spaceId, listId,toggle }: Props) => {
           {toggle === "folder-view" ? (
             <>
               <div className=" gap-2   dark:border border-r-0 border-l-0 dark:border-border ">
-            <div className="m-2 flex flex-wrap w-full gap-4">
+                <div className="m-2 flex flex-wrap w-full gap-4">
                   {getAllTask.map((task) => {
-                  return (
-                    <Link
-                      key={task.id}
-                      to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
-                    >
-                      <div className="bg-white w-full md:w-[200px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2 dark:bg-secondary dark:border-border dark:text-primary dark:hover:bg-card">
-                        <span className="text-slate-400 dark:text-primary">
-                          <List className="border-gray-500" />
-                        </span>
-                        <h1 className="font-sfpro text-slate-600 text-center dark:text-primary capitalize ">
-                          {task.task_title}
-                        </h1>
-                      </div>
-                    </Link>
-                  );
-                })}
-            </div>
+                    return (
+                      <Fragment key={task.id}>
+                        <Link
+                          key={task.id}
+                          to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+                        >
+                          <div className="bg-white w-full md:w-[200px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2 dark:bg-secondary dark:border-border dark:text-primary dark:hover:bg-card">
+                            <span className="text-slate-400 dark:text-primary">
+                              <List className="border-gray-500" />
+                            </span>
+                            <h1 className="font-sfpro text-slate-600 text-center dark:text-primary capitalize ">
+                              {task.task_title}
+                            </h1>
+                          </div>
+                        </Link>
+                      </Fragment>
+                    );
+                  })}
+                </div>
               </div>
             </>
           ) : (
@@ -103,14 +115,23 @@ const TaskTable = ({ folderId, spaceId, listId,toggle }: Props) => {
                     getAllTask.length > 0 &&
                     getAllTask.map((task) => {
                       return (
-                        <>
-                          <SingleTask
-                            task={task}
-                            spaceId={spaceId}
-                            folderId={folderId}
-                            listId={listId}
-                          />
-                        </>
+                        <Fragment key={task.id}>
+                          <TaskContext.Provider
+                            value={{
+                              folderId,
+                              listId,
+                              workspaceId: spaceId,
+                              taskId: task.id,
+                              task,
+                              spaceAllMembers:getAllMembers?getAllMembers:[],
+                              listCollaborators:getListCollab&&getListCollab.list_collaborators.length>0?getListCollab.list_collaborators:[]
+
+                              
+                            }}
+                          >
+                            <SingleTask />
+                          </TaskContext.Provider>
+                        </Fragment>
                       );
                     })}
                 </TableBody>

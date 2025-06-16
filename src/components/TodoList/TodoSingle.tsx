@@ -7,17 +7,16 @@ import {
 import { TableBody, TableCell, TableRow } from "../ui/table";
 import TodoDropDown from "./TodoDropDown";
 import { Checkbox } from "../ui/checkbox";
-import { TodoType } from "@/types/TodoType";
+
 import UseTodoRoles from "@/hooks/useTodoRoles";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { TodoContext } from "@/app/context/todo.context";
 
-interface Props {
-  todo: TodoType;
-  loadingStates: { [key: string]: boolean };
-  handleChangeCheckBox: (todo: TodoType) => void;
-}
+interface Props {}
 
-const TodoSingle = ({ todo, loadingStates, handleChangeCheckBox }: Props) => {
+const TodoSingle = ({}: Props) => {
+  const { todo, loadingStates, handleChangeCheckBox } = useContext(TodoContext);
   const isTodoRoles = UseTodoRoles({ todo });
 
   return (
@@ -51,13 +50,7 @@ const TodoSingle = ({ todo, loadingStates, handleChangeCheckBox }: Props) => {
         </TableCell>
         <TableCell className="">
           <TodoDropDown
-            workspaceId={todo.workspaceId}
-            folderId={todo.folderId}
-            listId={todo.listId}
-            taskId={todo.taskId}
-            todoId={todo.id}
-            todo={todo.todo}
-            todo_status={todo.todo_status}
+        
           />
         </TableCell>
       </TableRow>

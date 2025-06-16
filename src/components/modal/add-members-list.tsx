@@ -1,72 +1,92 @@
+import { useContext, useEffect, useState } from "react";
+import { User, UserPlus } from "lucide-react";
 import { Button } from "../ui/button";
 
-import { LucideIcon, PlusCircle } from "lucide-react";
-
-import { useState } from "react";
-
-import { CreateTodo } from "../TodoList";
+import Searchbox from "../search/list/search-box";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import {
+  ReceiveCollaboratorType,
+  useGetAllCollabInSpaceQuery,
+} from "@/app/redux/api/spaceApi";
 
-interface OpenModalProps {
-  icon: LucideIcon;
+import useAuth from "@/hooks/useAuth";
+import { ROLE_PERMISSIONS } from "@/lib/rolesPermission";
+import { ListContext } from "@/app/context/list.context";
 
-  spaceId: string;
-  folderId: string;
-  listId: string;
-  taskId: string;
-}
+export function AddModalMembersList() {
+  const { workspaceId, list } = useContext(ListContext);
+  const [open, setOpen] = useState(false);
+  const user = useAuth();
 
-export function TodoModalMembersList({
-  spaceId,
-  folderId,
-  listId,
-  taskId,
-}: OpenModalProps) {
-  const [open, setOpen] = useState<boolean>(false);
+  const [isPermission, setPermission] = useState<boolean>(false);
 
-  const handleClose = () => setOpen(false);
+  const { data: getAllMembers } = useGetAllCollabInSpaceQuery(workspaceId!, {
+    skip: !workspaceId,
+  });
+
+  useEffect(() => {
+    if (getAllMembers && getAllMembers.length > 0) {
+      const userResult = getAllMembers.find(
+        (member: ReceiveCollaboratorType) => member.id === user?.userId
+      );
+      if (userResult) {
+        const permission = ROLE_PERMISSIONS[userResult.role];
+
+        const hasPermission: boolean = permission["canInvite"];
+        setPermission(hasPermission);
+      }
+    }
+  }, [getAllMembers]);
+
+  console.log("LIST TABLE", list);
+
+  if (!workspaceId) {
+    return (
+      <Button variant="destructive" disabled>
+        Invalid space ID
+      </Button>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <PlusCircle />
+        <Button
+          variant="default"
+          className="h-6 w-8 rounded-sm flex mx-auto"
+          size="icon"
+          title="Add Member"
+        >
+          {isPermission ? <UserPlus size={14} /> : <User />}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+
+      <DialogContent className="space-y-4 border-gray-600">
         <DialogHeader>
-          <DialogTitle className="dark:text-primary text-white w-full">
-            {" "}
-            New Todo Task
+          <DialogTitle className="text-white dark:text-primary">
+            {isPermission
+              ? "Add Manager and Viewer"
+              : "View List Manager and Viewers"}
           </DialogTitle>
           <DialogDescription>
-            this will help to divide complex task into simple todo list
+            Manager is required. Viewer is optional.
           </DialogDescription>
         </DialogHeader>
-        <CreateTodo
-          handleClose={handleClose}
-          workspaceId={spaceId}
-          folderId={folderId}
-          listId={listId}
-          taskId={taskId}
-        />
 
-        <DialogFooter>
-          <Button
-            className="dark:text-primary"
-            variant="outline"
-            onClick={handleClose}
-          >
-            Close
-          </Button>
-        </DialogFooter>
+        {isPermission ? (
+          <div className="flex gap-2">
+            <Searchbox getAllMembers={getAllMembers} type="search" />
+          </div>
+        ) : (
+          <Searchbox getAllMembers={getAllMembers} type="view" />
+        )}
       </DialogContent>
     </Dialog>
   );
