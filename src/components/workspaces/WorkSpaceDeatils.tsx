@@ -20,7 +20,7 @@ const WorkSpaceDeatils = () => {
     return <h1>loading....</h1>;
   }
 
-  UseSpaceRoles({ workspaceId: id });
+  const isOwner: boolean = UseSpaceRoles({ workspaceId: id });
 
   const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id);
   const { data: getAllFolder } = useGetAllFolderQuery(id);
@@ -41,7 +41,6 @@ const WorkSpaceDeatils = () => {
             className="w-full bg-white text-black border border-gray-200 rounded-lg p-6 h-auto dark:text-primary dark:bg-background 
   dark:border-border flex flex-row justify-between"
           >
-
             {singleWorkSpace && (
               <TemplateAbout
                 templateAbout={{
@@ -54,7 +53,7 @@ const WorkSpaceDeatils = () => {
               />
             )}
             <div className="">
-              <Button onClick={() => setDisplayModal(true)}>
+              <Button disabled={!isOwner} onClick={() => setDisplayModal(true)}>
                 invite friends +
               </Button>
             </div>

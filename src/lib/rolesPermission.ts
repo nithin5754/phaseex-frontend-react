@@ -10,16 +10,19 @@ export type RolesPermissionTypes={
 
 const ROLE_PERMISSIONS: RolesPermissionTypes = {
   owner: {
+
     canInvite: true,
     canAssignRoles: true,
     canDeleteProject: true,
   },
   manager: {
+ 
     canInvite: true,
     canAssignRoles: false,
     canDeleteProject: false,
   },
   developer: {
+  
     canInvite: false,
     canAssignRoles: false,
     canDeleteProject: false,

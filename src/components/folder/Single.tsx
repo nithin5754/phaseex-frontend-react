@@ -10,20 +10,21 @@ import { selectPage } from "@/app/redux/slice/listSlice";
 import { PaginationButton } from "../Pagination/index";
 import { ListMap, ListTableTitle } from "../list/index";
 import { FolderDetails } from "./index";
-import { useState } from "react";
+
 import FolderTableToggleView from "../workspaces/FolderTableToggleView";
 import { ListContext } from "@/app/context/list.context";
+import { useAppDispatch } from "@/app/redux/api/store";
+import { selectCurrentTableView, updateTableView } from "@/app/redux/slice/uttilSlice";
 
 const Single = () => {
   const { id, folderId } = useParams();
-
-  const [toggle, setToggle] = useState<"table-view" | "folder-view">(
-   "table-view"
-  );
+  const toggle = useSelector(selectCurrentTableView);
+  const dispatch = useAppDispatch();
 
   const handleToggleHandle = (data: "table-view" | "folder-view"): void => {
-    setToggle(data);
+    dispatch(updateTableView(data));
   };
+
 
   const CurrentPage = useSelector(selectPage);
 
@@ -74,36 +75,31 @@ const Single = () => {
                   </div>
                 ) : (
                   <>
-                    <table className="min-w-full leading-normal dark:text-primary">
-                      <ListTableTitle />
+                 <table className="min-w-full leading-normal dark:text-primary">
+  <ListTableTitle />
+  <tbody>
+    {getAllList.lists.slice(0, 4).map((list, index) => (
+      <ListContext.Provider
+        key={list.id} 
+        value={{
+          workspaceId: id,
+          folderId,
+          listId: list.id,
+          list,
+        }}
+      >
+        <ListMap index={index} />
+      </ListContext.Provider>
+    ))}
+  </tbody>
+</table>
 
-                      <tbody>
-                        <>
-                          {getAllList.lists.slice(0, 4).map((list, index) => {
-                            return (
-                              <ListContext.Provider value={{workspaceId:id,folderId,listId:list.id,list}}>
-                              <ListMap
-                                key={list.id}
-                            
-                                index={index}
-                           
-                              />
-                              </ListContext.Provider>
-                            );
-                          })}
-                        </>
-                      </tbody>
-                    </table>
                   </>
                 )}
               </>
             ) : (
               <div className="mx-auto m-auto">
-                <div className="mt-4 ">
-                  <Button className=" m-2 bg-transparent hover:bg-transparent text-slate-700 text-sm p-2 font-sfpro   dark:text-primary">
-                    + New List
-                  </Button>
-                </div>
+            
                 <div className="flex items-center m-auto w-full justify-center text-center">
                   <LottieAnimation
                     animationData={EmptyList}

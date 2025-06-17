@@ -14,7 +14,7 @@ import { LottieAnimation } from "../lootie/Lootie";
 
 import emptyTodoTask from "../../../public/json/empty-todo-task-1.json";
 import { TodoModalCreate } from "../modal/todo-modal-create";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 
 
 const Todos = () => {
@@ -33,7 +33,7 @@ const Todos = () => {
     return <h1>loading....</h1>;
   }
 
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
+
 
 
   const { data: getAllTodoTask } = useGetAllTodoTaskQuery(
@@ -54,7 +54,7 @@ const Todos = () => {
         <TodoSearch />
    
 
-      {( isSpaceOwner) && (
+      { (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>

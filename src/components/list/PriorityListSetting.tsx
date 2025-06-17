@@ -15,22 +15,23 @@ import {
   useOnUpdatePriorityListMutation,
 } from "@/app/redux/api/listapi";
 import { toast } from "../ui/use-toast";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import { useContext } from "react";
 import { ListContext } from "@/app/context/list.context";
 
 interface Props {
   priority: string;
+  isPermission:boolean
 }
 
 interface PriorityChangeEvent {
   priority: string;
 }
 
-const PriorityListSetting = ({ priority }: Props) => {
+const PriorityListSetting = ({ priority,isPermission }: Props) => {
   const { list, folderId, workspaceId } = useContext(ListContext);
 
-  const isSpaceOwner = UseSpaceRoles({ workspaceId });
+
 
   const [onUpdatePriorityList] = useOnUpdatePriorityListMutation();
 
@@ -54,9 +55,9 @@ const PriorityListSetting = ({ priority }: Props) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild disabled={isSpaceOwner ? false : true}>
+      <DropdownMenuTrigger asChild disabled={isPermission ? false : true}>
         <Button
-          variant="outline"
+          variant="ghost"
           className="border-none dark:bg-background  dark:border-none dark:text-primary w-[100px]"
         >
           {priority}{" "}

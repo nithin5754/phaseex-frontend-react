@@ -2,24 +2,26 @@ import { useGetSingleWorkSpaceQuery } from "@/app/redux/api/spaceApi";
 import useAuth from "./useAuth";
 
 interface Props {
-  workspaceId: string | null;
+  workspaceId: string|undefined;
 }
 
 const UseSpaceRoles = ({ workspaceId }: Props) => {
-  if (workspaceId) {
-    const { data: getSingleSpace } = useGetSingleWorkSpaceQuery(workspaceId);
+  if (!workspaceId) return false;
 
-    const userId = useAuth();
+  const { data: getSingleSpace } = useGetSingleWorkSpaceQuery(workspaceId, {
+    skip: !workspaceId,
+  });
 
-    if (!getSingleSpace) {
-      return false;
-    }
+  const userId = useAuth();
 
-    if (getSingleSpace.workspaceOwner === userId?.userId) {
-      return true;
-    } else {
-      return false;
-    }
+  if (!getSingleSpace) {
+    return false;
+  }
+
+  if (getSingleSpace.workspaceOwner === userId?.userId) {
+    return true;
+  } else {
+    return false;
   }
 };
 export default UseSpaceRoles;

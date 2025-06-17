@@ -52,8 +52,11 @@ const UpdateTaskStatus = ({ taskId, status }: Props) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="border-none dark:border-none" variant="outline">
+      <DropdownMenuTrigger asChild className="">
+        <Button
+          className="border-none border-0 dark:border-none hover:bg-transparent"
+          variant="ghost"
+        >
           <Circle className="w-4  flex m-auto" />
         </Button>
       </DropdownMenuTrigger>

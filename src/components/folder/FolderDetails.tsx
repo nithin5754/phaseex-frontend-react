@@ -18,6 +18,7 @@ const FolderDetails = ({ id, folderId }: Props) => {
   );
 
   if (isLoading) {
+    0
     return <h1>loading...</h1>;
   }
 

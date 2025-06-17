@@ -121,13 +121,23 @@ export function UpdateDateList({
             onSelect={setDate}
             initialFocus
           />
-          <div className="flex gap-2 items-center justify-center mb-4">
-            <Button className=" p-2 font-sfpro" onClick={handleClose}>
-              close
-            </Button>
+     <div className="flex justify-end gap-3 mb-4 mr-2">
+  <Button
+    variant="outline"
+    className="px-2 py-2 font-sfpro text-sm"
+    onClick={handleClose}
+  >
+    Close
+  </Button>
+  <Button
+  variant={'secondary'}
+    className="px-2 py-2 font-sfpro text-sm"
+    onClick={handleSubmit}
+  >
+    Save
+  </Button>
+</div>
 
-            <Button onClick={handleSubmit}>save</Button>
-          </div>
         </PopoverContent>
       </Popover>
     </div>

@@ -19,9 +19,11 @@ import {
 import useAuth from "@/hooks/useAuth";
 import { ROLE_PERMISSIONS } from "@/lib/rolesPermission";
 import { ListContext } from "@/app/context/list.context";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 export function AddModalMembersList() {
-  const { workspaceId, list } = useContext(ListContext);
+  const { workspaceId } = useContext(ListContext);
+  const isSpaceOwner = UseSpaceRoles({ workspaceId });
   const [open, setOpen] = useState(false);
   const user = useAuth();
 
@@ -45,8 +47,6 @@ export function AddModalMembersList() {
     }
   }, [getAllMembers]);
 
-  console.log("LIST TABLE", list);
-
   if (!workspaceId) {
     return (
       <Button variant="destructive" disabled>
@@ -57,7 +57,7 @@ export function AddModalMembersList() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild disabled={!isSpaceOwner}>
         <Button
           variant="default"
           className="h-6 w-8 rounded-sm flex mx-auto"

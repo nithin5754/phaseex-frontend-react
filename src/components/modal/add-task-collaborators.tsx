@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,21 +9,27 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { TaskAddDevelopers } from "../search/task/search";
-
-
+import { Button } from "../ui/button";
 
 interface OpenModalProps {
   icon: LucideIcon;
+  permission: boolean;
 }
 
-export function TaskCollabModal({ icon: Icon }: OpenModalProps) {
+export function TaskCollabModal({ icon: Icon, permission }: OpenModalProps) {
   const [open, setOpen] = useState<boolean>(false);
-
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Icon size={14} />
+        <Button
+          variant="default"
+          className="h-6 w-8 rounded-sm flex mx-auto"
+          size="icon"
+          disabled={!permission}
+        >
+          <Icon size={14} />
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="space-y-4 border-gray-600">

@@ -28,6 +28,9 @@ import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
 import { AIHomepage, ChatPage, CreateFormPage } from "./features/AI";
 import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
+import { Provider } from "@radix-ui/react-toast";
+import { ListContext } from "./app/context/list.context";
+import ListLayout from "./layouts/ListLayout";
 
 function App() {
   return (
@@ -69,7 +72,8 @@ function App() {
 
                         <Route path="lists">
                           <Route index element={<h1>lists page here ..</h1>} />
-                          <Route path=":listId">
+                          <Route path=":listId" element={<ListLayout/>}>
+                            
                             <Route index element={<SingleListFolderView />} />
                             <Route path="tasks">
                               <Route path=":taskId">

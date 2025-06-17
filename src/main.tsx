@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
    
   <Provider store={store}>
-  <Router>
+  <Router> 
   <Routes>
     
     <Route path="/*" element={
@@ -24,7 +24,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <SocketProvider>
     <App />
     </SocketProvider>
-  <Toaster />
+
+    <Toaster />
+
   </>
     } />
   </Routes>

@@ -6,19 +6,25 @@ import EmptyFolder from "../../../public/json/empty-folder-1.json";
 import { ResponseFolderDataType } from "@/app/redux/api/FolderApi";
 import UseSpaceRoles from "@/hooks/useSpaceRoles";
 import FolderTableToggleView from "../workspaces/FolderTableToggleView";
-import { useState } from "react";
+
+import { useSelector } from "react-redux";
+import {
+  selectCurrentTableView,
+  updateTableView,
+} from "@/app/redux/slice/uttilSlice";
+import { useAppDispatch } from "@/app/redux/api/store";
 
 interface Props {
   getAllFolder: ResponseFolderDataType[];
 }
 const WorkSpaceFolder = ({ getAllFolder }: Props) => {
   const { id } = useParams();
-  const [toggle, setToggle] = useState<"table-view" | "folder-view">(
-    "folder-view"
-  );
+
+  const currentTableView = useSelector(selectCurrentTableView);
+  const dispatch = useAppDispatch();
 
   const handleToggleHandle = (data: "table-view" | "folder-view"): void => {
-    setToggle(data);
+    dispatch(updateTableView(data));
   };
 
   if (!id) {
@@ -33,19 +39,19 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
     <div className=" bg-white border border-gray-200 rounded-lg  dark:bg-background dark:text-primary dark:border-border ">
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
-   <div className="flex ">
-         {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
-     <div className="flex my-auto">
-         <FolderTableToggleView
-          handleToggle={handleToggleHandle}
-          name={toggle}
-        />
-     </div>
-   </div>
+        <div className="flex ">
+          {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
+          <div className="flex my-auto">
+            <FolderTableToggleView
+              handleToggle={handleToggleHandle}
+              name={currentTableView}
+            />
+          </div>
+        </div>
       </div>
       {getAllFolder && getAllFolder.length > 0 ? (
         <>
-          {toggle === "folder-view" ? (
+          {currentTableView === "folder-view" ? (
             <>
               <div className="flex flex-wrap gap-2 m-2  ml-8">
                 {getAllFolder.map((folder) => {
@@ -83,9 +89,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
                       <th className="px-5 py-3 border-b border-gray-200 dark:text-primary  text-left text-xs font-sfpro text-gray-600 uppercase tracking-wider dark:bg-background dark:border-border">
                         created at
                       </th>
-                      <th className="px-5 py-3 border-b border-gray-200 dark:text-primary  text-left text-xs font-sfpro text-gray-600 uppercase tracking-wider dark:bg-background dark:border-border">
-                        update at
-                      </th>
+                 
                     </tr>
                   </thead>
                   <tbody>
@@ -109,9 +113,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
                             <h1>{folder.createdAt}</h1>
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
-                            <h1>{folder.updatedAt}</h1>
-                          </td>
+                       
                         </tr>
                       );
                     })}

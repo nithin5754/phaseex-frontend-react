@@ -20,13 +20,14 @@ import { TaskContext } from "@/app/context/task.context";
 
 interface Props {
   priority: string;
+  permission: boolean;
 }
 
 interface PriorityChangeEvent {
   priority: string;
 }
 
-const PriorityTaskSetting = ({ priority }: Props) => {
+const PriorityTaskSetting = ({ priority, permission }: Props) => {
   const { task, workspaceId, folderId, listId } = useContext(TaskContext);
   const [onUpdatePriorityTask] = useOnUpdatePriorityTaskMutation();
 
@@ -53,10 +54,12 @@ const PriorityTaskSetting = ({ priority }: Props) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild disabled={isSpaceOwner ? false : true}>
+      <DropdownMenuTrigger asChild disabled={permission ? false : true}>
         <Button
+       
+      
           variant="outline"
-          className="border-none dark:bg-background  dark:border-none dark:text-primary w-[100px]"
+          className="border-none dark:bg-background hover:bg-transparent  dark:border-none dark:text-primary w-[100px]"
         >
           {priority}{" "}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0  opacity-50 " />{" "}

@@ -10,6 +10,6 @@ import {  ITaskContext } from './interface.context';
 
 export const TaskContext: Context<ITaskContext> = createContext({
  
-spaceAllMembers:[]
+spaceAllMembers:[],
 
 }) as unknown  as Context<ITaskContext>

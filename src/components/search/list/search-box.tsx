@@ -25,7 +25,10 @@ interface ISearchBoxProps {
 const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
   const [developers, setDevelopers] = useState<ReceiveCollaboratorType[]>([]);
 
+  const [isManager, setManager] = useState<boolean>(false);
+
   const { list } = useContext(ListContext);
+
   const [onAddManagerViewerList] = useOnAddManagerViewerListMutation();
 
   useEffect(() => {
@@ -34,13 +37,19 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
     const isNotAlreadyAssigned = (memberId: string) =>
       !list.list_collaborators.some((collab) => collab.assignee === memberId);
 
+    const isManagerAssigned = list.list_collaborators.some(
+      (collab) => collab.role === "manager"
+    );
+
+    setManager(isManagerAssigned);
+
     setDevelopers(
       getAllMembers.filter(
         (m) =>
           m.role === "developer" && m.verified && isNotAlreadyAssigned(m.id)
       )
     );
-  }, [getAllMembers, list]);
+  }, [getAllMembers, list, onAddManagerViewerList]);
 
   const handleAddCollaborator = async (data: SendAddCollabListType) => {
     try {
@@ -55,8 +64,7 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
     role: string;
     showButton?: boolean;
     onAddManager?: () => void;
-    onAddViewer?: () => void;
-  }> = ({ name, role, showButton, onAddViewer, onAddManager }) => (
+  }> = ({ name, role, showButton, onAddManager }) => (
     <CommandItem className="flex flex-col items-start gap-2 border border-border rounded-md p-3 mt-2 hover:bg-muted transition-colors">
       <div className="flex items-center w-full gap-2">
         <User className="h-4 w-4 text-muted-foreground" />
@@ -64,7 +72,7 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
         <span className="ml-auto text-xs text-muted-foreground">{role}</span>
       </div>
 
-      {showButton && (
+      {showButton && !isManager && (
         <div className="flex gap-2 self-end">
           <Button
             onClick={onAddManager}
@@ -73,13 +81,6 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
             <Plus className="mr-1 h-3.5 w-3.5" />
             Manager
           </Button>
-          <Button
-            onClick={onAddViewer}
-            className="h-7 px-3 text-xs font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md shadow-sm"
-          >
-            <Plus className="mr-1 h-3.5 w-3.5" />
-            Viewer
-          </Button>
         </div>
       )}
     </CommandItem>
@@ -87,14 +88,14 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
 
   return (
     <Command className="rounded-xl bg-background shadow-lg text-foreground w-full max-w-md mx-auto">
-      {type === "search" && (
+
         <div className="px-3 py-2">
           <CommandInput
             placeholder="Search users..."
             className="w-full text-sm placeholder:text-muted-foreground"
           />
         </div>
-      )}
+      
 
       <CommandList className="py-2">
         <CommandEmpty className="px-4 py-2 text-sm text-muted-foreground">
@@ -134,15 +135,6 @@ const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
                     workspaceId: list.workspaceId,
                     memberId: m.id,
                     role: "manager",
-                  })
-                }
-                onAddViewer={() =>
-                  handleAddCollaborator({
-                    folderId: list.folderId,
-                    listId: list.id,
-                    workspaceId: list.workspaceId,
-                    memberId: m.id,
-                    role: "viewer",
                   })
                 }
               />

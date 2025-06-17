@@ -11,7 +11,18 @@ export interface IListContext {
   folderId: string;
   listId: string;
   list: ResponseListDataType;
+}
 
+export interface IListsContext {
+  isLoading:boolean;
+  isError:boolean
+  workspaceId: string;
+  folderId: string;
+  
+  listId: string;
+  lists?: ResponseListDataType;
+  isCurrentUserManager:boolean;
+  isManagerExists:boolean
 }
 
 export interface ITaskContext {
@@ -21,7 +32,7 @@ export interface ITaskContext {
   taskId: string;
   task: ResponseTaskType;
   spaceAllMembers: ReceiveCollaboratorType[];
-    listCollaborators: ListCollaboratorType[];
+  listCollaborators: ListCollaboratorType[];
 }
 
 export interface ITodoContext {
@@ -32,3 +43,5 @@ export interface ITodoContext {
     [key: string]: boolean;
   };
 }
+
+export interface IListsContext {}

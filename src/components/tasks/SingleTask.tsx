@@ -6,52 +6,69 @@ import PriorityTaskSetting from "./TaskPiroritySetting";
 import { useContext } from "react";
 import { TaskContext } from "@/app/context/task.context";
 import { TaskCollabModal } from "../modal/add-task-collaborators";
+import { ListsContext } from "@/app/context/lists.context";
+import UseSpaceRoles from "@/hooks/useSpaceRoles";
 
 interface Props {}
 
 const SingleTask = ({}: Props) => {
   const { task, workspaceId, folderId, listId } = useContext(TaskContext);
 
+  const isOwner = UseSpaceRoles({ workspaceId });
+
+  const { isCurrentUserManager, isManagerExists } = useContext(ListsContext);
+
   return (
-    <TableRow key={task.id} className="dark:border dark:border-border">
-      <TableCell className="font-medium text-center">
+    <TableRow
+      key={task.id}
+      className="dark:border dark:border-border hover:bg-muted/50 transition-colors"
+    >
+      <TableCell className="text-center align-middle">
         <UpdateTaskStatus taskId={task.id} status={task.status_task} />
       </TableCell>
 
-      <TableCell className="font-medium text-center flex items-center">
+      <TableCell className="text-center align-middle">
         <Link
           to={`/space/${workspaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+          className="text-sm font-medium text-primary hover:underline"
         >
           {task.task_title}
         </Link>
       </TableCell>
 
-      <TableCell className="text-center">
-        <div className="flex items-center justify-center gap-2">
-     <TaskCollabModal icon={User}/>
+      <TableCell className="text-center align-middle">
+        <div className="flex items-center justify-center">
+          <TaskCollabModal
+            icon={User}
+            permission={(isManagerExists && isCurrentUserManager) || isOwner}
+          />
         </div>
       </TableCell>
 
-      <TableCell className="w-[160px] text-center">
+      <TableCell className="text-center align-middle w-[160px]">
         {task.status_task === "complete" ? (
-          <div className="flex items-center gap-1">
-            <Check className="w-4 text-green-800" style={{ strokeWidth: 6 }} />
-            {task.status_task}
+          <div className="flex items-center justify-center gap-1 text-green-700 font-semibold">
+            <Check className="w-4 h-4" style={{ strokeWidth: 6 }} />
+            <span className="capitalize">{task.status_task}</span>
           </div>
         ) : (
-          task.status_task
+          <span className="capitalize">{task.status_task}</span>
         )}
       </TableCell>
 
-      <TableCell className="text-center">
-        <PriorityTaskSetting priority={task.priority_task} />
+      <TableCell className="text-center align-middle">
+        <PriorityTaskSetting
+          priority={task.priority_task}
+          permission={(isManagerExists && isCurrentUserManager) || isOwner}
+        />
       </TableCell>
 
-      <TableCell className="text-center">
+      <TableCell className="text-center align-middle">
         <Link
           to={`/space/${workspaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+          className="inline-block text-xl font-bold hover:text-primary"
         >
-          . . .
+          &hellip;
         </Link>
       </TableCell>
     </TableRow>

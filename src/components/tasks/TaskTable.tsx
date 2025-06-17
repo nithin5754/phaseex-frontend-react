@@ -17,28 +17,25 @@ import { Link } from "react-router-dom";
 import { TaskContext } from "@/app/context/task.context";
 import { Fragment } from "react/jsx-runtime";
 import { useGetAllCollabInSpaceQuery } from "@/app/redux/api/spaceApi";
-import { useGetSingleListQuery } from "@/app/redux/api/listapi";
+
+import { ListsContext } from "@/app/context/lists.context";
+import { useContext } from "react";
 
 interface Props {
-  spaceId: string;
-  folderId: string;
-  listId: string;
   toggle: "table-view" | "folder-view";
+
 }
 
-const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
+const TaskTable = ({ toggle }: Props) => {
+  const { workspaceId, folderId, listId, lists } = useContext(ListsContext);
   const { data: getAllTask } = useGetAllTaskQuery({
-    workspaceId: spaceId,
+    workspaceId,
     folderId,
     listId,
   });
 
-    const { data: getAllMembers } = useGetAllCollabInSpaceQuery(spaceId!, {
-    skip: !spaceId,
-  });
-
-      const { data:getListCollab } = useGetSingleListQuery({ workspaceId:spaceId!, folderId,listId }, {
-    skip: !spaceId,
+  const { data: getAllMembers } = useGetAllCollabInSpaceQuery(workspaceId!, {
+    skip: !workspaceId,
   });
 
   return (
@@ -54,9 +51,9 @@ const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
                       <Fragment key={task.id}>
                         <Link
                           key={task.id}
-                          to={`/space/${spaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
+                          to={`/space/${workspaceId}/folders/${folderId}/lists/${listId}/tasks/${task.id}`}
                         >
-                          <div className="bg-white w-full md:w-[200px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2 dark:bg-secondary dark:border-border dark:text-primary dark:hover:bg-card">
+                          <div className="bg-white w-full md:w-[200px] border rounded-md h-[40px] overflow-hidden flex items-center justify-between px-4 py-1 mx-auto mb-2 dark:bg-secondary dark:border-border dark:text-primary ">
                             <span className="text-slate-400 dark:text-primary">
                               <List className="border-gray-500" />
                             </span>
@@ -76,7 +73,7 @@ const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
               <Table className="">
                 <TableCaption>divide the task to developers</TableCaption>
                 <TableHeader className="">
-                  <TableRow className="dark:border border-r-0 border-l-0 dark:border-border  ">
+                  <TableRow className="dark:border border-r-0 border-l-0 dark:border-border hover:bg-transparent">
                     <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"></TableHead>
                     <TableHead className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider  space-x-2">
                       <div className="flex items-start justify-start gap-2">
@@ -110,7 +107,7 @@ const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="dark:border dark:border-border ">
+                <TableBody className="dark:border dark:border-border hover:bg-transparent">
                   {getAllTask &&
                     getAllTask.length > 0 &&
                     getAllTask.map((task) => {
@@ -120,13 +117,17 @@ const TaskTable = ({ folderId, spaceId, listId, toggle }: Props) => {
                             value={{
                               folderId,
                               listId,
-                              workspaceId: spaceId,
+                              workspaceId: workspaceId,
                               taskId: task.id,
                               task,
-                              spaceAllMembers:getAllMembers?getAllMembers:[],
-                              listCollaborators:getListCollab&&getListCollab.list_collaborators.length>0?getListCollab.list_collaborators:[]
 
-                              
+                              spaceAllMembers: getAllMembers
+                                ? getAllMembers
+                                : [],
+                              listCollaborators:
+                                lists && lists.list_collaborators.length > 0
+                                  ? lists.list_collaborators
+                                  : [],
                             }}
                           >
                             <SingleTask />

@@ -1,23 +1,25 @@
-import { useGetSingleListQuery } from "@/app/redux/api/listapi";
 import { OpenModal as CreateTaskModal } from "../../components/modal/Task-create-modal";
 import TemplateAbout from "../template/About/TemplateAbout";
 import { Plus } from "lucide-react";
+import { useContext } from "react";
+import { ListsContext } from "@/app/context/lists.context";
+import { Button } from "../ui/button";
+import { toast } from "../ui/use-toast";
+
+
+
+
 interface Props {
-  workspaceId: string;
-  folderId: string;
-  listId: string;
+  permission: boolean;
 }
 
-const ListHistory = ({ workspaceId, folderId, listId }: Props) => {
-  const {
-    data: singleList,
+const ListHistory = ({ permission = false }: Props) => {
 
-    isLoading: isSingleListLoading,
-  } = useGetSingleListQuery(
-    { workspaceId, folderId, listId }
-  );
+  const { lists, isLoading } = useContext(ListsContext);
 
-  if (isSingleListLoading) {
+
+
+  if (isLoading) {
     return <h1>loading...</h1>;
   }
 
@@ -27,26 +29,39 @@ const ListHistory = ({ workspaceId, folderId, listId }: Props) => {
         className="w-full bg-white text-black border border-gray-200 rounded-lg p-6 h-auto dark:text-primary dark:bg-background 
   dark:border-border flex flex-row justify-between"
       >
-        {singleList && (
-
+        {lists && (
           <TemplateAbout
             templateAbout={{
-              title: singleList?.list_title,
-              description: singleList.list_description,
+              title: lists?.list_title,
+              description: lists.list_description,
               owner_name: "",
-              date: `${singleList.createdAt}`,
+              date: `${lists.createdAt}`,
               type: "list",
             }}
           />
         )}
 
-        <CreateTaskModal
-          title={""}
-          spaceId={workspaceId}
-          folderId={folderId}
-          icon={Plus}
-          listId={listId}
-        />
+        { permission ? (
+          <CreateTaskModal
+            title={""}
+            icon={Plus}
+            isManagerExists={permission}
+          />
+        ) : (
+          <Button
+            className="bg-transparent hover:bg-transparent"
+            onClick={() =>
+              toast({
+                title: "Manager missing!",
+                description:
+                  "A manager must be added to the list before assigning a developer.",
+                variant: "destructive",
+              })
+            }
+          >
+            <Plus color="gray" />
+          </Button>
+        )}
       </div>
     </div>
   );

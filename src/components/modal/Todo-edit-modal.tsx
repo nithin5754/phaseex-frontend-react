@@ -21,12 +21,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 
 interface OpenModalProps{
   icon:LucideIcon;
-  spaceId:string,
-  folderId:string
-  listId:string,
-taskId:string,
-todoId:string,
-todo:string
+
 
 }
 

@@ -13,32 +13,27 @@ import { Button } from "../ui/button";
 
 import { LucideIcon } from "lucide-react";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { CreateTask } from "../tasks/index";
+import { ListsContext } from "@/app/context/lists.context";
 
 interface OpenModalProps {
   icon?: LucideIcon;
   title: string;
-  spaceId: string;
-  folderId: string;
-  listId: string;
+  isManagerExists:boolean
 }
 
-export function OpenModal({
-  title,
-  icon: Icon,
-  spaceId,
-  folderId,
-  listId,
-}: OpenModalProps) {
+export function OpenModal({ title, icon: Icon, isManagerExists}: OpenModalProps) {
   const [open, setOpen] = useState<boolean>(false);
+
+  const { workspaceId, folderId, listId } = useContext(ListsContext);
 
   const handleClose = () => setOpen(false);
   return (
-    <Credenza open={open} onOpenChange={setOpen}>
-      <CredenzaTrigger asChild>
-        <Button className="w-full items-center gap-2 justify-end hover:bg-transparent font-sfpro  bg-transparent  dark:text-primary">
+    <Credenza open={open} onOpenChange={setOpen} >
+      <CredenzaTrigger asChild >
+        <Button disabled={!isManagerExists} className="w-full items-center gap-2 justify-end hover:bg-transparent font-sfpro  bg-transparent  dark:text-primary">
           {title} <span>{Icon && <Icon size={20} />} </span>
         </Button>
       </CredenzaTrigger>
@@ -55,10 +50,9 @@ export function OpenModal({
         </CredenzaHeader>
 
         <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left dark:text-primary ">
-
           <CreateTask
             handleClose={handleClose}
-            workspaceId={spaceId}
+            workspaceId={workspaceId}
             folderId={folderId}
             listId={listId}
           />

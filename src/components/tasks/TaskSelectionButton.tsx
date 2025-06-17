@@ -6,6 +6,8 @@ import { TaskLinkModal } from "../modal/add-link-modal";
 import { ResponseTaskType } from "@/types";
 
 import { AttachmentAddModal } from "../modal/add-attachment-modal";
+import { ListsContext } from "@/app/context/lists.context";
+import { useContext } from "react";
 
 interface Props {
   singleTask: ResponseTaskType | null;
@@ -13,9 +15,14 @@ interface Props {
 
 const TaskSelectionButton = ({ singleTask }: Props) => {
   const dispatch = useDispatch();
+
+  const { isCurrentUserManager, isManagerExists } = useContext(ListsContext);
   return (
     <div className="flex  m-auto  gap-4 px-6">
-      <Button onClick={() => dispatch(setOpenDescTask(true))}>
+      <Button
+        onClick={() => dispatch(setOpenDescTask(true))}
+        disabled={!isCurrentUserManager && !isManagerExists}
+      >
         <Notebook size={16} /> description
       </Button>
 

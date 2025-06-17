@@ -71,10 +71,7 @@ const TodoDropDown = ({}: Props) => {
         ) : (
           <>
             {isSpaceOwner ? (
-              <TodoModalEdit
-                icon={FileEdit}
-            
-              />
+              <TodoModalEdit icon={FileEdit} />
             ) : (
               <FileEdit size={23} color="#47504f" />
             )}
