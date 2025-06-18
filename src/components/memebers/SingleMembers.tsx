@@ -6,7 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FirstTwoCharacter } from "@/lib/FirstTwoCharacter";
 import { Trash } from "lucide-react";
 
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {
   collab: ReceiveCollaboratorType;
@@ -14,7 +15,10 @@ interface Props {
 }
 
 const SingleMembers = ({ collab, workspaceId }: Props) => {
-  const isSpaceOwner = UseSpaceRoles({ workspaceId });
+  const permission = useRolePermission({
+    workspaceId
+   
+  });
 
   const [deleteCollaborator] = useDeleteCollaboratorMutation();
 
@@ -49,7 +53,7 @@ const SingleMembers = ({ collab, workspaceId }: Props) => {
         <div className="flex justify-between items-center w-full text-sm">
           <span className="text-muted-foreground ml-2">{collab.role}</span>
         </div>
-        {isSpaceOwner && (
+        {permission.owner && (
           <button
             className="text-gray-500 hover:text-gray-700"
             onClick={() => handleDelete(workspaceId, collab.id)}

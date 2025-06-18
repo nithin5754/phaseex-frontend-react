@@ -14,7 +14,7 @@ import { toast } from "../ui/use-toast";
 import { useOnUpdatePriorityTaskMutation } from "@/app/redux/api/taskapi";
 import { SendPriorityTaskType } from "@/types/taskType";
 
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import { useContext } from "react";
 import { TaskContext } from "@/app/context/task.context";
 
@@ -31,7 +31,6 @@ const PriorityTaskSetting = ({ priority, permission }: Props) => {
   const { task, workspaceId, folderId, listId } = useContext(TaskContext);
   const [onUpdatePriorityTask] = useOnUpdatePriorityTaskMutation();
 
-  const isSpaceOwner = UseSpaceRoles({ workspaceId });
 
   const handleChange = async ({ priority }: PriorityChangeEvent) => {
     let data: SendPriorityTaskType = {

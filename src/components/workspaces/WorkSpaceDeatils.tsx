@@ -4,13 +4,14 @@ import { useGetAllFolderQuery } from "@/app/redux/api/FolderApi";
 import { WorkSpaceFolder } from "../folder/index";
 
 import { SpaceViewALLskelton } from "../shimmer/index";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 
 import { useState } from "react";
 
 import { Button } from "../ui/button";
 import InviteMemberModal from "../memebers/InviteMemberModal";
 import TemplateAbout from "../template/About/TemplateAbout";
+import useRolePermission from "@/hooks/useRolePermission";
 
 const WorkSpaceDeatils = () => {
   const { id } = useParams();
@@ -20,7 +21,11 @@ const WorkSpaceDeatils = () => {
     return <h1>loading....</h1>;
   }
 
-  const isOwner: boolean = UseSpaceRoles({ workspaceId: id });
+
+    const permission = useRolePermission({
+    workspaceId:id
+
+  });
 
   const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id);
   const { data: getAllFolder } = useGetAllFolderQuery(id);
@@ -53,7 +58,7 @@ const WorkSpaceDeatils = () => {
               />
             )}
             <div className="">
-              <Button disabled={!isOwner} onClick={() => setDisplayModal(true)}>
+              <Button disabled={!permission.owner} onClick={() => setDisplayModal(true)}>
                 invite friends +
               </Button>
             </div>

@@ -14,11 +14,16 @@ import { LottieAnimation } from "../lootie/Lootie";
 
 import emptyTodoTask from "../../../public/json/empty-todo-task-1.json";
 import { TodoModalCreate } from "../modal/todo-modal-create";
-
-
+import useRolePermission from "@/hooks/useRolePermission";
 
 const Todos = () => {
   const { id, folderId, listId, taskId } = useParams();
+  const permission = useRolePermission({
+    workspaceId: id,
+    folderId: folderId,
+    taskId: taskId,
+    listId: listId,
+  });
 
   if (!id || !folderId || !listId || !taskId) {
     return <h1>loading...</h1>;
@@ -33,28 +38,23 @@ const Todos = () => {
     return <h1>loading....</h1>;
   }
 
-
-
-
-  const { data: getAllTodoTask } = useGetAllTodoTaskQuery(
-    { workspaceId: id, folderId, listId, taskId }
-  );
-
-
+  const { data: getAllTodoTask } = useGetAllTodoTaskQuery({
+    workspaceId: id,
+    folderId,
+    listId,
+    taskId,
+  });
 
   return (
     <div className="flex w-full flex-col mt-8">
       <div className="flex flex-wrap m-auto gap-2">
-       <div className="">
-       <h1 className="font-sfpro text-xl w-28">Todo Task</h1>
-       </div>
-
-   
+        <div className="">
+          <h1 className="font-sfpro text-xl w-28">Todo Task</h1>
+        </div>
 
         <TodoSearch />
-   
 
-      { (
+        {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -64,6 +64,7 @@ const Todos = () => {
                   listId={listId}
                   taskId={taskId}
                   icon={Plus}
+                  permission={permission.developer||permission.manager||permission.owner}
                 />
               </TooltipTrigger>
               <TooltipContent className="">
@@ -71,10 +72,8 @@ const Todos = () => {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-        )}
-
+        }
       </div>
-  
 
       <div className="w-full h-min-[300px] border bg-white text-black font-sfpro shadow-sm rounded-lg overflow-hidden dark:bg-background dark:text-primary dark:border-border">
         <div className="p-6">

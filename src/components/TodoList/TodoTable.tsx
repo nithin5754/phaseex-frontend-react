@@ -81,7 +81,7 @@ const TodoTable = ({ getAllTodoTask }: Props) => {
   };
 
   return (
-    <Table>
+    <Table >
       <TodoTHead />
       <>
         {searchTodoQuery === "" ? (

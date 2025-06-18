@@ -6,8 +6,8 @@ import { TaskLinkModal } from "../modal/add-link-modal";
 import { ResponseTaskType } from "@/types";
 
 import { AttachmentAddModal } from "../modal/add-attachment-modal";
-import { ListsContext } from "@/app/context/lists.context";
-import { useContext } from "react";
+
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {
   singleTask: ResponseTaskType | null;
@@ -15,18 +15,22 @@ interface Props {
 
 const TaskSelectionButton = ({ singleTask }: Props) => {
   const dispatch = useDispatch();
-
-  const { isCurrentUserManager, isManagerExists } = useContext(ListsContext);
+  const permission = useRolePermission({
+    workspaceId: singleTask?.workspaceId,
+    folderId: singleTask?.folderId,
+    taskId: singleTask?.id,
+    listId: singleTask?.listId,
+  });
   return (
     <div className="flex  m-auto  gap-4 px-6">
       <Button
         onClick={() => dispatch(setOpenDescTask(true))}
-        disabled={!isCurrentUserManager && !isManagerExists}
+        disabled={!(permission.manager || permission.owner)}
       >
         <Notebook size={16} /> description
       </Button>
 
-      <AttachmentAddModal />
+      <AttachmentAddModal permission={permission.manager || permission.owner} />
       <>
         {singleTask && (
           <TaskLinkModal
@@ -35,6 +39,7 @@ const TaskSelectionButton = ({ singleTask }: Props) => {
             folderId={singleTask.folderId}
             listId={singleTask.listId}
             taskId={singleTask.id}
+            permission={permission.manager || permission.owner}
           />
         )}
       </>

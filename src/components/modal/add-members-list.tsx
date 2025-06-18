@@ -12,40 +12,30 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import {
-  ReceiveCollaboratorType,
+
   useGetAllCollabInSpaceQuery,
 } from "@/app/redux/api/spaceApi";
 
 import useAuth from "@/hooks/useAuth";
-import { ROLE_PERMISSIONS } from "@/lib/rolesPermission";
+
 import { ListContext } from "@/app/context/list.context";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import useRolePermission from "@/hooks/useRolePermission";
+
 
 export function AddModalMembersList() {
   const { workspaceId } = useContext(ListContext);
-  const isSpaceOwner = UseSpaceRoles({ workspaceId });
+  const permission = useRolePermission({
+    workspaceId
+   
+  });
   const [open, setOpen] = useState(false);
   const user = useAuth();
-
-  const [isPermission, setPermission] = useState<boolean>(false);
 
   const { data: getAllMembers } = useGetAllCollabInSpaceQuery(workspaceId!, {
     skip: !workspaceId,
   });
 
-  useEffect(() => {
-    if (getAllMembers && getAllMembers.length > 0) {
-      const userResult = getAllMembers.find(
-        (member: ReceiveCollaboratorType) => member.id === user?.userId
-      );
-      if (userResult) {
-        const permission = ROLE_PERMISSIONS[userResult.role];
 
-        const hasPermission: boolean = permission["canInvite"];
-        setPermission(hasPermission);
-      }
-    }
-  }, [getAllMembers]);
 
   if (!workspaceId) {
     return (
@@ -57,21 +47,21 @@ export function AddModalMembersList() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild disabled={!isSpaceOwner}>
+      <DialogTrigger asChild disabled={!permission.owner}>
         <Button
           variant="default"
           className="h-6 w-8 rounded-sm flex mx-auto"
           size="icon"
           title="Add Member"
         >
-          {isPermission ? <UserPlus size={14} /> : <User />}
+          {permission.owner ? <UserPlus size={14} /> : <User />}
         </Button>
       </DialogTrigger>
 
       <DialogContent className="space-y-4 border-gray-600">
         <DialogHeader>
           <DialogTitle className="text-white dark:text-primary">
-            {isPermission
+            {permission.owner
               ? "Add Manager and Viewer"
               : "View List Manager and Viewers"}
           </DialogTitle>
@@ -80,7 +70,7 @@ export function AddModalMembersList() {
           </DialogDescription>
         </DialogHeader>
 
-        {isPermission ? (
+        {permission.owner ? (
           <div className="flex gap-2">
             <Searchbox getAllMembers={getAllMembers} type="search" />
           </div>

@@ -6,10 +6,11 @@ import {
 import useTimeDue from "@/hooks/useTimeDue";
 import { Link } from "react-router-dom";
 
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import { AddModalMembersList } from "../modal/add-members-list";
 import { useContext } from "react";
 import { ListContext } from "@/app/context/list.context";
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {
   index: number;
@@ -17,7 +18,10 @@ interface Props {
 
 const ListMap = ({ index }: Props) => {
   const { list, folderId, workspaceId } = useContext(ListContext);
-  const isSpaceOwner = UseSpaceRoles({ workspaceId });
+  const permission = useRolePermission({
+    workspaceId
+
+  });
 
   let due: number = useTimeDue({
     list_due_date: list.list_due_date,
@@ -51,7 +55,7 @@ const ListMap = ({ index }: Props) => {
       <td className="px-5 py-3 text-sm bg-white dark:bg-background">
         <div className="flex items-center ">
           <span>{list.list_due_date}</span>
-          {isSpaceOwner && <UpdateDateList />}
+          {permission.owner && <UpdateDateList />}
         </div>
       </td>
 
@@ -61,7 +65,7 @@ const ListMap = ({ index }: Props) => {
         {
           <PriorityListSetting
             priority={list.priority_list}
-            isPermission={isSpaceOwner ?? false}
+            isPermission={permission.owner ?? false}
           />
         }
       </td>

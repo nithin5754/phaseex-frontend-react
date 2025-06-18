@@ -14,15 +14,14 @@ export interface IListContext {
 }
 
 export interface IListsContext {
-  isLoading:boolean;
-  isError:boolean
+  isLoading: boolean;
+  isError: boolean;
   workspaceId: string;
   folderId: string;
-  
+
   listId: string;
   lists?: ResponseListDataType;
-  isCurrentUserManager:boolean;
-  isManagerExists:boolean
+  isManagerExists: boolean;
 }
 
 export interface ITaskContext {

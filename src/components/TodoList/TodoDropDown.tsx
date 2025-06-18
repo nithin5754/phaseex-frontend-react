@@ -6,7 +6,7 @@ import { useOnDeleteTaskTodoMutation } from "@/app/redux/api/todoapi";
 
 import { SendDeleteTodoTask } from "@/types/TodoType";
 import { toast } from "../ui/use-toast";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 
 import { CActivitySendType } from "@/types/TActivity";
 import { useOnCreateActivityMutation } from "@/app/redux/api/activityApi";
@@ -14,13 +14,19 @@ import { useSelector } from "react-redux";
 import { selectCurrentUserName } from "@/features/auth/authSlice";
 import { useContext } from "react";
 import { TodoContext } from "@/app/context/todo.context";
+import { Button } from "../ui/button";
 
-interface Props {}
+interface Props {
+  permission: {
+    owner:boolean;
+    manager:boolean;
+    developer:boolean
+  };
+}
 
-const TodoDropDown = ({}: Props) => {
+const TodoDropDown = ({ permission }: Props) => {
   const { todo } = useContext(TodoContext);
   const [onDeleteTaskTodo, { isLoading }] = useOnDeleteTaskTodoMutation();
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: todo.workspaceId });
 
   const [onCreateActivity] = useOnCreateActivityMutation();
   const currentName = useSelector(selectCurrentUserName);
@@ -70,7 +76,7 @@ const TodoDropDown = ({}: Props) => {
           <FileEdit size={23} color="#47504f" />
         ) : (
           <>
-            {isSpaceOwner ? (
+            {permission.owner || permission.manager ||permission.developer ? (
               <TodoModalEdit icon={FileEdit} />
             ) : (
               <FileEdit size={23} color="#47504f" />
@@ -80,7 +86,7 @@ const TodoDropDown = ({}: Props) => {
       </>
 
       <>
-        {isSpaceOwner ? (
+        {permission.owner || permission.manager ||permission.developer ? (
           <>
             {isLoading ? (
               <>
@@ -93,7 +99,10 @@ const TodoDropDown = ({}: Props) => {
             )}
           </>
         ) : (
-          <Trash size={23} color="#47504f" />
+          <Button disabled={true} variant={"ghost"}>
+            {" "}
+            <Trash size={23} color="#47504f" />
+          </Button>
         )}
       </>
     </div>

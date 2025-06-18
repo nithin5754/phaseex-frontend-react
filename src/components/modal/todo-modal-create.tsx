@@ -22,6 +22,7 @@ interface OpenModalProps {
   folderId: string;
   listId: string;
   taskId: string;
+  permission:boolean;
 }
 
 export function TodoModalCreate({
@@ -29,13 +30,14 @@ export function TodoModalCreate({
   folderId,
   listId,
   taskId,
+  permission
 }: OpenModalProps) {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClose = () => setOpen(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild disabled={!permission}>
         <Button variant="link">
           <PlusCircle />
         </Button>

@@ -7,17 +7,22 @@ import {
 import { TableBody, TableCell, TableRow } from "../ui/table";
 import TodoDropDown from "./TodoDropDown";
 import { Checkbox } from "../ui/checkbox";
-
-import UseTodoRoles from "@/hooks/useTodoRoles";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { TodoContext } from "@/app/context/todo.context";
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {}
 
 const TodoSingle = ({}: Props) => {
   const { todo, loadingStates, handleChangeCheckBox } = useContext(TodoContext);
-  const isTodoRoles = UseTodoRoles({ todo });
+
+  const permission = useRolePermission({
+    folderId: todo.folderId,
+    listId: todo.listId,
+    workspaceId: todo.workspaceId,
+    taskId: todo.taskId,
+  });
 
   return (
     <TableBody key={todo.id}>
@@ -26,9 +31,10 @@ const TodoSingle = ({}: Props) => {
       >
         <TableCell>
           <Checkbox
+            disabled={!permission.developer}
             checked={todo.todo_status === "completed"}
             onClick={() => handleChangeCheckBox(todo)}
-            className={`${!isTodoRoles && "border-red-600"}`}
+            className={`${!permission.developer && "border-red-600"}`}
           />
         </TableCell>
         <TableCell>{todo.todo}</TableCell>
@@ -49,9 +55,7 @@ const TodoSingle = ({}: Props) => {
           )}
         </TableCell>
         <TableCell className="">
-          <TodoDropDown
-        
-          />
+          <TodoDropDown permission={permission} />
         </TableCell>
       </TableRow>
     </TableBody>

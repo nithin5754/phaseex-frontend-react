@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { TaskTable } from "../tasks/index";
 
 import { OpenModal as CreateTaskModal } from "../../components/modal/Task-create-modal";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import FolderTableToggleView from "../workspaces/FolderTableToggleView";
 import { ListsContext } from "@/app/context/lists.context";
 import { useAppDispatch } from "@/app/redux/api/store";
@@ -12,15 +12,16 @@ import {
   updateTableView,
 } from "@/app/redux/slice/uttilSlice";
 import { useSelector } from "react-redux";
-
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import useRolePermission from "@/hooks/useRolePermission";
 
 const SingleListFolder = () => {
   const currentTableView = useSelector(selectCurrentTableView);
   const dispatch = useAppDispatch();
-  const { workspaceId, isCurrentUserManager, isManagerExists } =
-    useContext(ListsContext);
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: workspaceId });
+  const { workspaceId, isManagerExists, listId } = useContext(ListsContext);
+  const permission = useRolePermission({
+    workspaceId,
+    listId,
+  });
 
   const handleToggleHandle = (data: "table-view" | "folder-view"): void => {
     dispatch(updateTableView(data));
@@ -29,7 +30,7 @@ const SingleListFolder = () => {
   return (
     <div className="flex flex-col gap-5  font-sfpro w-full m-4 ">
       <ListHistory
-        permission={isManagerExists && (isCurrentUserManager || isSpaceOwner)}
+        permission={isManagerExists && (permission.manager || permission.owner)}
       />
 
       <div className="bg-white   overflow-hidden dark:bg-background dark:text-primary dark:border-border m-4">
@@ -40,7 +41,7 @@ const SingleListFolder = () => {
             title={""}
             icon={Plus}
             isManagerExists={
-              isManagerExists && (isCurrentUserManager || isSpaceOwner)
+              isManagerExists && (permission.manager || permission.owner)
             }
           />
 

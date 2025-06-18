@@ -13,6 +13,8 @@ import { useOnUpdateDescriptionTaskMutation } from "@/app/redux/api/taskapi";
 import { toast } from "../ui/use-toast";
 import TaskLinks from "./TaskLinks";
 
+import useRolePermission from "@/hooks/useRolePermission";
+
 interface Props {
   singleTask: ResponseTaskType | null;
 }
@@ -21,6 +23,12 @@ const TaskMainLeft = ({ singleTask }: Props) => {
   const openDescTask: boolean = useSelector(selectOpenTaskDesc);
 
   const [isDescription, setDescription] = useState<string>("");
+  const permission = useRolePermission({
+    workspaceId: singleTask?.workspaceId,
+    folderId: singleTask?.folderId,
+    taskId: singleTask?.id,
+    listId: singleTask?.listId,
+  });
 
   useEffect(() => {
     if (singleTask) {
@@ -97,10 +105,18 @@ const TaskMainLeft = ({ singleTask }: Props) => {
             onChange={(e) => setDescription(e.target.value)}
           />
           <div className="flex gap-4">
-            <Button onClick={() => dispatch(setOpenDescTask(false))}>
+            <Button
+              disabled={!(permission.manager || permission.owner)}
+              onClick={() => dispatch(setOpenDescTask(false))}
+            >
               close
             </Button>
-            <Button onClick={handleUpdateDescription}>Add</Button>
+            <Button
+              disabled={!(permission.manager || permission.owner)}
+              onClick={handleUpdateDescription}
+            >
+              Add
+            </Button>
           </div>
         </div>
       )}

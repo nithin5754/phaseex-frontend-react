@@ -1,6 +1,6 @@
 import { ListsContext } from "@/app/context/lists.context";
 import { useGetSingleListQuery } from "@/app/redux/api/listapi";
-import UseListManagerRole from "@/hooks/useListManagerRoles";
+
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 
@@ -8,11 +8,7 @@ const ListLayout = () => {
   const { folderId, listId, id } = useParams();
   const [isManagerExists, setManagerExist] = useState<boolean>(false);
 
-  const isCurrentUserManager: boolean = UseListManagerRole({
-    workspaceId: id as string,
-    folderId: folderId as string,
-    listId: listId as string,
-  });
+
 
   const {
     data: list,
@@ -52,7 +48,6 @@ const ListLayout = () => {
         lists: list,
         isLoading,
         isError,
-        isCurrentUserManager,
         isManagerExists,
       }}
     >

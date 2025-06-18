@@ -26,7 +26,7 @@ const Attachment = () => {
     taskId,
   });
 
-  console.log(getAllAttachment, "attachment");
+
   if (isLoading) {
     return <div>Loading...</div>;
   }

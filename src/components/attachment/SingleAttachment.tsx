@@ -40,7 +40,7 @@ const SingleAttachment = ({ attachment }: Props) => {
       <PinContainer title={attachment.name} href={attachment.url}>
         <div
           className="flex  flex-col  tracking-tight sm:basis-1/2 max-w-[400px]  max-h-[400px] "
-          onClick={() => console.log(attachment.url, "hello")}
+        
         >
           <h3 className="max-w-xs dark:text-primary text-center">
             <Pin size={18} className="text-slate-500" /> {attachment.name}

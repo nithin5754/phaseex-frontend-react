@@ -31,6 +31,7 @@ import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
 import { Provider } from "@radix-ui/react-toast";
 import { ListContext } from "./app/context/list.context";
 import ListLayout from "./layouts/ListLayout";
+import TaskLayout from "./layouts/TaskLayout";
 
 function App() {
   return (
@@ -76,7 +77,7 @@ function App() {
                             
                             <Route index element={<SingleListFolderView />} />
                             <Route path="tasks">
-                              <Route path=":taskId">
+                              <Route path=":taskId" element={<TaskLayout/>}>
                                 <Route index element={<TaskView />} />
                                 <Route path="todo">
                                   <Route

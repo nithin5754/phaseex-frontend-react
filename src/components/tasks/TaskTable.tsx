@@ -23,7 +23,6 @@ import { useContext } from "react";
 
 interface Props {
   toggle: "table-view" | "folder-view";
-
 }
 
 const TaskTable = ({ toggle }: Props) => {

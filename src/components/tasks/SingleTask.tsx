@@ -7,16 +7,21 @@ import { useContext } from "react";
 import { TaskContext } from "@/app/context/task.context";
 import { TaskCollabModal } from "../modal/add-task-collaborators";
 import { ListsContext } from "@/app/context/lists.context";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {}
 
 const SingleTask = ({}: Props) => {
   const { task, workspaceId, folderId, listId } = useContext(TaskContext);
 
-  const isOwner = UseSpaceRoles({ workspaceId });
+  const { isManagerExists } = useContext(ListsContext);
 
-  const { isCurrentUserManager, isManagerExists } = useContext(ListsContext);
+  const permission = useRolePermission({
+    workspaceId,
+    folderId,
+    taskId: task?.id,
+    listId: listId,
+  });
 
   return (
     <TableRow
@@ -40,7 +45,9 @@ const SingleTask = ({}: Props) => {
         <div className="flex items-center justify-center">
           <TaskCollabModal
             icon={User}
-            permission={(isManagerExists && isCurrentUserManager) || isOwner}
+            permission={
+              (isManagerExists && permission.manager) || permission.owner
+            }
           />
         </div>
       </TableCell>
@@ -59,7 +66,9 @@ const SingleTask = ({}: Props) => {
       <TableCell className="text-center align-middle">
         <PriorityTaskSetting
           priority={task.priority_task}
-          permission={(isManagerExists && isCurrentUserManager) || isOwner}
+          permission={
+            (isManagerExists && permission.manager) || permission.owner
+          }
         />
       </TableCell>
 

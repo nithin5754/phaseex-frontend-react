@@ -1,10 +1,11 @@
-import UseSpaceRoles from "@/hooks/useSpaceRoles"
+
 import { CreateRoomId } from "./CreateRoomId"
 import { useNavigate, useParams } from "react-router-dom"
 import { useSocket } from "@/app/socketContext"
 import VideoNotification from "./VideoNotification"
 import { useGetVideoInviteLinkQuery } from "@/app/redux/api/VideoChatApi"
 import { useEffect } from "react"
+import useRolePermission from "@/hooks/useRolePermission"
 
 
 
@@ -27,7 +28,10 @@ if(!id){
   navigate(-1)
   return
 }
-const spaceId=UseSpaceRoles({workspaceId:id})
+  const permission = useRolePermission({
+    workspaceId:id,
+   
+  });
 
 
 const {data:getALLvideoLinkInvitation}=useGetVideoInviteLinkQuery({workspaceId:id})
@@ -41,7 +45,7 @@ useEffect(() => {
 }, [getALLvideoLinkInvitation]);
    
 
-   return spaceId?(<CreateRoomId/>):(<>
+   return permission.owner?(<CreateRoomId/>):(<>
     <VideoNotification owner={GetVideoNotification?.ownerName} url={GetVideoNotification?.url}/>
    </>)
  }

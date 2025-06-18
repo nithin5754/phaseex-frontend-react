@@ -4,15 +4,19 @@ import { OpenModal as CreateListModal } from "../modal/list-create-modal";
 
 import { Plus } from "lucide-react";
 
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import TemplateAbout from "../template/About/TemplateAbout";
+import useRolePermission from "@/hooks/useRolePermission";
 interface Props {
   id: string;
   folderId: string;
 }
 
 const FolderDetails = ({ id, folderId }: Props) => {
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
+  const permission = useRolePermission({
+    workspaceId:id,
+   
+  });
   const { data: singleFolder, isLoading } = useGetSingleFolderQuery(
     { spaceId: id, folderId },
   );
@@ -41,7 +45,7 @@ const FolderDetails = ({ id, folderId }: Props) => {
         )}
 
         <>
-          {isSpaceOwner && (
+          {permission.owner && (
             <>
               <CreateListModal
                 title={"create list"}

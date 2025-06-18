@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
 import EmptyFolder from "../../../public/json/empty-folder-1.json";
 import { ResponseFolderDataType } from "@/app/redux/api/FolderApi";
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import FolderTableToggleView from "../workspaces/FolderTableToggleView";
 
 import { useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import {
   updateTableView,
 } from "@/app/redux/slice/uttilSlice";
 import { useAppDispatch } from "@/app/redux/api/store";
+import useRolePermission from "@/hooks/useRolePermission";
 
 interface Props {
   getAllFolder: ResponseFolderDataType[];
@@ -31,7 +32,10 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
     return <h1>loading....</h1>;
   }
 
-  const isSpaceOwner = UseSpaceRoles({ workspaceId: id });
+  const permission = useRolePermission({
+    workspaceId:id,
+   
+  });
   const truncateDesc = (desc: string) => {
     return desc.length > 10 ? desc.substring(0, 10) + "..." : desc;
   };
@@ -40,7 +44,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
         <div className="flex ">
-          {isSpaceOwner && <OpenModal title={""} icon={Plus} spaceId={id} />}
+          {permission.owner && <OpenModal title={""} icon={Plus} spaceId={id} />}
           <div className="flex my-auto">
             <FolderTableToggleView
               handleToggle={handleToggleHandle}

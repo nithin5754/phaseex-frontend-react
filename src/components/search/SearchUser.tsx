@@ -1,8 +1,9 @@
 import { UserSearch } from "lucide-react";
 import { Input } from "../ui/input"
-import UseSpaceRoles from "@/hooks/useSpaceRoles";
+
 import { useParams } from "react-router-dom";
 import { lowerCase } from "@/lib/utils.data";
+import useRolePermission from "@/hooks/useRolePermission";
 
 
 interface Props {
@@ -21,7 +22,10 @@ interface Props {
       }
     
     
-        const isSOwner=UseSpaceRoles({workspaceId:id})
+    const permission = useRolePermission({
+    workspaceId:id,
+
+  });
     
 
       const handleFocus = () => {
@@ -38,7 +42,7 @@ interface Props {
 
     
    {
-    isSOwner&&(
+    permission&&(
       
 <div className="relative p-2">
 <UserSearch className="absolute mt-2 w-[18px]  ml-2"/>

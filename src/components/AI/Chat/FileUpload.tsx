@@ -15,7 +15,7 @@ const FileUpload = ({ setImageArray }: Props) => {
       const response = await UploadFileToGPT(formData).unwrap();
 
       if (response) {
-        console.log(response);
+     
         setImageArray((prev) => [...prev, response]);
       }
     } catch (error) {
