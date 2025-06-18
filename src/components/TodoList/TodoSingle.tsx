@@ -31,7 +31,7 @@ const TodoSingle = ({}: Props) => {
       >
         <TableCell>
           <Checkbox
-            disabled={!permission.developer}
+            disabled={!(permission.developer || permission.manager )}
             checked={todo.todo_status === "completed"}
             onClick={() => handleChangeCheckBox(todo)}
             className={`${!permission.developer && "border-red-600"}`}

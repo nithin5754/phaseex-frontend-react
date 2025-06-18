@@ -11,7 +11,7 @@ import {
 import {
   HomePage,
   SingleWorkSpace,
-  FolderView,
+
   SingleFolder,
   SingleListFolderView,
   NotificationPage,
@@ -28,8 +28,7 @@ import { Suspense } from "react";
 import { MainSkelton } from "./components/shimmer";
 import { AIHomepage, ChatPage, CreateFormPage } from "./features/AI";
 import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
-import { Provider } from "@radix-ui/react-toast";
-import { ListContext } from "./app/context/list.context";
+
 import ListLayout from "./layouts/ListLayout";
 import TaskLayout from "./layouts/TaskLayout";
 
@@ -67,8 +66,8 @@ function App() {
                     <Route index element={<SingleWorkSpace />} />
                     <Route path="room/:roomID" element={<VideoCall />} />
                     <Route path="folders">
-                      <Route index element={<FolderView />} />
-                      <Route path=":folderId">
+          
+                      <Route  path=":folderId">
                         <Route index element={<SingleFolder />} />
 
                         <Route path="lists">

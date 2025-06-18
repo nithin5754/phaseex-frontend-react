@@ -1,4 +1,5 @@
-import Lottie from "react-lottie";
+
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface LootieProps {
   animationData: object;
@@ -7,17 +8,14 @@ interface LootieProps {
 }
 
 export function LottieAnimation({ animationData, height, width }: LootieProps) {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   return (
-    <div className="">
-      <Lottie options={defaultOptions} height={height} width={width} />
+    <div>
+      <Player
+        autoplay
+        loop
+        src={animationData}
+        style={{ height: `${height}px`, width: `${width}px` }}
+      />
     </div>
   );
 }

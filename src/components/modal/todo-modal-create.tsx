@@ -1,9 +1,7 @@
+import { forwardRef } from "react";
 import { Button } from "../ui/button";
-
 import { LucideIcon, PlusCircle } from "lucide-react";
-
 import { useState } from "react";
-
 import { CreateTodo } from "../TodoList";
 import {
   Dialog,
@@ -17,59 +15,49 @@ import {
 
 interface OpenModalProps {
   icon: LucideIcon;
-
   spaceId: string;
   folderId: string;
   listId: string;
   taskId: string;
-  permission:boolean;
+  permission: boolean;
 }
 
-export function TodoModalCreate({
-  spaceId,
-  folderId,
-  listId,
-  taskId,
-  permission
-}: OpenModalProps) {
-  const [open, setOpen] = useState<boolean>(false);
+export const TodoModalCreate = forwardRef<HTMLButtonElement, OpenModalProps>(
+  ({ icon: Icon = PlusCircle, spaceId, folderId, listId, taskId, permission }, ref) => {
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
 
-  const handleClose = () => setOpen(false);
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild disabled={!permission}>
-        <Button variant="link">
-          <PlusCircle />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="">
-        <DialogHeader>
-          <DialogTitle className="dark:text-primary text-white w-full">
-            {" "}
-            New Todo Task
-          </DialogTitle>
-          <DialogDescription>
-            this will help to divide complex task into simple todo list
-          </DialogDescription>
-        </DialogHeader>
-        <CreateTodo
-          handleClose={handleClose}
-          workspaceId={spaceId}
-          folderId={folderId}
-          listId={listId}
-          taskId={taskId}
-        />
-
-        <DialogFooter>
-          <Button
-            className="dark:text-primary"
-            variant="outline"
-            onClick={handleClose}
-          >
-            Close
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild disabled={!permission}>
+   
+          <Button variant="link" ref={ref}>
+            <Icon />
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="dark:text-primary text-white w-full">
+              New Todo Task
+            </DialogTitle>
+            <DialogDescription>
+              this will help to divide complex task into simple todo list
+            </DialogDescription>
+          </DialogHeader>
+          <CreateTodo
+            handleClose={handleClose}
+            workspaceId={spaceId}
+            folderId={folderId}
+            listId={listId}
+            taskId={taskId}
+          />
+          <DialogFooter>
+            <Button className="dark:text-primary" variant="outline" onClick={handleClose}>
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+);

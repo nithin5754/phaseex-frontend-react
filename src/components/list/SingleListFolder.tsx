@@ -18,6 +18,8 @@ const SingleListFolder = () => {
   const currentTableView = useSelector(selectCurrentTableView);
   const dispatch = useAppDispatch();
   const { workspaceId, isManagerExists, listId } = useContext(ListsContext);
+
+
   const permission = useRolePermission({
     workspaceId,
     listId,

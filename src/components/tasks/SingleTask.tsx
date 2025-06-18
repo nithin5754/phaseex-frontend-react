@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { TableCell, TableRow } from "../ui/table";
 import UpdateTaskStatus from "./UpdateTaskStatus";
-import { Check, User } from "lucide-react";
+import { Check, Circle, User } from "lucide-react";
 import PriorityTaskSetting from "./TaskPiroritySetting";
 import { useContext } from "react";
 import { TaskContext } from "@/app/context/task.context";
 import { TaskCollabModal } from "../modal/add-task-collaborators";
 import { ListsContext } from "@/app/context/lists.context";
 import useRolePermission from "@/hooks/useRolePermission";
+import { Button } from "../ui/button";
 
 interface Props {}
 
@@ -29,7 +30,17 @@ const SingleTask = ({}: Props) => {
       className="dark:border dark:border-border hover:bg-muted/50 transition-colors"
     >
       <TableCell className="text-center align-middle">
-        <UpdateTaskStatus taskId={task.id} status={task.status_task} />
+        {permission.developer ||permission.manager ? (
+          <UpdateTaskStatus taskId={task.id} status={task.status_task} />
+        ) : (
+          <Button
+            className="border-none border-0 dark:border-none hover:bg-transparent"
+            variant="ghost"
+            disabled={true}
+          >
+            <Circle className="w-4  flex m-auto" />
+          </Button>
+        )}
       </TableCell>
 
       <TableCell className="text-center align-middle">
@@ -65,7 +76,7 @@ const SingleTask = ({}: Props) => {
 
       <TableCell className="text-center align-middle">
         <PriorityTaskSetting
-          priority={task.priority_task}
+          priority={task.priority_task as  "high" | "medium" | "low"}
           permission={
             (isManagerExists && permission.manager) || permission.owner
           }

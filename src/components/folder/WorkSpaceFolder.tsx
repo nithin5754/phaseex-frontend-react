@@ -1,4 +1,4 @@
-import { Folder, Plus } from "lucide-react";
+import { FlagIcon, FlagOff, Folder, Plus } from "lucide-react";
 import { OpenModal } from "../modal/FolderModal";
 import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
@@ -14,6 +14,7 @@ import {
 } from "@/app/redux/slice/uttilSlice";
 import { useAppDispatch } from "@/app/redux/api/store";
 import useRolePermission from "@/hooks/useRolePermission";
+import { Fragment } from "react/jsx-runtime";
 
 interface Props {
   getAllFolder: ResponseFolderDataType[];
@@ -33,8 +34,7 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
   }
 
   const permission = useRolePermission({
-    workspaceId:id,
-   
+    workspaceId: id,
   });
   const truncateDesc = (desc: string) => {
     return desc.length > 10 ? desc.substring(0, 10) + "..." : desc;
@@ -44,7 +44,9 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
       <div className="flex justify-between p-4 focus:border-0 ">
         <h1 className="text-xl font-sfpro  ">Folder </h1>
         <div className="flex ">
-          {permission.owner && <OpenModal title={""} icon={Plus} spaceId={id} />}
+          {permission.owner && (
+            <OpenModal title={""} icon={Plus} spaceId={id} />
+          )}
           <div className="flex my-auto">
             <FolderTableToggleView
               handleToggle={handleToggleHandle}
@@ -93,32 +95,44 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
                       <th className="px-5 py-3 border-b border-gray-200 dark:text-primary  text-left text-xs font-sfpro text-gray-600 uppercase tracking-wider dark:bg-background dark:border-border">
                         created at
                       </th>
-                 
+                         <th className="px-5 py-3 border-b border-gray-200 dark:text-primary  text-left text-xs font-sfpro text-gray-600 uppercase tracking-wider dark:bg-background dark:border-border">
+                        status
+                      </th>
+                      <th className="px-5 py-3 border-b border-gray-200 dark:text-primary  text-left text-xs font-sfpro text-gray-600 uppercase tracking-wider dark:bg-background dark:border-border">
+                        review
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {getAllFolder?.map((folder, index) => {
                       return (
-                        <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
-                            <h1>{index + 1}</h1>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
-                            <Link
-                              key={folder.id}
-                              to={`/space/${id}/folders/${folder.id}`}
-                            >
-                              <h1>{folder.folder_title}</h1>
-                            </Link>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
-                            <h1>{truncateDesc(folder.folder_description)}</h1>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
-                            <h1>{folder.createdAt}</h1>
-                          </td>
-                       
-                        </tr>
+                        <Fragment key={folder.id}>
+                          <tr>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <h1>{index + 1}</h1>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <Link
+                                key={folder.id}
+                                to={`/space/${id}/folders/${folder.id}`}
+                              >
+                                <h1>{folder.folder_title}</h1>
+                              </Link>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <h1>{truncateDesc(folder.folder_description)}</h1>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <h1>{folder.createdAt}</h1>
+                            </td>
+                               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <FlagIcon />
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-background dark:border-border">
+                              <FlagOff />
+                            </td>
+                          </tr>
+                        </Fragment>
                       );
                     })}
                   </tbody>

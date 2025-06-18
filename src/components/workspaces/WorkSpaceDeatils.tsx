@@ -5,7 +5,6 @@ import { WorkSpaceFolder } from "../folder/index";
 
 import { SpaceViewALLskelton } from "../shimmer/index";
 
-
 import { useState } from "react";
 
 import { Button } from "../ui/button";
@@ -17,18 +16,14 @@ const WorkSpaceDeatils = () => {
   const { id } = useParams();
   const [displayModal, setDisplayModal] = useState<boolean>(false);
 
-  if (!id) {
-    return <h1>loading....</h1>;
-  }
-
-
-    const permission = useRolePermission({
-    workspaceId:id
-
+  const permission = useRolePermission({
+    workspaceId: `${id}`,
   });
 
-  const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(id);
-  const { data: getAllFolder } = useGetAllFolderQuery(id);
+  const { data: singleWorkSpace, isLoading } = useGetSingleWorkSpaceQuery(
+    `${id}`
+  );
+  const { data: getAllFolder } = useGetAllFolderQuery(`${id}`);
 
   if (isLoading || !getAllFolder) {
     return <SpaceViewALLskelton />;
@@ -58,7 +53,10 @@ const WorkSpaceDeatils = () => {
               />
             )}
             <div className="">
-              <Button disabled={!permission.owner} onClick={() => setDisplayModal(true)}>
+              <Button
+                disabled={!permission.owner}
+                onClick={() => setDisplayModal(true)}
+              >
                 invite friends +
               </Button>
             </div>

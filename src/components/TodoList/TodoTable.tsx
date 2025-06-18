@@ -3,7 +3,7 @@ import { Table } from "@/components/ui/table";
 import { SendTodoCheckBox, TodoType } from "@/types/TodoType";
 
 import { useOnUpdateStatusTodoMutation } from "@/app/redux/api/todoapi";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { toast } from "../ui/use-toast";
 import { useSelector } from "react-redux";
@@ -87,11 +87,13 @@ const TodoTable = ({ getAllTodoTask }: Props) => {
         {searchTodoQuery === "" ? (
           <>
             {getAllTodoTask.map((todo: TodoType) => (
-           <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
+        <Fragment       key={todo.id}>
+             <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
                <TodoSingle
-                key={todo.id}
+          
               />
            </TodoContext.Provider>
+        </Fragment>
             ))}
           </>
         ) : (
@@ -99,13 +101,16 @@ const TodoTable = ({ getAllTodoTask }: Props) => {
             {searchTodoItem &&
               searchTodoItem.length > 0 &&
               searchTodoItem.map((todo: TodoType) => (
-                     <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
+                <Fragment key={todo.id}>
+  <TodoContext.Provider value={{handleChangeCheckBox,todo,todoId:todo.id,loadingStates}}>
           <TodoSingle
-                  key={todo.id}
+            
       
                 />
 
                      </TodoContext.Provider>
+                </Fragment>
+                   
       
               ))}
           </>

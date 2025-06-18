@@ -24,7 +24,7 @@ export function TaskCollabModal({ icon: Icon, permission }: OpenModalProps) {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="h-6 w-8 rounded-sm flex mx-auto"
+          className="h-6 w-6 rounded-full flex mx-auto"
           size="icon"
           disabled={!permission}
         >

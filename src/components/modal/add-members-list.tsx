@@ -49,8 +49,8 @@ export function AddModalMembersList() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild disabled={!permission.owner}>
         <Button
-          variant="default"
-          className="h-6 w-8 rounded-sm flex mx-auto"
+          variant="ghost"
+     className="h-6 w-6 rounded-full flex mx-auto"
           size="icon"
           title="Add Member"
         >

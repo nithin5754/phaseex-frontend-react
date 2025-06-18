@@ -12,7 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSendLogOutMutation } from "@/app/redux/api/AuthApi";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -113,7 +113,7 @@ const SideBarDesktop = (props: SideBarDesktopProps) => {
           <div className="flex flex-col gap-1 w-full">
             {props.sidebarItems.links.map((link, index) => {
               return (
-                <>
+                <Fragment key={index}>
                   {link.label === "inbox" ? (
                     <>
                       <Link key={index} to={link.href}>
@@ -143,7 +143,7 @@ const SideBarDesktop = (props: SideBarDesktopProps) => {
                       </Link>
                     </>
                   )}
-                </>
+                </Fragment>
               );
             })}
             {props.sidebarItems.extras}

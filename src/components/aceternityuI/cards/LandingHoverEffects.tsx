@@ -54,7 +54,7 @@ export const LandingHoverEffects = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle className="flex flex-row gap-2"><h1>{item.title} </h1><item.icon /> </CardTitle>
+            <CardTitle className="flex flex-row gap-2"><span>{item.title}</span> <item.icon /> </CardTitle>
             <CardDescription>{item.description}
    
             </CardDescription>
