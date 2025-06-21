@@ -12,7 +12,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { FC, ReactElement, useContext } from "react";
 
 import { OpenModal } from "../modal/box-modal-settings";
-import { PlusCircleIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 import { WorkSpaceHiddenLists } from "./workspaceFoldersList";
 import OnGoingOwnerSpaceLists from "./OnGoingSideBar";
 import InvitedSpaceLists from "./InvitesSpacesLists";
@@ -27,8 +27,8 @@ const SpaceHome: FC = (): ReactElement => {
     <div className=" ">
       <div className="flex justify-between items-center ">
         <h1 className="text-xl font-sfpro font-bold capitalize">All Galaxy</h1>
-        <div className="w-[100px] ">
-          <OpenModal title={"create"} icon={PlusCircleIcon} />
+        <div className=" ">
+          <OpenModal title={"create"} icon={Plus} />
         </div>
       </div>
 
@@ -41,7 +41,7 @@ const SpaceHome: FC = (): ReactElement => {
           defaultSize={30}
           minSize={30}
           maxSize={75}
-          className="h-[450px] dark:border dark:border-border rounded-md mr-4"
+          className="h-[450px] border border-border rounded-md mr-4"
         >
           <ScrollArea className="h-[450px]  rounded-md   ">
             <div className="p-4   ">
@@ -75,7 +75,7 @@ const SpaceHome: FC = (): ReactElement => {
         <ResizableHandle style={{ backgroundColor: "transparent" }} />
 
         <ResizablePanel
-          className="min-h-[450px] dark:border dark:border-border rounded-md mr-4"
+             className="h-[450px] border border-border rounded-md mr-4"
           defaultSize={30}
           minSize={30}
           maxSize={50}
@@ -84,7 +84,7 @@ const SpaceHome: FC = (): ReactElement => {
             <ResizablePanel defaultSize={25}>
               <ScrollArea className="h-[450px]  rounded-md   ">
                 <div className="flex flex-col items-center h-full  ">
-                  <h4 className="mb-4 text-xl font-sfpro text-center mt-4 mx-auto  dark:bg-background py-4 capitalize">
+                  <h4 className="mb-4 text-xl font-sfpro text-center mt-4 mx-auto   dark:bg-background py-4 capitalize">
                     Own Spaces{" "}
                   </h4>
 
@@ -99,7 +99,7 @@ const SpaceHome: FC = (): ReactElement => {
         <ResizableHandle style={{ backgroundColor: "transparent" }} />
 
         <ResizablePanel
-          className="min-h-[450px] dark:border dark:border-border rounded-md"
+         className="h-[450px] border border-border rounded-md mr-4"
           defaultSize={30}
           minSize={20}
           maxSize={50}
@@ -108,7 +108,7 @@ const SpaceHome: FC = (): ReactElement => {
             <ResizablePanel defaultSize={25}>
               <ScrollArea className="h-[450px]  rounded-md   ">
                 <div className="flex flex-col items-center h-full  ">
-                  <h4 className="mb-4 text-xl font-sfpro text-center mt-4 mx-auto  dark:bg-background py-4 capitalize">
+                  <h4 className="mb-4 text-xl font-sfpro text-center mt-4 mx-auto   dark:bg-background py-4 capitalize">
                     Invited{" "}
                   </h4>
 

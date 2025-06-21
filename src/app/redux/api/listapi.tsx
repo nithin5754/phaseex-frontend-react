@@ -14,7 +14,7 @@ export interface SendListData {
   listData: ListType;
 }
 
-
+export type ListStatus ="cancelled" | "pending" | "verified" | "complete" | 'rejected' |"onGoing";
 export interface ListCollaboratorType {
   assignee: string; 
   assignee_name?:string;
@@ -28,6 +28,7 @@ export interface ResponseListDataType {
   workspaceId: string;
   priority_list: string;
   progressTask:number;
+  status:ListStatus;
   list_start_date:string,
   list_collaborators:ListCollaboratorType[];
   list_due_date:string,

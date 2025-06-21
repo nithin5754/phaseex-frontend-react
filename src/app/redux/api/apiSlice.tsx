@@ -68,7 +68,7 @@ export const apiSlice = createApi({
     "Attachment",
     "Comments",
     "Upload",
-    "GPT"
+    "GPT",
   ],
   endpoints: () => ({}),
 });

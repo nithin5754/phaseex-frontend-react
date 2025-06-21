@@ -5,8 +5,8 @@ import { TableHead, TableHeader, TableRow } from "../ui/table"
 
 const TodoTHead = () => {
   return (
-    <TableHeader>
-    <TableRow className="">
+    <TableHeader className="border-border">
+    <TableRow className="border-border">
   <TableHead className="  "></TableHead>
   <TableHead className="  ">
   <div className="flex items-start justify-start gap-2">

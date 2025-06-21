@@ -41,7 +41,9 @@ type PriorityStyles = {
 };
 
 const PriorityListSetting = ({ priority, permission }: Props) => {
-  const { list, folderId, workspaceId } = useContext(ListContext) as ListContextType;
+  const { list, folderId, workspaceId } = useContext(
+    ListContext
+  ) as ListContextType;
   const [onUpdatePriorityList] = useOnUpdatePriorityListMutation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -101,22 +103,28 @@ const PriorityListSetting = ({ priority, permission }: Props) => {
           variant="ghost"
           size="sm"
           className={cn(
-            "w-[130px] justify-between font-medium",
+            "w-[100px] justify-between font-medium",
             priorityStyles[priority]?.text,
             (!permission || isLoading) && "opacity-50 cursor-not-allowed"
           )}
           aria-label={`Set list priority, current: ${priority}`}
         >
-          <div className="flex items-center gap-2">
-            <Flag className={cn("h-4 w-4", priorityStyles[priority]?.flag)} />
+          <div className="flex items-center gap-2 ">
+            <Flag
+              className={cn("h-4 w-4", priorityStyles[priority]?.flag)}
+              size={14}
+            />
             <span className="capitalize">{priority}</span>
+            <ChevronDown
+              className={cn(
+                "h-4 w-4",
+                !permission || isLoading ? "opacity-50" : "opacity-70"
+              )}
+            />
           </div>
-          <ChevronDown
-            className={cn("h-4 w-4", !permission || isLoading ? "opacity-50" : "opacity-70")}
-          />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[150px] bg-transparent" align="start">
+      <DropdownMenuContent className="w-[150px] " align="start">
         <DropdownMenuLabel className="text-xs font-semibold text-gray-600 dark:text-gray-400 px-2">
           Set Priority
         </DropdownMenuLabel>
@@ -140,7 +148,9 @@ const PriorityListSetting = ({ priority, permission }: Props) => {
             >
               <Flag className={cn("h-4 w-4", priorityStyles[level].flag)} />
               <span className="capitalize">{level}</span>
-              {priority === level && <Check className="ml-auto h-4 w-4 opacity-80" />}
+              {priority === level && (
+                <Check className="ml-auto h-4 w-4 opacity-80" />
+              )}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>

@@ -9,13 +9,13 @@ interface LootieProps {
 
 export function LottieAnimation({ animationData, height, width }: LootieProps) {
   return (
-    <div>
+
       <Player
         autoplay
         loop
         src={animationData}
         style={{ height: `${height}px`, width: `${width}px` }}
       />
-    </div>
+
   );
 }

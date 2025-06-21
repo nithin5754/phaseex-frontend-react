@@ -72,7 +72,7 @@ const SpaceLayout = () => {
                       <LottieAnimation
                         animationData={helloAnimation}
                         height={400}
-                        width={160}
+                        width={400}
                       />
                     </>
                   )}

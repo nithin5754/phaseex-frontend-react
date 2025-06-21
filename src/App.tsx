@@ -32,6 +32,12 @@ import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
 import ListLayout from "./layouts/ListLayout";
 import TaskLayout from "./layouts/TaskLayout";
 
+
+import AddProjectFeatureForm from "./components/review/add/AddProjectFeatureForm";
+import FeatureProjectReviewPage from "./features/main-sections/FeatureProjectReviewPage";
+
+
+
 function App() {
   return (
     <div className="App">
@@ -69,12 +75,13 @@ function App() {
           
                       <Route  path=":folderId">
                         <Route index element={<SingleFolder />} />
+                        <Route path="review" element={<FeatureProjectReviewPage  />} />
 
                         <Route path="lists">
                           <Route index element={<h1>lists page here ..</h1>} />
                           <Route path=":listId" element={<ListLayout/>}>
-                            
                             <Route index element={<SingleListFolderView />} />
+                             <Route path="create-review" element={<AddProjectFeatureForm/>} />
                             <Route path="tasks">
                               <Route path=":taskId" element={<TaskLayout/>}>
                                 <Route index element={<TaskView />} />
@@ -103,6 +110,7 @@ function App() {
                 </Route>
 
                 <Route path="hello" element={<NotificationPage />} />
+        
               </Route>
             </Route>
           </Route>

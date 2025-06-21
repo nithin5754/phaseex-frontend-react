@@ -15,6 +15,7 @@ import FolderTableToggleView from "../workspaces/FolderTableToggleView";
 import { ListContext } from "@/app/context/list.context";
 import { useAppDispatch } from "@/app/redux/api/store";
 import { selectCurrentTableView, updateTableView } from "@/app/redux/slice/uttilSlice";
+import { useGetAllReviewByFolderQuery } from "@/app/redux/api/fetaureReviewApi";
 
 const Single = () => {
   const { id, folderId } = useParams();
@@ -35,6 +36,10 @@ const Single = () => {
   const { data: getAllList } = useGetAllListByPageQuery(
     { workspaceId: id, folderId, page: CurrentPage },
   );
+
+
+
+
   return (
     <div className="flex flex-col w-full p-6 m-auto font-sfpro  ">
       <FolderDetails id={id} folderId={folderId} />

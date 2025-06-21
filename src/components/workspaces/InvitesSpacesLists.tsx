@@ -41,7 +41,7 @@ const InvitedSpaceLists = () => {
             return (
               <li
                 key={space.id}
-                className="mb-2 w-full flex justify-between   hover:bg-slate-100 hover:rounded-md px-3 dark:hover:bg-secondary"
+                className="mb-2 w-full flex justify-between border border-border rounded-md  hover:bg-slate-100 hover:rounded-md px-3 dark:hover:bg-secondary"
               >
                 <div className="flex ">
                   <div className="flex flex-row gap-2 my-auto p-2">

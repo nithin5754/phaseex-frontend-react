@@ -75,12 +75,12 @@ const Todos = () => {
         }
       </div>
 
-      <div className="w-full h-min-[300px] border bg-white text-black font-sfpro shadow-sm rounded-lg overflow-hidden dark:bg-background dark:text-primary dark:border-border">
+      <div className="w-full h-min-[300px]   bg-white text-black font-sfpro shadow-sm rounded-lg overflow-hidden dark:bg-background dark:text-primary border-0">
         <div className="p-6">
           <h1 className="font-sfpro text-xl">Todo</h1>
           {getAllTodoTask && getAllTodoTask.length > 0 ? (
             <>
-              <div className="flex flex-wrap items-center justify-between mb-2 dark:bg-background dark:text-primary dark:border-border">
+              <div className="mt-4 rounded-lg flex flex-wrap items-center justify-between mb-2 dark:bg-background dark:text-primary border border-border ">
                 <TodoTable
                   getAllTodoTask={
                     getAllTodoTask && getAllTodoTask.length > 0

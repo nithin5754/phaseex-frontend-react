@@ -12,6 +12,10 @@ export interface IListContext {
   listId: string;
   list: ResponseListDataType;
 }
+export interface IAddReviewContext {
+
+  list: ResponseListDataType;
+}
 
 export interface IListsContext {
   isLoading: boolean;

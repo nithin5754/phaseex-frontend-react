@@ -4,7 +4,7 @@ import {
   LoaderIcon,
   MessageCircle,
 } from "lucide-react";
-import { TableBody, TableCell, TableRow } from "../ui/table";
+
 import TodoDropDown from "./TodoDropDown";
 import { Checkbox } from "../ui/checkbox";
 import { Link } from "react-router-dom";
@@ -24,41 +24,54 @@ const TodoSingle = ({}: Props) => {
     taskId: todo.taskId,
   });
 
+  const renderStatusIcon = () => {
+    if (loadingStates[todo.id]) {
+      return <LoaderIcon className="animate-spin" size={24} />;
+    }
+    return todo.todo_status === 'in progress' ? (
+      <LoaderCircle size={24} />
+    ) : (
+      <CheckCircle size={24} color="green" />
+    );
+  };
+
   return (
-    <TableBody key={todo.id}>
-      <TableRow
-        className={todo.todo_status === "completed" ? "line-through" : ""}
+<tbody className="">
+  <tr className={`text-sm ${todo.todo_status === 'completed' ? 'line-through text-gray-500' : ''}`}>
+
+    <td className="p-4 text-center">
+      <Checkbox
+        disabled={!(permission.developer || permission.manager)}
+        checked={todo.todo_status === 'completed'}
+        onChange={() => handleChangeCheckBox(todo)}
+        className={`${!permission.developer && !permission.manager ? 'border-red-600' : ''}`}
+      />
+    </td>
+
+    <td className="p-4 text-left max-w-xs truncate">{todo.todo}</td>
+
+
+    <td className="p-4 ">
+      <Link
+        to={`/space/${todo.workspaceId}/folders/${todo.folderId}/lists/${todo.listId}/tasks/${todo.taskId}/todo/${todo.id}/comments`}
+        className="flex items-center gap-2 text-blue-600 hover:underline"
+        aria-label={`View comments for ${todo.todo}`}
       >
-        <TableCell>
-          <Checkbox
-            disabled={!(permission.developer || permission.manager )}
-            checked={todo.todo_status === "completed"}
-            onClick={() => handleChangeCheckBox(todo)}
-            className={`${!permission.developer && "border-red-600"}`}
-          />
-        </TableCell>
-        <TableCell>{todo.todo}</TableCell>
-        <TableCell>
-          <Link
-            to={`/space/${todo.workspaceId}/folders/${todo.folderId}/lists/${todo.listId}/tasks/${todo.taskId}/todo/${todo.id}/comments`}
-          >
-            <MessageCircle />
-          </Link>
-        </TableCell>
-        <TableCell>
-          {loadingStates[todo.id] ? (
-            <LoaderIcon className="animate-spin " size={24} />
-          ) : todo.todo_status === "in progress" ? (
-            <LoaderCircle size={24} />
-          ) : (
-            <CheckCircle size={24} color="green" />
-          )}
-        </TableCell>
-        <TableCell className="">
-          <TodoDropDown permission={permission} />
-        </TableCell>
-      </TableRow>
-    </TableBody>
+        <MessageCircle size={18} />
+        <span className="hidden sm:inline">Comments</span>
+      </Link>
+    </td>
+
+
+    <td className="p-4 ">{renderStatusIcon()}</td>
+
+
+    <td className="p-4 ">
+      <TodoDropDown permission={permission} />
+    </td>
+  </tr>
+</tbody>
+
   );
 };
 export default TodoSingle;
