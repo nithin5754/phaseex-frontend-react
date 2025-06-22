@@ -1,7 +1,7 @@
 // src/app/api/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState, store } from "../api/store";
+import { RootState } from "../api/store";
 
 interface UtilType {
   sidebarCloseOpen: boolean;

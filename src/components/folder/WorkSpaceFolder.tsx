@@ -1,4 +1,4 @@
-import { Flag, Folder, LockOpen, Plus } from "lucide-react";
+import { Folder, LockOpen, Plus } from "lucide-react";
 import { OpenModal } from "../modal/FolderModal";
 import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";

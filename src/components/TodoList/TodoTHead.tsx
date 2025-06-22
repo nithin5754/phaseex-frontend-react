@@ -1,4 +1,4 @@
-import { CheckCircle, Dna, FileText, Settings, User2 } from "lucide-react"
+import { CheckCircle,  FileText, Settings, User2 } from "lucide-react"
 import { TableHead, TableHeader, TableRow } from "../ui/table"
 
 

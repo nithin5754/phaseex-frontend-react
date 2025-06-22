@@ -22,7 +22,7 @@ import { useGetSingleListQuery } from "@/app/redux/api/listapi";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Loader2, Trash2, Plus, Upload } from "lucide-react";
 import {

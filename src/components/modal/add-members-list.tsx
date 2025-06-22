@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { User, UserPlus } from "lucide-react";
 import { Button } from "../ui/button";
 
@@ -16,7 +16,7 @@ import {
   useGetAllCollabInSpaceQuery,
 } from "@/app/redux/api/spaceApi";
 
-import useAuth from "@/hooks/useAuth";
+
 
 import { ListContext } from "@/app/context/list.context";
 import useRolePermission from "@/hooks/useRolePermission";
@@ -29,7 +29,7 @@ export function AddModalMembersList() {
    
   });
   const [open, setOpen] = useState(false);
-  const user = useAuth();
+
 
   const { data: getAllMembers } = useGetAllCollabInSpaceQuery(workspaceId!, {
     skip: !workspaceId,

@@ -22,7 +22,7 @@ interface ISearchBoxProps {
   type?: "search" | "view";
 }
 
-const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers, type }) => {
+const Searchbox: FC<ISearchBoxProps> = ({ getAllMembers }) => {
   const [developers, setDevelopers] = useState<ReceiveCollaboratorType[]>([]);
 
   const [isManager, setManager] = useState<boolean>(false);

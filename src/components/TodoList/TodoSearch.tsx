@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { sendTodoSearchType } from "@/types/searchType";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectTodoItem,
+
   selectTodoQuery,
   setRecentlySearched,
   setSearchTodoItem,
@@ -18,7 +18,7 @@ const TodoSearch = () => {
   const { id, folderId, listId, taskId } = useParams();
 
   const dispatch = useDispatch();
-  const searchTodoItem = useSelector(selectTodoItem);
+
   const searchTodoQuery = useSelector(selectTodoQuery);
 
 
