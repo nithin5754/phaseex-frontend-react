@@ -18,7 +18,6 @@ export interface FolderDataType {
 export interface RequestFeatureReviewCreateDTO {
   title: string;
   description: string;
-  attempt: number;
   status: "Approved" | "Rejected" | "Pending" | "Completed";
   message: string[];
   featureCreatedAt: string;
@@ -27,7 +26,14 @@ export interface RequestFeatureReviewCreateDTO {
   workspaceId: string;
   featureDueDate: string;
 }
-// "/:workspaceId/:folderId/:listId/:reviewId/review"
+
+export interface SendFeatureResendReviewByManagerDTO {
+  message: string[];
+  listId: string;
+  folderId: string;
+  workspaceId: string;
+}
+//  "/reviewer-submit/:workspaceId/:folderId/:listId/:reviewId/review"
 export const folderApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     onCreateFolder: builder.mutation<ResponseFolderDataType, FolderDataType>({
@@ -62,21 +68,44 @@ export const folderApiSlice = apiSlice.injectEndpoints({
         },
       }),
 
-      providesTags: ["FolderSpace","ListSpace"],
+      providesTags: ["FolderSpace", "ListSpace"],
     }),
 
-    updateReviewListByManager: builder.mutation<
+    submitReviewerReview: builder.mutation<
       boolean,
       {
         workspaceId: string;
         folderId: string;
         listId: string;
         reviewId: string;
-        message: string;
+        suggestion: string;
+        approvalStatus: "Approved" | "Rejected" | "Pending" | "Completed";
+        approved: boolean;
       }
     >({
-      query: ({ folderId, reviewId, workspaceId, listId, message }) => ({
-        url: `/feature-review/update-list-manager/${workspaceId}/${folderId}/${listId}/${reviewId}/review`,
+      query: ({
+        folderId,
+        reviewId,
+        workspaceId,
+        listId,
+        suggestion,
+        approvalStatus,
+        approved,
+      }) => ({
+        url: `/feature-review/reviewer-submit/${workspaceId}/${folderId}/${listId}/${reviewId}/review`,
+        method: "PATCH",
+        body: { suggestion, approvalStatus, approved },
+      }),
+
+      invalidatesTags: ["FolderSpace", "ListSpace"],
+    }),
+
+    updateReviewListByManager: builder.mutation<
+      boolean,
+      SendFeatureResendReviewByManagerDTO
+    >({
+      query: ({ folderId, workspaceId, listId, message }) => ({
+        url: `/feature-review/update-resend-list-manager/${workspaceId}/${folderId}/${listId}/review`,
         method: "PATCH",
         body: { message },
       }),
@@ -145,4 +174,5 @@ export const {
   useGetAllReviewFolderQuery,
   useGetReviewByListIdQuery,
   useUpdateReviewListByManagerMutation,
+  useSubmitReviewerReviewMutation,
 } = folderApiSlice;

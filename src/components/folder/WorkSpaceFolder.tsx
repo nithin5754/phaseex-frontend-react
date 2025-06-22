@@ -1,4 +1,4 @@
-import { Flag, Folder, Plus } from "lucide-react";
+import { Flag, Folder, LockOpen, Plus } from "lucide-react";
 import { OpenModal } from "../modal/FolderModal";
 import { Link, useParams } from "react-router-dom";
 import { LottieAnimation } from "../lootie/Lootie";
@@ -16,6 +16,8 @@ import { useAppDispatch } from "@/app/redux/api/store";
 import useRolePermission from "@/hooks/useRolePermission";
 import { Fragment } from "react/jsx-runtime";
 import ReviewFInalStatus from "./ReviewStatus";
+import { Button } from "../ui/button";
+import { IconLockCode } from "@tabler/icons-react";
 
 interface Props {
   getAllFolder: ResponseFolderDataType[];
@@ -134,11 +136,20 @@ const WorkSpaceFolder = ({ getAllFolder }: Props) => {
                               />
                             </td>
                             <td className="px-5 py-5   bg-white text-sm dark:bg-background ">
-                              <Link
-                                to={`/space/${id}/folders/${folder.id}/review`}
-                              >
-                                open
-                              </Link>
+                              {permission.owner ? (
+                                <Link
+                                  to={`/space/${id}/folders/${folder.id}/review`}
+                                  className="flex items-center gap-1 text-blue-600 hover:underline"
+                                  aria-label={`Open review for folder ${folder.id}`}
+                                >
+                                  Open
+                                  <LockOpen size={16} />
+                                </Link>
+                              ) : (
+                                <Button disabled={true}>
+                                  <IconLockCode size={16} />
+                                </Button>
+                              )}
                             </td>
                           </tr>
                         </Fragment>

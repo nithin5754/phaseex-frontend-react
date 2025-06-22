@@ -1,11 +1,15 @@
+import { ReviewContext } from "@/app/context/reviewr.context";
 import { Card, CardContent } from "@/components/ui/card";
-import { Project } from "../review.type";
+
+import { useContext } from "react";
 
 interface TabsContentProps {
-  project: Project;
+
 }
 
-export default function ProjectReviewMessage({ project }: TabsContentProps) {
+export default function ProjectReviewMessage({  }: TabsContentProps) {
+
+  const {project}=useContext(ReviewContext)
   return (
     <div className="mt-6">
       <Card className="bg-white dark:bg-background  border-gray-200 border border-border rounded-xl shadow-sm transition-shadow duration-300">

@@ -1,25 +1,26 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { format } from "date-fns";
-import { Badge } from "@/components/ui/badge"; 
-import { Card, CardContent } from "@/components/ui/card"; 
-import { cn } from "@/lib/utils"; 
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { User } from "lucide-react";
 import { ProjectReviewer } from "../review.type";
+import { useContext } from "react";
+import { ReviewContext } from "@/app/context/reviewr.context";
 
+interface Props {}
 
+const statusStyles: Record<ProjectReviewer["approvalStatus"], string> = {
+  Approved:
+    "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 border-green-200 dark:border-green-800",
+  Rejected:
+    "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300 border-red-200 dark:border-red-800",
+  Pending:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800",
+};
 
-interface ProjectReviewerReviewsAttemptLogsProps {
-  reviewers: ProjectReviewer[];
-}
-
-const ProjectReviewerReviewsAttemptLogs = ({
-  reviewers,
-}: ProjectReviewerReviewsAttemptLogsProps) => {
-  const statusStyles: Record<ProjectReviewer["approvalStatus"], string> = {
-    Approved: "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 border-green-200 dark:border-green-800",
-    Rejected: "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300 border-red-200 dark:border-red-800",
-    Pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800",
-  };
+const ProjectReviewerReviewsAttemptLogs = ({}: Props) => {
+  const { project } = useContext(ReviewContext);
 
   const formatReviewDate = (date: string | Date | undefined) => {
     if (!date) return null;
@@ -32,7 +33,7 @@ const ProjectReviewerReviewsAttemptLogs = ({
 
   return (
     <div className="my-4 space-y-3 rounded-xl bg-gradient-to-b from-background to-background/80 p-4 dark:from-background/90 dark:to-background/70 border border-border/50 shadow-sm">
-      {reviewers.length === 0 ? (
+      {project && project.reviewerLogs.length === 0 ? (
         <Card className="border-none bg-transparent shadow-none">
           <CardContent className="p-6 text-center">
             <p className="text-sm text-muted-foreground">
@@ -41,7 +42,8 @@ const ProjectReviewerReviewsAttemptLogs = ({
           </CardContent>
         </Card>
       ) : (
-        reviewers.map((reviewer) => (
+        project &&
+        project.reviewerLogs.map((reviewer) => (
           <Card
             key={reviewer.id}
             className="group relative overflow-hidden border border-border/50   dark:bg-background/30 "
@@ -62,7 +64,7 @@ const ProjectReviewerReviewsAttemptLogs = ({
                     <span className="sr-only">{reviewer.name[0]}</span>
                   </AvatarFallback>
                 </Avatar>
-                
+
                 <div className="flex-1 space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
                     <h3
@@ -89,7 +91,9 @@ const ProjectReviewerReviewsAttemptLogs = ({
                     {formatReviewDate(reviewer.reviewedAt) && (
                       <p
                         className="text-xs text-muted-foreground"
-                        aria-label={`Reviewed on ${formatReviewDate(reviewer.reviewedAt)}`}
+                        aria-label={`Reviewed on ${formatReviewDate(
+                          reviewer.reviewedAt
+                        )}`}
                       >
                         {formatReviewDate(reviewer.reviewedAt)}
                       </p>
@@ -97,7 +101,9 @@ const ProjectReviewerReviewsAttemptLogs = ({
                   </div>
                   {reviewer.suggestion && (
                     <p className="mt-2 rounded-md bg-muted/50 p-2 text-sm text-foreground/90">
-                      <span className="font-medium text-foreground">Suggestion: </span>
+                      <span className="font-medium text-foreground">
+                        Suggestion:{" "}
+                      </span>
                       {reviewer.suggestion}
                     </p>
                   )}

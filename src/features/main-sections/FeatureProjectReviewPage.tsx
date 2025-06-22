@@ -1,3 +1,4 @@
+import { ReviewContext } from "@/app/context/reviewr.context";
 import { useGetAllReviewFolderQuery } from "@/app/redux/api/FolderApi";
 import ProjectReviewCard from "@/components/review/ProjectReviewCard";
 
@@ -19,7 +20,13 @@ const FeatureProjectReviewPage = () => {
   return (
     <>
     {
-      projects?.map((project)=><ProjectReviewCard project={project}/>)
+      projects?.map((project)=>(
+        <>
+        <ReviewContext.Provider value={{project}}>
+          <ProjectReviewCard />
+        </ReviewContext.Provider>
+        </>
+      ))
     }
     </>
   );

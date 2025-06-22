@@ -6,7 +6,7 @@ export const projectData: Project = {
   id: "PRJ-001",
   title: "Sample Project",
   description: "Development of a new user authentication module",
-  attempt:0,
+  attempt: 0,
   status: "Pending",
   createdAt: "2025-06-15T10:00:00Z",
   featureDueDate: "2025-06-25T23:59:59Z",
@@ -79,7 +79,10 @@ export const projectData: Project = {
       uploadedAt: "2025-06-16T12:00:00Z",
     },
   ],
-
+  message: [],
+  workspaceId: "",
+  listId: "",
+  folderId: ""
 };
 
 

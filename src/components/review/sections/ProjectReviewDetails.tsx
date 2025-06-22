@@ -1,11 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Project } from "../review.type";
 
+import { useContext } from "react";
 
+import { ReviewContext } from "@/app/context/reviewr.context";
 
 interface TabsContentProps {
   value: string;
-  project: Project;
 }
 
 const formatDate = (date: string) =>
@@ -18,7 +18,8 @@ const formatDate = (date: string) =>
     hour12: true,
   });
 
-export default function ProjectReviewDetails({ value, project }: TabsContentProps) {
+export default function ProjectReviewDetails({ value }: TabsContentProps) {
+  const { project } = useContext(ReviewContext);
   return (
     <div className="mt-6">
       {value === "details" && (
@@ -33,9 +34,7 @@ export default function ProjectReviewDetails({ value, project }: TabsContentProp
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Attempt:
                   </span>
-                  <span
-                    className={`text-sm font-semibold px-2 py-1 `}
-                  >
+                  <span className={`text-sm font-semibold px-2 py-1 `}>
                     {project.attempt}
                   </span>
                 </div>
@@ -54,16 +53,14 @@ export default function ProjectReviewDetails({ value, project }: TabsContentProp
                   <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Reviewer:
                   </p>
-                 {
-                  project.reviewers.map((reviewer)=>(
-                     <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {reviewer.name}{" "}
-                    <span className="text-gray-500 dark:text-gray-400">
-                      ({reviewer.email})
-                    </span>
-                  </p>
-                  ))
-                 }
+                  {project.reviewers.map((reviewer) => (
+                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                      {reviewer.name}{" "}
+                      <span className="text-gray-500 dark:text-gray-400">
+                        ({reviewer.email})
+                      </span>
+                    </p>
+                  ))}
                 </div>
               </div>
               <div className="space-y-4">

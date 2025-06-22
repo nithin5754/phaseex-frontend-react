@@ -11,7 +11,6 @@ import {
 import {
   HomePage,
   SingleWorkSpace,
-
   SingleFolder,
   SingleListFolderView,
   NotificationPage,
@@ -32,11 +31,9 @@ import DashBoardWorkSpace from "./features/spaces/DashBoardWorkSpace";
 import ListLayout from "./layouts/ListLayout";
 import TaskLayout from "./layouts/TaskLayout";
 
-
 import AddProjectFeatureForm from "./components/review/add/AddProjectFeatureForm";
 import FeatureProjectReviewPage from "./features/main-sections/FeatureProjectReviewPage";
-
-
+import AddResendManagerSendForm from "./components/review/add/AddResendManagerSendForm";
 
 function App() {
   return (
@@ -72,18 +69,26 @@ function App() {
                     <Route index element={<SingleWorkSpace />} />
                     <Route path="room/:roomID" element={<VideoCall />} />
                     <Route path="folders">
-          
-                      <Route  path=":folderId">
+                      <Route path=":folderId">
                         <Route index element={<SingleFolder />} />
-                        <Route path="review" element={<FeatureProjectReviewPage  />} />
-
+                        <Route
+                          path="review"
+                          element={<FeatureProjectReviewPage />}
+                        />
                         <Route path="lists">
                           <Route index element={<h1>lists page here ..</h1>} />
-                          <Route path=":listId" element={<ListLayout/>}>
+                          <Route path=":listId" element={<ListLayout />}>
                             <Route index element={<SingleListFolderView />} />
-                             <Route path="create-review" element={<AddProjectFeatureForm/>} />
+                            <Route
+                              path="create-review"
+                              element={<AddProjectFeatureForm />}
+                            />
+                            <Route
+                              path="resend-send-review"
+                              element={<AddResendManagerSendForm />}
+                            />
                             <Route path="tasks">
-                              <Route path=":taskId" element={<TaskLayout/>}>
+                              <Route path=":taskId" element={<TaskLayout />}>
                                 <Route index element={<TaskView />} />
                                 <Route path="todo">
                                   <Route
@@ -110,7 +115,6 @@ function App() {
                 </Route>
 
                 <Route path="hello" element={<NotificationPage />} />
-        
               </Route>
             </Route>
           </Route>

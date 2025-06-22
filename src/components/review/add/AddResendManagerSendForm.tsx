@@ -14,9 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  useOnCreateReviewFolderMutation,
   useGetReviewByListIdQuery,
-  RequestFeatureReviewCreateDTO,
+  useUpdateReviewListByManagerMutation,
+  SendFeatureResendReviewByManagerDTO,
 } from "@/app/redux/api/FolderApi";
 import { useGetSingleListQuery } from "@/app/redux/api/listapi";
 import { toast } from "@/components/ui/use-toast";
@@ -37,9 +37,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AddProjectFeatureForm = () => {
+const AddResendManagerSendForm = () => {
   const { id, folderId, listId } = useParams();
-  const [onCreateReviewFolder] = useOnCreateReviewFolderMutation();
+  const [updateReviewListByManager] = useUpdateReviewListByManagerMutation();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,10 +50,8 @@ const AddProjectFeatureForm = () => {
 
   const { data: getReviewByListId } = useGetReviewByListIdQuery(
     { workspaceId: id!, folderId: folderId!, listId: listId! },
-    { skip: !listId || !folderId || !id,refetchOnMountOrArgChange:true }
+    { skip: !listId || !folderId || !id }
   );
-
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,37 +69,43 @@ const AddProjectFeatureForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      if (!getReviewByListId && list && values.messages) {
-        const data: RequestFeatureReviewCreateDTO = {
-          title: list.list_title,
-          description: list.list_description,
-          status: "Pending",
-          featureCreatedAt: list.createdAt,
+      if (
+        getReviewByListId &&
+        getReviewByListId?.status === "Rejected" &&
+        list
+      ) {
+        const data: SendFeatureResendReviewByManagerDTO = {
           listId: list.id,
           folderId: list.folderId,
           workspaceId: list.workspaceId,
-          featureDueDate: list.list_due_date,
-          message: [...values.messages],
+          message: values.messages, 
         };
 
-        const result = await onCreateReviewFolder(data).unwrap();
+        const result = await updateReviewListByManager(data).unwrap();
         toast({
           title: result ? "Feature sent for review" : "Error sending feature",
           variant: result ? "default" : "destructive",
         });
         if (result) {
-          navigate(`/space/${list.workspaceId}/folders/${list.folderId}`)
+          navigate(`/space/${list.workspaceId}/folders/${list.folderId}`, {
+            replace: true,
+          });
         }
       } else {
-              toast({
-        title: `Error:Failed To send ALready exist"}`,
-        variant: "destructive",
-      });
-          navigate(`/space/${id}/folders/${folderId}`)
+        toast({
+          title: "Feature already sent for review! Please wait.",
+          variant: "destructive",
+        });
+
+        navigate(`/space/${id}/folders/${folderId}`, {
+          replace: true,
+        });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to send feature";
       toast({
-        title: `Error: ${error.message || "Failed to send feature"}`,
+        title: `Error: ${errorMessage}`,
         variant: "destructive",
       });
     } finally {
@@ -259,4 +263,4 @@ const AddProjectFeatureForm = () => {
   );
 };
 
-export default AddProjectFeatureForm;
+export default AddResendManagerSendForm;

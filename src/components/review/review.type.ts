@@ -56,7 +56,9 @@ export interface Project {
   reviewerLogs: ProjectReviewer[];
   comments: Comment[];
   approved: boolean;
-
+  workspaceId: string;
+  listId: string;
+  folderId: string;
   dependencies: Dependency[];
   attachments: Attachment[];
 }

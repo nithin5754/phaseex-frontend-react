@@ -14,6 +14,7 @@ import useRolePermission from "@/hooks/useRolePermission";
 import { XCircle, Clock, CheckCircle, CheckSquare, Send } from "lucide-react";
 import { ListStatus } from "@/app/redux/api/listapi";
 import { Button } from "../ui/button";
+import { IconLockFilled } from "@tabler/icons-react";
 
 type StatusStyles = {
   [key in ListStatus]: {
@@ -128,21 +129,48 @@ const ListMap = ({ index }: Props) => {
           <span className="text-gray-500">No Status</span>
         )}
       </td>
-      <td className="px-2 py-3 text-sm bg-white dark:bg-background flex justify-center w-full ">
-        {/* disabled={!permission.manager && list.progressTask !== 100} */}
-        {/* <Button onClick={() => onHandleSendToReview(list)}>send </Button> */}
-
-        {list.status === "onGoing" || list.status === "rejected" ? (
-          <Link
-            to={`/space/${workspaceId}/folders/${folderId}/lists/${list.id}/create-review`}
-            className="text-gray-600 hover:underline"
-          >
-            send <Send />
-          </Link>
-        ) : (
-          <Button disabled>waiting review</Button>
-        )}
-      </td>
+      {permission.manager || permission.owner ? (
+        <td className="px-2 py-3 text-sm bg-white dark:bg-background flex justify-center w-full">
+          {(() => {
+            switch (list.status) {
+              case "onGoing":
+                return (
+                  <Link
+                    to={`/space/${workspaceId}/folders/${folderId}/lists/${list.id}/create-review`}
+                    className="text-gray-600 hover:underline"
+                    aria-label="Send review"
+                  >
+                    <Button
+                      className="hover:bg-transparent text-black dark:text-white"
+                      variant={"outline"}
+                    >
+                      {" "}
+                      send <Send className="inline-block ml-1" />
+                    </Button>
+                  </Link>
+                );
+              case "verified":
+                return <></>;
+              case "rejected":
+                return (
+                  <Link
+                    to={`/space/${workspaceId}/folders/${folderId}/lists/${list.id}/resend-send-review`}
+                    className="text-gray-600 hover:underline"
+                    aria-label="Re-Send review"
+                  >
+                    re-send
+                  </Link>
+                );
+              default:
+                return null;
+            }
+          })()}
+        </td>
+      ) : (
+        <td className="px-2 py-3 text-sm bg-white dark:bg-background flex justify-center w-full">
+          <IconLockFilled />
+        </td>
+      )}
     </tr>
   );
 };
