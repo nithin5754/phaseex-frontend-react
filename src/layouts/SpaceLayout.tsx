@@ -56,7 +56,7 @@ const SpaceLayout = () => {
                 />
               )}
 
-              <div className=" fixed right-0 bottom-0 z-50">
+              <div className=" fixed right-0  bottom-0 z-50">
                 <div className="flex ">
                   {isClose && (
                     <>
@@ -89,11 +89,11 @@ const SpaceLayout = () => {
                     ) : (
                       <>
                         {!messageOpen && (
-                          <div className="relative flex items-center justify-center">
+                          <Button className="relative flex items-center justify-center w-[40px] bg-transparent ">
                             <LottieAnimation
                               animationData={CallIcon}
-                              height={100}
-                              width={100}
+                              height={40}
+                              width={40}
                             />
                             <>
                               {inviteCount.workspaceId === id &&
@@ -110,7 +110,7 @@ const SpaceLayout = () => {
                                   </span>
                                 )}
                             </>
-                          </div>
+                          </Button>
                         )}
                       </>
                     )}
